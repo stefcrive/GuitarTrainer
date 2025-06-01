@@ -62,7 +62,7 @@ export default function SettingsPage() {
               <div className="border rounded-lg p-6 space-y-6">
                 <h3 className="text-lg font-semibold mb-4">Audio Root Directory</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Select the root directory containing your backing tracks and audio files.
+                  Select the root directory containing your audio files.
                   This directory will be used to scan for audio files (*.mp3, *.wav, *.aiff).
                 </p>
                 

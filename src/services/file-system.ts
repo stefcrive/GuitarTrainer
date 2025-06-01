@@ -157,4 +157,4 @@ class FileSystemService {
 }
 
 export const fileSystemService = new FileSystemService()
-export type { FileSystemVideo as VideoFile }
+export type { FileSystemVideo as VideoFile, FileSystemAudio as AudioFile }

@@ -1,9 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { AudioFile } from '@/types/audio'
+import { AudioFile, AudioMetadata } from '@/types/audio'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { useDirectoryStore } from '@/stores/directory-store'
+import { Button } from '@/components/ui/button'
+import { getAllAudioMetadata } from '@/services/audio-metadata'
+import { Circle } from 'lucide-react'
 
 interface AudioFolderListProps {
   audioFiles: AudioFile[]
@@ -89,21 +92,14 @@ function FolderItem({
         <div className="space-y-1">
           {/* Audio files in current folder */}
           {content.audioFiles.map(audio => (
-            <div
+            <AudioFileItem
               key={audio.path}
-              className={`flex items-center justify-between w-full p-2 hover:bg-accent rounded text-left cursor-pointer ${
-                selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''
-              }`}
-              style={{ paddingLeft: `${(level + 1) * 16}px` }}
-              onClick={() => onAudioSelect(audio)}
-            >
-              <span className="truncate flex items-center gap-2">
-                <span className="text-xs text-muted-foreground uppercase">
-                  {audio.type}
-                </span>
-                {audio.name}
-              </span>
-            </div>
+              audio={audio}
+              level={level}
+              selected={selectedAudio?.path === audio.path}
+              onSelect={onAudioSelect}
+              directoryHandle={directoryHandle}
+            />
           ))}
           
           {/* Nested folders */}
@@ -120,6 +116,51 @@ function FolderItem({
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+function AudioFileItem({
+  audio,
+  level,
+  selected,
+  onSelect,
+  directoryHandle,
+}: {
+  audio: AudioFile
+  level: number
+  selected: boolean
+  onSelect: (audio: AudioFile) => void
+  directoryHandle: FileSystemDirectoryHandle
+}) {
+  const [hasMarkers, setHasMarkers] = useState(false)
+
+  useEffect(() => {
+    async function checkMarkers() {
+      const metadata = await getAllAudioMetadata(directoryHandle)
+      const audioMetadata = metadata[audio.path]
+      setHasMarkers(!!audioMetadata?.markers?.length)
+    }
+    checkMarkers()
+  }, [audio.path, directoryHandle])
+
+  return (
+    <div
+      className={`flex items-center justify-between w-full p-2 hover:bg-accent rounded text-left cursor-pointer ${
+        selected ? 'bg-accent text-accent-foreground' : ''
+      }`}
+      style={{ paddingLeft: `${(level + 1) * 16}px` }}
+      onClick={() => onSelect(audio)}
+    >
+      <span className="truncate flex items-center gap-2">
+        <span className="text-xs text-muted-foreground uppercase">
+          {audio.fileType}
+        </span>
+        {audio.name}
+        {hasMarkers && (
+          <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
+        )}
+      </span>
     </div>
   )
 }

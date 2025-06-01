@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { useDirectoryStore } from '@/stores/directory-store'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 export function Header() {
   const { rootHandle, audioRootHandle } = useDirectoryStore()
@@ -24,8 +27,11 @@ export function Header() {
           <Link href="/youtube" className="text-sm font-medium hover:text-primary">
             YouTube
           </Link>
-          <Link href="/backing" className="text-sm font-medium hover:text-primary">
-            Backing
+          <Link href="/audio" className="text-sm font-medium hover:text-primary">
+            Audio
+          </Link>
+          <Link href="/surf" className="text-sm font-medium hover:text-primary">
+            Surf
           </Link>
           <Link href="/search" className="text-sm font-medium hover:text-primary">
             Search
@@ -39,6 +45,7 @@ export function Header() {
           <Link href="/settings" className="text-sm font-medium hover:text-primary">
             Settings
           </Link>
+          <ThemeToggle />
         </nav>
       </div>
     </header>

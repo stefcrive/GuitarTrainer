@@ -47,15 +47,9 @@ export function VideoAnnotationEditor({
 
       <div>
         <TagInput
-          selectedTags={tags}
-          onAddTag={(tag) => {
-            addTag(tag)
-            setTags(prev => [...prev, tag])
-          }}
-          onRemoveTag={(tag) => {
-            setTags(prev => prev.filter(t => t !== tag))
-          }}
-          availableTags={availableTags}
+          tags={tags}
+          onTagsChange={setTags}
+          placeholder="Add tags..."
         />
       </div>
 

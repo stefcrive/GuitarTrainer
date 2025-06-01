@@ -532,7 +532,7 @@ export default function SearchPage() {
                             onClick={() => {
                               const audio = content as FileSystemAudio
                               expandToPath(audio.path)
-                              router.push(`/backing?audio=${encodeURIComponent(audio.path)}`)
+                              router.push(`/audio?audio=${encodeURIComponent(audio.path)}`)
                             }}
                             className="text-primary"
                           >

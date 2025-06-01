@@ -51,6 +51,7 @@ export async function getAudioMetadata(audioFile: AudioFile, directoryHandle: Fi
       enabled: false
     },
     markers: [],
+    annotations: [],
     playbackRate: 1
   }
 }

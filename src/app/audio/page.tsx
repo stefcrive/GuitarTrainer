@@ -18,10 +18,12 @@ async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): P
       const extension = entry.name.split('.').pop()?.toLowerCase()
       if (['mp3', 'wav', 'aiff'].includes(extension || '')) {
         audioFiles.push({
+          id: path,
           name: entry.name,
           path,
           handle: fileHandle,
-          type: extension as 'mp3' | 'wav' | 'aiff'
+          type: 'file',
+          fileType: extension as 'mp3' | 'wav' | 'aiff'
         })
       }
     } else if (entry.kind === 'directory') {
@@ -34,7 +36,7 @@ async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): P
   return audioFiles
 }
 
-export default function BackingPage() {
+export default function AudioPage() {
   const { audioRootHandle, rootHandle, scanVideoFolderForAudio } = useDirectoryStore()
   const [audioFiles, setAudioFiles] = useState<AudioFile[]>([])
   const [selectedAudio, setSelectedAudio] = useState<AudioFile | null>(null)
@@ -71,7 +73,7 @@ export default function BackingPage() {
       <Header />
       <main className="flex-1 flex">
         <div className="w-80 border-r p-4 overflow-y-auto">
-          <h2 className="text-lg font-semibold mb-4">Audio Files</h2>
+          <h2 className="text-lg font-semibold mb-4">Audio Library</h2>
           {loading ? (
             <div className="animate-pulse space-y-2">
               {[...Array(5)].map((_, i) => (

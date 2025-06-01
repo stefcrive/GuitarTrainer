@@ -28,7 +28,18 @@ export function resetApiState() {
   useYouTubeStore.getState().setInitialized(false)
 }
 
+export interface YouTubeVideoInfo {
+  id: string
+  title: string
+}
+
 export const youtubeApi = {
+  async getWatchedVideos(): Promise<YouTubeVideoInfo[]> {
+    // For now, return an empty array since we don't have a YouTube Data API integration yet
+    // This would typically fetch from YouTube Data API or local storage
+    return []
+  },
+
   loadAPI(): Promise<void> {
     // Return existing promise if already loading
     if (loadPromise) {

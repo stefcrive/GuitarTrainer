@@ -3,28 +3,31 @@
 import { useRef, useState, useEffect } from 'react'
 import { Slider } from '@/components/ui/slider'
 import { Button } from '@/components/ui/button'
-import { AudioFile, AudioLoopRegion, AudioMetadata } from '@/types/audio'
+import { AudioFile, AudioLoopRegion, AudioMetadata, AudioMarker, AudioAnnotation } from '@/types/audio'
+import { VideoPlayerControls } from '@/types/video'
 import { Play, Pause, RotateCcw, BringToFront, Timer } from 'lucide-react'
 import { FavoriteButton } from '@/components/audio/FavoriteButton'
-import { TagInput } from '@/components/ui/tag-input'
-import { TagList } from '@/components/ui/tag-list'
 import { getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { AudioMarkers } from './AudioMarkers'
 
 interface AudioPlayerProps {
   audioFile: AudioFile
+  onControlsReady?: (controls: VideoPlayerControls) => void
 }
 
 const PLAYBACK_SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 
-export function AudioPlayer({ audioFile }: AudioPlayerProps) {
+export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [tags, setTags] = useState<string[]>([])
+  const [markers, setMarkers] = useState<AudioMarker[]>([])
+  const [annotations, setAnnotations] = useState<AudioAnnotation[]>([])
   const [loopRegion, setLoopRegion] = useState<AudioLoopRegion>({
     start: 0,
     end: 0,
@@ -39,6 +42,9 @@ export function AudioPlayer({ audioFile }: AudioPlayerProps) {
       
       try {
         // Load audio file
+        if (!audioFile.handle) {
+          throw new Error("No file handle available")
+        }
         const file = await audioFile.handle.getFile()
         const url = URL.createObjectURL(file)
         audioRef.current.src = url
@@ -48,6 +54,8 @@ export function AudioPlayer({ audioFile }: AudioPlayerProps) {
         setTags(metadata.tags)
         setPlaybackRate(metadata.playbackRate)
         setLoopRegion(metadata.loopRegion)
+        setMarkers(metadata.markers || [])
+        setAnnotations(metadata.annotations || [])
         
         return () => {
           URL.revokeObjectURL(url)
@@ -66,10 +74,16 @@ export function AudioPlayer({ audioFile }: AudioPlayerProps) {
     const audio = audioRef.current
     const handleTimeUpdate = () => {
       setCurrentTime(audio.currentTime)
-      
+
       // Handle loop region
       if (loopRegion.enabled && audio.currentTime >= loopRegion.end) {
         audio.currentTime = loopRegion.start
+      }
+
+      // Handle marker looping
+      const loopingMarker = markers.find(m => m.isLooping)
+      if (loopingMarker && audio.currentTime >= loopingMarker.endTime) {
+        audio.currentTime = loopingMarker.startTime
       }
     }
 
@@ -79,6 +93,23 @@ export function AudioPlayer({ audioFile }: AudioPlayerProps) {
         ...prev,
         end: prev.end || audio.duration
       }))
+
+      // Once audio is loaded, expose controls
+      if (onControlsReady) {
+        const controls: VideoPlayerControls = {
+          getCurrentTime: () => audio.currentTime,
+          getDuration: () => audio.duration,
+          seek: (time: number) => { audio.currentTime = time },
+          play: () => audio.play(),
+          pause: () => audio.pause(),
+          seekForward: () => { audio.currentTime += 10 },
+          seekBackward: () => { audio.currentTime -= 10 },
+          setPlaybackRate: (rate: number) => { audio.playbackRate = rate },
+          getPlaybackRate: () => audio.playbackRate,
+          getVideoElement: () => null
+        }
+        onControlsReady(controls)
+      }
     }
 
     const handleEnded = () => {
@@ -98,7 +129,7 @@ export function AudioPlayer({ audioFile }: AudioPlayerProps) {
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
       audio.removeEventListener('ended', handleEnded)
     }
-  }, [loopRegion])
+  }, [loopRegion, markers])
 
   const saveMetadata = async (updates: Partial<AudioMetadata>) => {
     try {
@@ -195,8 +226,9 @@ export function AudioPlayer({ audioFile }: AudioPlayerProps) {
             path: audioFile.path,
             tags,
             loopRegion,
-            playbackRate,
-            markers: []
+            markers,
+            annotations,
+            playbackRate
           }}
           directoryHandle={directoryHandle}
         />
@@ -301,14 +333,28 @@ export function AudioPlayer({ audioFile }: AudioPlayerProps) {
         </div>
       </div>
 
-      <div className="space-y-2">
-        <TagInput
-          placeholder="Add tags..."
-          tags={tags}
-          onTagsChange={handleTagsChange}
-        />
-        <TagList selectedTags={tags} />
-      </div>
+      <AudioMarkers
+        audioControls={{
+          getCurrentTime: () => audioRef.current?.currentTime || 0,
+          getDuration: () => audioRef.current?.duration || 0,
+          seek: (time: number) => {
+            if (audioRef.current) audioRef.current.currentTime = time
+          },
+          play: () => audioRef.current?.play()
+        }}
+        markers={markers}
+        annotations={annotations}
+        onMarkersChange={async (newMarkers) => {
+          setMarkers(newMarkers)
+          await saveMetadata({ markers: newMarkers })
+        }}
+        onAnnotationsChange={async (newAnnotations) => {
+          setAnnotations(newAnnotations)
+          await saveMetadata({ annotations: newAnnotations })
+        }}
+        className="mb-4"
+      />
+
     </div>
   )
 }

@@ -17,9 +17,19 @@ export type StoredAudioFavorite = StoredAudioFile
 
 export interface AudioMarker {
   id: string
-  time: number
-  name: string
+  startTime: number
+  endTime: number
+  isLooping: boolean
+  isRecording?: boolean
+  audioBlob?: Blob
+}
+
+export interface AudioAnnotation {
+  id: string
+  markerId: string
+  text: string
   tags: string[]
+  timestamp: number
 }
 
 export interface AudioLoopRegion {
@@ -35,5 +45,6 @@ export interface AudioMetadata {
   tags: string[]
   loopRegion: AudioLoopRegion
   markers: AudioMarker[]
+  annotations: AudioAnnotation[]
   playbackRate: number
 }
