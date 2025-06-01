@@ -33,9 +33,6 @@ export function Header() {
           <Link href="/surf" className="text-sm font-medium hover:text-primary">
             Surf
           </Link>
-          <Link href="/search" className="text-sm font-medium hover:text-primary">
-            Search
-          </Link>
           <Link href="/recent" className="text-sm font-medium hover:text-primary">
             Recent
           </Link>

@@ -285,8 +285,9 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
             Loop
           </Button>
           
-          <div className="flex-1 space-y-2 flex items-center gap-4">
+          <div className="flex items-center gap-8">
             <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Start:</span>
               <input
                 type="text"
                 value={formatTime(loopRegion.start)}
@@ -303,17 +304,8 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
               </Button>
             </div>
 
-            <div className="flex-1">
-              <Slider
-                value={[currentTime]}
-                min={0}
-                max={duration}
-                step={0.1}
-                onValueChange={handleTimeChange}
-              />
-            </div>
-
             <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">End:</span>
               <input
                 type="text"
                 value={formatTime(loopRegion.end)}

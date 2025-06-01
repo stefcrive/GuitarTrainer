@@ -2,6 +2,7 @@
 
 import { useState, useEffect, ReactNode } from 'react'
 import { favoritesService } from '@/services/favorites'
+import { AudioMetadata, StoredAudioFile } from '@/types/audio'
 import { recentlyViewedService } from '@/services/recently-viewed'
 import { FavoriteButton as VideoFavoriteButton } from '@/components/video/FavoriteButton'
 import { FavoriteButton as AudioFavoriteButton } from '@/components/audio/FavoriteButton'
@@ -27,64 +28,64 @@ interface StoredVideoFavorite {
   title?: string // For YouTube videos
 }
 
-interface StoredAudioFavorite {
-  name: string
-  path: string
-  type: 'mp3' | 'wav' | 'aiff'
-  rootDirectoryName: string
-  metadata?: {
-    id: string
-    path: string
-    title?: string
-    tags: string[]
-    loopRegion: {
-      start: number
-      end: number
-      enabled: boolean
-    }
-    markers: any[]
-    playbackRate: number
-  }
-}
-
-interface LoadedAudioFavorite extends StoredAudioFavorite {
+interface LoadedAudioFavorite extends StoredAudioFile {
   handle: FileSystemFileHandle
 }
 
 async function getFileHandle(rootHandle: FileSystemDirectoryHandle, path: string) {
-  const segments = path.split('/')
+  // Sanitize and normalize the path
+  const normalizedPath = path
+    .replace(/\\/g, '/') // Convert backslashes to forward slashes
+    .replace(/\/+/g, '/') // Replace multiple slashes with single slash
+    .replace(/^\/|\/$/g, '') // Remove leading and trailing slashes
+    .split('/')
+    .map(segment => decodeURIComponent(segment.trim())) // Decode and trim each segment
+    .filter(segment => segment.length > 0) // Remove empty segments
+
+  console.log('Processing path segments:', normalizedPath)
+  
   let currentHandle: FileSystemDirectoryHandle = rootHandle
 
   try {
-    for (let i = 0; i < segments.length - 1; i++) {
-      currentHandle = await currentHandle.getDirectoryHandle(segments[i])
-      if (!currentHandle) {
-        throw new Error(`Directory not found: ${segments[i]}`)
+    // For each directory in the path
+    for (let i = 0; i < normalizedPath.length - 1; i++) {
+      const segment = normalizedPath[i]
+      console.log(`Accessing directory: "${segment}" in "${currentHandle.name}"`)
+      
+      try {
+        currentHandle = await currentHandle.getDirectoryHandle(segment)
+      } catch (err) {
+        console.error(`Failed to access directory '${segment}' in '${currentHandle.name}':`, err)
+        throw new Error(`Directory not found: ${segment} (in ${currentHandle.name})`)
       }
     }
 
-    const fileName = segments[segments.length - 1]
-    const fileHandle = await currentHandle.getFileHandle(fileName)
-    if (!fileHandle) {
-      throw new Error(`File not found: ${fileName}`)
+    // Get the file from the final directory
+    const fileName = normalizedPath[normalizedPath.length - 1]
+    console.log(`Accessing file: "${fileName}" in "${currentHandle.name}"`)
+    
+    try {
+      return await currentHandle.getFileHandle(fileName)
+    } catch (err) {
+      console.error(`Failed to access file '${fileName}' in '${currentHandle.name}':`, err)
+      throw new Error(`File not found: ${fileName} (in ${currentHandle.name})`)
     }
-
-    return fileHandle
   } catch (err) {
     console.error('Error traversing path:', err)
-    throw new Error(`Error accessing file: ${path}`)
+    throw err
   }
 }
 
 export default function FavoritesPage() {
   const [videoFavorites, setVideoFavorites] = useState<StoredVideoFavorite[]>([])
-  const [audioFavorites, setAudioFavorites] = useState<StoredAudioFavorite[]>([])
+  const [audioFavorites, setAudioFavorites] = useState<StoredAudioFile[]>([])
   const [selectedVideo, setSelectedVideo] = useState<StoredVideoFavorite | null>(null)
   const [selectedAudio, setSelectedAudio] = useState<LoadedAudioFavorite | null>(null)
-  const { rootHandle } = useDirectoryStore()
+  const { rootHandle, audioRootHandle } = useDirectoryStore()
   const [videoFile, setVideoFile] = useState<File | null>(null)
   const [isChangingDirectory, setIsChangingDirectory] = useState(false)
   const [videoLoadError, setVideoLoadError] = useState<ReactNode | null>(null)
+  const [audioLoadError, setAudioLoadError] = useState<ReactNode | null>(null)
   const [videoControls, setVideoControls] = useState<VideoPlayerControls | null>(null)
 
   const { markerState, setMarkerState } = useVideoMarkers(
@@ -290,14 +291,92 @@ export default function FavoritesPage() {
                         selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''
                       }`}
                       onClick={async () => {
+                        // Clear any selected video first
+                        setSelectedVideo(null);
+                        setVideoFile(null);
+                        
                         try {
-                          const fileHandle = await getFileHandle(rootHandle!, audio.path)
-                          setSelectedAudio({
-                            ...audio,
-                            handle: fileHandle as FileSystemFileHandle
-                          })
+                          let fileHandle: FileSystemFileHandle | null = null;
+                          
+                          // Try audioRootHandle first if available
+                          if (audioRootHandle) {
+                            try {
+                              fileHandle = await getFileHandle(audioRootHandle, audio.path);
+                            } catch (err) {
+                              // Silently continue to try next directory
+                            }
+                          }
+
+                          // If not found in audio root, try the video root handle
+                          if (!fileHandle && rootHandle) {
+                            try {
+                              fileHandle = await getFileHandle(rootHandle, audio.path);
+                            } catch (err) {
+                              // Silently continue
+                            }
+                          }
+
+                          if (fileHandle) {
+                            setSelectedAudio({
+                              ...audio,
+                              handle: fileHandle
+                            });
+                            setAudioLoadError(null);
+                            setVideoLoadError(null);
+                          } else {
+                            throw new Error('Audio file not found in any available directory');
+                          }
                         } catch (err) {
                           console.error('Error loading audio:', err)
+                          const errorMessage = (
+                            <div className="flex flex-col gap-4 p-4 bg-muted rounded">
+                              <p>Unable to access the audio file in the current directory.</p>
+                              <p>The audio was favorited from directory: <span className="text-sm text-muted-foreground">{audio.rootDirectoryName}</span></p>
+                              <button
+                                onClick={async () => {
+                                  if (isChangingDirectory) return
+                                  setIsChangingDirectory(true)
+                                  try {
+                                    const newRootHandle = await fileSystemService.requestDirectoryAccess()
+                                    try {
+                                      // Try to get the file in the selected directory
+                                      const fileHandle = await getFileHandle(newRootHandle, audio.path)
+                                      
+                                      // If successful, set both handles since this could be either type of directory
+                                      useDirectoryStore.getState().setRootHandle(newRootHandle)
+                                      useDirectoryStore.getState().setAudioRootHandle(newRootHandle)
+                                      
+                                      setAudioLoadError(null)
+                                      setSelectedAudio({
+                                        ...audio,
+                                        handle: fileHandle
+                                      })
+                                    } catch (accessErr) {
+                                      setAudioLoadError(
+                                        <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
+                                          Audio file not found in selected directory. Please select the directory containing the audio file.
+                                        </div>
+                                      )
+                                    }
+                                  } catch (dirErr) {
+                                    setAudioLoadError(
+                                      <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
+                                        Failed to access new directory
+                                      </div>
+                                    )
+                                  } finally {
+                                    setIsChangingDirectory(false)
+                                  }
+                                }}
+                                className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled={isChangingDirectory}
+                              >
+                                {isChangingDirectory ? "Switching..." : "Switch Directory"}
+                              </button>
+                            </div>
+                          )
+                          setAudioLoadError(errorMessage)
+                          setSelectedAudio(null)
                         }
                       }}
                     >
@@ -306,9 +385,10 @@ export default function FavoritesPage() {
                         {rootHandle && (
                           <AudioFavoriteButton
                             audio={{
+                              id: audio.path,
                               name: audio.name,
                               path: audio.path,
-                              type: audio.type,
+                              type: 'file',
                               handle: undefined as any // Will be set when loaded
                             }}
                             metadata={audio.metadata}
@@ -335,9 +415,9 @@ export default function FavoritesPage() {
 
             {/* Right Side: Player and Editor */}
             <div className="flex-1 flex flex-col gap-4 overflow-y-auto p-4">
-              {videoLoadError && (
+              {(videoLoadError || audioLoadError) && (
                 <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
-                  {videoLoadError}
+                  {videoLoadError || audioLoadError}
                 </div>
               )}
               
@@ -371,10 +451,12 @@ export default function FavoritesPage() {
                 <div className="bg-muted rounded">
                   <AudioPlayer
                     audioFile={{
+                      id: selectedAudio.path,
+                      type: 'file',
                       name: selectedAudio.name,
                       path: selectedAudio.path,
-                      type: selectedAudio.type,
-                      handle: selectedAudio.handle
+                      handle: selectedAudio.handle,
+                      fileType: selectedAudio.fileType
                     }}
                   />
                 </div>
