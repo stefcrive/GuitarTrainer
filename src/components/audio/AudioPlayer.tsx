@@ -5,7 +5,7 @@ import { Slider } from '@/components/ui/slider'
 import { Button } from '@/components/ui/button'
 import { AudioFile, AudioLoopRegion, AudioMetadata, AudioMarker, AudioAnnotation } from '@/types/audio'
 import { VideoPlayerControls } from '@/types/video'
-import { Play, Pause, RotateCcw, BringToFront, Timer } from 'lucide-react'
+import { Play, Pause, RotateCcw, BringToFront, Timer, SkipBack, SkipForward } from 'lucide-react'
 import { FavoriteButton } from '@/components/audio/FavoriteButton'
 import { getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
 import { useDirectoryStore } from '@/stores/directory-store'
@@ -25,6 +25,7 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [playbackRate, setPlaybackRate] = useState(1)
+  const [volume, setVolume] = useState(1)
   const [tags, setTags] = useState<string[]>([])
   const [markers, setMarkers] = useState<AudioMarker[]>([])
   const [annotations, setAnnotations] = useState<AudioAnnotation[]>([])
@@ -49,10 +50,21 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
         const url = URL.createObjectURL(file)
         audioRef.current.src = url
 
+        // Auto-play when loaded
+        const playPromise = audioRef.current.play()
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setIsPlaying(true)
+          }).catch(error => {
+            console.error("Auto-play failed:", error)
+          })
+        }
+
         // Load metadata
         const metadata = await getAudioMetadata(audioFile, directoryHandle)
         setTags(metadata.tags)
         setPlaybackRate(metadata.playbackRate)
+        setVolume(metadata.volume ?? 1)
         setLoopRegion(metadata.loopRegion)
         setMarkers(metadata.markers || [])
         setAnnotations(metadata.annotations || [])
@@ -93,6 +105,7 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
         ...prev,
         end: prev.end || audio.duration
       }))
+      audio.volume = volume
 
       // Once audio is loaded, expose controls
       if (onControlsReady) {
@@ -228,7 +241,8 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
             loopRegion,
             markers,
             annotations,
-            playbackRate
+            playbackRate,
+            volume
           }}
           directoryHandle={directoryHandle}
         />
@@ -241,6 +255,26 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
           }}
         >
           <RotateCcw className="h-4 w-4" />
+        </Button>
+
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => {
+            if (audioRef.current) audioRef.current.currentTime -= 5
+          }}
+        >
+          <SkipBack className="h-4 w-4" />
+        </Button>
+
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => {
+            if (audioRef.current) audioRef.current.currentTime += 5
+          }}
+        >
+          <SkipForward className="h-4 w-4" />
         </Button>
 
         <div className="flex-1">
@@ -268,6 +302,24 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
             ))}
           </SelectContent>
         </Select>
+
+        <div className="w-24">
+          <Slider
+            value={[volume * 100]}
+            min={0}
+            max={100}
+            step={1}
+            onValueChange={(value) => {
+              const newVolume = value[0] / 100
+              if (audioRef.current) {
+                audioRef.current.volume = newVolume
+              }
+              setVolume(newVolume)
+              saveMetadata({ volume: newVolume })
+            }}
+            className="w-full"
+          />
+        </div>
 
         <span className="text-sm text-muted-foreground w-24 text-right">
           {formatTime(currentTime)} / {formatTime(duration)}

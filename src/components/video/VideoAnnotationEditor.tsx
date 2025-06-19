@@ -50,6 +50,7 @@ export function VideoAnnotationEditor({
           tags={tags}
           onTagsChange={setTags}
           placeholder="Add tags..."
+          availableTags={availableTags}
         />
       </div>
 

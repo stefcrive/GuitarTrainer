@@ -1,10 +1,10 @@
 import { Header } from '@/components/layout/Header'
 
-interface SurfLayoutProps {
+interface MarkersLayoutProps {
   children: React.ReactNode
 }
 
-export default function SurfLayout({ children }: SurfLayoutProps) {
+export default function MarkersLayout({ children }: MarkersLayoutProps) {
   return (
     <div>
       <Header />

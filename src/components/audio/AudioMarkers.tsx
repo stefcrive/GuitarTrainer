@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { Slider } from '@/components/ui/slider'
 import type { AudioMarker, AudioAnnotation } from '@/types/audio'
 import { AudioRecorder } from '@/services/audio-recorder'
 import { VideoAnnotationEditor } from '../video/VideoAnnotationEditor'
@@ -65,7 +66,8 @@ export function AudioMarkers({
       id: crypto.randomUUID(),
       startTime: currentTime,
       endTime: Math.min(currentTime + 10, duration), // Default 10 second interval
-      isLooping: false
+      isLooping: false,
+      completionDegree: 0 // Initialize with 0% completion
     }
 
     onMarkersChange([...markers, newMarker])
@@ -141,14 +143,24 @@ export function AudioMarkers({
     setIsAddingAnnotation(false)
   }, [activeMarkerId, annotations, onAnnotationsChange])
 
-  const handleMarkerUpdate = useCallback((updatedMarker: AudioMarker) => {
+  const handleMarkerUpdate = useCallback((updatedMarker: AudioMarker, closeEditor = true) => {
     onMarkersChange(
       markers.map(marker =>
         marker.id === updatedMarker.id ? updatedMarker : marker
       )
     )
-    setEditingMarkerId(null)
+    if (closeEditor) {
+      setEditingMarkerId(null)
+    }
   }, [markers, onMarkersChange])
+
+  const handleCompletionUpdate = useCallback((marker: AudioMarker, value: number) => {
+    handleMarkerUpdate({
+      ...marker,
+      completionDegree: value
+    }, false) // Don't close editor when updating completion
+  }, [handleMarkerUpdate])
+
 
   const handleMarkerDelete = useCallback((markerId: string) => {
     onMarkersChange(markers.filter(m => m.id !== markerId))
@@ -200,7 +212,8 @@ export function AudioMarkers({
               marker.id === activeMarkerId ? 'border-primary' : 'border-muted'
             )}
           >
-            <div className="flex items-center gap-1.5">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1.5">
               <Button
                 variant="ghost"
                 size="sm"
@@ -288,7 +301,7 @@ export function AudioMarkers({
                 className="h-7 px-2 text-sm"
                 onClick={() => setEditingMarkerId(editingMarkerId === marker.id ? null : marker.id)}
               >
-                {editingMarkerId === marker.id ? 'Cancel' : 'Edit'}
+                {editingMarkerId === marker.id ? 'Close' : 'Edit'}
               </Button>
 
               <Button
@@ -299,113 +312,104 @@ export function AudioMarkers({
               >
                 <TrashIcon className="h-3 w-3" />
               </Button>
+              </div>
+
+              {/* Completion progress slider */}
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>Completion</span>
+                  <span>{marker.completionDegree || 0}%</span>
+                </div>
+                <Slider
+                  value={[marker.completionDegree || 0]}
+                  min={0}
+                  max={100}
+                  step={1}
+                  className="w-full"
+                  onValueChange={(value: number[]) => {
+                    handleCompletionUpdate(marker, value[0])
+                  }}
+                />
+              </div>
             </div>
 
-            {/* Marker Time Editor */}
+            {/* Marker Time Editor with Sync */}
             {editingMarkerId === marker.id && (
-              <MarkerTimeEditor
-                marker={marker}
-                maxDuration={audioControls.getDuration()}
-                audioControls={audioControls}
-                onSave={handleMarkerUpdate}
-                onCancel={() => setEditingMarkerId(null)}
-                className="mb-3"
-              />
-            )}
+              <div className="space-y-4 mt-3 border-t pt-3">
+                <MarkerTimeEditor
+                  marker={marker}
+                  maxDuration={audioControls.getDuration()}
+                  audioControls={audioControls}
+                  onSave={handleMarkerUpdate}
+                />
 
-            {/* Show annotations for this marker */}
-            <div className="space-y-1.5 mt-1.5">
-              {annotations
-                .filter(a => a.markerId === marker.id)
-                .map(annotation => {
-                  const isEditing = editingAnnotationId === annotation.id;
-                  
-                  if (isEditing) {
-                    return (
-                      <VideoAnnotationEditor
-                        key={annotation.id}
-                        initialText={annotation.text}
-                        initialTags={annotation.tags}
-                        onSave={(text, tags) => {
-                          onAnnotationsChange(
-                            annotations.map(a =>
-                              a.id === annotation.id
-                                ? { ...a, text, tags, timestamp: Date.now() }
-                                : a
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground mb-2">Notes and Tags</div>
+                  {annotations.some(a => a.markerId === marker.id) ? (
+                    annotations
+                      .filter(a => a.markerId === marker.id)
+                      .map(annotation => (
+                        <VideoAnnotationEditor
+                          key={annotation.id}
+                          initialText={annotation.text}
+                          initialTags={annotation.tags}
+                          onSave={(text, tags) => {
+                            onAnnotationsChange(
+                              annotations.map(a =>
+                                a.id === annotation.id
+                                  ? { ...a, text, tags, timestamp: Date.now() }
+                                  : a
+                              )
                             )
-                          )
-                          setEditingAnnotationId(null)
-                        }}
-                        onCancel={() => setEditingAnnotationId(null)}
-                        className="mt-2"
-                      />
-                    )
-                  }
-
-                  return (
-                    <div key={annotation.id} className="text-sm bg-muted p-1.5 rounded">
-                      <div className="flex items-start gap-2">
-                        <div className="flex-1 flex items-center gap-4">
-                          <p>{annotation.text}</p>
-                          {annotation.tags.length > 0 && (
-                            <div className="flex gap-1 flex-wrap">
-                              {annotation.tags.map(tag => (
-                                <span
-                                  key={tag}
-                                  className="px-1 py-0.5 bg-primary/10 text-primary text-xs rounded"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex gap-1 shrink-0">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-6 px-1.5 text-sm"
-                            onClick={() => setEditingAnnotationId(annotation.id)}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-6 px-1.5 text-sm text-red-500 hover:text-red-600 hover:bg-red-100"
-                            onClick={() => handleAnnotationDelete(annotation.id)}
-                          >
-                            <TrashIcon className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-            </div>
-
-            {/* Show add annotation button when marker is active and has no annotations */}
-            {marker.id === activeMarkerId &&
-             !annotations.some(a => a.markerId === marker.id) && (
-              <div className="mt-1.5">
-                {isAddingAnnotation ? (
-                  <VideoAnnotationEditor
-                    onSave={handleAnnotationSave}
-                    onCancel={() => setIsAddingAnnotation(false)}
-                    className="mt-2"
-                  />
-                ) : (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-7 px-2 text-sm"
-                    onClick={() => setIsAddingAnnotation(true)}
-                  >
-                    Add Note
-                  </Button>
-                )}
+                          }}
+                          onCancel={() => setEditingMarkerId(null)}
+                        />
+                      ))
+                  ) : (
+                    <VideoAnnotationEditor
+                      onSave={handleAnnotationSave}
+                      onCancel={() => setEditingMarkerId(null)}
+                      initialTags={[]} // Explicitly set empty initial tags for new annotations
+                    />
+                  )}
+                </div>
               </div>
             )}
+
+            {/* Show existing annotations when not editing */}
+            {!editingMarkerId && annotations
+              .filter(a => a.markerId === marker.id)
+              .map(annotation => (
+                <div key={annotation.id} className="text-sm bg-muted p-1.5 rounded mt-1.5">
+                  <div className="flex items-start gap-2">
+                    <div className="flex-1 flex items-center gap-4">
+                      <p>{annotation.text}</p>
+                      {annotation.tags.length > 0 && (
+                        <div className="flex gap-1 flex-wrap">
+                          {annotation.tags.map(tag => (
+                            <span
+                              key={tag}
+                              className="px-1 py-0.5 bg-primary/10 text-primary text-xs rounded"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex gap-1 shrink-0">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 px-1.5 text-sm"
+                        onClick={() => setEditingMarkerId(marker.id)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
         ))}
       </div>

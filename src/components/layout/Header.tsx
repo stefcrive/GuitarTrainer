@@ -30,8 +30,8 @@ export function Header() {
           <Link href="/audio" className="text-sm font-medium hover:text-primary">
             Audio
           </Link>
-          <Link href="/surf" className="text-sm font-medium hover:text-primary">
-            Surf
+          <Link href="/markers" className="text-sm font-medium hover:text-primary">
+            Markers
           </Link>
           <Link href="/recent" className="text-sm font-medium hover:text-primary">
             Recent

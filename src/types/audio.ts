@@ -22,6 +22,7 @@ export interface AudioMarker {
   isLooping: boolean
   isRecording?: boolean
   audioBlob?: Blob
+  completionDegree?: number // Track completion percentage
 }
 
 export interface AudioAnnotation {
@@ -47,4 +48,5 @@ export interface AudioMetadata {
   markers: AudioMarker[]
   annotations: AudioAnnotation[]
   playbackRate: number
+  volume?: number
 }

@@ -5,6 +5,7 @@ export interface TimeMarker {
   isLooping?: boolean
   audioBlob?: Blob // recorded audio data
   isRecording?: boolean
+  completionDegree?: number // 0-100 percentage of completion
 }
 
 export interface VideoAnnotation {

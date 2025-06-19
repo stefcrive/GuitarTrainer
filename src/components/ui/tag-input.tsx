@@ -9,19 +9,67 @@ export interface TagInputProps {
   onTagsChange: (tags: string[]) => void
   placeholder?: string
   className?: string
+  availableTags?: string[]
 }
 
-export function TagInput({ tags = [], onTagsChange, placeholder = 'Add tag...' }: TagInputProps) {
+export function TagInput({
+  tags = [],
+  onTagsChange,
+  placeholder = 'Add tag...',
+  availableTags = []
+}: TagInputProps) {
   const [input, setInput] = useState('')
+  const [suggestions, setSuggestions] = useState<string[]>([])
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // Handle selection with arrow keys
+    if (suggestions.length > 0) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault()
+        const currentIndex = suggestions.indexOf(input)
+        let newIndex
+        if (e.key === 'ArrowDown') {
+          newIndex = currentIndex < suggestions.length - 1 ? currentIndex + 1 : 0
+        } else {
+          newIndex = currentIndex > 0 ? currentIndex - 1 : suggestions.length - 1
+        }
+        setInput(suggestions[newIndex])
+        return
+      }
+    }
+
     if (e.key === 'Enter' && input.trim()) {
       e.preventDefault()
       if (!tags.includes(input.trim())) {
         onTagsChange([...tags, input.trim()])
       }
       setInput('')
+      setSuggestions([])
     }
+  }
+
+  const handleInputChange = (value: string) => {
+    setInput(value)
+    
+    // Show suggestions when typing
+    if (value.trim()) {
+      const filtered = availableTags
+        .filter(tag =>
+          tag.toLowerCase().includes(value.toLowerCase()) &&
+          !tags.includes(tag)
+        )
+      setSuggestions(filtered)
+    } else {
+      setSuggestions([])
+    }
+  }
+
+  const handleSuggestionClick = (tag: string) => {
+    if (!tags.includes(tag)) {
+      onTagsChange([...tags, tag])
+    }
+    setInput('')
+    setSuggestions([])
   }
 
   const removeTag = (tagToRemove: string) => {
@@ -29,7 +77,7 @@ export function TagInput({ tags = [], onTagsChange, placeholder = 'Add tag...' }
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <div className="flex flex-wrap gap-2 mb-2">
         {tags.map(tag => (
           <div
@@ -48,14 +96,29 @@ export function TagInput({ tags = [], onTagsChange, placeholder = 'Add tag...' }
           </div>
         ))}
       </div>
-      <input
-        type="text"
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        className="w-full p-2 bg-background border rounded-md text-sm"
-      />
+      <div className="relative">
+        <input
+          type="text"
+          value={input}
+          onChange={e => handleInputChange(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          className="w-full p-2 bg-background border rounded-md text-sm"
+        />
+        {suggestions.length > 0 && (
+          <div className="absolute top-full left-0 right-0 mt-1 bg-background border rounded-md shadow-lg max-h-48 overflow-y-auto z-10">
+            {suggestions.map(tag => (
+              <button
+                key={tag}
+                onClick={() => handleSuggestionClick(tag)}
+                className="w-full px-2 py-1.5 text-sm text-left hover:bg-accent hover:text-accent-foreground transition-colors"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
