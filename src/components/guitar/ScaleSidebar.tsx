@@ -1,31 +1,32 @@
 "use client"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { getAllItems } from "@/data/guitar-library"
 import { ChordOrScale } from "@/types/guitar"
 import { ChevronDown, ChevronRight } from "lucide-react"
+import { useScalesStore } from "@/stores/scales-store"
 
 type ScaleSidebarProps = {
   selectedItem: ChordOrScale | null
   onItemSelect: (item: ChordOrScale) => void
-  rootNote: string
-  onRootNoteChange: (note: string) => void
 }
 
 export function ScaleSidebar({
   selectedItem,
   onItemSelect,
-  rootNote,
-  onRootNoteChange,
 }: ScaleSidebarProps) {
-  const [activeTab, setActiveTab] = useState<"scales" | "chords">("scales")
-  const [expandedScales, setExpandedScales] = useState<Set<string>>(new Set(["Major"]))
-  const [expandedChords, setExpandedChords] = useState<Set<string>>(new Set(["Major"]))
-  const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+  const {
+    activeTab,
+    expandedScales,
+    expandedChords,
+    setActiveTab,
+    toggleScaleExpansion,
+    toggleChordExpansion
+  } = useScalesStore()
+  
   const items = getAllItems()
 
+  // Filter items by category
   const allScales = items.filter(item => item.category === "scale") as Array<ChordOrScale & { parentScale?: string }>
   const allChords = items.filter(item => item.category === "chord") as Array<ChordOrScale & { parentGroup?: string }>
 
@@ -63,25 +64,6 @@ export function ScaleSidebar({
     chords: chordGroups[name] || []
   }))
 
-  const toggleScaleExpansion = (scaleName: string) => {
-    const newExpanded = new Set(expandedScales)
-    if (newExpanded.has(scaleName)) {
-      newExpanded.delete(scaleName)
-    } else {
-      newExpanded.add(scaleName)
-    }
-    setExpandedScales(newExpanded)
-  }
-
-  const toggleChordExpansion = (chordGroup: string) => {
-    const newExpanded = new Set(expandedChords)
-    if (newExpanded.has(chordGroup)) {
-      newExpanded.delete(chordGroup)
-    } else {
-      newExpanded.add(chordGroup)
-    }
-    setExpandedChords(newExpanded)
-  }
 
   return (
     <div className="w-64 h-full min-h-screen border-r bg-muted/30">
@@ -106,22 +88,6 @@ export function ScaleSidebar({
           </Button>
         </div>
 
-        {/* Root Note Selection */}
-        <div>
-          <Select value={rootNote} onValueChange={onRootNoteChange}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select root note" />
-            </SelectTrigger>
-            <SelectContent>
-              {notes.map(note => (
-                <SelectItem key={note} value={note}>
-                  {note}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
         {/* Scales List */}
         {activeTab === "scales" && (
           <div className="space-y-2">
@@ -134,13 +100,13 @@ export function ScaleSidebar({
                   onClick={() => toggleScaleExpansion(groupName)}
                 >
                   {groupName}
-                  {expandedScales.has(groupName) ? (
+                  {expandedScales.includes(groupName) ? (
                     <ChevronDown className="h-4 w-4" />
                   ) : (
                     <ChevronRight className="h-4 w-4" />
                   )}
                 </Button>
-                {expandedScales.has(groupName) && (
+                {expandedScales.includes(groupName) && (
                   <div className="pl-4 space-y-1">
                     {scales.map(scale => (
                       <Button
@@ -172,13 +138,13 @@ export function ScaleSidebar({
                   onClick={() => toggleChordExpansion(groupName)}
                 >
                   {groupName}
-                  {expandedChords.has(groupName) ? (
+                  {expandedChords.includes(groupName) ? (
                     <ChevronDown className="h-4 w-4" />
                   ) : (
                     <ChevronRight className="h-4 w-4" />
                   )}
                 </Button>
-                {expandedChords.has(groupName) && (
+                {expandedChords.includes(groupName) && (
                   <div className="pl-4 space-y-1">
                     {chords.map(chord => (
                       <Button

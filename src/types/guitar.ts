@@ -28,7 +28,7 @@ export type ChordOrScale = Scale | Chord
 
 // All-fourths tuning from high (1st string) to low (6th string)
 // F -> C -> G -> D -> A -> E
-export const STANDARD_TUNING = ['F1', 'C2', 'G2', 'D3', 'A3', 'E4']
+export const STANDARD_TUNING = ['F3', 'C3', 'G2', 'D2', 'A1', 'E1'] // From 1st string (highest) to 6th string (lowest)
 
 // Total number of frets to display
 export const TOTAL_FRETS = 12
