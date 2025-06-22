@@ -31,4 +31,4 @@ export type ChordOrScale = Scale | Chord
 export const STANDARD_TUNING = ['F3', 'C3', 'G2', 'D2', 'A1', 'E1'] // From 1st string (highest) to 6th string (lowest)
 
 // Total number of frets to display
-export const TOTAL_FRETS = 12
+export const TOTAL_FRETS = 16

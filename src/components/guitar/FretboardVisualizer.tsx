@@ -237,7 +237,8 @@ export function FretboardVisualizer({
                     key={`${stringIndex}-${fret}`}
                     className={cn(
                       "flex-1 h-12 flex items-center justify-center border-r relative",
-                      fret === 0 && "border-r-2",
+                      fret === 0 && "border-r-2 border-r-gray-500",
+                      fret === 11 && "border-r-2 border-r-gray-500",
                       "cursor-pointer hover:bg-accent/10",
                       // Apply base background color to the fret cell
                       isFrozenHighlighted && "bg-blue-500/10", // Blue background if frozen
@@ -257,7 +258,7 @@ export function FretboardVisualizer({
                     }}
                   >
                     {/* Fret markers */}
-                    {stringIndex === 2 && [3, 5, 7, 9].includes(fret) && (
+                    {stringIndex === 2 && [3, 5, 7, 9, 15].includes(fret) && (
                       <div className="absolute w-4 h-4 rounded-full bg-gray-300"></div>
                     )}
                     {stringIndex === 2 && fret === 12 && (

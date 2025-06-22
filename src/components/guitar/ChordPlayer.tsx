@@ -188,10 +188,15 @@ export const ChordPlayer = forwardRef<
     oscillator.type = storeInstrument
     
     let adjustedFrequency = frequency
-    if (storeOctaveSplit && interval > 0) {
-      // For non-root notes in chord, shift up octaves based on interval
-      const octaveShift = Math.floor(interval / 12)
-      adjustedFrequency *= Math.pow(2, octaveShift)
+    if (storeOctaveSplit) {
+      if (interval === 0) {
+        // For root note, shift down one octave
+        adjustedFrequency /= 2
+      } else {
+        // For non-root notes in chord, shift up octaves based on interval
+        const octaveShift = Math.floor(interval / 12)
+        adjustedFrequency *= Math.pow(2, octaveShift)
+      }
     }
     
     oscillator.frequency.setValueAtTime(adjustedFrequency, audioContext.currentTime)
@@ -284,8 +289,8 @@ export const ChordPlayer = forwardRef<
     const audioContext = audioContextRef.current
     if (!audioContext) return
     
-    // Use C3 string (index 1) as reference for chord root note
-    const rootFreq = calculateNoteFrequency(rootNote, 1, 0)
+    // Calculate root frequency directly from note without string reference
+    const rootFreq = calculateNoteFrequency(rootNote)
     const totalNotes = customIntervals.length + 1
 
     const oscillators = [
