@@ -65,7 +65,7 @@ function FolderItem({
   directoryHandle: FileSystemDirectoryHandle
 }) {
   const { expandedFolders, expandFolder, collapseFolder } = useDirectoryStore()
-  const isOpen = name === '' || expandedFolders.has(name)
+  const isOpen = name === '' || expandedFolders.includes(name)
   const hasContent = content.audioFiles.length > 0 || Object.keys(content.folders).length > 0
   const paddingLeft = `${level * 16}px`
 

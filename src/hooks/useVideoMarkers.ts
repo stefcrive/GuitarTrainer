@@ -51,10 +51,12 @@ export function useVideoMarkers(videoPath: string) {
           console.log('Loaded markers for YouTube video:', {
             videoId,
             markers: savedState.markers.length,
-            annotations: savedState.annotations.length
+            annotations: savedState.annotations.length,
+            annotationDetails: savedState.annotations
           })
           setInternalMarkerState(savedState)
         } else {
+          console.log('No saved state found for YouTube video:', videoId)
           setInternalMarkerState(EMPTY_STATE)
         }
         setIsLoaded(true)
@@ -98,7 +100,8 @@ export function useVideoMarkers(videoPath: string) {
         console.log('Saved markers for YouTube video:', {
           videoId,
           markers: newState.markers.length,
-          annotations: newState.annotations.length
+          annotations: newState.annotations.length,
+          annotationDetails: newState.annotations
         })
       } catch (error) {
         console.error('Error saving YouTube markers:', error)

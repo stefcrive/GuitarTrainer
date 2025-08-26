@@ -38,6 +38,7 @@ export function VideoMarkers({
       if (marker.isRecording) {
         const recording = currentRecordingRef.current
         if (recording && recording.markerId === marker.id) {
+          console.log('Stopping existing recording for marker:', marker.id)
           const audioBlob = await audioRecorderRef.current.stopRecording()
           
           // Update state with recorded audio
@@ -67,6 +68,8 @@ export function VideoMarkers({
         markers: startMarkers
       })
 
+      console.log('Starting recording for marker:', marker.id)
+      
       // Start recording and store the promise
       const promise = audioRecorderRef.current.startRecording(
         marker.startTime,
@@ -80,9 +83,49 @@ export function VideoMarkers({
         promise
       }
       
+      // Set up a listener for the promise to handle auto-stop
+      promise.then(audioBlob => {
+        console.log('Recording completed automatically:', marker.id)
+        if (audioBlob) {
+          // Update state with recorded audio
+          const completedMarkers = markerState.markers.map((m: TimeMarker) =>
+            m.id === marker.id
+              ? { ...m, isRecording: false, audioBlob: audioBlob }
+              : m
+          )
+          
+          setMarkerState({
+            ...markerState,
+            markers: completedMarkers
+          })
+        } else {
+          // Reset recording state if no audio was captured
+          const resetMarkers = markerState.markers.map((m: TimeMarker) =>
+            m.id === marker.id ? { ...m, isRecording: false } : m
+          )
+          setMarkerState({
+            ...markerState,
+            markers: resetMarkers
+          })
+        }
+        currentRecordingRef.current = null
+      }).catch(error => {
+        console.error('Recording promise rejected:', error)
+        // Reset recording state
+        const resetMarkers = markerState.markers.map((m: TimeMarker) =>
+          m.id === marker.id ? { ...m, isRecording: false } : m
+        )
+        setMarkerState({
+          ...markerState,
+          markers: resetMarkers
+        })
+        currentRecordingRef.current = null
+        setRecordingError('Recording failed: ' + (error.message || 'Unknown error'))
+      })
+      
     } catch (error) {
       console.error('Failed to start recording:', error)
-      setRecordingError('Recording failed')
+      setRecordingError('Recording failed: ' + (error instanceof Error ? error.message : 'Unknown error'))
       currentRecordingRef.current = null
 
       // Reset recording state
@@ -99,6 +142,7 @@ export function VideoMarkers({
   const cancelRecording = useCallback((marker: TimeMarker) => {
     if (!marker.isRecording) return
 
+    console.log('Cancelling recording for marker:', marker.id)
     audioRecorderRef.current.stopRecording()
     currentRecordingRef.current = null
 
@@ -156,10 +200,18 @@ export function VideoMarkers({
       a => a.markerId !== markerState.activeMarkerId
     )
 
-    setMarkerState({
+    const newState = {
       ...markerState,
       annotations: [...updatedAnnotations, newAnnotation]
+    }
+
+    console.log('Saving annotation:', {
+      annotation: newAnnotation,
+      totalAnnotations: newState.annotations.length,
+      newState
     })
+
+    setMarkerState(newState)
     setEditingMarkerId(null)
   }, [markerState, setMarkerState])
 
@@ -221,6 +273,21 @@ export function VideoMarkers({
       const currentTime = videoControls.getCurrentTime()
       const activeMarker = markerState.markers.find(m => m.isLooping)
 
+      // Check for any recording markers that might have reached their end time
+      const recordingMarker = markerState.markers.find(m => m.isRecording)
+      if (recordingMarker && currentTime >= recordingMarker.endTime) {
+        console.log('Recording marker reached end time:', recordingMarker.id, 'current time:', currentTime)
+        // The auto-stop in AudioRecorder should handle stopping the recording,
+        // but we'll update the UI state here to be safe
+        const resetMarkers = markerState.markers.map((m: TimeMarker) =>
+          m.id === recordingMarker.id ? { ...m, isRecording: false } : m
+        )
+        setMarkerState({
+          ...markerState,
+          markers: resetMarkers
+        })
+      }
+
       if (activeMarker && currentTime >= activeMarker.endTime) {
         videoControls.seek(activeMarker.startTime)
         videoControls.play()
@@ -236,73 +303,197 @@ export function VideoMarkers({
   }
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn('space-y-4', className)}>
+      {/* Header Section */}
+      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+            <MarkersIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Markers & Annotations</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {markerState.markers.length} marker{markerState.markers.length !== 1 ? 's' : ''} created
+            </p>
+          </div>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={addMarker}
+          className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+        >
+          <PlusIcon className="h-4 w-4 mr-2" />
+          Add Marker
+        </Button>
+      </div>
+
       {recordingError && (
-        <div className="p-2 text-sm text-red-500 bg-red-50 rounded">
-          {recordingError}
+        <div className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <div className="flex items-center gap-2">
+            <AlertIcon className="h-4 w-4" />
+            {recordingError}
+          </div>
         </div>
       )}
-      <div className="space-y-1.5">
-        {(markerState.markers || []).map(marker => {
-          const hasAnnotation = markerState.annotations.some(a => a.markerId === marker.id)
-          return (
-            <div
-              key={marker.id}
-              className={cn(
-                'p-2 rounded border',
-                marker.id === markerState.activeMarkerId ? 'border-primary' : 'border-muted',
-                !hasAnnotation && 'border-dashed'
-              )}
-            >
-              <div className="space-y-2">
-                <div className="flex items-center gap-1.5">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-7 px-2 text-sm"
-                    onClick={() => {
-                      videoControls.seek(marker.startTime)
-                      setMarkerState({
-                        ...markerState,
-                        activeMarkerId: marker.id
-                      })
-                    }}
-                  >
-                    {formatTime(marker.startTime)} - {formatTime(marker.endTime)}
-                  </Button>
-                  
-                  <Button
-                    variant={marker.isLooping ? 'default' : 'outline'}
-                    size="sm"
-                    className="h-7 min-w-14 text-sm"
-                    onClick={() => toggleLoop(marker.id)}
-                  >
-                    {marker.isLooping ? 'Stop' : 'Loop'}
-                  </Button>
 
-                  <div className="flex gap-1">
-                    {marker.audioBlob ? (
-                      <>
+      {/* Markers Container */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="p-4">
+          <div className="space-y-4">
+            {(markerState.markers || []).map((marker, index) => {
+              const hasAnnotation = markerState.annotations.some(a => a.markerId === marker.id)
+              const annotation = markerState.annotations.find(a => a.markerId === marker.id)
+              return (
+                <div
+                  key={marker.id}
+                  className={cn(
+                    'relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md',
+                    marker.id === markerState.activeMarkerId 
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20 shadow-sm' 
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600',
+                    !hasAnnotation && 'border-dashed'
+                  )}
+                >
+                  {/* Marker Number Badge */}
+                  <div className="absolute -top-2 -left-2 w-6 h-6 bg-blue-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                    {index + 1}
+                  </div>
+
+                  <div className="space-y-3">
+                    {/* First row: Time and primary action buttons */}
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-3 text-sm font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+                        onClick={() => {
+                          videoControls.seek(marker.startTime)
+                          setMarkerState({
+                            ...markerState,
+                            activeMarkerId: marker.id
+                          })
+                        }}
+                      >
+                        <ClockIcon className="h-4 w-4 mr-2" />
+                        {formatTime(marker.startTime)} - {formatTime(marker.endTime)}
+                      </Button>
+                      
+                      <div className="flex items-center gap-2">
+                        {/* Loop Button */}
+                        <Button
+                          variant={marker.isLooping ? 'default' : 'outline'}
+                          size="sm"
+                          className="h-8 min-w-16 text-sm"
+                          onClick={() => toggleLoop(marker.id)}
+                        >
+                          {marker.isLooping ? (
+                            <>
+                              <StopIcon className="h-3 w-3 mr-1" />
+                              Stop
+                            </>
+                          ) : (
+                            <>
+                              <LoopIcon className="h-3 w-3 mr-1" />
+                              Loop
+                            </>
+                          )}
+                        </Button>
+
+                        {/* Record Audio Button - Moved next to Loop button */}
+                        {marker.audioBlob ? (
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            className="h-8 text-sm"
+                            onClick={() => startRecording(marker)}
+                          >
+                            <MicIcon className="h-3 w-3 mr-1" />
+                            Re-record
+                          </Button>
+                        ) : marker.isRecording ? (
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            className="h-8 text-sm animate-pulse"
+                            onClick={() => startRecording(marker)}
+                          >
+                            <MicIcon className="h-3 w-3 mr-1" />
+                            Recording...
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 text-sm"
+                            onClick={() => startRecording(marker)}
+                          >
+                            <MicIcon className="h-3 w-3 mr-1" />
+                            Record
+                          </Button>
+                        )}
+
+                        {/* Edit Button */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-3 text-sm"
+                          onClick={() => setEditingMarkerId(editingMarkerId === marker.id ? null : marker.id)}
+                        >
+                          {editingMarkerId === marker.id ? (
+                            <>
+                              <XIcon className="h-3 w-3 mr-1" />
+                              Close
+                            </>
+                          ) : (
+                            <>
+                              <EditIcon className="h-3 w-3 mr-1" />
+                              Edit
+                            </>
+                          )}
+                        </Button>
+
+                        {/* Delete Button */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                          onClick={() => handleMarkerDelete(marker.id)}
+                        >
+                          <TrashIcon className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Second row: Completion progress bar (non-editable in normal view) */}
+                    <div className="flex items-center gap-3 mt-2">
+                      <div className="text-xs text-muted-foreground font-medium w-32">
+                        Completion: {marker.completionDegree || 0}%
+                      </div>
+                      <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                        <div
+                          className="bg-blue-500 h-full rounded-full"
+                          style={{ width: `${marker.completionDegree || 0}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Additional recording controls when there's a recording */}
+                    {marker.audioBlob && (
+                      <div className="flex items-center gap-2 mt-2">
                         <Button
                           variant="outline"
                           size="sm"
-                          className="h-7 px-3 text-sm"
+                          className="h-8 px-3 text-xs"
                           onClick={() => downloadAudio(marker)}
                         >
-                          Download Audio
+                          <DownloadIcon className="h-3 w-3 mr-1" />
+                          Download
                         </Button>
                         <Button
-                          variant="secondary"
+                          variant="outline"
                           size="sm"
-                          className="h-7 px-3 text-sm"
-                          onClick={() => startRecording(marker)}
-                        >
-                          Record Again
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          className="h-7 px-3 text-sm"
+                          className="h-8 px-3 text-xs text-destructive hover:bg-destructive/10"
                           onClick={() => {
                             setMarkerState({
                               ...markerState,
@@ -312,122 +503,103 @@ export function VideoMarkers({
                             })
                           }}
                         >
+                          <TrashIcon className="h-3 w-3 mr-1" />
                           Delete Recording
                         </Button>
-                      </>
-                    ) : marker.isRecording ? (
-                      <div className="flex gap-1">
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          className="h-7 px-3 text-sm"
-                          onClick={() => startRecording(marker)}
-                        >
-                          Recording... (Click to Save)
-                        </Button>
+                      </div>
+                    )}
+
+                    {/* Cancel button for recording */}
+                    {marker.isRecording && (
+                      <div className="flex items-center gap-2 mt-2">
                         <Button
                           variant="outline"
                           size="sm"
-                          className="h-7 px-3 text-sm"
+                          className="h-8 px-3 text-xs"
                           onClick={() => cancelRecording(marker)}
                         >
-                          Cancel
+                          Cancel Recording
                         </Button>
                       </div>
-                    ) : (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="h-7 px-3 text-sm"
-                        onClick={() => startRecording(marker)}
-                      >
-                        Record Audio
-                      </Button>
+                    )}
+
+                    {/* Display existing annotation when not editing */}
+                    {!editingMarkerId && annotation && (
+                      <div className="bg-muted/50 p-3 rounded-lg border border-muted">
+                        <div className="flex items-start gap-3">
+                          <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded">
+                            <FileTextIcon className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm">{annotation.text}</p>
+                            {annotation.tags.length > 0 && (
+                              <div className="flex gap-1 flex-wrap mt-2">
+                                {annotation.tags.map(tag => (
+                                  <span
+                                    key={tag}
+                                    className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     )}
                   </div>
 
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-7 px-2 text-sm"
-                    onClick={() => setEditingMarkerId(editingMarkerId === marker.id ? null : marker.id)}
-                  >
-                    {editingMarkerId === marker.id ? 'Close' : 'Edit'}
-                  </Button>
-                </div>
-                
-                {/* Completion progress slider */}
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>Completion</span>
-                    <span>{marker.completionDegree || 0}%</span>
-                  </div>
-                  <Slider
-                    value={[marker.completionDegree || 0]}
-                    min={0}
-                    max={100}
-                    step={1}
-                    className="w-full"
-                    onValueChange={([value]) => {
-                      handleCompletionUpdate(marker, value)
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Time and Annotations Editor */}
-              {editingMarkerId === marker.id && (
-                <div className="space-y-4 mt-3 border-t pt-3">
-                  <MarkerTimeEditor
-                    marker={marker}
-                    maxDuration={videoControls.getDuration()}
-                    videoControls={videoControls}
-                    onSave={handleMarkerUpdate}
-                    className="mb-3"
-                  />
-                  
-                  <div className="space-y-2">
-                    <div className="text-sm text-muted-foreground mb-2">Notes and Tags</div>
-                    <VideoAnnotationEditor
-                      initialText={markerState.annotations.find(a => a.markerId === marker.id)?.text || ''}
-                      initialTags={markerState.annotations.find(a => a.markerId === marker.id)?.tags || []}
-                      onSave={handleAnnotationSave}
-                      onCancel={() => setEditingMarkerId(null)}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Display existing annotation */}
-              {!editingMarkerId && (() => {
-                const annotation = markerState.annotations.find(a => a.markerId === marker.id)
-                if (!annotation) return null
-                
-                return (
-                  <div className="text-sm bg-muted p-1.5 rounded mt-1.5">
-                    <div className="flex items-start gap-2">
-                      <div className="flex-1 flex items-center gap-4">
-                        <p>{annotation.text}</p>
-                        {annotation.tags.length > 0 && (
-                          <div className="flex gap-1 flex-wrap">
-                            {annotation.tags.map(tag => (
-                              <span
-                                key={tag}
-                                className="px-1 py-0.5 bg-primary/10 text-primary text-xs rounded"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
+                  {/* Expanded Edit Section */}
+                  {editingMarkerId === marker.id && (
+                    <div className="space-y-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <MarkerTimeEditor
+                        marker={marker}
+                        maxDuration={videoControls.getDuration()}
+                        videoControls={videoControls}
+                        onSave={handleMarkerUpdate}
+                        className="mb-3"
+                      />
+                      
+                      {/* Editable completion progress in edit mode */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-muted-foreground font-medium">Completion Progress</span>
+                          <span className="font-semibold text-blue-600 dark:text-blue-400">
+                            {marker.completionDegree || 0}%
+                          </span>
+                        </div>
+                        <Slider
+                          value={[marker.completionDegree || 0]}
+                          min={0}
+                          max={100}
+                          step={1}
+                          className="w-full"
+                          onValueChange={([value]) => {
+                            handleCompletionUpdate(marker, value)
+                          }}
+                        />
+                      </div>
+                      
+                      <div className="space-y-2 mt-4">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                          <FileTextIcon className="h-4 w-4" />
+                          <span className="font-medium">Notes and Tags</span>
+                        </div>
+                        <VideoAnnotationEditor
+                          initialText={markerState.annotations.find(a => a.markerId === marker.id)?.text || ''}
+                          initialTags={markerState.annotations.find(a => a.markerId === marker.id)?.tags || []}
+                          onSave={handleAnnotationSave}
+                          onCancel={() => setEditingMarkerId(null)}
+                        />
                       </div>
                     </div>
-                  </div>
-                )
-              })()}
-            </div>
-          )
-        })}
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -440,19 +612,104 @@ function formatTime(seconds: number): string {
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
 }
 
-// Trash icon component
+// Icon components
+function MarkersIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M3 12h18M12 3v18M8 8l4-4 4 4M8 16l4 4 4-4" />
+    </svg>
+  )
+}
+
+function PlusIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  )
+}
+
+function AlertIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+    </svg>
+  )
+}
+
+function ClockIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12,6 12,12 16,14" />
+    </svg>
+  )
+}
+
+function LoopIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M21 2v6h-6M3 12a9 9 0 015.68-8.31M3 22v-6h6M21 12a9 9 0 01-5.68 8.31" />
+    </svg>
+  )
+}
+
+function StopIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="6" y="6" width="12" height="12" rx="2" />
+    </svg>
+  )
+}
+
+function EditIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+    </svg>
+  )
+}
+
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M18 6L6 18M6 6l12 12" />
+    </svg>
+  )
+}
+
+function MicIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+      <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8" />
+    </svg>
+  )
+}
+
+function DownloadIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+    </svg>
+  )
+}
+
+function FileTextIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+      <polyline points="14,2 14,8 20,8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+      <polyline points="10,9 9,9 8,9" />
+    </svg>
+  )
+}
+
 function TrashIcon({ className }: { className?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
     </svg>
   )

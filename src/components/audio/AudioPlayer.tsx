@@ -223,6 +223,11 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
     <div className="p-4 space-y-4">
       <audio ref={audioRef} />
       
+      {/* Display audio title at the top */}
+      <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
+        <h2 className="text-lg font-medium truncate">{audioFile.name}</h2>
+      </div>
+      
       <div className="flex items-center gap-4">
         <Button
           variant="outline"

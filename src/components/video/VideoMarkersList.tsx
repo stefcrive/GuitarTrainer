@@ -2,8 +2,11 @@
 
 import React, { useState, useEffect } from 'react'
 import { useDirectoryStore } from '@/stores/directory-store'
+import { useMediaStore } from '@/stores/media-store'
 import { markersService } from '@/services/markers'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
 import { fileSystemService, type VideoFile, type AudioFile } from '@/services/file-system'
 import type { VideoMarkerState, VideoPlayerControls } from '@/types/video'
 import { VideoPlayer } from './VideoPlayer'
@@ -12,9 +15,11 @@ import { AudioPlayer } from '../audio/AudioPlayer'
 import { VideoMarkers } from './VideoMarkers'
 import { youtubeApi } from '@/services/youtube-api'
 import { getAudioMetadata } from '@/services/audio-metadata'
+import { Search } from 'lucide-react'
 
 type ContentType = 'local' | 'youtube' | 'audio'
 type CompletionRange = typeof COMPLETION_RANGES[number]['value']
+type SortOrder = 'date' | 'name'
 
 const COMPLETION_RANGES = [
   { value: 'all' as const, label: 'All markers' },
@@ -75,8 +80,17 @@ export default function VideoSurfList(): React.ReactElement {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [selectedTypes, setSelectedTypes] = useState<ContentType[]>(['local', 'youtube', 'audio'])
   const [completionFilter, setCompletionFilter] = useState<CompletionRange>('all')
+  const [sortOrder, setSortOrder] = useState<SortOrder>('date')
   const [videoControls, setVideoControls] = useState<VideoPlayerControls | null>(null)
   const directoryStore = useDirectoryStore()
+  
+  // Use global media store for search query and selected content persistence
+  const {
+    markers: { searchQuery, selectedContentPath, selectedFile: persistedFile },
+    setMarkersSearchQuery,
+    setMarkersSelectedContent,
+    setMarkersSelectedFile
+  } = useMediaStore()
 
   // Update expanded paths when markers change
   useEffect(() => {
@@ -116,6 +130,49 @@ export default function VideoSurfList(): React.ReactElement {
         ? prev.filter(t => t !== tag)
         : [...prev, tag]
     )
+  }
+
+  // Filter markers by search query
+  const filterBySearch = (markerState: MarkerWithContent) => {
+    if (!searchQuery.trim()) return true
+    
+    const query = searchQuery.toLowerCase()
+    
+    // Search in content title
+    const titleMatch = getContentTitle(markerState.content).toLowerCase().includes(query)
+    
+    // Search in annotations text and tags
+    const annotationMatch = markerState.annotations.some(annotation => {
+      const textMatch = annotation.text?.toLowerCase().includes(query)
+      const tagMatch = annotation.tags.some(tag => tag.toLowerCase().includes(query))
+      return textMatch || tagMatch
+    })
+    
+    return titleMatch || annotationMatch
+  }
+
+  // Sort markers by selected order
+  const sortMarkers = (markers: MarkerWithContent[]): MarkerWithContent[] => {
+    return [...markers].sort((a, b) => {
+      if (sortOrder === 'name') {
+        const titleA = getContentTitle(a.content).toLowerCase()
+        const titleB = getContentTitle(b.content).toLowerCase()
+        return titleA.localeCompare(titleB)
+      } else {
+        // Sort by date added (most recent first)
+        // For local files, we can use the first marker's creation time as a proxy
+        // For localStorage items, we'll use the path as a fallback
+        const getDateScore = (markerState: MarkerWithContent) => {
+          if (markerState.markers.length > 0) {
+            // Use the first marker's start time as a proxy for when content was first marked
+            return markerState.markers[0].startTime
+          }
+          return 0
+        }
+        
+        return getDateScore(b) - getDateScore(a)
+      }
+    })
   }
 
   // Load all markers from all content types
@@ -263,6 +320,43 @@ export default function VideoSurfList(): React.ReactElement {
     loadAllMarkers()
   }, [directoryStore.rootHandle])
 
+  // Restore selected content when page loads
+  useEffect(() => {
+    if (selectedContentPath && markers.length > 0 && !selectedContent) {
+      const markerWithContent = markers.find(m => m.content.path === selectedContentPath)
+      if (markerWithContent) {
+        setSelectedContent(markerWithContent.content)
+        setSelectedMarkerState(markerWithContent)
+        
+        // Load the file if needed
+        if (markerWithContent.content.type === 'local' || markerWithContent.content.type === 'audio') {
+          const loadFile = async () => {
+            try {
+              if (!directoryStore.rootHandle) return
+              // Use fileSystemService to get file handle
+              const segments = markerWithContent.content.path.split('/')
+              let currentHandle = directoryStore.rootHandle
+              
+              // Navigate to the file
+              for (let i = 0; i < segments.length - 1; i++) {
+                currentHandle = await currentHandle.getDirectoryHandle(segments[i])
+              }
+              const fileName = segments[segments.length - 1]
+              const fileHandle = await currentHandle.getFileHandle(fileName)
+              const file = await fileHandle.getFile()
+              setSelectedFile(file)
+              // Store file path for persistence
+              setMarkersSelectedFile(markerWithContent.content.path)
+            } catch (error) {
+              console.error('Error loading file:', error)
+            }
+          }
+          loadFile()
+        }
+      }
+    }
+  }, [selectedContentPath, markers, selectedContent, directoryStore.rootHandle])
+
   return (
     <>
       {/* Hidden container for temporary YouTube players */}
@@ -271,98 +365,130 @@ export default function VideoSurfList(): React.ReactElement {
       </div>
 
       {/* Main content */}
-      <div className="grid grid-cols-[400px_1fr] gap-6">
-        <div className="space-y-2">
-          {/* Filters */}
-          <div className="space-y-4">
-            {/* Completion filter */}
-            <Select
-              value={completionFilter}
-              onValueChange={(value: CompletionRange) => setCompletionFilter(value)}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Filter by completion" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All markers</SelectItem>
-                <SelectItem value="0-25">0-25% complete</SelectItem>
-                <SelectItem value="26-50">26-50% complete</SelectItem>
-                <SelectItem value="51-75">51-75% complete</SelectItem>
-                <SelectItem value="76-100">76-100% complete</SelectItem>
-              </SelectContent>
-            </Select>
-
-            {/* Type filters */}
-            <div className="flex gap-2">
-              {[
-                { type: 'local', label: 'Video' },
-                { type: 'youtube', label: 'YouTube' },
-                { type: 'audio', label: 'Audio' }
-              ].map(({ type, label }) => (
-                <button
-                  key={type}
-                  className={`px-2 py-1 text-sm rounded-full transition-colors ${
-                    selectedTypes.includes(type as ContentType)
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted hover:bg-muted/80'
-                  }`}
-                  onClick={() => setSelectedTypes(prev =>
-                    prev.includes(type as ContentType)
-                      ? prev.filter(t => t !== type as ContentType)
-                      : [...prev, type as ContentType]
-                  )}
+      <ResizablePanelGroup direction="horizontal" className="min-h-screen">
+        <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
+          <div className="h-full border-r bg-muted/30">
+            <div className="p-4 space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold">Video Markers</h2>
+                <Select
+                  value={sortOrder}
+                  onValueChange={(value: SortOrder) => setSortOrder(value)}
                 >
-                  {label}
-                </button>
-              ))}
-            </div>
+                  <SelectTrigger className="w-32">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="date">By Date</SelectItem>
+                    <SelectItem value="name">By Name</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {/* Search Box */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Input
+                  placeholder="Search markers by annotation or tags..."
+                  value={searchQuery}
+                  onChange={(e) => setMarkersSearchQuery(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
 
-            {/* Tag filters */}
-            <div className="flex flex-wrap gap-1.5">
-              {allTags.map(tag => (
-                <button
-                  key={tag}
-                  onClick={() => toggleTag(tag)}
-                  className={`px-2 py-1 text-sm rounded-full transition-colors ${
-                    selectedTags.includes(tag)
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted hover:bg-muted/80'
-                  }`}
+              {/* Filters */}
+              <div className="space-y-4">
+                {/* Completion filter */}
+                <Select
+                  value={completionFilter}
+                  onValueChange={(value: CompletionRange) => setCompletionFilter(value)}
                 >
-                  {tag}
-                </button>
-              ))}
-            </div>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Filter by completion" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All markers</SelectItem>
+                    <SelectItem value="0-25">0-25% complete</SelectItem>
+                    <SelectItem value="26-50">26-50% complete</SelectItem>
+                    <SelectItem value="51-75">51-75% complete</SelectItem>
+                    <SelectItem value="76-100">76-100% complete</SelectItem>
+                  </SelectContent>
+                </Select>
 
-            {/* Selected tags */}
-            {selectedTags.length > 0 && (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Active filters:</span>
-                <div className="flex flex-wrap gap-1">
-                  {selectedTags.map(tag => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 text-xs bg-primary text-primary-foreground rounded-full"
+                {/* Type filters */}
+                <div className="flex gap-2">
+                  {[
+                    { type: 'local', label: 'Video' },
+                    { type: 'youtube', label: 'YouTube' },
+                    { type: 'audio', label: 'Audio' }
+                  ].map(({ type, label }) => (
+                    <button
+                      key={type}
+                      className={`px-2 py-1 text-sm rounded-full transition-colors ${
+                        selectedTypes.includes(type as ContentType)
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted hover:bg-muted/80'
+                      }`}
+                      onClick={() => setSelectedTypes(prev =>
+                        prev.includes(type as ContentType)
+                          ? prev.filter(t => t !== type as ContentType)
+                          : [...prev, type as ContentType]
+                      )}
                     >
-                      {tag}
-                    </span>
+                      {label}
+                    </button>
                   ))}
                 </div>
-                <button
-                  onClick={() => setSelectedTags([])}
-                  className="text-sm text-muted-foreground hover:text-foreground"
-                >
-                  Clear all
-                </button>
-              </div>
-            )}
 
-            {/* Markers list */}
-            <div className="space-y-1.5">
-              {markers
+                {/* Tag filters */}
+                <div className="flex flex-wrap gap-1.5">
+                  {allTags.map(tag => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      className={`px-2 py-1 text-sm rounded-full transition-colors ${
+                        selectedTags.includes(tag)
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted hover:bg-muted/80'
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Selected tags */}
+                {selectedTags.length > 0 && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">Active filters:</span>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedTags.map(tag => (
+                        <span
+                          key={tag}
+                          className="px-2 py-0.5 text-xs bg-primary text-primary-foreground rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setSelectedTags([])}
+                      className="text-sm text-muted-foreground hover:text-foreground"
+                    >
+                      Clear all
+                    </button>
+                  </div>
+                )}
+
+                {/* Markers list */}
+                <div className="space-y-1.5 max-h-[calc(100vh-400px)] overflow-y-auto">
+              {sortMarkers(markers
                 .filter(markerState => {
                    // Filter by type
                    if (!selectedTypes.includes(markerState.content.type)) return false
+
+                   // Filter by search query
+                   if (!filterBySearch(markerState)) return false
 
                    // Apply tag filters only if tags are selected and markers have annotations
                    if (selectedTags.length > 0) {
@@ -384,7 +510,7 @@ export default function VideoSurfList(): React.ReactElement {
                    }
 
                    return true
-                 })
+                 }))
                 .map(markerState => (
                   <div key={markerState.content.path} className="border rounded p-2">
                     <button
@@ -532,39 +658,49 @@ export default function VideoSurfList(): React.ReactElement {
                       })}
                   </div>
                 ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Content player */}
-        <div>
-          {selectedContent && selectedMarkerState && (
-            <div className="space-y-4">
-              {selectedContent.type === 'local' && selectedFile && (
-                <VideoPlayer
-                  videoFile={selectedFile}
-                  video={selectedContent.file as VideoFile}
-                  onControlsReady={setVideoControls}
-                  directoryHandle={directoryStore.rootHandle || undefined}
-                />
-              )}
-              {selectedContent.type === 'youtube' && selectedContent.youtubeId && (
-                <YouTubePlayer
-                  videoId={selectedContent.youtubeId}
-                  onControlsReady={setVideoControls}
-                  className="aspect-video w-full"
-                />
-              )}
-              {selectedContent.type === 'audio' && selectedFile && (
-                <AudioPlayer
-                  audioFile={selectedContent.file as AudioFile}
-                  onControlsReady={setVideoControls}
-                />
-              )}
-            </div>
-          )}
-        </div>
-      </div>
+        </ResizablePanel>
+        
+        <ResizableHandle />
+        
+        <ResizablePanel defaultSize={70}>
+          <div className="p-6">
+            {selectedContent && selectedMarkerState && (
+              <div className="space-y-4">
+                {/* Display content title at the top */}
+                <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
+                  <h2 className="text-lg font-medium truncate">{selectedContent.title}</h2>
+                </div>
+                
+                {selectedContent.type === 'local' && selectedFile && (
+                  <VideoPlayer
+                    videoFile={selectedFile}
+                    video={selectedContent.file as VideoFile}
+                    onControlsReady={setVideoControls}
+                    directoryHandle={directoryStore.rootHandle || undefined}
+                  />
+                )}
+                {selectedContent.type === 'youtube' && selectedContent.youtubeId && (
+                  <YouTubePlayer
+                    videoId={selectedContent.youtubeId}
+                    onControlsReady={setVideoControls}
+                    className="aspect-video w-full"
+                  />
+                )}
+                {selectedContent.type === 'audio' && selectedFile && (
+                  <AudioPlayer
+                    audioFile={selectedContent.file as AudioFile}
+                    onControlsReady={setVideoControls}
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </>
   )
 }

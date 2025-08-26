@@ -3,9 +3,14 @@
 import { useEffect, useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { AudioFolderList } from '@/components/audio/AudioFolderList'
+import Link from 'next/link'
 import { AudioPlayer } from '@/components/audio/AudioPlayer'
+import { Input } from '@/components/ui/input'
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
 import { useDirectoryStore } from '@/stores/directory-store'
+import { useMediaStore } from '@/stores/media-store'
 import { AudioFile } from '@/types/audio'
+import { Search } from 'lucide-react'
 
 async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): Promise<AudioFile[]> {
   const audioFiles: AudioFile[] = []
@@ -39,8 +44,15 @@ async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): P
 export default function AudioPage() {
   const { audioRootHandle, rootHandle, scanVideoFolderForAudio } = useDirectoryStore()
   const [audioFiles, setAudioFiles] = useState<AudioFile[]>([])
-  const [selectedAudio, setSelectedAudio] = useState<AudioFile | null>(null)
+  const [filteredAudioFiles, setFilteredAudioFiles] = useState<AudioFile[]>([])
   const [loading, setLoading] = useState(true)
+  
+  // Use global media store instead of local state
+  const {
+    audio: { selectedAudio, searchQuery },
+    setSelectedAudio,
+    setAudioSearchQuery
+  } = useMediaStore()
 
   useEffect(() => {
     async function loadAudioFiles() {
@@ -58,7 +70,9 @@ export default function AudioPage() {
           files.push(...videoFolderAudioFiles)
         }
 
-        setAudioFiles(files.sort((a, b) => a.path.localeCompare(b.path)))
+        const sortedFiles = files.sort((a, b) => a.path.localeCompare(b.path))
+        setAudioFiles(sortedFiles)
+        setFilteredAudioFiles(sortedFiles)
       } catch (error) {
         console.error('Error scanning audio files:', error)
       }
@@ -68,41 +82,98 @@ export default function AudioPage() {
     loadAudioFiles()
   }, [audioRootHandle, rootHandle, scanVideoFolderForAudio])
 
+  // Filter audio files based on search query
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredAudioFiles(audioFiles)
+    } else {
+      const query = searchQuery.toLowerCase()
+      const filtered = audioFiles.filter(audio =>
+        audio.name.toLowerCase().includes(query) ||
+        audio.path.toLowerCase().includes(query)
+      )
+      setFilteredAudioFiles(filtered)
+    }
+  }, [audioFiles, searchQuery])
+
+  if (!audioRootHandle && (!scanVideoFolderForAudio || !rootHandle)) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <div className="flex flex-col items-center justify-center gap-4 h-full">
+            <p>Please select a root directory in settings first</p>
+            <Link
+              href="/settings"
+              className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
+            >
+              Go to Settings
+            </Link>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 flex">
-        <div className="w-80 border-r p-4 overflow-y-auto">
-          <h2 className="text-lg font-semibold mb-4">Audio Library</h2>
-          {loading ? (
-            <div className="animate-pulse space-y-2">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="h-8 bg-accent/20 rounded"></div>
-              ))}
-            </div>
-          ) : audioFiles.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              No audio files found. Add some audio files to your selected directories.
-            </p>
-          ) : (
-            <AudioFolderList
-              audioFiles={audioFiles}
-              selectedAudio={selectedAudio}
-              onAudioSelect={setSelectedAudio}
-              directoryHandle={audioRootHandle || rootHandle!}
-            />
-          )}
-        </div>
+      <main className="flex-1">
+        <ResizablePanelGroup direction="horizontal" className="min-h-screen">
+          <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
+            <div className="h-full border-r bg-muted/30">
+              <div className="p-4 space-y-4">
+                <h2 className="text-xl font-semibold">Audio Library</h2>
+                
+                {/* Search Box */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Input
+                    placeholder="Search audio files..."
+                    value={searchQuery}
+                    onChange={(e) => setAudioSearchQuery(e.target.value)}
+                    className="pl-9"
+                  />
+                </div>
 
-        <div className="flex-1 p-4">
-          {selectedAudio ? (
-            <AudioPlayer audioFile={selectedAudio} />
-          ) : (
-            <div className="h-full flex items-center justify-center text-muted-foreground">
-              Select an audio file to play
+                <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
+                  {loading ? (
+                    <div className="animate-pulse space-y-2">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="h-8 bg-accent/20 rounded"></div>
+                      ))}
+                    </div>
+                  ) : filteredAudioFiles.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      {searchQuery ? 'No audio files match your search.' : 'No audio files found. Add some audio files to your selected directories.'}
+                    </p>
+                  ) : (
+                    <AudioFolderList
+                      audioFiles={filteredAudioFiles}
+                      selectedAudio={selectedAudio}
+                      onAudioSelect={setSelectedAudio}
+                      directoryHandle={audioRootHandle || rootHandle!}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-          )}
-        </div>
+          </ResizablePanel>
+          
+          <ResizableHandle />
+          
+          <ResizablePanel defaultSize={70}>
+            <div className="p-4">
+              {selectedAudio ? (
+                <AudioPlayer audioFile={selectedAudio} />
+              ) : (
+                <div className="h-full flex items-center justify-center text-muted-foreground">
+                  Select an audio file to play
+                </div>
+              )}
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </main>
     </div>
   )

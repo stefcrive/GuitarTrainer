@@ -224,19 +224,21 @@ export function VideoPlayer({
 
   return (
     <div className={className}>
-      <div className="space-y-2">
-        <video
-          ref={videoRef}
-          className="w-full"
-          controls
-          autoPlay={false}
-          preload="metadata"
-          playsInline
-          key={videoData.url}
-        >
-          <source src={videoData.url} type={videoData.type} />
-          Your browser does not support the video tag.
-        </video>
+      <div className="space-y-4">
+        <div className="aspect-video bg-black rounded overflow-hidden">
+          <video
+            ref={videoRef}
+            className="w-full h-full object-contain"
+            controls
+            autoPlay={false}
+            preload="metadata"
+            playsInline
+            key={videoData.url}
+          >
+            <source src={videoData.url} type={videoData.type} />
+            Your browser does not support the video tag.
+          </video>
+        </div>
 
         <VideoTimeline
           duration={videoRef.current?.duration || 0}

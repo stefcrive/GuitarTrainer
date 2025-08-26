@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { ChordOrScale } from '@/types/guitar'
 
 interface ScalesState {
@@ -41,50 +42,57 @@ interface ScalesState {
   toggleChordExpansion: (chord: string) => void
 }
 
-export const useScalesStore = create<ScalesState>((set) => ({
-  // Initial scale/chord state
-  selectedItem: null,
-  rootNote: 'C',
-  customIntervals: [0],
-  
-  // Initial sound settings
-  volume: 0.5,
-  noteVolume: 0.7,
-  instrument: 'sine' as OscillatorType,
-  octaveSplit: false,
-  reverbEnabled: false,
-  reverbAmount: 0.3,
-  decayLength: 1.0,
+export const useScalesStore = create<ScalesState>()(
+  persist(
+    (set, get) => ({
+      // Initial scale/chord state
+      selectedItem: null,
+      rootNote: 'C',
+      customIntervals: [0],
+      
+      // Initial sound settings
+      volume: 0.5,
+      noteVolume: 0.7,
+      instrument: 'sine' as OscillatorType,
+      octaveSplit: false,
+      reverbEnabled: false,
+      reverbAmount: 0.3,
+      decayLength: 1.0,
 
-  // Initial sidebar state
-  activeTab: 'scales',
-  expandedScales: ['Major'],
-  expandedChords: ['Major'],
-  
-  // Scale/Chord actions
-  setSelectedItem: (item) => set({ selectedItem: item }),
-  setRootNote: (note) => set({ rootNote: note }),
-  setCustomIntervals: (intervals) => set({ customIntervals: intervals }),
-  
-  // Sound settings actions
-  setVolume: (volume) => set({ volume }),
-  setNoteVolume: (noteVolume) => set({ noteVolume }),
-  setInstrument: (instrument) => set({ instrument }),
-  setOctaveSplit: (octaveSplit) => set({ octaveSplit }),
-  setReverbEnabled: (reverbEnabled) => set({ reverbEnabled }),
-  setReverbAmount: (reverbAmount) => set({ reverbAmount }),
-  setDecayLength: (decayLength) => set({ decayLength }),
+      // Initial sidebar state
+      activeTab: 'scales',
+      expandedScales: ['Major'],
+      expandedChords: ['Major'],
+      
+      // Scale/Chord actions
+      setSelectedItem: (item: ChordOrScale | null) => set(() => ({ selectedItem: item })),
+      setRootNote: (note: string) => set(() => ({ rootNote: note })),
+      setCustomIntervals: (intervals: number[]) => set(() => ({ customIntervals: intervals })),
+      
+      // Sound settings actions
+      setVolume: (volume: number) => set(() => ({ volume })),
+      setNoteVolume: (noteVolume: number) => set(() => ({ noteVolume })),
+      setInstrument: (instrument: OscillatorType) => set(() => ({ instrument })),
+      setOctaveSplit: (octaveSplit: boolean) => set(() => ({ octaveSplit })),
+      setReverbEnabled: (reverbEnabled: boolean) => set(() => ({ reverbEnabled })),
+      setReverbAmount: (reverbAmount: number) => set(() => ({ reverbAmount })),
+      setDecayLength: (decayLength: number) => set(() => ({ decayLength })),
 
-  // Sidebar actions
-  setActiveTab: (tab) => set({ activeTab: tab }),
-  toggleScaleExpansion: (scale) => set((state) => ({
-    expandedScales: state.expandedScales.includes(scale)
-      ? state.expandedScales.filter(s => s !== scale)
-      : [...state.expandedScales, scale]
-  })),
-  toggleChordExpansion: (chord) => set((state) => ({
-    expandedChords: state.expandedChords.includes(chord)
-      ? state.expandedChords.filter(c => c !== chord)
-      : [...state.expandedChords, chord]
-  }))
-}))
+      // Sidebar actions
+      setActiveTab: (tab: 'scales' | 'chords') => set(() => ({ activeTab: tab })),
+      toggleScaleExpansion: (scale: string) => set((state: ScalesState) => ({
+        expandedScales: state.expandedScales.includes(scale)
+          ? state.expandedScales.filter((s: string) => s !== scale)
+          : [...state.expandedScales, scale]
+      })),
+      toggleChordExpansion: (chord: string) => set((state: ScalesState) => ({
+        expandedChords: state.expandedChords.includes(chord)
+          ? state.expandedChords.filter((c: string) => c !== chord)
+          : [...state.expandedChords, chord]
+      }))
+    }),
+    {
+      name: 'scales-store',
+    }
+  )
+)

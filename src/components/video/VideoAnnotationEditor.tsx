@@ -21,13 +21,17 @@ export function VideoAnnotationEditor({
   initialTags = [],
   className
 }: VideoAnnotationEditorProps) {
-  const { tags: availableTags, addTag } = useTags()
+  const { tags: availableTags, addTag, addTags } = useTags()
   const [text, setText] = useState(initialText)
   const [tags, setTags] = useState<string[]>(initialTags)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (text.trim() || tags.length > 0) {
+      // Save tags to the global tag store
+      if (tags.length > 0) {
+        addTags(tags)
+      }
       onSave(text.trim(), tags)
       setText('')
       setTags([])

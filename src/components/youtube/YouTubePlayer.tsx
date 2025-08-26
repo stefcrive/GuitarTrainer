@@ -82,9 +82,15 @@ export function YouTubePlayer({
               console.log('Player ready')
               setIsReady(true)
               setIsLoading(false)
-              const dur = event.target.getDuration()
-              if (dur > 0) setDuration(dur)
-              startTimeTracking()
+              try {
+                if (event.target && typeof event.target.getDuration === 'function') {
+                  const dur = event.target.getDuration()
+                  if (dur > 0) setDuration(dur)
+                }
+                startTimeTracking()
+              } catch (error) {
+                console.warn('Error in onReady handler:', error)
+              }
             },
             onStateChange: (event) => {
               if (!mounted) return
@@ -190,13 +196,18 @@ export function YouTubePlayer({
   const startTimeTracking = () => {
     stopTimeTracking()
     timeUpdateInterval.current = setInterval(() => {
-      if (playerRef.current) {
-        const time = playerRef.current.getCurrentTime()
-        setCurrentTime(time)
-        if (!duration) {
-          const dur = playerRef.current.getDuration()
-          if (dur > 0) setDuration(dur)
+      try {
+        if (playerRef.current && typeof playerRef.current.getCurrentTime === 'function') {
+          const time = playerRef.current.getCurrentTime()
+          setCurrentTime(time)
+          
+          if (!duration && typeof playerRef.current.getDuration === 'function') {
+            const dur = playerRef.current.getDuration()
+            if (dur > 0) setDuration(dur)
+          }
         }
+      } catch (error) {
+        console.warn('Error in time tracking:', error)
       }
     }, 200)
   }
@@ -210,30 +221,60 @@ export function YouTubePlayer({
 
   // Handle seeking with relative time
   const seekRelative = (deltaSeconds: number) => {
-    if (!playerRef.current) return
-    const time = playerRef.current.getCurrentTime()
-    const dur = playerRef.current.getDuration()
-    const newTime = Math.max(0, Math.min(dur, time + deltaSeconds))
-    console.log(`Seeking ${deltaSeconds}s from ${time} to ${newTime}`)
-    playerRef.current.seekTo(newTime, true)
-    setCurrentTime(newTime)
+    try {
+      if (!playerRef.current) return
+      
+      if (typeof playerRef.current.getCurrentTime !== 'function' ||
+          typeof playerRef.current.getDuration !== 'function' ||
+          typeof playerRef.current.seekTo !== 'function') {
+        console.warn('Required YouTube player methods not available')
+        return
+      }
+      
+      const time = playerRef.current.getCurrentTime()
+      const dur = playerRef.current.getDuration()
+      const newTime = Math.max(0, Math.min(dur, time + deltaSeconds))
+      console.log(`Seeking ${deltaSeconds}s from ${time} to ${newTime}`)
+      playerRef.current.seekTo(newTime, true)
+      setCurrentTime(newTime)
+    } catch (error) {
+      console.warn('Error in relative seeking:', error)
+    }
   }
 
   // Create video controls interface
   const videoControls: VideoPlayerControls = {
     play: () => {
       console.log('Play command')
-      playerRef.current?.playVideo()
+      try {
+        if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
+          playerRef.current.playVideo()
+        }
+      } catch (error) {
+        console.warn('Error playing video:', error)
+      }
     },
     pause: () => {
       console.log('Pause command')
-      playerRef.current?.pauseVideo()
+      try {
+        if (playerRef.current && typeof playerRef.current.pauseVideo === 'function') {
+          playerRef.current.pauseVideo()
+        }
+      } catch (error) {
+        console.warn('Error pausing video:', error)
+      }
     },
     seek: (time: number) => {
-      if (!playerRef.current || time < 0 || time > duration) return
+      if (time < 0 || time > duration) return
       console.log(`Seek to ${time}`)
-      playerRef.current.seekTo(time, true)
-      setCurrentTime(time)
+      try {
+        if (playerRef.current && typeof playerRef.current.seekTo === 'function') {
+          playerRef.current.seekTo(time, true)
+          setCurrentTime(time)
+        }
+      } catch (error) {
+        console.warn('Error seeking video:', error)
+      }
     },
     seekForward: () => seekRelative(10),
     seekBackward: () => seekRelative(-10),
@@ -241,16 +282,37 @@ export function YouTubePlayer({
     getDuration: () => duration,
     setPlaybackRate: (rate: number) => {
       console.log(`Setting playback rate to ${rate}x`)
-      playerRef.current?.setPlaybackRate(rate)
+      try {
+        if (playerRef.current && typeof playerRef.current.setPlaybackRate === 'function') {
+          playerRef.current.setPlaybackRate(rate)
+        }
+      } catch (error) {
+        console.warn('Error setting playback rate:', error)
+      }
     },
     getPlaybackRate: () => {
-      return playerRef.current?.getPlaybackRate() || 1.0
+      try {
+        if (playerRef.current && typeof playerRef.current.getPlaybackRate === 'function') {
+          return playerRef.current.getPlaybackRate()
+        }
+        return 1.0
+      } catch (error) {
+        console.warn('Error getting playback rate:', error)
+        return 1.0
+      }
     },
     getVideoElement: () => {
-      if (!playerRef.current) return null
-      const iframe = document.getElementById(containerId)?.querySelector('iframe')
-      if (!iframe) return null
-      return iframe
+      try {
+        if (!playerRef.current) return null
+        const container = document.getElementById(containerId)
+        if (!container) return null
+        const iframe = container.querySelector('iframe')
+        if (!iframe) return null
+        return iframe
+      } catch (error) {
+        console.warn('Error getting video element:', error)
+        return null
+      }
     }
   }
 
@@ -278,6 +340,14 @@ export function YouTubePlayer({
   return (
     <div className={className}>
       <div className="space-y-2">
+        {/* Display video title at the top */}
+        {videoId && (
+          <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
+            <h2 className="text-lg font-medium truncate">
+              {`YouTube Video: ${videoId}`}
+            </h2>
+          </div>
+        )}
         <div className="relative pt-[56.25%] bg-black">
           <div className="absolute inset-0">
             <div 

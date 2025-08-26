@@ -80,14 +80,19 @@ export class AudioRecorder {
    * Start recording system audio with video playback coordination
    */
   async startRecording(startTime: number, endTime: number, videoControls: VideoPlayerControls): Promise<Blob | null> {
+    // Variable to track resources that need cleanup
+    let displayStream: MediaStream | null = null;
+    
     try {
       if (this.mediaRecorder) {
         // Clean up existing recording if any
-        this.stopRecording()
+        await this.stopRecording()
       }
 
+      console.log('Starting recording from', startTime, 'to', endTime)
+      
       // Get system audio and screen share
-      const displayStream = await navigator.mediaDevices.getDisplayMedia({
+      displayStream = await navigator.mediaDevices.getDisplayMedia({
         video: {
           width: 1280,
           height: 720
@@ -193,19 +198,66 @@ export class AudioRecorder {
         // Set up timer to stop recording at marker end
         this.stopTimeout = setTimeout(() => {
           console.log('Auto-stop timer triggered')
-          if (this.isRecording()) {
-            videoControls.pause()
-            this.mediaRecorder?.stop()
-          } else {
+          
+          // Force stop recording regardless of state
+          videoControls.pause()
+          
+          if (this.mediaRecorder) {
+            console.log('Stopping media recorder from auto-stop timer')
+            try {
+              this.mediaRecorder.stop()
+            } catch (e) {
+              console.error('Error stopping media recorder:', e)
+            }
+          }
+          
+          // Ensure all tracks are stopped
+          if (displayStream) {
+            const tracks = displayStream.getTracks();
+            tracks.forEach(track => {
+              console.log(`Stopping track: ${track.kind}`, track);
+              track.stop();
+            });
+          }
+          
+          // Clear the timeout
+          this.stopTimeout = null
+          
+          if (!this.isRecording()) {
             resolve(null)
           }
-        }, recordingDuration)
+        }, recordingDuration + 500) // Add a small buffer to ensure we capture the full loop
       })
     } catch (error) {
       console.error('Error starting audio recording:', error)
       
+      // Clean up any resources that might have been created
+      if (displayStream) {
+        console.log('Cleaning up display stream after error')
+        displayStream.getTracks().forEach(track => {
+          console.log(`Stopping track after error: ${track.kind}`, track)
+          track.stop()
+        })
+      }
+      
+      // Clear any existing timeout
+      if (this.stopTimeout) {
+        clearTimeout(this.stopTimeout)
+        this.stopTimeout = null
+      }
+      
+      // Reset media recorder
+      if (this.mediaRecorder) {
+        try {
+          this.mediaRecorder.stream.getTracks().forEach(track => track.stop())
+        } catch (e) {
+          console.error('Error stopping media recorder tracks:', e)
+        }
+        this.mediaRecorder = null
+      }
+      
+      // Provide specific error messages
       if (error instanceof Error) {
-        // Provide more specific error messages
         if (error.name === 'NotAllowedError') {
           throw new Error('Screen sharing was denied. Please allow screen sharing and enable system audio to record.')
         } else if (error.name === 'NotReadableError') {
@@ -223,11 +275,6 @@ export class AudioRecorder {
   stopRecording(): Promise<Blob | null> {
     return new Promise((resolve) => {
       if (!this.mediaRecorder) {
-        return Promise.resolve(null)
-        return
-      }
-
-      if (!this.mediaRecorder) {
         console.log('No recording in progress')
         return resolve(null)
       }
@@ -244,7 +291,10 @@ export class AudioRecorder {
         
         // Stop all remaining tracks
         const tracks = this.mediaRecorder?.stream.getTracks()
-        tracks?.forEach(track => track.stop())
+        tracks?.forEach(track => {
+          console.log(`Stopping track: ${track.kind}`, track);
+          track.stop()
+        })
         
         // Clear the timeout if it exists
         if (this.stopTimeout) {

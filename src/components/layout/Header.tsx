@@ -10,7 +10,7 @@ export function Header() {
   const pathname = usePathname()
 
   const navigation = [
-    { name: "Videos", href: "/" },
+    { name: "Videos", href: "/videos" },
     { name: "Audio", href: "/audio" },
     { name: "YouTube", href: "/youtube" },
     { name: "Markers", href: "/markers" },

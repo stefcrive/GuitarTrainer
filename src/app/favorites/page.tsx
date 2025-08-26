@@ -11,11 +11,15 @@ import { YouTubePlayer } from '@/components/youtube/YouTubePlayer'
 import { AudioPlayer } from '@/components/audio/AudioPlayer'
 import { YouTubeInitializer } from '@/components/youtube/YouTubeInitializer'
 import { VideoTitle } from '@/components/video/VideoTitle'
+import { Input } from '@/components/ui/input'
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import type { VideoPlayerControls } from '@/types/video'
 import { fileSystemService } from '@/services/file-system'
 import { Header } from '@/components/layout/Header'
 import { useDirectoryStore } from '@/stores/directory-store'
+import { useMediaStore } from '@/stores/media-store'
+import { Search } from 'lucide-react'
 import Link from 'next/link'
 import { Video, FileSystemVideo } from '@/types/video'
 
@@ -79,6 +83,8 @@ async function getFileHandle(rootHandle: FileSystemDirectoryHandle, path: string
 export default function FavoritesPage() {
   const [videoFavorites, setVideoFavorites] = useState<StoredVideoFavorite[]>([])
   const [audioFavorites, setAudioFavorites] = useState<StoredAudioFile[]>([])
+  const [filteredVideoFavorites, setFilteredVideoFavorites] = useState<StoredVideoFavorite[]>([])
+  const [filteredAudioFavorites, setFilteredAudioFavorites] = useState<StoredAudioFile[]>([])
   const [selectedVideo, setSelectedVideo] = useState<StoredVideoFavorite | null>(null)
   const [selectedAudio, setSelectedAudio] = useState<LoadedAudioFavorite | null>(null)
   const { rootHandle, audioRootHandle } = useDirectoryStore()
@@ -87,6 +93,15 @@ export default function FavoritesPage() {
   const [videoLoadError, setVideoLoadError] = useState<ReactNode | null>(null)
   const [audioLoadError, setAudioLoadError] = useState<ReactNode | null>(null)
   const [videoControls, setVideoControls] = useState<VideoPlayerControls | null>(null)
+  
+  // Use dedicated favorites state for persistence
+  const {
+    favorites: { searchQuery, selectedVideo: favoritesSelectedVideo, selectedAudio: favoritesSelectedAudio },
+    setFavoritesSearchQuery,
+    setFavoritesSelectedVideo,
+    setFavoritesVideoFile,
+    setFavoritesSelectedAudio
+  } = useMediaStore()
 
   const { markerState, setMarkerState } = useVideoMarkers(
     selectedVideo ? 
@@ -102,14 +117,109 @@ export default function FavoritesPage() {
       const audioFavs = await favoritesService.getAudioFavorites()
       setVideoFavorites(videoFavs)
       setAudioFavorites(audioFavs)
+      setFilteredVideoFavorites(videoFavs)
+      setFilteredAudioFavorites(audioFavs)
     }
     loadFavorites()
   }, [])
+
+  // Filter favorites based on search query
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredVideoFavorites(videoFavorites)
+      setFilteredAudioFavorites(audioFavorites)
+    } else {
+      const query = searchQuery.toLowerCase()
+      
+      const filteredVideos = videoFavorites.filter(video => {
+        const title = video.type === 'file' ? video.name || video.path : video.title
+        return title?.toLowerCase().includes(query) || video.path?.toLowerCase().includes(query)
+      })
+      
+      const filteredAudios = audioFavorites.filter(audio =>
+        audio.name.toLowerCase().includes(query) ||
+        audio.path.toLowerCase().includes(query)
+      )
+      
+      setFilteredVideoFavorites(filteredVideos)
+      setFilteredAudioFavorites(filteredAudios)
+    }
+  }, [videoFavorites, audioFavorites, searchQuery])
+
+  // Restore selected content when page loads
+  useEffect(() => {
+    if (favoritesSelectedVideo && videoFavorites.length > 0 && !selectedVideo) {
+      const favoriteVideo = videoFavorites.find(v =>
+        v.type === 'file' ? v.path === favoritesSelectedVideo.path : v.id === favoritesSelectedVideo.id
+      )
+      if (favoriteVideo) {
+        loadVideo(favoriteVideo)
+      }
+    }
+    
+    if (favoritesSelectedAudio && audioFavorites.length > 0 && !selectedAudio) {
+      const favoriteAudio = audioFavorites.find(a => a.path === favoritesSelectedAudio.path)
+      if (favoriteAudio) {
+        // Load the audio file
+        const loadAudioFile = async () => {
+          try {
+            let fileHandle: FileSystemFileHandle | null = null
+            
+            if (audioRootHandle) {
+              try {
+                fileHandle = await getFileHandle(audioRootHandle, favoriteAudio.path)
+              } catch (err) {
+                // Try rootHandle if audioRootHandle fails
+              }
+            }
+            
+            if (!fileHandle && rootHandle) {
+              try {
+                fileHandle = await getFileHandle(rootHandle, favoriteAudio.path)
+              } catch (err) {
+                // Handle error
+              }
+            }
+            
+            if (fileHandle) {
+              setSelectedAudio({
+                ...favoriteAudio,
+                handle: fileHandle
+              })
+              setFavoritesSelectedAudio({
+                id: favoriteAudio.path,
+                name: favoriteAudio.name,
+                path: favoriteAudio.path,
+                type: 'file',
+                handle: fileHandle
+              })
+            }
+          } catch (error) {
+            console.error('Error loading audio file:', error)
+          }
+        }
+        loadAudioFile()
+      }
+    }
+  }, [favoritesSelectedVideo, favoritesSelectedAudio, videoFavorites, audioFavorites, selectedVideo, selectedAudio, rootHandle, audioRootHandle])
 
   const loadVideo = async (video: StoredVideoFavorite) => {
     setSelectedVideo(video)
     setVideoFile(null)
     setVideoLoadError(null)
+    
+    // Clear selected audio
+    setSelectedAudio(null)
+    
+    // Persist to favorites state
+    if (video.type === 'file') {
+      setFavoritesSelectedVideo({
+        type: 'file',
+        id: video.id,
+        name: video.name!,
+        path: video.path!
+      })
+    }
 
     if (video.type === 'youtube') {
       return // YouTube videos don't need additional loading
@@ -135,6 +245,7 @@ export default function FavoritesPage() {
       const fileHandle = await getFileHandle(rootHandle, video.path!)
       const file = await fileHandle.getFile()
       setVideoFile(file)
+      setFavoritesVideoFile(file)
 
       // Mark video as viewed when loaded
       await recentlyViewedService.addRecentVideo(
@@ -195,279 +306,332 @@ export default function FavoritesPage() {
     }
   }
 
+  if (!rootHandle) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <div className="flex flex-col items-center justify-center gap-4 h-full">
+            <p>Please select a root directory in settings first</p>
+            <Link
+              href="/settings"
+              className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
+            >
+              Go to Settings
+            </Link>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 flex flex-col">
-        <div className="flex-1 flex flex-col py-6">
-          {!rootHandle && (
-            <div className="flex flex-col items-center justify-center gap-4 mb-4 p-4 bg-muted rounded">
-              <p>No root directory selected</p>
-              <Link 
-                href="/settings"
-                className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
-              >
-                Go to Settings
-              </Link>
-            </div>
-          )}
-
-          <div className="flex flex-1 gap-6 overflow-hidden">
-            {/* Left Side: Favorites List */}
-            <div className="flex flex-col gap-4 w-[400px]">
-              {/* Favorite Videos */}
-              <div className="border rounded p-4 overflow-y-auto flex flex-col gap-2">
-                <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-lg font-semibold tracking-tight">Favorite Videos</h2>
-                  <span className="text-sm text-muted-foreground">{videoFavorites.length} videos</span>
-                </div>
+      <main className="flex-1">
+        <ResizablePanelGroup direction="horizontal" className="min-h-screen">
+          <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
+            <div className="h-full border-r bg-muted/30">
+              <div className="p-4 space-y-4">
+                <h2 className="text-xl font-semibold">Favorites</h2>
                 
-                {videoFavorites.length > 0 ? (
-                  videoFavorites.map((video) => (
-                    <button
-                      key={video.type === 'file' ? video.path : video.id}
-                      className={`text-left p-2 border rounded hover:bg-gray-100 w-full ${
-                        selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''
-                      }`}
-                      onClick={() => loadVideo(video)}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <VideoTitle
-                          title={video.type === 'file' ? video.path! : (video.title ?? `YouTube: ${video.id}`)}
-                          videoId={video.type === 'youtube' ? video.id : undefined}
-                          videoPath={video.type === 'file' ? video.path : undefined}
-                          className="truncate"
-                        />
-                        {(video.type === 'youtube' || rootHandle) && (
-                          <VideoFavoriteButton
-                            video={{
-                              ...(video.type === 'youtube'
-                                ? {
-                                    type: 'youtube' as const,
-                                    id: video.id,
-                                    title: video.title,
-                                  }
-                                : {
-                                    type: 'file' as const,
-                                    id: video.id,
-                                    name: video.name!,
-                                    path: video.path!,
-                                  }
-                              )
-                            }}
-                            directoryHandle={video.type === 'file' ? rootHandle : undefined}
-                            onFavoriteChange={async (isFavorite) => {
-                              if (!isFavorite) {
-                                const favs = await favoritesService.getVideoFavorites()
-                                setVideoFavorites(favs)
-                                if (selectedVideo?.id === video.id) {
-                                  setSelectedVideo(null)
-                                  setVideoFile(null)
+                {/* Search Box */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Input
+                    placeholder="Search favorites..."
+                    value={searchQuery}
+                    onChange={(e) => setFavoritesSearchQuery(e.target.value)}
+                    className="pl-9"
+                  />
+                </div>
+
+                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-6">
+                  {/* Favorite Videos */}
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-md font-medium tracking-tight">Videos</h3>
+                      <span className="text-sm text-muted-foreground">{filteredVideoFavorites.length} videos</span>
+                    </div>
+                    
+                    {filteredVideoFavorites.length > 0 ? (
+                      filteredVideoFavorites.map((video) => (
+                  <button
+                    key={video.type === 'file' ? video.path : video.id}
+                    className={`text-left p-2 border rounded hover:bg-gray-100 w-full ${
+                      selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''
+                    }`}
+                    onClick={() => loadVideo(video)}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <VideoTitle
+                        title={video.type === 'file' ? video.path! : (video.title ?? `YouTube: ${video.id}`)}
+                        videoId={video.type === 'youtube' ? video.id : undefined}
+                        videoPath={video.type === 'file' ? video.path : undefined}
+                        className="truncate"
+                      />
+                      {(video.type === 'youtube' || rootHandle) && (
+                        <VideoFavoriteButton
+                          video={{
+                            ...(video.type === 'youtube'
+                              ? {
+                                  type: 'youtube' as const,
+                                  id: video.id,
+                                  title: video.title,
                                 }
+                              : {
+                                  type: 'file' as const,
+                                  id: video.id,
+                                  name: video.name!,
+                                  path: video.path!,
+                                }
+                            )
+                          }}
+                          directoryHandle={video.type === 'file' ? rootHandle : undefined}
+                          onFavoriteChange={async (isFavorite) => {
+                            if (!isFavorite) {
+                              const favs = await favoritesService.getVideoFavorites()
+                              setVideoFavorites(favs)
+                              if (selectedVideo?.id === video.id) {
+                                setSelectedVideo(null)
+                                setVideoFile(null)
                               }
-                            }}
-                          />
-                        )}
-                      </div>
-                    </button>
-                  ))
-                ) : (
-                  <p className="text-sm text-muted-foreground">No favorite videos yet.</p>
-                )}
-              </div>
+                            }
+                          }}
+                        />
+                      )}
+                    </div>
+                  </button>
+                ))
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        {searchQuery ? 'No videos match your search.' : 'No favorite videos yet.'}
+                      </p>
+                    )}
+                  </div>
 
-              {/* Favorite Audio Tracks */}
-              <div className="border rounded p-4 overflow-y-auto flex flex-col gap-2">
-                <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-lg font-semibold tracking-tight">Favorite Tracks</h2>
-                  <span className="text-sm text-muted-foreground">{audioFavorites.length} tracks</span>
-                </div>
-                
-                {audioFavorites.length > 0 ? (
-                  audioFavorites.map((audio) => (
-                    <button
-                      key={audio.path}
-                      className={`text-left p-2 border rounded hover:bg-gray-100 w-full ${
-                        selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''
-                      }`}
-                      onClick={async () => {
-                        // Clear any selected video first
-                        setSelectedVideo(null);
-                        setVideoFile(null);
+                  {/* Favorite Audio Tracks */}
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-md font-medium tracking-tight">Audio</h3>
+                      <span className="text-sm text-muted-foreground">{filteredAudioFavorites.length} tracks</span>
+                    </div>
+                    
+                    {filteredAudioFavorites.length > 0 ? (
+                      filteredAudioFavorites.map((audio) => (
+                  <button
+                    key={audio.path}
+                    className={`text-left p-2 border rounded hover:bg-gray-100 w-full ${
+                      selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''
+                    }`}
+                    onClick={async () => {
+                      // Clear any selected video first
+                      setSelectedVideo(null);
+                      setVideoFile(null);
+                      
+                      try {
+                        let fileHandle: FileSystemFileHandle | null = null;
                         
-                        try {
-                          let fileHandle: FileSystemFileHandle | null = null;
-                          
-                          // Try audioRootHandle first if available
-                          if (audioRootHandle) {
-                            try {
-                              fileHandle = await getFileHandle(audioRootHandle, audio.path);
-                            } catch (err) {
-                              // Silently continue to try next directory
-                            }
+                        // Try audioRootHandle first if available
+                        if (audioRootHandle) {
+                          try {
+                            fileHandle = await getFileHandle(audioRootHandle, audio.path);
+                          } catch (err) {
+                            // Silently continue to try next directory
                           }
+                        }
 
-                          // If not found in audio root, try the video root handle
-                          if (!fileHandle && rootHandle) {
-                            try {
-                              fileHandle = await getFileHandle(rootHandle, audio.path);
-                            } catch (err) {
-                              // Silently continue
-                            }
+                        // If not found in audio root, try the video root handle
+                        if (!fileHandle && rootHandle) {
+                          try {
+                            fileHandle = await getFileHandle(rootHandle, audio.path);
+                          } catch (err) {
+                            // Silently continue
                           }
+                        }
 
-                          if (fileHandle) {
-                            setSelectedAudio({
-                              ...audio,
-                              handle: fileHandle
-                            });
-                            setAudioLoadError(null);
-                            setVideoLoadError(null);
-                          } else {
-                            throw new Error('Audio file not found in any available directory');
-                          }
-                        } catch (err) {
-                          console.error('Error loading audio:', err)
-                          const errorMessage = (
-                            <div className="flex flex-col gap-4 p-4 bg-muted rounded">
-                              <p>Unable to access the audio file in the current directory.</p>
-                              <p>The audio was favorited from directory: <span className="text-sm text-muted-foreground">{audio.rootDirectoryName}</span></p>
-                              <button
-                                onClick={async () => {
-                                  if (isChangingDirectory) return
-                                  setIsChangingDirectory(true)
+                        if (fileHandle) {
+                          setSelectedAudio({
+                            ...audio,
+                            handle: fileHandle
+                          });
+                          setFavoritesSelectedAudio({
+                            id: audio.path,
+                            name: audio.name,
+                            path: audio.path,
+                            type: 'file',
+                            handle: fileHandle
+                          });
+                          setAudioLoadError(null);
+                          setVideoLoadError(null);
+                        } else {
+                          throw new Error('Audio file not found in any available directory');
+                        }
+                      } catch (err) {
+                        console.error('Error loading audio:', err)
+                        const errorMessage = (
+                          <div className="flex flex-col gap-4 p-4 bg-muted rounded">
+                            <p>Unable to access the audio file in the current directory.</p>
+                            <p>The audio was favorited from directory: <span className="text-sm text-muted-foreground">{audio.rootDirectoryName}</span></p>
+                            <button
+                              onClick={async () => {
+                                if (isChangingDirectory) return
+                                setIsChangingDirectory(true)
+                                try {
+                                  const newRootHandle = await fileSystemService.requestDirectoryAccess()
                                   try {
-                                    const newRootHandle = await fileSystemService.requestDirectoryAccess()
-                                    try {
-                                      // Try to get the file in the selected directory
-                                      const fileHandle = await getFileHandle(newRootHandle, audio.path)
-                                      
-                                      // If successful, set both handles since this could be either type of directory
-                                      useDirectoryStore.getState().setRootHandle(newRootHandle)
-                                      useDirectoryStore.getState().setAudioRootHandle(newRootHandle)
-                                      
-                                      setAudioLoadError(null)
-                                      setSelectedAudio({
-                                        ...audio,
-                                        handle: fileHandle
-                                      })
-                                    } catch (accessErr) {
-                                      setAudioLoadError(
-                                        <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
-                                          Audio file not found in selected directory. Please select the directory containing the audio file.
-                                        </div>
-                                      )
-                                    }
-                                  } catch (dirErr) {
+                                    // Try to get the file in the selected directory
+                                    const fileHandle = await getFileHandle(newRootHandle, audio.path)
+                                    
+                                    // If successful, set both handles since this could be either type of directory
+                                    useDirectoryStore.getState().setRootHandle(newRootHandle)
+                                    useDirectoryStore.getState().setAudioRootHandle(newRootHandle)
+                                    
+                                    setAudioLoadError(null)
+                                    setSelectedAudio({
+                                      ...audio,
+                                      handle: fileHandle
+                                    })
+                                  } catch (accessErr) {
                                     setAudioLoadError(
                                       <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
-                                        Failed to access new directory
+                                        Audio file not found in selected directory. Please select the directory containing the audio file.
                                       </div>
                                     )
-                                  } finally {
-                                    setIsChangingDirectory(false)
                                   }
-                                }}
-                                className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
-                                disabled={isChangingDirectory}
-                              >
-                                {isChangingDirectory ? "Switching..." : "Switch Directory"}
-                              </button>
-                            </div>
-                          )
-                          setAudioLoadError(errorMessage)
-                          setSelectedAudio(null)
-                        }
-                      }}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="truncate">{audio.name}</span>
-                        {rootHandle && (
-                          <AudioFavoriteButton
-                            audio={{
-                              id: audio.path,
-                              name: audio.name,
-                              path: audio.path,
-                              type: 'file',
-                              handle: undefined as any // Will be set when loaded
-                            }}
-                            metadata={audio.metadata}
-                            directoryHandle={rootHandle}
-                            onFavoriteChange={async (isFavorite) => {
-                              if (!isFavorite) {
-                                const favs = await favoritesService.getAudioFavorites()
-                                setAudioFavorites(favs)
-                                if (selectedAudio?.path === audio.path) {
-                                  setSelectedAudio(null)
+                                } catch (dirErr) {
+                                  setAudioLoadError(
+                                    <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
+                                      Failed to access new directory
+                                    </div>
+                                  )
+                                } finally {
+                                  setIsChangingDirectory(false)
                                 }
+                              }}
+                              className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+                              disabled={isChangingDirectory}
+                            >
+                              {isChangingDirectory ? "Switching..." : "Switch Directory"}
+                            </button>
+                          </div>
+                        )
+                        setAudioLoadError(errorMessage)
+                        setSelectedAudio(null)
+                      }
+                    }}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="truncate">{audio.name}</span>
+                      {rootHandle && (
+                        <AudioFavoriteButton
+                          audio={{
+                            id: audio.path,
+                            name: audio.name,
+                            path: audio.path,
+                            type: 'file',
+                            handle: undefined as any // Will be set when loaded
+                          }}
+                          metadata={audio.metadata}
+                          directoryHandle={rootHandle}
+                          onFavoriteChange={async (isFavorite) => {
+                            if (!isFavorite) {
+                              const favs = await favoritesService.getAudioFavorites()
+                              setAudioFavorites(favs)
+                              if (selectedAudio?.path === audio.path) {
+                                setSelectedAudio(null)
                               }
-                            }}
-                          />
-                        )}
-                      </div>
-                    </button>
-                  ))
-                ) : (
-                  <p className="text-sm text-muted-foreground">No favorite tracks yet.</p>
-                )}
+                            }
+                          }}
+                        />
+                      )}
+                    </div>
+                  </button>
+                ))
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        {searchQuery ? 'No audio tracks match your search.' : 'No favorite tracks yet.'}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-
-            {/* Right Side: Player and Editor */}
-            <div className="flex-1 flex flex-col gap-4 overflow-y-auto p-4">
+          </ResizablePanel>
+          
+          <ResizableHandle />
+          
+          <ResizablePanel defaultSize={70}>
+            <div className="p-4">
               {(videoLoadError || audioLoadError) && (
-                <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
+                <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg mb-4">
                   {videoLoadError || audioLoadError}
                 </div>
               )}
-              
-              {/* Media Player Area */}
               {selectedVideo ? (
-                <div className="aspect-video bg-muted rounded flex items-center justify-center">
-                  {selectedVideo.type === 'youtube' ? (
-                    <YouTubeInitializer>
-                      <YouTubePlayer
-                        videoId={selectedVideo.id}
+                <div className="space-y-4">
+                  {/* Display video title at the top */}
+                  <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
+                    <h2 className="text-lg font-medium truncate">
+                      {selectedVideo.type === 'file'
+                        ? selectedVideo.name || selectedVideo.path
+                        : selectedVideo.title || `YouTube Video: ${selectedVideo.id}`}
+                    </h2>
+                  </div>
+                  <div className="aspect-video bg-muted rounded">
+                    {selectedVideo.type === 'youtube' ? (
+                      <YouTubeInitializer>
+                        <YouTubePlayer
+                          videoId={selectedVideo.id}
+                          className="w-full h-full rounded"
+                          onControlsReady={setVideoControls}
+                        />
+                      </YouTubeInitializer>
+                    ) : rootHandle ? (
+                      <VideoPlayer
+                        videoFile={videoFile}
+                        video={{
+                          type: 'file',
+                          id: selectedVideo.id,
+                          name: selectedVideo.name!,
+                          path: selectedVideo.path!,
+                        } as FileSystemVideo}
+                        directoryHandle={rootHandle}
                         className="w-full h-full rounded"
                         onControlsReady={setVideoControls}
                       />
-                    </YouTubeInitializer>
-                  ) : rootHandle ? (
-                    <VideoPlayer
-                      videoFile={videoFile}
-                      video={{
-                        type: 'file',
-                        id: selectedVideo.id,
-                        name: selectedVideo.name!,
-                        path: selectedVideo.path!,
-                      } as FileSystemVideo}
-                      directoryHandle={rootHandle}
-                      className="w-full h-full rounded"
-                      onControlsReady={setVideoControls}
-                    />
-                  ) : null}
+                    ) : null}
+                  </div>
                 </div>
               ) : selectedAudio ? (
-                <div className="bg-muted rounded">
-                  <AudioPlayer
-                    audioFile={{
-                      id: selectedAudio.path,
-                      type: 'file',
-                      name: selectedAudio.name,
-                      path: selectedAudio.path,
-                      handle: selectedAudio.handle,
-                      fileType: selectedAudio.fileType
-                    }}
-                  />
+                <div className="space-y-4">
+                  {/* Display audio title at the top */}
+                  <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
+                    <h2 className="text-lg font-medium truncate">
+                      {selectedAudio.name || selectedAudio.path}
+                    </h2>
+                  </div>
+                  <div className="bg-muted rounded">
+                    <AudioPlayer
+                      audioFile={{
+                        id: selectedAudio.path,
+                        type: 'file',
+                        name: selectedAudio.name,
+                        path: selectedAudio.path,
+                        handle: selectedAudio.handle,
+                        fileType: selectedAudio.fileType
+                      }}
+                    />
+                  </div>
                 </div>
               ) : (
-                <div className="aspect-video bg-muted rounded flex items-center justify-center">
-                  <p className="text-muted-foreground">Select a video or audio track from the list</p>
+                <div className="h-full flex items-center justify-center text-muted-foreground">
+                  Select a video or audio track from the list
                 </div>
               )}
             </div>
-          </div>
-        </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </main>
     </div>
   )

@@ -99,5 +99,16 @@ export const favoritesService = {
   async isAudioFavorite(audio: AudioFile): Promise<boolean> {
     const favorites = await this.getAudioFavorites()
     return favorites.some(fav => fav.path === audio.path)
+  },
+
+  // New helper methods to persist reordered favorites
+  async setVideoFavorites(favorites: StoredVideo[]) {
+    if (typeof window === 'undefined') return
+    localStorage.setItem(VIDEO_FAVORITES_KEY, JSON.stringify(favorites))
+  },
+
+  async setAudioFavorites(favorites: StoredAudioFile[]) {
+    if (typeof window === 'undefined') return
+    localStorage.setItem(AUDIO_FAVORITES_KEY, JSON.stringify(favorites))
   }
 }

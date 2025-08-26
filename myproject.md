@@ -50,3 +50,26 @@ Design and plan a Next.js application using Shadcn UI for managing and practicin
 ## Lessons Learned
 
 -   Decision: Use File System Access API for Phase 1 MVP for faster initial development, accepting the UX trade-off of re-selecting the folder each session. Migration to Tauri/Electron is possible later.
+## Persistence Strategy Plan (2025-08-26)
+
+### Current Findings
+- `directory-store.ts`: Zustand store, no persistence. Stores `FileSystemDirectoryHandle` which cannot be serialized.
+- `scales-store.ts`: Zustand store, no persistence. Manages user preferences (safe to persist).
+- `youtube-store.ts`: Already uses Zustand `persist`.
+
+### Decisions
+1. Use Zustand `persist` middleware for persistence.
+2. In `directory-store.ts`, persist only serializable values:
+   - Folder paths (string)
+   - Expanded folders
+   - Flags (`scanVideoFolderForAudio`)
+   - Re-request permission for `FileSystemDirectoryHandle` on reload.
+3. In `scales-store.ts`, persist all state (scale/chord selection, sound settings, sidebar state).
+4. Leave `youtube-store.ts` unchanged (already persistent).
+5. Refactor page components to rely on persisted store state instead of resetting on navigation.
+
+### Next Steps
+- Implement persistence in `directory-store.ts` and `scales-store.ts`.
+- Refactor `src/app/*/page.tsx` to consume persisted state.
+- Test navigation and reload persistence.
+- Document lessons learned.
