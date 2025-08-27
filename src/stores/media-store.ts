@@ -4,6 +4,12 @@ import type { VideoFile } from '@/services/file-system'
 import type { AudioFile } from '@/types/audio'
 import type { YouTubeVideo } from '@/types/video'
 
+// Types for markers filtering and sorting
+type ContentType = 'local' | 'youtube' | 'audio'
+type CompletionRange = 'all' | '0-25' | '26-50' | '51-75' | '76-100'
+type SortOrder = 'date' | 'name' | 'completion'
+type SortDirection = 'asc' | 'desc'
+
 interface MediaPlayerState {
   currentTime: number
   isPlaying: boolean
@@ -36,6 +42,11 @@ interface MarkersState {
   selectedContentPath: string | null
   selectedFile: string | null
   searchQuery: string
+  selectedTags: string[]
+  selectedTypes: ContentType[]
+  completionFilter: CompletionRange
+  sortOrder: SortOrder
+  sortDirection: SortDirection
 }
 
 interface RecentState {
@@ -98,6 +109,11 @@ interface MediaState {
   setMarkersSelectedContent: (path: string | null) => void
   setMarkersSelectedFile: (file: string | null) => void
   setMarkersSearchQuery: (query: string) => void
+  setMarkersSelectedTags: (tags: string[]) => void
+  setMarkersSelectedTypes: (types: ContentType[]) => void
+  setMarkersCompletionFilter: (filter: CompletionRange) => void
+  setMarkersSortOrder: (order: SortOrder) => void
+  setMarkersSortDirection: (direction: SortDirection) => void
   clearMarkersState: () => void
   
   // Actions for recent
@@ -150,7 +166,12 @@ const defaultYouTubeState: YouTubeState = {
 const defaultMarkersState: MarkersState = {
   selectedContentPath: null,
   selectedFile: null,
-  searchQuery: ''
+  searchQuery: '',
+  selectedTags: [],
+  selectedTypes: ['local', 'youtube', 'audio'],
+  completionFilter: 'all',
+  sortOrder: 'date',
+  sortDirection: 'desc'
 }
 
 const defaultRecentState: RecentState = {
@@ -305,6 +326,31 @@ export const useMediaStore = create<MediaState>()(
           markers: { ...state.markers, searchQuery: query }
         })),
 
+      setMarkersSelectedTags: (tags) =>
+        set((state) => ({
+          markers: { ...state.markers, selectedTags: tags }
+        })),
+
+      setMarkersSelectedTypes: (types) =>
+        set((state) => ({
+          markers: { ...state.markers, selectedTypes: types }
+        })),
+
+      setMarkersCompletionFilter: (filter) =>
+        set((state) => ({
+          markers: { ...state.markers, completionFilter: filter }
+        })),
+
+      setMarkersSortOrder: (order) =>
+        set((state) => ({
+          markers: { ...state.markers, sortOrder: order }
+        })),
+
+      setMarkersSortDirection: (direction) =>
+        set((state) => ({
+          markers: { ...state.markers, sortDirection: direction }
+        })),
+
       clearMarkersState: () =>
         set((state) => ({
           markers: { ...defaultMarkersState }
@@ -408,6 +454,11 @@ export const useMediaStore = create<MediaState>()(
           selectedContentPath: state.markers.selectedContentPath,
           selectedFile: state.markers.selectedFile,
           searchQuery: state.markers.searchQuery,
+          selectedTags: state.markers.selectedTags,
+          selectedTypes: state.markers.selectedTypes,
+          completionFilter: state.markers.completionFilter,
+          sortOrder: state.markers.sortOrder,
+          sortDirection: state.markers.sortDirection,
         },
         recent: {
           selectedVideo: state.recent.selectedVideo,

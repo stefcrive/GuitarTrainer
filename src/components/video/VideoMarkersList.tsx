@@ -78,20 +78,29 @@ export default function VideoSurfList(): React.ReactElement {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [selectedMarkerState, setSelectedMarkerState] = useState<VideoMarkerState | null>(null)
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null)
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [selectedTypes, setSelectedTypes] = useState<ContentType[]>(['local', 'youtube', 'audio'])
-  const [completionFilter, setCompletionFilter] = useState<CompletionRange>('all')
-  const [sortOrder, setSortOrder] = useState<SortOrder>('date')
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc') // desc = newest first, asc = oldest first
   const [videoControls, setVideoControls] = useState<VideoPlayerControls | null>(null)
   const directoryStore = useDirectoryStore()
   
   // Use global media store for search query and selected content persistence
   const {
-    markers: { searchQuery, selectedContentPath, selectedFile: persistedFile },
+    markers: { 
+      searchQuery, 
+      selectedContentPath, 
+      selectedFile: persistedFile,
+      selectedTags,
+      selectedTypes,
+      completionFilter,
+      sortOrder,
+      sortDirection
+    },
     setMarkersSearchQuery,
     setMarkersSelectedContent,
-    setMarkersSelectedFile
+    setMarkersSelectedFile,
+    setMarkersSelectedTags,
+    setMarkersSelectedTypes,
+    setMarkersCompletionFilter,
+    setMarkersSortOrder,
+    setMarkersSortDirection
   } = useMediaStore()
 
   // Update expanded paths when markers change
@@ -132,11 +141,10 @@ export default function VideoSurfList(): React.ReactElement {
 
   // Handle tag selection/deselection
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag)
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
-    )
+    const newTags = selectedTags.includes(tag)
+      ? selectedTags.filter(t => t !== tag)
+      : [...selectedTags, tag]
+    setMarkersSelectedTags(newTags)
   }
 
   // Filter markers by search query
@@ -409,11 +417,11 @@ export default function VideoSurfList(): React.ReactElement {
           <div className="h-full border-r bg-muted/30">
             <div className="p-4 space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Video Markers</h2>
+                <h2 className="text-xl font-semibold">Markers List</h2>
                 <div className="flex items-center gap-2">
                   <Select
                     value={sortOrder}
-                    onValueChange={(value: SortOrder) => setSortOrder(value)}
+                    onValueChange={(value: SortOrder) => setMarkersSortOrder(value)}
                   >
                     <SelectTrigger className="w-32">
                       <SelectValue />
@@ -427,7 +435,7 @@ export default function VideoSurfList(): React.ReactElement {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc')}
+                    onClick={() => setMarkersSortDirection(sortDirection === 'desc' ? 'asc' : 'desc')}
                     className="h-8 w-8"
                     title={sortDirection === 'desc' 
                       ? `${sortOrder === 'date' ? 'Newest first' : sortOrder === 'name' ? 'Z-A' : 'Highest first'} (click to reverse)`
@@ -459,7 +467,7 @@ export default function VideoSurfList(): React.ReactElement {
                 {/* Completion filter */}
                 <Select
                   value={completionFilter}
-                  onValueChange={(value: CompletionRange) => setCompletionFilter(value)}
+                  onValueChange={(value: CompletionRange) => setMarkersCompletionFilter(value)}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Filter by completion" />
@@ -487,11 +495,12 @@ export default function VideoSurfList(): React.ReactElement {
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-muted hover:bg-muted/80'
                       }`}
-                      onClick={() => setSelectedTypes(prev =>
-                        prev.includes(type as ContentType)
-                          ? prev.filter(t => t !== type as ContentType)
-                          : [...prev, type as ContentType]
-                      )}
+                      onClick={() => {
+                        const newTypes = selectedTypes.includes(type as ContentType)
+                          ? selectedTypes.filter(t => t !== type as ContentType)
+                          : [...selectedTypes, type as ContentType]
+                        setMarkersSelectedTypes(newTypes)
+                      }}
                     >
                       {label}
                     </button>
@@ -530,7 +539,7 @@ export default function VideoSurfList(): React.ReactElement {
                       ))}
                     </div>
                     <button
-                      onClick={() => setSelectedTags([])}
+                      onClick={() => setMarkersSelectedTags([])}
                       className="text-sm text-muted-foreground hover:text-foreground"
                     >
                       Clear all
