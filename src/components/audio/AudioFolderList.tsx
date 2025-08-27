@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { AudioFile, AudioMetadata } from '@/types/audio'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronRight, Folder, Music, Circle } from 'lucide-react'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { Button } from '@/components/ui/button'
 import { getAllAudioMetadata } from '@/services/audio-metadata'
-import { Circle } from 'lucide-react'
 
 interface AudioFolderListProps {
   audioFiles: AudioFile[]
@@ -75,16 +74,20 @@ function FolderItem({
     <div>
       {name && (
         <button
-          className="flex items-center w-full p-2 hover:bg-accent rounded"
+          className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
           style={{ paddingLeft }}
           onClick={() => isOpen ? collapseFolder(name) : expandFolder(name)}
         >
           {isOpen ? (
-            <ChevronDown className="h-4 w-4 mr-1" />
+            <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
           ) : (
-            <ChevronRight className="h-4 w-4 mr-1" />
+            <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
           )}
-          <span className="font-medium">{name}</span>
+          <Folder className="h-4 w-4 mr-2 text-purple-600" />
+          <span className="flex-1">{name}</span>
+          <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+            {content.audioFiles.length}
+          </span>
         </button>
       )}
       
@@ -146,20 +149,21 @@ function AudioFileItem({
 
   return (
     <div
-      className={`flex items-center justify-between w-full p-2 hover:bg-accent rounded text-left cursor-pointer ${
+      className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
         selected ? 'bg-accent text-accent-foreground' : ''
       }`}
       style={{ paddingLeft: `${(level + 1) * 16}px` }}
       onClick={() => onSelect(audio)}
     >
-      <span className="truncate flex items-center gap-2">
-        <span className="text-xs text-muted-foreground uppercase">
-          {audio.fileType}
-        </span>
-        {audio.name}
+      <div className="flex items-center gap-2 flex-1 min-w-0">
+        <Music className="h-4 w-4 text-purple-500 flex-shrink-0" />
+        <span className="truncate">{audio.name}</span>
         {hasMarkers && (
           <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
         )}
+      </div>
+      <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded uppercase flex-shrink-0">
+        {audio.fileType}
       </span>
     </div>
   )

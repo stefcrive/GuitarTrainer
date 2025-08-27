@@ -14,7 +14,7 @@ import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { Header } from '@/components/layout/Header'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
-import { Search } from 'lucide-react'
+import { Search, Video as VideoIcon, Folder } from 'lucide-react'
 import Link from 'next/link'
 
 async function getFileHandle(rootHandle: FileSystemDirectoryHandle, path: string) {
@@ -174,11 +174,19 @@ export default function VideosPage() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
-                    placeholder="Search videos..."
+                    placeholder="Search your videos..."
                     value={searchQuery}
                     onChange={(e) => setVideoSearchQuery(e.target.value)}
-                    className="pl-9"
+                    className="pl-9 h-10 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary/50 transition-colors"
                   />
+                </div>
+                
+                {/* Quick Stats */}
+                <div className="flex gap-2 text-xs">
+                  <div className="px-3 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg flex items-center gap-2">
+                    <VideoIcon className="h-3 w-3" />
+                    <span>{filteredVideos.length} Videos</span>
+                  </div>
                 </div>
 
                 {error && (
@@ -187,7 +195,7 @@ export default function VideosPage() {
                   </div>
                 )}
                 
-                <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
+                <div className="max-h-[calc(100vh-350px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
                   {filteredVideos.length > 0 ? (
                     <VideoFolderList
                       videos={filteredVideos}
@@ -196,9 +204,12 @@ export default function VideosPage() {
                       directoryHandle={rootHandle}
                     />
                   ) : (
-                    <p className="text-sm text-muted-foreground">
-                      {searchQuery ? 'No videos match your search.' : 'No videos found in the selected directory.'}
-                    </p>
+                    <div className="flex flex-col items-center justify-center py-8 px-4">
+                      <VideoIcon className="h-12 w-12 text-muted-foreground/50 mb-2" />
+                      <p className="text-sm text-muted-foreground text-center">
+                        {searchQuery ? 'No videos match your search.' : 'No videos found in the selected directory.'}
+                      </p>
+                    </div>
                   )}
                 </div>
               </div>

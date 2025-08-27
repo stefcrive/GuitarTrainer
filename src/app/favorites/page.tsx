@@ -19,7 +19,7 @@ import { fileSystemService } from '@/services/file-system'
 import { Header } from '@/components/layout/Header'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
-import { Search } from 'lucide-react'
+import { Search, Video as VideoIcon, Music, Youtube, Folder, Star, ChevronRight, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { Video, FileSystemVideo } from '@/types/video'
 
@@ -350,55 +350,77 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
           <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
             <div className="h-full border-r bg-muted/30">
               <div className="p-4 space-y-4">
-                <h2 className="text-xl font-semibold">Favorites</h2>
+                <h2 className="text-xl font-semibold mb-4">Favorites</h2>
                 
                 {/* Search Box */}
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
-                    placeholder="Search favorites..."
+                    placeholder="Search your favorites..."
                     value={searchQuery}
                     onChange={(e) => setFavoritesSearchQuery(e.target.value)}
-                    className="pl-9"
+                    className="pl-9 h-10 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary/50 transition-colors"
                   />
                 </div>
+                
+                {/* Quick Stats */}
+                <div className="flex gap-2 text-xs">
+                  <div className="px-3 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg flex items-center gap-2">
+                    <VideoIcon className="h-3 w-3" />
+                    <span>{filteredVideoFavorites.length} Videos</span>
+                  </div>
+                  <div className="px-3 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 rounded-lg flex items-center gap-2">
+                    <Music className="h-3 w-3" />
+                    <span>{filteredAudioFavorites.length} Audio</span>
+                  </div>
+                </div>
 
-                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-6">
+                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
                   {/* Favorite Videos */}
-                  <div className="flex flex-col gap-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-md font-medium tracking-tight">Videos</h3>
-                      <span className="text-sm text-muted-foreground">{filteredVideoFavorites.length} videos</span>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 mb-3">
+                      <VideoIcon className="h-5 w-5 text-blue-600" />
+                      <h3 className="text-lg font-semibold text-foreground">Videos</h3>
+                      <span className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full font-medium">{filteredVideoFavorites.length}</span>
                     </div>
 
                     {/* Local Videos (collapsible) */}
-                    <div className="border rounded">
+                    <div>
                       <button
-                        className="w-full text-left px-3 py-2 flex items-center justify-between hover:bg-muted/50"
+                        className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
                         onClick={() => setIsLocalVideosCollapsed(prev => !prev)}
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium">Local</span>
-                          <span className="text-sm text-muted-foreground">({fileVideos.length})</span>
-                        </div>
-                        <span className="text-sm">{isLocalVideosCollapsed ? '▸' : '▾'}</span>
+                        {isLocalVideosCollapsed ? (
+                          <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
+                        )}
+                        <Folder className="h-4 w-4 mr-2 text-blue-600" />
+                        <span className="flex-1">Local Videos</span>
+                        <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+                          {fileVideos.length}
+                        </span>
                       </button>
 
                       {!isLocalVideosCollapsed && (
-                        <div className="p-2 space-y-2">
+                        <div className="space-y-1">
                           {fileVideos.length > 0 ? (
                             fileVideos.map((video) => (
-                              <button
+                              <div
                                 key={video.path}
-                                className={`text-left p-2 border rounded hover:bg-gray-100 w-full ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                                className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                                style={{ paddingLeft: '32px' }}
                                 onClick={() => loadVideo(video)}
                               >
-                                <div className="flex items-center justify-between gap-2">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                  <VideoIcon className="h-4 w-4 text-blue-500 flex-shrink-0" />
                                   <VideoTitle
                                     title={video.name || video.path!}
                                     videoPath={video.path}
                                     className="truncate"
                                   />
+                                </div>
+                                <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                                   {rootHandle && (
                                     <VideoFavoriteButton
                                       video={{
@@ -421,43 +443,54 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                                     />
                                   )}
                                 </div>
-                              </button>
+                              </div>
                             ))
                           ) : (
-                            <p className="text-sm text-muted-foreground px-2">No local videos</p>
+                            <div className="flex items-center justify-center py-6">
+                              <p className="text-sm text-muted-foreground">No local videos</p>
+                            </div>
                           )}
                         </div>
                       )}
                     </div>
 
                     {/* YouTube Videos (collapsible) */}
-                    <div className="border rounded">
+                    <div>
                       <button
-                        className="w-full text-left px-3 py-2 flex items-center justify-between hover:bg-muted/50"
+                        className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
                         onClick={() => setIsYouTubeCollapsed(prev => !prev)}
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium">YouTube</span>
-                          <span className="text-sm text-muted-foreground">({youtubeVideos.length})</span>
-                        </div>
-                        <span className="text-sm">{isYouTubeCollapsed ? '▸' : '▾'}</span>
+                        {isYouTubeCollapsed ? (
+                          <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
+                        )}
+                        <Youtube className="h-4 w-4 mr-2 text-red-500" />
+                        <span className="flex-1">YouTube Videos</span>
+                        <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+                          {youtubeVideos.length}
+                        </span>
                       </button>
 
                       {!isYouTubeCollapsed && (
-                        <div className="p-2 space-y-2">
+                        <div className="space-y-1">
                           {youtubeVideos.length > 0 ? (
                             youtubeVideos.map((video) => (
-                              <button
+                              <div
                                 key={video.id}
-                                className={`text-left p-2 border rounded hover:bg-gray-100 w-full ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                                className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                                style={{ paddingLeft: '32px' }}
                                 onClick={() => loadVideo(video)}
                               >
-                                <div className="flex items-center justify-between gap-2">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                  <Youtube className="h-4 w-4 text-red-500 flex-shrink-0" />
                                   <VideoTitle
                                     title={video.title || `YouTube: ${video.id}`}
                                     videoId={video.id}
                                     className="truncate"
                                   />
+                                </div>
+                                <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                                   <VideoFavoriteButton
                                     video={{
                                       type: 'youtube' as const,
@@ -475,10 +508,12 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                                     }}
                                   />
                                 </div>
-                              </button>
+                              </div>
                             ))
                           ) : (
-                            <p className="text-sm text-muted-foreground px-2">No YouTube favorites</p>
+                            <div className="flex items-center justify-center py-6">
+                              <p className="text-sm text-muted-foreground">No YouTube favorites</p>
+                            </div>
                           )}
                         </div>
                       )}
@@ -486,34 +521,41 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                   </div>
 
                   {/* Favorite Audio Tracks grouped into collapsible folders */}
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-md font-medium tracking-tight">Audio</h3>
-                      <span className="text-sm text-muted-foreground">{filteredAudioFavorites.length} tracks</span>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Music className="h-5 w-5 text-purple-600" />
+                      <h3 className="text-lg font-semibold text-foreground">Audio</h3>
+                      <span className="px-2 py-1 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full font-medium">{filteredAudioFavorites.length}</span>
                     </div>
 
                     {Object.keys(groupedAudio).length > 0 ? (
                       Object.entries(groupedAudio).map(([groupName, audios]) => {
                         const isOpen = !!openAudioGroups[groupName]
                         return (
-                          <div key={groupName} className="border rounded">
+                          <div key={groupName}>
                             <button
-                              className="w-full text-left px-3 py-2 flex items-center justify-between hover:bg-muted/50"
+                              className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
                               onClick={() => setOpenAudioGroups(prev => ({ ...prev, [groupName]: !prev[groupName] }))}
                             >
-                              <div className="flex items-center gap-2">
-                                <span className="font-medium">{groupName}</span>
-                                <span className="text-sm text-muted-foreground">({audios.length})</span>
-                              </div>
-                              <span className="text-sm">{isOpen ? '▾' : '▸'}</span>
+                              {isOpen ? (
+                                <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
+                              ) : (
+                                <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
+                              )}
+                              <Folder className="h-4 w-4 mr-2 text-purple-600" />
+                              <span className="flex-1">{groupName}</span>
+                              <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+                                {audios.length}
+                              </span>
                             </button>
 
                             {isOpen && (
-                              <div className="p-2 space-y-2">
+                              <div className="space-y-1">
                                 {audios.map((audio) => (
-                                  <button
+                                  <div
                                     key={audio.path}
-                                    className={`text-left p-2 border rounded hover:bg-gray-100 w-full ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
+                                    className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
+                                    style={{ paddingLeft: '32px' }}
                                     onClick={async () => {
                                       // Clear any selected video first
                                       setSelectedVideo(null)
@@ -611,8 +653,11 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                                       }
                                     }}
                                   >
-                                    <div className="flex items-center justify-between gap-2">
+                                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                                      <Music className="h-4 w-4 text-purple-500 flex-shrink-0" />
                                       <span className="truncate">{audio.name}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                                       {rootHandle && (
                                         <AudioFavoriteButton
                                           audio={{
@@ -636,7 +681,7 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                                         />
                                       )}
                                     </div>
-                                  </button>
+                                  </div>
                                 ))}
                               </div>
                             )}
@@ -644,7 +689,10 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                         )
                       })
                     ) : (
-                      <p className="text-sm text-muted-foreground px-2">{searchQuery ? 'No audio tracks match your search.' : 'No favorite tracks yet.'}</p>
+                      <div className="flex flex-col items-center justify-center py-8 px-4">
+                        <Music className="h-12 w-12 text-muted-foreground/50 mb-2" />
+                        <p className="text-sm text-muted-foreground text-center">{searchQuery ? 'No audio tracks match your search.' : 'No favorite tracks yet.'}</p>
+                      </div>
                     )}
                   </div>
                 </div>

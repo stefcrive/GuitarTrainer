@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { VideoFile } from '@/services/file-system'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronRight, Folder, Video as VideoIcon } from 'lucide-react'
 import { FavoriteButton } from './FavoriteButton'
 import { VideoTitle } from './VideoTitle'
 import { useDirectoryStore } from '@/stores/directory-store'
@@ -74,16 +74,20 @@ function FolderItem({
     <div>
       {name && (
         <button
-          className="flex items-center w-full p-2 hover:bg-accent rounded"
+          className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
           style={{ paddingLeft }}
           onClick={() => isOpen ? collapseFolder(name) : expandFolder(name)}
         >
           {isOpen ? (
-            <ChevronDown className="h-4 w-4 mr-1" />
+            <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
           ) : (
-            <ChevronRight className="h-4 w-4 mr-1" />
+            <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
           )}
-          <span className="font-medium">{name}</span>
+          <Folder className="h-4 w-4 mr-2 text-blue-600" />
+          <span className="flex-1">{name}</span>
+          <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
+            {content.videos.length}
+          </span>
         </button>
       )}
       
@@ -93,18 +97,21 @@ function FolderItem({
           {content.videos.map(video => (
             <div
               key={video.path}
-              className={`flex items-center justify-between w-full p-2 hover:bg-accent rounded text-left cursor-pointer ${
+              className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
                 selectedVideo?.path === video.path ? 'bg-accent text-accent-foreground' : ''
               }`}
               style={{ paddingLeft: `${(level + 1) * 16}px` }}
               onClick={() => onVideoSelect(video)}
             >
-              <VideoTitle
-                title={video.name}
-                videoPath={video.path}
-                className="truncate"
-              />
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <VideoIcon className="h-4 w-4 text-blue-500 flex-shrink-0" />
+                <VideoTitle
+                  title={video.name}
+                  videoPath={video.path}
+                  className="truncate"
+                />
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                 <FavoriteButton
                   video={video}
                   directoryHandle={directoryHandle}

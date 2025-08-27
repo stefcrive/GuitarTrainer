@@ -87,11 +87,11 @@ export default function VideoSurfList(): React.ReactElement {
       searchQuery, 
       selectedContentPath, 
       selectedFile: persistedFile,
-      selectedTags,
-      selectedTypes,
-      completionFilter,
-      sortOrder,
-      sortDirection
+      selectedTags = [],
+      selectedTypes = ['local', 'youtube', 'audio'],
+      completionFilter = 'all',
+      sortOrder = 'date',
+      sortDirection = 'desc'
     },
     setMarkersSearchQuery,
     setMarkersSelectedContent,

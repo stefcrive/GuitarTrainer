@@ -10,7 +10,7 @@ import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/componen
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
 import { AudioFile } from '@/types/audio'
-import { Search } from 'lucide-react'
+import { Search, Music } from 'lucide-react'
 
 async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): Promise<AudioFile[]> {
   const audioFiles: AudioFile[] = []
@@ -129,14 +129,22 @@ export default function AudioPage() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
-                    placeholder="Search audio files..."
+                    placeholder="Search your audio files..."
                     value={searchQuery}
                     onChange={(e) => setAudioSearchQuery(e.target.value)}
-                    className="pl-9"
+                    className="pl-9 h-10 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary/50 transition-colors"
                   />
                 </div>
+                
+                {/* Quick Stats */}
+                <div className="flex gap-2 text-xs">
+                  <div className="px-3 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 rounded-lg flex items-center gap-2">
+                    <Music className="h-3 w-3" />
+                    <span>{filteredAudioFiles.length} Audio Files</span>
+                  </div>
+                </div>
 
-                <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
+                <div className="max-h-[calc(100vh-350px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
                   {loading ? (
                     <div className="animate-pulse space-y-2">
                       {[...Array(5)].map((_, i) => (
@@ -144,9 +152,12 @@ export default function AudioPage() {
                       ))}
                     </div>
                   ) : filteredAudioFiles.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">
-                      {searchQuery ? 'No audio files match your search.' : 'No audio files found. Add some audio files to your selected directories.'}
-                    </p>
+                    <div className="flex flex-col items-center justify-center py-8 px-4">
+                      <Music className="h-12 w-12 text-muted-foreground/50 mb-2" />
+                      <p className="text-sm text-muted-foreground text-center">
+                        {searchQuery ? 'No audio files match your search.' : 'No audio files found. Add some audio files to your selected directories.'}
+                      </p>
+                    </div>
                   ) : (
                     <AudioFolderList
                       audioFiles={filteredAudioFiles}
