@@ -182,9 +182,18 @@ export class AudioRecorder {
         this.mediaRecorder!.onstop = () => {
           // Get the original mime type used for recording
           const mimeType = this.mediaRecorder?.mimeType || 'audio/wav'
+          console.log('Recording stopped, chunks:', this.chunks.length)
+          
+          if (this.chunks.length === 0) {
+            console.warn('No audio data was captured during recording')
+            this.mediaRecorder = null
+            resolve(null)
+            return
+          }
           
           // Combine chunks preserving the original format
           const audioBlob = new Blob(this.chunks, { type: mimeType })
+          console.log('Created audio blob of size:', audioBlob.size, 'bytes')
           this.chunks = []
           
           // Stop all remaining tracks
@@ -223,8 +232,14 @@ export class AudioRecorder {
           // Clear the timeout
           this.stopTimeout = null
           
-          if (!this.isRecording()) {
-            resolve(null)
+          // Instead of resolving null, trigger proper stop so onstop handler creates blob
+          if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+            try {
+              this.mediaRecorder.stop()
+            } catch (e) {
+              console.error('Error stopping media recorder during auto-stop:', e)
+              resolve(null)
+            }
           }
         }, recordingDuration + 500) // Add a small buffer to ensure we capture the full loop
       })
@@ -256,16 +271,20 @@ export class AudioRecorder {
         this.mediaRecorder = null
       }
       
-      // Provide specific error messages
+      // Provide specific error messages but don't throw
+      let errorMessage = 'Failed to start system audio recording. Please try again.';
+      
       if (error instanceof Error) {
         if (error.name === 'NotAllowedError') {
-          throw new Error('Screen sharing was denied. Please allow screen sharing and enable system audio to record.')
+          errorMessage = 'Screen sharing was denied. Please allow screen sharing and enable system audio to record.';
         } else if (error.name === 'NotReadableError') {
-          throw new Error('Could not access system audio. Please ensure system audio sharing is enabled.')
+          errorMessage = 'Could not access system audio. Please ensure system audio sharing is enabled.';
         }
       }
       
-      throw new Error('Failed to start system audio recording. Please try again.')
+      console.error(errorMessage);
+      // Return null instead of throwing to handle the error gracefully
+      return null;
     }
   }
 
@@ -283,10 +302,31 @@ export class AudioRecorder {
         console.log('Recording stopped')
         // Get the original mime type used for recording
         const mimeType = this.mediaRecorder?.mimeType || 'audio/wav'
-        console.log('Recording mime type:', mimeType) // Debug mime type
+        console.log('Recording mime type:', mimeType, 'chunks:', this.chunks.length)
+        
+        if (this.chunks.length === 0) {
+          console.warn('No audio data was captured during recording')
+          
+          // Stop all remaining tracks
+          const tracks = this.mediaRecorder?.stream.getTracks()
+          tracks?.forEach(track => {
+            console.log(`Stopping track: ${track.kind}`, track);
+            track.stop()
+          })
+          
+          // Clear the timeout if it exists
+          if (this.stopTimeout) {
+            clearTimeout(this.stopTimeout)
+            this.stopTimeout = null
+          }
+          
+          this.mediaRecorder = null
+          return resolve(null)
+        }
         
         // Combine chunks preserving the original format
         const audioBlob = new Blob(this.chunks, { type: mimeType })
+        console.log('Created audio blob of size:', audioBlob.size, 'bytes')
         this.chunks = []
         
         // Stop all remaining tracks
@@ -303,11 +343,17 @@ export class AudioRecorder {
         }
 
         this.mediaRecorder = null
-        console.log('Created audio blob:', audioBlob)
         resolve(audioBlob)
       }
 
-      this.mediaRecorder.stop()
+      try {
+        this.mediaRecorder.stop()
+      } catch (error) {
+        console.error('Error stopping media recorder:', error)
+        this.mediaRecorder = null
+        this.chunks = []
+        resolve(null)
+      }
     })
   }
 
@@ -323,6 +369,13 @@ export class AudioRecorder {
    */
   static async downloadAudio(blob: Blob, filename: string, useMP3: boolean = false): Promise<void> {
     try {
+      console.log('Downloading audio blob of size:', blob.size, 'bytes')
+      
+      if (blob.size === 0) {
+        console.error('Cannot download empty audio blob')
+        throw new Error('No audio data available for download')
+      }
+      
       // Create standard quality audio context
       const audioContext = new AudioContext({
         sampleRate: 44100,  // CD quality
@@ -331,65 +384,88 @@ export class AudioRecorder {
 
       // Read and decode the audio data
       const arrayBuffer = await blob.arrayBuffer()
-      const audioData = await audioContext.decodeAudioData(arrayBuffer)
-
-      // Create offline context for processing
-      const offlineContext = new OfflineAudioContext({
-        numberOfChannels: 2,
-        length: audioData.length,
-        sampleRate: 44100    // CD quality
-      })
-
-      // Create audio processing nodes
-      const source = offlineContext.createBufferSource()
-      source.buffer = audioData
-
-      // Add compressor for consistent volume
-      const compressor = offlineContext.createDynamicsCompressor()
-      compressor.threshold.value = -24
-      compressor.knee.value = 10
-      compressor.ratio.value = 4
-      compressor.attack.value = 0.005
-      compressor.release.value = 0.250
-
-      // Add gain to maintain proper levels
-      const gain = offlineContext.createGain()
-      gain.gain.value = 1.2
-
-      // Create analyzer for level monitoring
-      const analyzer = offlineContext.createAnalyser()
-      analyzer.fftSize = 2048
       
-      // Connect the processing chain
-      source
-        .connect(compressor)
-        .connect(gain)
-        .connect(analyzer)
-        .connect(offlineContext.destination)
-
-      // Start the source
-      source.start(0)
-
-      // Render and convert to WAV
-      const renderedBuffer = await offlineContext.startRendering()
-      const wavArrayBuffer = audioBufferToWav(renderedBuffer)
+      if (arrayBuffer.byteLength === 0) {
+        console.error('Empty array buffer from blob')
+        throw new Error('No audio data available for download')
+      }
       
-      // Create the final WAV file
-      const outputBlob = new Blob([wavArrayBuffer], { type: 'audio/wav' })
-      filename = filename.replace(/\.(webm|mp3)$/, '.wav')
+      try {
+        // Try to decode the audio data
+        const audioData = await audioContext.decodeAudioData(arrayBuffer)
 
-      const url = URL.createObjectURL(outputBlob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = filename
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
-      
+        // Create offline context for processing
+        const offlineContext = new OfflineAudioContext({
+          numberOfChannels: 2,
+          length: audioData.length,
+          sampleRate: 44100    // CD quality
+        })
+
+        // Create audio processing nodes
+        const source = offlineContext.createBufferSource()
+        source.buffer = audioData
+
+        // Add compressor for consistent volume
+        const compressor = offlineContext.createDynamicsCompressor()
+        compressor.threshold.value = -24
+        compressor.knee.value = 10
+        compressor.ratio.value = 4
+        compressor.attack.value = 0.005
+        compressor.release.value = 0.250
+
+        // Add gain to maintain proper levels
+        const gain = offlineContext.createGain()
+        gain.gain.value = 1.2
+
+        // Create analyzer for level monitoring
+        const analyzer = offlineContext.createAnalyser()
+        analyzer.fftSize = 2048
+        
+        // Connect the processing chain
+        source
+          .connect(compressor)
+          .connect(gain)
+          .connect(analyzer)
+          .connect(offlineContext.destination)
+
+        // Start the source
+        source.start(0)
+
+        // Render and convert to WAV
+        const renderedBuffer = await offlineContext.startRendering()
+        const wavArrayBuffer = audioBufferToWav(renderedBuffer)
+        
+        // Create the final WAV file
+        const outputBlob = new Blob([wavArrayBuffer], { type: 'audio/wav' })
+        filename = filename.replace(/\.(webm|mp3)$/, '.wav')
+
+        console.log('Processed audio file ready for download:', filename, 'size:', outputBlob.size, 'bytes')
+        
+        const url = URL.createObjectURL(outputBlob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = filename
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+      } catch (decodeError) {
+        console.error('Failed to decode audio data:', decodeError)
+        
+        // Fallback: download the original blob directly if decoding fails
+        console.log('Falling back to direct download of original audio blob')
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = filename
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+      }
     } catch (error) {
       console.error('Error converting audio:', error)
-      throw new Error('Failed to convert and download audio file')
+      alert('Failed to convert and download audio file: ' + (error instanceof Error ? error.message : 'Unknown error'))
     }
   }
 }

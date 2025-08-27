@@ -82,13 +82,15 @@ export function AudioMarkers({
         if (recording && recording.markerId === marker.id) {
           const audioBlob = await audioRecorderRef.current.stopRecording()
           
-          // Update state with recorded audio
-          const completedMarkers = markers.map(m =>
-            m.id === marker.id
-              ? { ...m, isRecording: false, audioBlob: audioBlob || undefined }
-              : m
-          )
+          // Immediately download if blob exists
+          if (audioBlob) {
+            const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
+            await AudioRecorder.downloadAudio(audioBlob, filename)
+          }
           
+          const completedMarkers = markers.map(m =>
+            m.id === marker.id ? { ...m, isRecording: false } : m
+          )
           onMarkersChange(completedMarkers)
           currentRecordingRef.current = null
           return
@@ -116,9 +118,37 @@ export function AudioMarkers({
         promise
       }
       
+      // Set up a listener for the promise to handle auto-stop
+      promise.then(async audioBlob => {
+        console.log('Recording completed automatically:', marker.id)
+        if (audioBlob) {
+          const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
+          await AudioRecorder.downloadAudio(audioBlob, filename)
+          
+          const completedMarkers = markers.map((m: AudioMarker) =>
+            m.id === marker.id ? { ...m, isRecording: false } : m
+          )
+          onMarkersChange(completedMarkers)
+        } else {
+          const resetMarkers = markers.map((m: AudioMarker) =>
+            m.id === marker.id ? { ...m, isRecording: false } : m
+          )
+          onMarkersChange(resetMarkers)
+        }
+        currentRecordingRef.current = null
+      }).catch(error => {
+        console.error('Recording promise rejected:', error)
+        const resetMarkers = markers.map((m: AudioMarker) =>
+          m.id === marker.id ? { ...m, isRecording: false } : m
+        )
+        onMarkersChange(resetMarkers)
+        currentRecordingRef.current = null
+        setRecordingError('Recording failed: ' + (error.message || 'Unknown error'))
+      })
+      
     } catch (error) {
       console.error('Failed to start recording:', error)
-      setRecordingError('Recording failed')
+      setRecordingError('Recording failed: ' + (error instanceof Error ? error.message : 'Unknown error'))
       currentRecordingRef.current = null
 
       // Reset recording state
@@ -265,41 +295,6 @@ export function AudioMarkers({
                           {formatTime(marker.startTime)} - {formatTime(marker.endTime)}
                         </Button>
                         
-                        {/* Record Audio Button moved next to marker time */}
-                        {marker.audioBlob ? (
-                          <Button
-                            variant="secondary"
-                            size="sm"
-                            className="h-8 px-3 text-sm"
-                            onClick={() => startRecording(marker)}
-                          >
-                            <MicIcon className="h-3 w-3 mr-1" />
-                            Re-record
-                          </Button>
-                        ) : marker.isRecording ? (
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            className="h-8 px-3 text-sm animate-pulse"
-                            onClick={() => startRecording(marker)}
-                          >
-                            <MicIcon className="h-3 w-3 mr-1" />
-                            Click to Stop
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-8 px-3 text-sm"
-                            onClick={() => startRecording(marker)}
-                          >
-                            <MicIcon className="h-3 w-3 mr-1" />
-                            Record
-                          </Button>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
                         <Button
                           variant={marker.isLooping ? 'default' : 'outline'}
                           size="sm"
@@ -318,6 +313,45 @@ export function AudioMarkers({
                             </>
                           )}
                         </Button>
+
+                        {/* Record / Stop & Export + Cancel Buttons now positioned here */}
+                        {!marker.isRecording ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 px-3 text-sm"
+                            onClick={() => startRecording(marker)}
+                          >
+                            <MicIcon className="h-3 w-3 mr-1" />
+                            Record
+                          </Button>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              className="h-8 px-3 text-sm animate-pulse"
+                              onClick={() => startRecording(marker)}
+                            >
+                              <MicIcon className="h-3 w-3 mr-1" />
+                              Stop & Export
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 px-3 text-sm"
+                              onClick={async () => {
+                                await audioRecorderRef.current.stopRecording()
+                                const resetMarkers = markers.map(m =>
+                                  m.id === marker.id ? { ...m, isRecording: false } : m
+                                )
+                                onMarkersChange(resetMarkers)
+                              }}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        )}
 
                         <Button
                           variant="ghost"
@@ -355,39 +389,7 @@ export function AudioMarkers({
 
                     {/* Audio Recording Controls */}
                     <div className="flex items-center gap-2 flex-wrap">
-                      {marker.audioBlob && (
-                        <>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-8 px-3 text-sm"
-                            onClick={() => {
-                              if (marker.audioBlob) {
-                                const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
-                                AudioRecorder.downloadAudio(marker.audioBlob, filename)
-                              }
-                            }}
-                          >
-                            <DownloadIcon className="h-3 w-3 mr-2" />
-                            Download Audio
-                          </Button>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            className="h-8 px-3 text-sm"
-                            onClick={() => {
-                              onMarkersChange(
-                                markers.map(m =>
-                                  m.id === marker.id ? { ...m, audioBlob: undefined } : m
-                                )
-                              )
-                            }}
-                          >
-                            <TrashIcon className="h-3 w-3 mr-2" />
-                            Delete Recording
-                          </Button>
-                        </>
-                      )}
+                      {/* Removed extra download/delete buttons for simplicity */}
                     </div>
 
                     {/* Second row: Completion (read-only in normal view) */}

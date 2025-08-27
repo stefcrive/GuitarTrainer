@@ -19,7 +19,7 @@ import { Search } from 'lucide-react'
 
 type ContentType = 'local' | 'youtube' | 'audio'
 type CompletionRange = typeof COMPLETION_RANGES[number]['value']
-type SortOrder = 'date' | 'name'
+type SortOrder = 'date' | 'name' | 'completion'
 
 const COMPLETION_RANGES = [
   { value: 'all' as const, label: 'All markers' },
@@ -158,20 +158,31 @@ export default function VideoSurfList(): React.ReactElement {
         const titleA = getContentTitle(a.content).toLowerCase()
         const titleB = getContentTitle(b.content).toLowerCase()
         return titleA.localeCompare(titleB)
-      } else {
-        // Sort by date added (most recent first)
-        // For local files, we can use the first marker's creation time as a proxy
-        // For localStorage items, we'll use the path as a fallback
-        const getDateScore = (markerState: MarkerWithContent) => {
-          if (markerState.markers.length > 0) {
-            // Use the first marker's start time as a proxy for when content was first marked
-            return markerState.markers[0].startTime
-          }
-          return 0
-        }
-        
-        return getDateScore(b) - getDateScore(a)
       }
+      
+      if (sortOrder === 'completion') {
+        // Sort by average completion degree across markers for each content (highest first)
+        const getCompletionScore = (markerState: MarkerWithContent) => {
+          const completions = markerState.markers.map(m => m.completionDegree || 0)
+          if (completions.length === 0) return 0
+          const sum = completions.reduce((s, v) => s + v, 0)
+          return sum / completions.length
+        }
+        return getCompletionScore(b) - getCompletionScore(a)
+      }
+
+      // Default: Sort by date added (most recent first)
+      // For local files, we can use the first marker's start time as a proxy
+      // For localStorage items, we'll use the path as a fallback
+      const getDateScore = (markerState: MarkerWithContent) => {
+        if (markerState.markers.length > 0) {
+          // Use the first marker's start time as a proxy for when content was first marked
+          return markerState.markers[0].startTime
+        }
+        return 0
+      }
+      
+      return getDateScore(b) - getDateScore(a)
     })
   }
 
@@ -381,6 +392,7 @@ export default function VideoSurfList(): React.ReactElement {
                   <SelectContent>
                     <SelectItem value="date">By Date</SelectItem>
                     <SelectItem value="name">By Name</SelectItem>
+                    <SelectItem value="completion">By Completion</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -481,7 +493,7 @@ export default function VideoSurfList(): React.ReactElement {
                 )}
 
                 {/* Markers list */}
-                <div className="space-y-1.5 max-h-[calc(100vh-400px)] overflow-y-auto">
+                <div className="space-y-2 max-h-[calc(100vh-400px)] overflow-y-auto">
               {sortMarkers(markers
                 .filter(markerState => {
                    // Filter by type
@@ -511,8 +523,15 @@ export default function VideoSurfList(): React.ReactElement {
 
                    return true
                  }))
-                .map(markerState => (
-                  <div key={markerState.content.path} className="border rounded p-2">
+                .map(markerState => {
+                  // Calculate overall progress for this content
+                  const totalMarkers = markerState.markers.length
+                  const avgCompletion = totalMarkers > 0 
+                    ? markerState.markers.reduce((sum, m) => sum + (m.completionDegree || 0), 0) / totalMarkers 
+                    : 0
+                  
+                  return (
+                  <div key={markerState.content.path} className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow">
                     <button
                       onClick={() => setExpandedPaths(prev => {
                         const newSet = new Set(prev)
@@ -523,29 +542,42 @@ export default function VideoSurfList(): React.ReactElement {
                         }
                         return newSet
                       })}
-                      className="w-full hover:bg-muted/50 rounded p-1 transition-colors"
+                      className="w-full hover:bg-muted/30 rounded-lg p-3 transition-colors"
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
                           <ChevronIcon
-                            className={`h-4 w-4 transition-transform ${
+                            className={`h-4 w-4 text-muted-foreground transition-transform ${
                               expandedPaths.has(markerState.content.path) ? 'rotate-90' : ''
                             }`}
                           />
-                          <span className={`px-2 py-0.5 text-xs rounded ${
-                            markerState.content.type === 'youtube' ? 'bg-red-100 text-red-700' :
-                            markerState.content.type === 'audio' ? 'bg-blue-100 text-blue-700' :
-                            'bg-gray-100 text-gray-700'
+                          <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${
+                            markerState.content.type === 'youtube' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' :
+                            markerState.content.type === 'audio' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400' :
+                            'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
                           }`}>
                             {markerState.content.type === 'youtube' ? 'YouTube' :
                              markerState.content.type === 'audio' ? 'Audio' : 'Video'}
                           </span>
-                          <h3 className="font-medium">{getContentTitle(markerState.content)}</h3>
+                          <div className="text-left">
+                            <h3 className="font-medium text-sm">{getContentTitle(markerState.content)}</h3>
+                            <p className="text-xs text-muted-foreground">
+                              {markerState.markers.length} marker{markerState.markers.length !== 1 ? 's' : ''} • {avgCompletion.toFixed(0)}% avg completion
+                            </p>
+                          </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-muted-foreground">
-                            {markerState.annotations.length} marker{markerState.annotations.length !== 1 ? 's' : ''}
-                          </span>
+                          {/* Overall completion progress bar */}
+                          <div className="w-16 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                            <div 
+                              className={`h-full rounded-full transition-all duration-300 ${
+                                markerState.content.type === 'youtube' ? 'bg-red-500' :
+                                markerState.content.type === 'audio' ? 'bg-purple-500' :
+                                'bg-blue-500'
+                              }`}
+                              style={{ width: `${avgCompletion}%` }}
+                            />
+                          </div>
                           <ChevronIcon
                             className={`h-4 w-4 text-muted-foreground transition-transform ${
                               expandedPaths.has(markerState.content.path) ? 'rotate-90' : ''
@@ -554,110 +586,154 @@ export default function VideoSurfList(): React.ReactElement {
                         </div>
                       </div>
                     </button>
-                    {expandedPaths.has(markerState.content.path) &&
-                      markerState.markers
-                        .filter(marker => {
-                           // Get annotation if it exists
-                           const annotation = markerState.annotations.find(a => a.markerId === marker.id)
+                    {expandedPaths.has(markerState.content.path) && (
+                      <div className="px-3 pb-3">
+                        <div className="space-y-2">
+                        {markerState.markers
+                          .filter(marker => {
+                             // Get annotation if it exists
+                             const annotation = markerState.annotations.find(a => a.markerId === marker.id)
 
-                           // Skip markers that are 100% complete
-                           const completion = marker.completionDegree || 0
-                           if (completion === 100) return false
-                            
-                           // Filter by completion range
-                           if (completionFilter !== 'all') {
-                              const [min, max] = completionFilter.split('-').map(Number)
-                              if (completion < min || completion > max) return false
-                           }
-
-                           // Filter by tags only if tags are selected and marker has annotation
-                           if (selectedTags.length > 0 && annotation) {
-                              return selectedTags.every(tag => annotation.tags.includes(tag))
-                           }
-
-                           return true
-                         })
-                         .map(marker => {
-                           const annotation = markerState.annotations.find(a => a.markerId === marker.id)
-
-                          // Calculate marker time and completion
-                          const markerTime = markerState.content.type === 'audio'
-                            ? `${formatTime(marker.startTime)} - ${formatTime(marker.endTime)}`
-                            : formatTime(marker.startTime)
-                          const completion = marker.completionDegree || 0
-
-                        return (
-                          <button
-                            key={marker.id}
-                            className={`w-full text-left py-1 px-2 hover:bg-muted rounded group text-sm ${
-                              marker.id === selectedMarkerId ? 'bg-muted' : ''
-                            }`}
-                            onClick={async () => {
-                              setSelectedContent(markerState.content)
-                              setSelectedMarkerId(marker.id)
-                              setSelectedMarkerState(markerState)
+                             // Skip markers that are 100% complete
+                             const completion = marker.completionDegree || 0
+                             if (completion === 100) return false
                               
-                              // First set the file to null to trigger cleanup
-                              setSelectedFile(null)
-                              
-                              // Wait a brief moment for cleanup
-                              await new Promise(resolve => setTimeout(resolve, 100))
-                              
-                              // Then load the new file
-                              if (markerState.content.file) {
-                                try {
-                                  const pathParts = markerState.content.file.path.split('/')
-                                  const fileName = pathParts.pop()
-                                  let currentHandle = directoryStore.rootHandle
+                             // Filter by completion range
+                             if (completionFilter !== 'all') {
+                                const [min, max] = completionFilter.split('-').map(Number)
+                                if (completion < min || completion > max) return false
+                             }
+
+                             // Filter by tags only if tags are selected and marker has annotation
+                             if (selectedTags.length > 0 && annotation) {
+                                return selectedTags.every(tag => annotation.tags.includes(tag))
+                             }
+
+                             return true
+                           })
+                           .map((marker, markerIndex) => {
+                             const annotation = markerState.annotations.find(a => a.markerId === marker.id)
+
+                            // Calculate marker time and completion
+                            const markerTime = markerState.content.type === 'audio'
+                              ? `${formatTime(marker.startTime)} - ${formatTime(marker.endTime)}`
+                              : formatTime(marker.startTime)
+                            const completion = marker.completionDegree || 0
+
+                          return (
+                            <div
+                              key={marker.id}
+                              className={`border border-gray-200 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors ${
+                                marker.id === selectedMarkerId ? 'border-primary bg-primary/5' : ''
+                              }`}
+                            >
+                              <button
+                                className="w-full text-left p-3"
+                                onClick={async () => {
+                                  setSelectedContent(markerState.content)
+                                  setSelectedMarkerId(marker.id)
+                                  setSelectedMarkerState(markerState)
                                   
-                                  for (const part of pathParts) {
-                                    if (!currentHandle) break
-                                    currentHandle = await currentHandle.getDirectoryHandle(part)
-                                  }
+                                  // Store selected content path for persistence
+                                  setMarkersSelectedContent(markerState.content.path)
                                   
-                                  if (currentHandle && fileName) {
-                                    const fileHandle = await currentHandle.getFileHandle(fileName)
-                                    const file = await fileHandle.getFile()
-                                    setSelectedFile(file)
+                                  // First set the file to null to trigger cleanup
+                                  setSelectedFile(null)
+                                  
+                                  // Wait a brief moment for cleanup
+                                  await new Promise(resolve => setTimeout(resolve, 100))
+                                  
+                                  // Then load the new file
+                                  if (markerState.content.file) {
+                                    try {
+                                      const pathParts = markerState.content.file.path.split('/')
+                                      const fileName = pathParts.pop()
+                                      let currentHandle = directoryStore.rootHandle
+                                      
+                                      for (const part of pathParts) {
+                                        if (!currentHandle) break
+                                        currentHandle = await currentHandle.getDirectoryHandle(part)
+                                      }
+                                      
+                                      if (currentHandle && fileName) {
+                                        const fileHandle = await currentHandle.getFileHandle(fileName)
+                                        const file = await fileHandle.getFile()
+                                        setSelectedFile(file)
+                                      }
+                                    } catch (error) {
+                                      console.error('Error loading file:', error)
+                                    }
                                   }
-                                } catch (error) {
-                                  console.error('Error loading file:', error)
-                                }
-                              }
-                            }}
-                          >
-                            <div className="text-xs text-muted-foreground">
-                              {markerTime}
-                            </div>
-                            <div className="space-y-1">
-                              <div>{annotation?.text || 'Untitled Marker'}</div>
-                              <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden">
-                                <div
-                                  className="h-full bg-primary transition-all duration-300"
-                                  style={{ width: `${completion}%` }}
-                                />
-                              </div>
-                              <div className="text-xs text-muted-foreground">
-                                {completion}% complete
-                              </div>
-                              {annotation?.tags && annotation.tags.length > 0 && (
-                                <div className="flex gap-1 flex-wrap">
-                                  {annotation.tags.map(tag => (
-                                    <span
-                                      key={tag}
-                                      className="px-1 py-0.5 bg-primary/10 text-primary text-xs rounded"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
+                                }}
+                              >
+                                <div className="flex items-start gap-3">
+                                  {/* Marker number badge */}
+                                  <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white ${
+                                    markerState.content.type === 'youtube' ? 'bg-red-500' :
+                                    markerState.content.type === 'audio' ? 'bg-purple-500' :
+                                    'bg-blue-500'
+                                  }`}>
+                                    {markerIndex + 1}
+                                  </div>
+                                  
+                                  <div className="flex-1 min-w-0">
+                                    {/* Time and title row */}
+                                    <div className="flex items-center justify-between mb-2">
+                                      <span className="text-xs font-medium text-muted-foreground bg-muted px-2 py-1 rounded">
+                                        {markerTime}
+                                      </span>
+                                      <span className={`text-xs font-medium px-2 py-1 rounded ${
+                                        completion >= 75 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
+                                        completion >= 50 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' :
+                                        completion >= 25 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400' :
+                                        'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+                                      }`}>
+                                        {completion}%
+                                      </span>
+                                    </div>
+                                    
+                                    {/* Marker title/annotation */}
+                                    <div className="text-sm font-medium mb-2 line-clamp-2">
+                                      {annotation?.text || 'Untitled Marker'}
+                                    </div>
+                                    
+                                    {/* Progress bar */}
+                                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
+                                      <div
+                                        className={`h-full rounded-full transition-all duration-300 ${
+                                          markerState.content.type === 'youtube' ? 'bg-red-500' :
+                                          markerState.content.type === 'audio' ? 'bg-purple-500' :
+                                          'bg-blue-500'
+                                        }`}
+                                        style={{ width: `${completion}%` }}
+                                      />
+                                    </div>
+                                    
+                                    {/* Tags */}
+                                    {annotation?.tags && annotation.tags.length > 0 && (
+                                      <div className="flex gap-1 flex-wrap">
+                                        {annotation.tags.map(tag => (
+                                          <span
+                                            key={tag}
+                                            className="px-1.5 py-0.5 bg-primary/10 text-primary text-xs rounded-full font-medium"
+                                          >
+                                            {tag}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
-                              )}
+                              </button>
                             </div>
-                          </button>
-                        )
-                      })}
+                          )
+                        })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ))}
+                  )
+                })}
                 </div>
               </div>
             </div>

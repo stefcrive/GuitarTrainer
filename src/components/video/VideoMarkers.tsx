@@ -41,11 +41,13 @@ export function VideoMarkers({
           console.log('Stopping existing recording for marker:', marker.id)
           const audioBlob = await audioRecorderRef.current.stopRecording()
           
-          // Update state with recorded audio
+          if (audioBlob) {
+            const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
+            await AudioRecorder.downloadAudio(audioBlob, filename)
+          }
+          
           const completedMarkers = markerState.markers.map((m: TimeMarker) =>
-            m.id === marker.id
-              ? { ...m, isRecording: false, audioBlob: audioBlob || undefined }
-              : m
+            m.id === marker.id ? { ...m, isRecording: false } : m
           )
           
           setMarkerState({
@@ -84,22 +86,19 @@ export function VideoMarkers({
       }
       
       // Set up a listener for the promise to handle auto-stop
-      promise.then(audioBlob => {
+      promise.then(async audioBlob => {
         console.log('Recording completed automatically:', marker.id)
         if (audioBlob) {
-          // Update state with recorded audio
+          const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
+          await AudioRecorder.downloadAudio(audioBlob, filename)
           const completedMarkers = markerState.markers.map((m: TimeMarker) =>
-            m.id === marker.id
-              ? { ...m, isRecording: false, audioBlob: audioBlob }
-              : m
+            m.id === marker.id ? { ...m, isRecording: false } : m
           )
-          
           setMarkerState({
             ...markerState,
             markers: completedMarkers
           })
         } else {
-          // Reset recording state if no audio was captured
           const resetMarkers = markerState.markers.map((m: TimeMarker) =>
             m.id === marker.id ? { ...m, isRecording: false } : m
           )
@@ -363,22 +362,66 @@ export function VideoMarkers({
                   <div className="space-y-3">
                     {/* First row: Time and primary action buttons */}
                     <div className="flex items-center justify-between flex-wrap gap-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 px-3 text-sm font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
-                        onClick={() => {
-                          videoControls.seek(marker.startTime)
-                          setMarkerState({
-                            ...markerState,
-                            activeMarkerId: marker.id
-                          })
-                        }}
-                      >
-                        <ClockIcon className="h-4 w-4 mr-2" />
-                        {formatTime(marker.startTime)} - {formatTime(marker.endTime)}
-                      </Button>
-                      
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-3 text-sm font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+                          onClick={() => {
+                            videoControls.seek(marker.startTime)
+                            setMarkerState({
+                              ...markerState,
+                              activeMarkerId: marker.id
+                            })
+                          }}
+                        >
+                          <ClockIcon className="h-4 w-4 mr-2" />
+                          {formatTime(marker.startTime)} - {formatTime(marker.endTime)}
+                        </Button>
+
+                        {/* Record / Stop / Cancel Buttons directly next to marker time */}
+                        {!marker.isRecording ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 text-sm"
+                            onClick={() => startRecording(marker)}
+                          >
+                            <MicIcon className="h-3 w-3 mr-1" />
+                            Record
+                          </Button>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              className="h-8 text-sm animate-pulse"
+                              onClick={() => startRecording(marker)}
+                            >
+                              <MicIcon className="h-3 w-3 mr-1" />
+                              Stop & Export
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 text-sm"
+                              onClick={async () => {
+                                await audioRecorderRef.current.stopRecording()
+                                const resetMarkers = markerState.markers.map(m =>
+                                  m.id === marker.id ? { ...m, isRecording: false } : m
+                                )
+                                setMarkerState({
+                                  ...markerState,
+                                  markers: resetMarkers
+                                })
+                              }}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+
                       <div className="flex items-center gap-2">
                         {/* Loop Button */}
                         <Button
@@ -399,39 +442,6 @@ export function VideoMarkers({
                             </>
                           )}
                         </Button>
-
-                        {/* Record Audio Button - Moved next to Loop button */}
-                        {marker.audioBlob ? (
-                          <Button
-                            variant="secondary"
-                            size="sm"
-                            className="h-8 text-sm"
-                            onClick={() => startRecording(marker)}
-                          >
-                            <MicIcon className="h-3 w-3 mr-1" />
-                            Re-record
-                          </Button>
-                        ) : marker.isRecording ? (
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            className="h-8 text-sm animate-pulse"
-                            onClick={() => startRecording(marker)}
-                          >
-                            <MicIcon className="h-3 w-3 mr-1" />
-                            Recording...
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-8 text-sm"
-                            onClick={() => startRecording(marker)}
-                          >
-                            <MicIcon className="h-3 w-3 mr-1" />
-                            Record
-                          </Button>
-                        )}
 
                         {/* Edit Button */}
                         <Button
@@ -478,50 +488,7 @@ export function VideoMarkers({
                       </div>
                     </div>
 
-                    {/* Additional recording controls when there's a recording */}
-                    {marker.audioBlob && (
-                      <div className="flex items-center gap-2 mt-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="h-8 px-3 text-xs"
-                          onClick={() => downloadAudio(marker)}
-                        >
-                          <DownloadIcon className="h-3 w-3 mr-1" />
-                          Download
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="h-8 px-3 text-xs text-destructive hover:bg-destructive/10"
-                          onClick={() => {
-                            setMarkerState({
-                              ...markerState,
-                              markers: markerState.markers.map(m =>
-                                m.id === marker.id ? { ...m, audioBlob: undefined } : m
-                              )
-                            })
-                          }}
-                        >
-                          <TrashIcon className="h-3 w-3 mr-1" />
-                          Delete Recording
-                        </Button>
-                      </div>
-                    )}
-
-                    {/* Cancel button for recording */}
-                    {marker.isRecording && (
-                      <div className="flex items-center gap-2 mt-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="h-8 px-3 text-xs"
-                          onClick={() => cancelRecording(marker)}
-                        >
-                          Cancel Recording
-                        </Button>
-                      </div>
-                    )}
+                    {/* Simplified: removed Download/Delete controls, Cancel shown inline above */}
 
                     {/* Display existing annotation when not editing */}
                     {!editingMarkerId && annotation && (
