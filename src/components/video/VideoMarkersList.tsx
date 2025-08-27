@@ -6,16 +6,17 @@ import { useMediaStore } from '@/stores/media-store'
 import { markersService } from '@/services/markers'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
 import { fileSystemService, type VideoFile, type AudioFile } from '@/services/file-system'
 import type { VideoMarkerState, VideoPlayerControls } from '@/types/video'
 import { VideoPlayer } from './VideoPlayer'
 import { YouTubePlayer } from '../youtube/YouTubePlayer'
 import { AudioPlayer } from '../audio/AudioPlayer'
-import { VideoMarkers } from './VideoMarkers'
 import { youtubeApi } from '@/services/youtube-api'
 import { getAudioMetadata } from '@/services/audio-metadata'
-import { Search } from 'lucide-react'
+import { Search, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react'
+
 
 type ContentType = 'local' | 'youtube' | 'audio'
 type CompletionRange = typeof COMPLETION_RANGES[number]['value']
@@ -81,6 +82,7 @@ export default function VideoSurfList(): React.ReactElement {
   const [selectedTypes, setSelectedTypes] = useState<ContentType[]>(['local', 'youtube', 'audio'])
   const [completionFilter, setCompletionFilter] = useState<CompletionRange>('all')
   const [sortOrder, setSortOrder] = useState<SortOrder>('date')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc') // desc = newest first, asc = oldest first
   const [videoControls, setVideoControls] = useState<VideoPlayerControls | null>(null)
   const directoryStore = useDirectoryStore()
   
@@ -97,12 +99,17 @@ export default function VideoSurfList(): React.ReactElement {
     setExpandedPaths(new Set(markers.map(marker => marker.content.path)))
   }, [markers])
 
-  // Effect to handle seeking when video controls become available
+  // Effect to handle seeking when video controls become available or marker changes
   useEffect(() => {
     if (videoControls && selectedMarkerId && selectedMarkerState) {
       const marker = selectedMarkerState.markers.find(m => m.id === selectedMarkerId)
       if (marker) {
-        videoControls.seek(marker.startTime)
+        // Small delay to ensure player is ready, especially for new content
+        const timeoutId = setTimeout(() => {
+          videoControls.seek(marker.startTime)
+        }, 100)
+        
+        return () => clearTimeout(timeoutId)
       }
     }
   }, [videoControls, selectedMarkerId, selectedMarkerState])
@@ -151,38 +158,59 @@ export default function VideoSurfList(): React.ReactElement {
     return titleMatch || annotationMatch
   }
 
-  // Sort markers by selected order
+  // Sort markers by selected order and direction
   const sortMarkers = (markers: MarkerWithContent[]): MarkerWithContent[] => {
     return [...markers].sort((a, b) => {
+      let result = 0
+      
       if (sortOrder === 'name') {
         const titleA = getContentTitle(a.content).toLowerCase()
         const titleB = getContentTitle(b.content).toLowerCase()
-        return titleA.localeCompare(titleB)
-      }
-      
-      if (sortOrder === 'completion') {
-        // Sort by average completion degree across markers for each content (highest first)
+        result = titleA.localeCompare(titleB)
+      } else if (sortOrder === 'completion') {
+        // Sort by average completion degree across markers for each content
         const getCompletionScore = (markerState: MarkerWithContent) => {
           const completions = markerState.markers.map(m => m.completionDegree || 0)
           if (completions.length === 0) return 0
           const sum = completions.reduce((s, v) => s + v, 0)
           return sum / completions.length
         }
-        return getCompletionScore(b) - getCompletionScore(a)
-      }
-
-      // Default: Sort by date added (most recent first)
-      // For local files, we can use the first marker's start time as a proxy
-      // For localStorage items, we'll use the path as a fallback
-      const getDateScore = (markerState: MarkerWithContent) => {
-        if (markerState.markers.length > 0) {
-          // Use the first marker's start time as a proxy for when content was first marked
-          return markerState.markers[0].startTime
+        const scoreA = getCompletionScore(a)
+        const scoreB = getCompletionScore(b)
+        result = scoreB - scoreA // Higher scores first by default
+      } else {
+        // Default: Sort by date added
+        // Use the most recent marker creation time for each content
+        const getDateScore = (markerState: MarkerWithContent) => {
+          if (markerState.markers.length > 0) {
+            // Find the most recent marker creation timestamp
+            const timestamps = markerState.markers
+              .map(m => m.createdAt || 0)
+              .filter(t => t > 0)
+            
+            if (timestamps.length > 0) {
+              return Math.max(...timestamps)
+            }
+            
+            // Fallback: Use annotation timestamps if no marker timestamps
+            const annotationTimestamps = markerState.annotations
+              .map(a => a.timestamp || 0)
+              .filter(t => t > 0)
+            
+            if (annotationTimestamps.length > 0) {
+              return Math.max(...annotationTimestamps)
+            }
+          }
+          return 0
         }
-        return 0
+        
+        const dateA = getDateScore(a)
+        const dateB = getDateScore(b)
+        result = dateB - dateA // More recent first by default
       }
       
-      return getDateScore(b) - getDateScore(a)
+      // Apply sort direction
+      return sortDirection === 'desc' ? result : -result
     })
   }
 
@@ -382,19 +410,37 @@ export default function VideoSurfList(): React.ReactElement {
             <div className="p-4 space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold">Video Markers</h2>
-                <Select
-                  value={sortOrder}
-                  onValueChange={(value: SortOrder) => setSortOrder(value)}
-                >
-                  <SelectTrigger className="w-32">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="date">By Date</SelectItem>
-                    <SelectItem value="name">By Name</SelectItem>
-                    <SelectItem value="completion">By Completion</SelectItem>
-                  </SelectContent>
-                </Select>
+                <div className="flex items-center gap-2">
+                  <Select
+                    value={sortOrder}
+                    onValueChange={(value: SortOrder) => setSortOrder(value)}
+                  >
+                    <SelectTrigger className="w-32">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="date">By Date</SelectItem>
+                      <SelectItem value="name">By Name</SelectItem>
+                      <SelectItem value="completion">By Completion</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc')}
+                    className="h-8 w-8"
+                    title={sortDirection === 'desc' 
+                      ? `${sortOrder === 'date' ? 'Newest first' : sortOrder === 'name' ? 'Z-A' : 'Highest first'} (click to reverse)`
+                      : `${sortOrder === 'date' ? 'Oldest first' : sortOrder === 'name' ? 'A-Z' : 'Lowest first'} (click to reverse)`
+                    }
+                  >
+                    {sortDirection === 'desc' ? (
+                      <ArrowDown className="h-4 w-4" />
+                    ) : (
+                      <ArrowUp className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
               </div>
               
               {/* Search Box */}
@@ -630,6 +676,9 @@ export default function VideoSurfList(): React.ReactElement {
                               <button
                                 className="w-full text-left p-3"
                                 onClick={async () => {
+                                  // If we're selecting the same content, seek immediately
+                                  const isSameContent = selectedContent?.path === markerState.content.path
+                                  
                                   setSelectedContent(markerState.content)
                                   setSelectedMarkerId(marker.id)
                                   setSelectedMarkerState(markerState)
@@ -637,31 +686,39 @@ export default function VideoSurfList(): React.ReactElement {
                                   // Store selected content path for persistence
                                   setMarkersSelectedContent(markerState.content.path)
                                   
-                                  // First set the file to null to trigger cleanup
-                                  setSelectedFile(null)
+                                  // If same content and video controls available, seek immediately
+                                  if (isSameContent && videoControls) {
+                                    videoControls.seek(marker.startTime)
+                                  }
                                   
-                                  // Wait a brief moment for cleanup
-                                  await new Promise(resolve => setTimeout(resolve, 100))
-                                  
-                                  // Then load the new file
-                                  if (markerState.content.file) {
-                                    try {
-                                      const pathParts = markerState.content.file.path.split('/')
-                                      const fileName = pathParts.pop()
-                                      let currentHandle = directoryStore.rootHandle
-                                      
-                                      for (const part of pathParts) {
-                                        if (!currentHandle) break
-                                        currentHandle = await currentHandle.getDirectoryHandle(part)
+                                  // If different content, load the new file first
+                                  if (!isSameContent) {
+                                    // First set the file to null to trigger cleanup
+                                    setSelectedFile(null)
+                                    
+                                    // Wait a brief moment for cleanup
+                                    await new Promise(resolve => setTimeout(resolve, 100))
+                                    
+                                    // Then load the new file
+                                    if (markerState.content.file) {
+                                      try {
+                                        const pathParts = markerState.content.file.path.split('/')
+                                        const fileName = pathParts.pop()
+                                        let currentHandle = directoryStore.rootHandle
+                                        
+                                        for (const part of pathParts) {
+                                          if (!currentHandle) break
+                                          currentHandle = await currentHandle.getDirectoryHandle(part)
+                                        }
+                                        
+                                        if (currentHandle && fileName) {
+                                          const fileHandle = await currentHandle.getFileHandle(fileName)
+                                          const file = await fileHandle.getFile()
+                                          setSelectedFile(file)
+                                        }
+                                      } catch (error) {
+                                        console.error('Error loading file:', error)
                                       }
-                                      
-                                      if (currentHandle && fileName) {
-                                        const fileHandle = await currentHandle.getFileHandle(fileName)
-                                        const file = await fileHandle.getFile()
-                                        setSelectedFile(file)
-                                      }
-                                    } catch (error) {
-                                      console.error('Error loading file:', error)
                                     }
                                   }
                                 }}
@@ -757,6 +814,8 @@ export default function VideoSurfList(): React.ReactElement {
                     video={selectedContent.file as VideoFile}
                     onControlsReady={setVideoControls}
                     directoryHandle={directoryStore.rootHandle || undefined}
+                    selectedMarkerId={selectedMarkerId}
+                    onMarkerSelect={setSelectedMarkerId}
                   />
                 )}
                 {selectedContent.type === 'youtube' && selectedContent.youtubeId && (
@@ -770,6 +829,8 @@ export default function VideoSurfList(): React.ReactElement {
                   <AudioPlayer
                     audioFile={selectedContent.file as AudioFile}
                     onControlsReady={setVideoControls}
+                    selectedMarkerId={selectedMarkerId}
+                    onMarkerSelect={setSelectedMarkerId}
                   />
                 )}
               </div>

@@ -174,7 +174,8 @@ export function VideoMarkers({
       startTime: currentTime,
       endTime: Math.min(currentTime + 10, duration),
       isLooping: false,
-      completionDegree: 0
+      completionDegree: 0,
+      createdAt: Date.now() // Add creation timestamp
     }
 
     setMarkerState({
@@ -347,12 +348,22 @@ export function VideoMarkers({
                 <div
                   key={marker.id}
                   className={cn(
-                    'relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md',
+                    'relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md cursor-pointer',
                     marker.id === markerState.activeMarkerId 
                       ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20 shadow-sm' 
-                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600',
-                    !hasAnnotation && 'border-dashed'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   )}
+                  onClick={(e) => {
+                    // Only handle clicks on the container itself, not on buttons
+                    if (e.target === e.currentTarget || e.target instanceof HTMLElement && !e.target.closest('button')) {
+                      videoControls.seek(marker.startTime)
+                      videoControls.play()
+                      setMarkerState({
+                        ...markerState,
+                        activeMarkerId: marker.id
+                      })
+                    }
+                  }}
                 >
                   {/* Marker Number Badge */}
                   <div className="absolute -top-2 -left-2 w-6 h-6 bg-blue-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
@@ -367,7 +378,8 @@ export function VideoMarkers({
                           variant="ghost"
                           size="sm"
                           className="h-8 px-3 text-sm font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation()
                             videoControls.seek(marker.startTime)
                             setMarkerState({
                               ...markerState,
@@ -385,7 +397,10 @@ export function VideoMarkers({
                             variant="outline"
                             size="sm"
                             className="h-8 text-sm"
-                            onClick={() => startRecording(marker)}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              startRecording(marker)
+                            }}
                           >
                             <MicIcon className="h-3 w-3 mr-1" />
                             Record
@@ -396,7 +411,10 @@ export function VideoMarkers({
                               variant="destructive"
                               size="sm"
                               className="h-8 text-sm animate-pulse"
-                              onClick={() => startRecording(marker)}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                startRecording(marker)
+                              }}
                             >
                               <MicIcon className="h-3 w-3 mr-1" />
                               Stop & Export
@@ -405,7 +423,8 @@ export function VideoMarkers({
                               variant="outline"
                               size="sm"
                               className="h-8 text-sm"
-                              onClick={async () => {
+                              onClick={async (e) => {
+                                e.stopPropagation()
                                 await audioRecorderRef.current.stopRecording()
                                 const resetMarkers = markerState.markers.map(m =>
                                   m.id === marker.id ? { ...m, isRecording: false } : m
@@ -428,7 +447,10 @@ export function VideoMarkers({
                           variant={marker.isLooping ? 'default' : 'outline'}
                           size="sm"
                           className="h-8 min-w-16 text-sm"
-                          onClick={() => toggleLoop(marker.id)}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            toggleLoop(marker.id)
+                          }}
                         >
                           {marker.isLooping ? (
                             <>
@@ -448,7 +470,10 @@ export function VideoMarkers({
                           variant="ghost"
                           size="sm"
                           className="h-8 px-3 text-sm"
-                          onClick={() => setEditingMarkerId(editingMarkerId === marker.id ? null : marker.id)}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setEditingMarkerId(editingMarkerId === marker.id ? null : marker.id)
+                          }}
                         >
                           {editingMarkerId === marker.id ? (
                             <>
@@ -468,7 +493,10 @@ export function VideoMarkers({
                           variant="ghost"
                           size="sm"
                           className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
-                          onClick={() => handleMarkerDelete(marker.id)}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleMarkerDelete(marker.id)
+                          }}
                         >
                           <TrashIcon className="h-4 w-4" />
                         </Button>
@@ -519,7 +547,10 @@ export function VideoMarkers({
 
                   {/* Expanded Edit Section */}
                   {editingMarkerId === marker.id && (
-                    <div className="space-y-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div 
+                      className="space-y-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <MarkerTimeEditor
                         marker={marker}
                         maxDuration={videoControls.getDuration()}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import type { AudioMarker, AudioAnnotation } from '@/types/audio'
@@ -35,6 +35,8 @@ interface AudioMarkersProps {
   onMarkersChange: (markers: AudioMarker[]) => void
   onAnnotationsChange: (annotations: AudioAnnotation[]) => void
   className?: string
+  externalActiveMarkerId?: string | null
+  onActiveMarkerIdChange?: (markerId: string | null) => void
 }
 
 export function AudioMarkers({
@@ -43,12 +45,21 @@ export function AudioMarkers({
   annotations,
   onMarkersChange,
   onAnnotationsChange,
-  className
+  className,
+  externalActiveMarkerId,
+  onActiveMarkerIdChange
 }: AudioMarkersProps) {
   const [isAddingAnnotation, setIsAddingAnnotation] = useState(false)
   const [editingMarkerId, setEditingMarkerId] = useState<string | null>(null)
   const [editingAnnotationId, setEditingAnnotationId] = useState<string | null>(null)
-  const [activeMarkerId, setActiveMarkerId] = useState<string | null>(null)
+  const [activeMarkerId, setActiveMarkerId] = useState<string | null>(externalActiveMarkerId || null)
+  
+  // Sync external activeMarkerId with internal state (only when external is provided)
+  useEffect(() => {
+    if (externalActiveMarkerId !== undefined && externalActiveMarkerId !== activeMarkerId) {
+      setActiveMarkerId(externalActiveMarkerId)
+    }
+  }, [externalActiveMarkerId, activeMarkerId])
   
   const audioRecorderRef = useRef<AudioRecorder>(new AudioRecorder())
   const currentRecordingRef = useRef<{
@@ -67,7 +78,8 @@ export function AudioMarkers({
       startTime: currentTime,
       endTime: Math.min(currentTime + 10, duration), // Default 10 second interval
       isLooping: false,
-      completionDegree: 0 // Initialize with 0% completion
+      completionDegree: 0, // Initialize with 0% completion
+      createdAt: Date.now() // Add creation timestamp
     }
 
     onMarkersChange([...markers, newMarker])
@@ -267,11 +279,20 @@ export function AudioMarkers({
                 <div
                   key={marker.id}
                   className={cn(
-                    'relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md',
+                    'relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md cursor-pointer',
                     marker.id === activeMarkerId 
                       ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20 shadow-sm' 
                       : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   )}
+                  onClick={(e) => {
+                    // Only handle clicks on the container itself, not on buttons
+                    if (e.target === e.currentTarget || e.target instanceof HTMLElement && !e.target.closest('button')) {
+                      audioControls.seek(marker.startTime)
+                      audioControls.play()
+                      setActiveMarkerId(marker.id)
+                      onActiveMarkerIdChange?.(marker.id)
+                    }
+                  }}
                 >
                   {/* Marker Number Badge */}
                   <div className="absolute -top-2 -left-2 w-6 h-6 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
@@ -286,9 +307,11 @@ export function AudioMarkers({
                           variant="ghost"
                           size="sm"
                           className="h-8 px-3 text-sm font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation()
                             audioControls.seek(marker.startTime)
                             setActiveMarkerId(marker.id)
+                            onActiveMarkerIdChange?.(marker.id)
                           }}
                         >
                           <ClockIcon className="h-4 w-4 mr-2" />
@@ -299,7 +322,10 @@ export function AudioMarkers({
                           variant={marker.isLooping ? 'default' : 'outline'}
                           size="sm"
                           className="h-8 min-w-16 text-sm"
-                          onClick={() => toggleLoop(marker.id)}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            toggleLoop(marker.id)
+                          }}
                         >
                           {marker.isLooping ? (
                             <>
@@ -320,7 +346,10 @@ export function AudioMarkers({
                             variant="outline"
                             size="sm"
                             className="h-8 px-3 text-sm"
-                            onClick={() => startRecording(marker)}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              startRecording(marker)
+                            }}
                           >
                             <MicIcon className="h-3 w-3 mr-1" />
                             Record
@@ -331,7 +360,10 @@ export function AudioMarkers({
                               variant="destructive"
                               size="sm"
                               className="h-8 px-3 text-sm animate-pulse"
-                              onClick={() => startRecording(marker)}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                startRecording(marker)
+                              }}
                             >
                               <MicIcon className="h-3 w-3 mr-1" />
                               Stop & Export
@@ -340,7 +372,8 @@ export function AudioMarkers({
                               variant="outline"
                               size="sm"
                               className="h-8 px-3 text-sm"
-                              onClick={async () => {
+                              onClick={async (e) => {
+                                e.stopPropagation()
                                 await audioRecorderRef.current.stopRecording()
                                 const resetMarkers = markers.map(m =>
                                   m.id === marker.id ? { ...m, isRecording: false } : m
@@ -357,10 +390,13 @@ export function AudioMarkers({
                           variant="ghost"
                           size="sm"
                           className="h-8 px-3 text-sm"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation()
                             const willClose = editingMarkerId === marker.id
                             setEditingMarkerId(willClose ? null : marker.id)
-                            setActiveMarkerId(willClose ? null : marker.id)
+                            const newActiveId = willClose ? null : marker.id
+                            setActiveMarkerId(newActiveId)
+                            onActiveMarkerIdChange?.(newActiveId)
                           }}
                         >
                           {editingMarkerId === marker.id ? (
@@ -380,7 +416,10 @@ export function AudioMarkers({
                           variant="ghost"
                           size="sm"
                           className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
-                          onClick={() => handleMarkerDelete(marker.id)}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleMarkerDelete(marker.id)
+                          }}
                         >
                           <TrashIcon className="h-4 w-4" />
                         </Button>
@@ -434,7 +473,10 @@ export function AudioMarkers({
 
                   {/* Expanded Edit Section */}
                   {editingMarkerId === marker.id && (
-                    <div className="space-y-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div 
+                      className="space-y-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <MarkerTimeEditor
                         marker={marker}
                         maxDuration={audioControls.getDuration()}

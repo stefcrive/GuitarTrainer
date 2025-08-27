@@ -376,7 +376,8 @@ export function YouTubePlayer({
                     id: crypto.randomUUID(),
                     startTime: currentTime,
                     endTime: Math.min(currentTime + 10, duration),
-                    isLooping: false
+                    isLooping: false,
+                    createdAt: Date.now() // Add creation timestamp
                   }
                   setMarkerState({
                     ...markerState,

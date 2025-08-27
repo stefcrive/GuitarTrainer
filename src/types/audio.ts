@@ -23,6 +23,7 @@ export interface AudioMarker {
   isRecording?: boolean
   audioBlob?: Blob
   completionDegree?: number // Track completion percentage
+  createdAt?: number // timestamp when marker was created
 }
 
 export interface AudioAnnotation {

@@ -6,6 +6,7 @@ export interface TimeMarker {
   audioBlob?: Blob // recorded audio data
   isRecording?: boolean
   completionDegree?: number // 0-100 percentage of completion
+  createdAt?: number // timestamp when marker was created
 }
 
 export interface VideoAnnotation {

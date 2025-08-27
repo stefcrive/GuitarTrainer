@@ -17,6 +17,8 @@ interface VideoPlayerProps {
   onControlsReady?: (controls: VideoPlayerControls) => void
   onPrevVideo?: () => void
   onNextVideo?: () => void
+  selectedMarkerId?: string | null
+  onMarkerSelect?: (markerId: string | null) => void
 }
 
 export function VideoPlayer({
@@ -26,7 +28,9 @@ export function VideoPlayer({
   className,
   onControlsReady,
   onPrevVideo,
-  onNextVideo
+  onNextVideo,
+  selectedMarkerId,
+  onMarkerSelect
 }: VideoPlayerProps) {
   const [videoData, setVideoData] = useState<{ url: string; type: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -259,7 +263,8 @@ export function VideoPlayer({
               id: crypto.randomUUID(),
               startTime: currentTime,
               endTime: Math.min(currentTime + 10, duration),
-              isLooping: false
+              isLooping: false,
+              createdAt: Date.now() // Add creation timestamp
             }
         
             setMarkerState({
@@ -272,8 +277,17 @@ export function VideoPlayer({
 
         <VideoMarkers
           videoControls={videoControls}
-          markerState={markerState}
-          setMarkerState={setMarkerState}
+          markerState={{
+            ...markerState,
+            activeMarkerId: selectedMarkerId || markerState.activeMarkerId
+          }}
+          setMarkerState={(newState) => {
+            setMarkerState(newState)
+            // Notify parent about active marker changes
+            if (onMarkerSelect && newState.activeMarkerId !== markerState.activeMarkerId) {
+              onMarkerSelect(newState.activeMarkerId)
+            }
+          }}
           className="mt-4"
         />
       </div>

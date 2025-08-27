@@ -15,11 +15,13 @@ import { AudioMarkers } from './AudioMarkers'
 interface AudioPlayerProps {
   audioFile: AudioFile
   onControlsReady?: (controls: VideoPlayerControls) => void
+  selectedMarkerId?: string | null
+  onMarkerSelect?: (markerId: string | null) => void
 }
 
 const PLAYBACK_SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 
-export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
+export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMarkerSelect }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -401,6 +403,8 @@ export function AudioPlayer({ audioFile, onControlsReady }: AudioPlayerProps) {
           setAnnotations(newAnnotations)
           await saveMetadata({ annotations: newAnnotations })
         }}
+        externalActiveMarkerId={selectedMarkerId}
+        onActiveMarkerIdChange={onMarkerSelect}
         className="mb-4"
       />
 
