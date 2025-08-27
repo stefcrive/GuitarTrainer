@@ -7,6 +7,9 @@ import { VideoControls } from '../video/VideoControls'
 import type { VideoPlayerControls } from '@/types/video'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { youtubeApi } from '@/services/youtube-api'
+import { useFloatingPlayer } from '@/contexts/floating-player-context'
+import { Button } from '@/components/ui/button'
+import { ExternalLink } from 'lucide-react'
 
 interface YouTubePlayerProps {
   videoId: string
@@ -38,6 +41,9 @@ export function YouTubePlayer({
 
   // Use video markers with YouTube video ID
   const { markerState, setMarkerState, isLoaded } = useVideoMarkers(`youtube:${videoId}`)
+  
+  // Use floating player context
+  const { openPlayer } = useFloatingPlayer()
 
   // Initialize YouTube player
   useEffect(() => {
@@ -342,10 +348,25 @@ export function YouTubePlayer({
       <div className="space-y-2">
         {/* Display video title at the top */}
         {videoId && (
-          <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
+          <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
             <h2 className="text-lg font-medium truncate">
               {`YouTube Video: ${videoId}`}
             </h2>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                openPlayer({
+                  type: 'youtube',
+                  title: `YouTube Video: ${videoId}`,
+                  youtubeId: videoId
+                })
+              }}
+              className="gap-2 ml-2 flex-shrink-0"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Open in Window
+            </Button>
           </div>
         )}
         <div className="relative pt-[56.25%] bg-black">

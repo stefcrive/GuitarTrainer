@@ -8,6 +8,9 @@ import type { VideoPlayerControls } from '@/types/video'
 import type { VideoFile } from '@/services/file-system'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { recentlyViewedService } from '@/services/recently-viewed'
+import { useFloatingPlayer } from '@/contexts/floating-player-context'
+import { Button } from '@/components/ui/button'
+import { ExternalLink } from 'lucide-react'
 
 interface VideoPlayerProps {
   videoFile: File | null
@@ -41,6 +44,9 @@ export function VideoPlayer({
 
   // Use the video markers hook with the video path from the VideoFile
   const { markerState, setMarkerState, isLoaded } = useVideoMarkers(video?.path || '')
+  
+  // Use floating player context
+  const { openPlayer } = useFloatingPlayer()
 
   // Create video controls interface
   const videoControls: VideoPlayerControls = useMemo(() => ({
@@ -229,6 +235,31 @@ export function VideoPlayer({
   return (
     <div className={className}>
       <div className="space-y-4">
+        {/* Floating player button */}
+        <div className="flex justify-end">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              if (videoFile && video) {
+                openPlayer({
+                  type: 'video',
+                  title: video.name,
+                  file: videoFile,
+                  videoFile: video,
+                  directoryHandle,
+                  selectedMarkerId,
+                  onMarkerSelect
+                })
+              }
+            }}
+            className="gap-2"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Open in Window
+          </Button>
+        </div>
+
         <div className="aspect-video bg-black rounded overflow-hidden">
           <video
             ref={videoRef}

@@ -11,6 +11,8 @@ import { getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { AudioMarkers } from './AudioMarkers'
+import { useFloatingPlayer } from '@/contexts/floating-player-context'
+import { ExternalLink } from 'lucide-react'
 
 interface AudioPlayerProps {
   audioFile: AudioFile
@@ -38,6 +40,9 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
   })
   const { audioRootHandle, rootHandle } = useDirectoryStore()
   const directoryHandle = audioRootHandle || rootHandle!
+  
+  // Use floating player context
+  const { openPlayer } = useFloatingPlayer()
 
   useEffect(() => {
     const loadAudio = async () => {
@@ -226,8 +231,25 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
       <audio ref={audioRef} />
       
       {/* Display audio title at the top */}
-      <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
+      <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
         <h2 className="text-lg font-medium truncate">{audioFile.name}</h2>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            openPlayer({
+              type: 'audio',
+              title: audioFile.name,
+              audioFile,
+              selectedMarkerId,
+              onMarkerSelect
+            })
+          }}
+          className="gap-2 ml-2 flex-shrink-0"
+        >
+          <ExternalLink className="h-4 w-4" />
+          Open in Window
+        </Button>
       </div>
       
       <div className="flex items-center gap-4">

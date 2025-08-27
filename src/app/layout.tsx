@@ -3,6 +3,8 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { YouTubeInitializer } from "@/components/youtube/YouTubeInitializer"
 import { ThemeProvider } from "@/components/theme-provider"
+import { FloatingPlayerProvider } from "@/contexts/floating-player-context"
+import { FloatingPlayer } from "@/components/floating/FloatingPlayer"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,10 +22,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen bg-background antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <YouTubeInitializer />
-          <div className="relative flex min-h-screen flex-col">
-            {children}
-          </div>
+          <FloatingPlayerProvider>
+            <YouTubeInitializer />
+            <div className="relative flex min-h-screen flex-col">
+              {children}
+            </div>
+            <FloatingPlayer />
+          </FloatingPlayerProvider>
         </ThemeProvider>
       </body>
     </html>
