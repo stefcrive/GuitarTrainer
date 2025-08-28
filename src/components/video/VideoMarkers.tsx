@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState, useLayoutEffect } from 'react'
+import { useCallback, useEffect, useRef, useState, useLayoutEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import type { TimeMarker, VideoAnnotation, VideoMarkerState, VideoPlayerControls } from '@/types/video'
@@ -25,6 +25,11 @@ export function VideoMarkers({
   contentType = 'video'
 }: VideoMarkersProps) {
   const [editingMarkerId, setEditingMarkerId] = useState<string | null>(null)
+
+  // Collect all unique tags from current annotations
+  const allAnnotationTags = useMemo(() => {
+    return Array.from(new Set(markerState.annotations.flatMap(a => a.tags))).sort()
+  }, [markerState.annotations])
   
   const audioRecorderRef = useRef<AudioRecorder>(new AudioRecorder())
   const currentRecordingRef = useRef<{
@@ -185,6 +190,7 @@ export function VideoMarkers({
       markers: [...markerState.markers, newMarker],
       activeMarkerId: newMarker.id
     })
+    setEditingMarkerId(newMarker.id) // Automatically open in edit mode
   }, [videoControls, markerState, setMarkerState])
 
   const handleAnnotationSave = useCallback((text: string, tags: string[]) => {
@@ -525,46 +531,38 @@ export function VideoMarkers({
                       </div>
                     </div>
 
-                    {/* Second row: Completion progress bar (non-editable in normal view) */}
-                    <div className="flex items-center gap-3 mt-2">
-                      <div className="text-xs text-muted-foreground font-medium w-32">
-                        Completion: {marker.completionDegree || 0}%
+                    {/* Second row: Completion with inline annotation when not editing */}
+                    <div className="space-y-2 mt-2">
+                      <div className="flex items-center gap-3">
+                        <div className="text-xs text-muted-foreground font-medium w-32">
+                          Completion: {marker.completionDegree || 0}%
+                        </div>
+                        <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                          <div
+                            className={`h-full rounded-full ${
+                              contentType === 'youtube' ? 'bg-red-500' : 'bg-blue-500'
+                            }`}
+                            style={{ width: `${marker.completionDegree || 0}%` }}
+                          />
+                        </div>
                       </div>
-                      <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                        <div
-                          className={`h-full rounded-full ${
-                            contentType === 'youtube' ? 'bg-red-500' : 'bg-blue-500'
-                          }`}
-                          style={{ width: `${marker.completionDegree || 0}%` }}
-                        />
-                      </div>
-                    </div>
 
-                    {/* Simplified: removed Download/Delete controls, Cancel shown inline above */}
-
-                    {/* Display existing annotation when not editing */}
-                    {!editingMarkerId && annotation && (
-                      <div className="bg-muted/50 p-3 rounded-lg border border-muted">
-                        <div className="flex items-start gap-3">
-                          <div className={`p-1 rounded ${
+                      {/* Display existing annotation inline when not editing */}
+                      {!editingMarkerId && annotation && (
+                        <div className="flex items-start gap-2">
+                          <FileTextIcon className={`h-3 w-3 mt-0.5 ${
                             contentType === 'youtube'
-                              ? 'bg-red-100 dark:bg-red-900/30'
-                              : 'bg-blue-100 dark:bg-blue-900/30'
-                          }`}>
-                            <FileTextIcon className={`h-3 w-3 ${
-                              contentType === 'youtube'
-                                ? 'text-red-600 dark:text-red-400'
-                                : 'text-blue-600 dark:text-blue-400'
-                            }`} />
-                          </div>
+                              ? 'text-red-600 dark:text-red-400'
+                              : 'text-blue-600 dark:text-blue-400'
+                          }`} />
                           <div className="flex-1">
-                            <p className="text-sm">{annotation.text}</p>
+                            <p className="text-xs text-muted-foreground line-clamp-2">{annotation.text}</p>
                             {annotation.tags.length > 0 && (
-                              <div className="flex gap-1 flex-wrap mt-2">
+                              <div className="flex gap-1 flex-wrap mt-1">
                                 {annotation.tags.map(tag => (
                                   <span
                                     key={tag}
-                                    className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                                    className="px-1.5 py-0.5 bg-primary/10 text-primary text-xs rounded-full"
                                   >
                                     {tag}
                                   </span>
@@ -573,59 +571,66 @@ export function VideoMarkers({
                             )}
                           </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
                   {/* Expanded Edit Section */}
                   {editingMarkerId === marker.id && (
                     <div 
-                      className="space-y-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
+                      className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <MarkerTimeEditor
-                        marker={marker}
-                        maxDuration={videoControls.getDuration()}
-                        videoControls={videoControls}
-                        onSave={handleMarkerUpdate}
-                        className="mb-3"
-                      />
-                      
-                      {/* Editable completion progress in edit mode */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center text-sm">
-                          <span className="text-muted-foreground font-medium">Completion Progress</span>
-                          <span className={`font-semibold ${
-                            contentType === 'youtube'
-                              ? 'text-red-600 dark:text-red-400'
-                              : 'text-blue-600 dark:text-blue-400'
-                          }`}>
-                            {marker.completionDegree || 0}%
-                          </span>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* Left Column: Time Editor and Completion */}
+                        <div className="space-y-4">
+                          <MarkerTimeEditor
+                            marker={marker}
+                            maxDuration={videoControls.getDuration()}
+                            videoControls={videoControls}
+                            onSave={handleMarkerUpdate}
+                          />
+                          
+                          {/* Editable completion progress in edit mode */}
+                          <div className="space-y-2">
+                            <div className="flex justify-between items-center text-sm">
+                              <span className="text-muted-foreground font-medium">Completion Progress</span>
+                              <span className={`font-semibold ${
+                                contentType === 'youtube'
+                                  ? 'text-red-600 dark:text-red-400'
+                                  : 'text-blue-600 dark:text-blue-400'
+                              }`}>
+                                {marker.completionDegree || 0}%
+                              </span>
+                            </div>
+                            <Slider
+                              value={[marker.completionDegree || 0]}
+                              min={0}
+                              max={100}
+                              step={1}
+                              className="w-full"
+                              onValueChange={([value]) => {
+                                handleCompletionUpdate(marker, value)
+                              }}
+                            />
+                          </div>
                         </div>
-                        <Slider
-                          value={[marker.completionDegree || 0]}
-                          min={0}
-                          max={100}
-                          step={1}
-                          className="w-full"
-                          onValueChange={([value]) => {
-                            handleCompletionUpdate(marker, value)
-                          }}
-                        />
-                      </div>
-                      
-                      <div className="space-y-2 mt-4">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                          <FileTextIcon className="h-4 w-4" />
-                          <span className="font-medium">Notes and Tags</span>
+
+                        {/* Right Column: Notes and Tags */}
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                            <FileTextIcon className="h-4 w-4" />
+                            <span className="font-medium">Notes and Tags</span>
+                          </div>
+                          <VideoAnnotationEditor
+                            initialText={markerState.annotations.find(a => a.markerId === marker.id)?.text || ''}
+                            initialTags={markerState.annotations.find(a => a.markerId === marker.id)?.tags || []}
+                            clearOnSave={markerState.annotations.find(a => a.markerId === marker.id) ? false : true}
+                            availableTags={allAnnotationTags}
+                            onSave={handleAnnotationSave}
+                            onCancel={() => setEditingMarkerId(null)}
+                          />
                         </div>
-                        <VideoAnnotationEditor
-                          initialText={markerState.annotations.find(a => a.markerId === marker.id)?.text || ''}
-                          initialTags={markerState.annotations.find(a => a.markerId === marker.id)?.tags || []}
-                          onSave={handleAnnotationSave}
-                          onCancel={() => setEditingMarkerId(null)}
-                        />
                       </div>
                     </div>
                   )}

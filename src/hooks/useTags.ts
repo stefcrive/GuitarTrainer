@@ -6,7 +6,8 @@ export function useTags() {
   const [tags, setTags] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
       const savedTags = localStorage.getItem('savedTags')
-      return savedTags ? JSON.parse(savedTags) : []
+      const parsed = savedTags ? JSON.parse(savedTags) : []
+      return parsed
     }
     return []
   })

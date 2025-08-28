@@ -165,6 +165,12 @@ export function TagInput({
                   </button>
                 ))
             }
+            {/* Show message if no tags are available */}
+            {isDropdownOpen && availableTags.filter(tag => !tags.includes(tag)).length === 0 && (
+              <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                No available tags
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { TagInput } from '@/components/ui/tag-input'
 import { cn } from '@/lib/utils'
 import { useTags } from '@/hooks/useTags'
+import { useAllTags } from '@/hooks/useAllTags'
 
 interface VideoAnnotationEditorProps {
   onSave: (text: string, tags: string[]) => void
@@ -12,6 +13,8 @@ interface VideoAnnotationEditorProps {
   initialText?: string
   initialTags?: string[]
   className?: string
+  clearOnSave?: boolean
+  availableTags?: string[]
 }
 
 export function VideoAnnotationEditor({
@@ -19,11 +22,22 @@ export function VideoAnnotationEditor({
   onCancel,
   initialText = '',
   initialTags = [],
-  className
+  className,
+  clearOnSave = true,
+  availableTags: propAvailableTags
 }: VideoAnnotationEditorProps) {
-  const { tags: availableTags, addTag, addTags } = useTags()
+  const { addTag, addTags } = useTags() // Keep for saving tags to localStorage
+  const allStoredTags = useAllTags() // Get ALL tags from all sources
   const [text, setText] = useState(initialText)
   const [tags, setTags] = useState<string[]>(initialTags)
+
+  // Merge all available tags, prioritizing prop tags if provided
+  const availableTags = useMemo(() => {
+    const combined = propAvailableTags 
+      ? [...new Set([...propAvailableTags, ...allStoredTags])]
+      : allStoredTags
+    return combined.sort()
+  }, [propAvailableTags, allStoredTags])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,8 +47,12 @@ export function VideoAnnotationEditor({
         addTags(tags)
       }
       onSave(text.trim(), tags)
-      setText('')
-      setTags([])
+      // Dispatch custom event to notify tag collection hooks
+      window.dispatchEvent(new CustomEvent('annotationSaved'))
+      if (clearOnSave) {
+        setText('')
+        setTags([])
+      }
     }
   }
 

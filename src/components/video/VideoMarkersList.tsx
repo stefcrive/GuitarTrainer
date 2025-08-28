@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
 import { markersService } from '@/services/markers'
@@ -17,6 +17,7 @@ import { youtubeApi } from '@/services/youtube-api'
 import { getAudioMetadata } from '@/services/audio-metadata'
 import { Search, ArrowUpDown, ArrowUp, ArrowDown, Video as VideoIcon } from 'lucide-react'
 import { FavoriteButton } from './FavoriteButton'
+import { useTagStore } from '@/stores/tag-store'
 
 
 type ContentType = 'local' | 'youtube' | 'audio'
@@ -90,6 +91,7 @@ export default function VideoSurfList(): React.ReactElement {
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null)
   const [videoControls, setVideoControls] = useState<VideoPlayerControls | null>(null)
   const directoryStore = useDirectoryStore()
+  const setCollectedTags = useTagStore(state => state.setCollectedTags)
   
   // Use global media store for search query and selected content persistence
   const {
@@ -133,10 +135,19 @@ export default function VideoSurfList(): React.ReactElement {
     }
   }, [videoControls, selectedMarkerId, selectedMarkerState])
 
-  // Collect all unique tags from annotations
-  const allTags = Array.from(new Set(
-    markers.flatMap(m => m.annotations.flatMap(a => a.tags))
-  )).sort()
+  // Collect all unique tags from annotations using useMemo to prevent recalculation
+  const allTags = useMemo(() => {
+    return Array.from(new Set(
+      markers.flatMap(m => m.annotations.flatMap(a => a.tags))
+    )).sort()
+  }, [markers])
+
+  // Update global tag store whenever markers change
+  useEffect(() => {
+    if (allTags.length > 0) {
+      setCollectedTags(allTags)
+    }
+  }, [allTags, setCollectedTags])
 
   // Generate title for content
   const getContentTitle = (content: MarkerContent) => {
