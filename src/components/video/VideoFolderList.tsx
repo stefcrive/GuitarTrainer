@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { VideoFile } from '@/services/file-system'
-import { ChevronDown, ChevronRight, Folder, Video as VideoIcon } from 'lucide-react'
-import { FavoriteButton } from './FavoriteButton'
+import { ChevronDown, ChevronRight, Folder, Video as VideoIcon, Star } from 'lucide-react'
 import { VideoTitle } from './VideoTitle'
 import { useDirectoryStore } from '@/stores/directory-store'
+import { favoritesService } from '@/services/favorites'
 
 interface VideoFolderListProps {
   videos: VideoFile[]
@@ -92,32 +92,17 @@ function FolderItem({
       )}
       
       {isOpen && (
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {/* Videos in current folder */}
           {content.videos.map(video => (
-            <div
+            <VideoFileItem
               key={video.path}
-              className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
-                selectedVideo?.path === video.path ? 'bg-accent text-accent-foreground' : ''
-              }`}
-              style={{ paddingLeft: `${(level + 1) * 16}px` }}
-              onClick={() => onVideoSelect(video)}
-            >
-              <div className="flex items-center gap-2 flex-1 min-w-0">
-                <VideoIcon className="h-4 w-4 text-blue-500 flex-shrink-0" />
-                <VideoTitle
-                  title={video.name}
-                  videoPath={video.path}
-                  className="truncate"
-                />
-              </div>
-              <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-                <FavoriteButton
-                  video={video}
-                  directoryHandle={directoryHandle}
-                />
-              </div>
-            </div>
+              video={video}
+              level={level}
+              selected={selectedVideo?.path === video.path}
+              onSelect={onVideoSelect}
+              directoryHandle={directoryHandle}
+            />
           ))}
           
           {/* Nested folders */}
@@ -134,6 +119,52 @@ function FolderItem({
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+function VideoFileItem({
+  video,
+  level,
+  selected,
+  onSelect,
+  directoryHandle,
+}: {
+  video: VideoFile
+  level: number
+  selected: boolean
+  onSelect: (video: VideoFile) => void
+  directoryHandle: FileSystemDirectoryHandle
+}) {
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  useEffect(() => {
+    async function checkFavorite() {
+      const favorite = await favoritesService.isVideoFavorite(video)
+      setIsFavorite(favorite)
+    }
+    checkFavorite()
+  }, [video])
+
+  return (
+    <div
+      className={`flex items-center w-full py-0.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
+        selected ? 'bg-accent text-accent-foreground' : ''
+      } ${isFavorite ? 'bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400' : ''}`}
+      style={{ paddingLeft: `${(level + 1) * 16}px` }}
+      onClick={() => onSelect(video)}
+    >
+      <div className="flex items-center gap-2 flex-1 min-w-0">
+        <VideoIcon className="h-4 w-4 text-blue-500 flex-shrink-0" />
+        <VideoTitle
+          title={video.name}
+          videoPath={video.path}
+          className="truncate"
+        />
+        {isFavorite && (
+          <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
+        )}
+      </div>
     </div>
   )
 }
@@ -166,7 +197,7 @@ export function VideoFolderList({
   }
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       <FolderItem
         name=""
         content={structure}

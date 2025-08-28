@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { AudioFile, AudioMetadata } from '@/types/audio'
-import { ChevronDown, ChevronRight, Folder, Music, Circle } from 'lucide-react'
+import { ChevronDown, ChevronRight, Folder, Music, Circle, Star } from 'lucide-react'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { Button } from '@/components/ui/button'
 import { getAllAudioMetadata } from '@/services/audio-metadata'
+import { favoritesService } from '@/services/favorites'
 
 interface AudioFolderListProps {
   audioFiles: AudioFile[]
@@ -92,7 +93,7 @@ function FolderItem({
       )}
       
       {isOpen && (
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {/* Audio files in current folder */}
           {content.audioFiles.map(audio => (
             <AudioFileItem
@@ -137,6 +138,7 @@ function AudioFileItem({
   directoryHandle: FileSystemDirectoryHandle
 }) {
   const [hasMarkers, setHasMarkers] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
     async function checkMarkers() {
@@ -147,11 +149,19 @@ function AudioFileItem({
     checkMarkers()
   }, [audio.path, directoryHandle])
 
+  useEffect(() => {
+    async function checkFavorite() {
+      const favorite = await favoritesService.isAudioFavorite(audio)
+      setIsFavorite(favorite)
+    }
+    checkFavorite()
+  }, [audio])
+
   return (
     <div
-      className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
+      className={`flex items-center justify-between w-full py-0.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
         selected ? 'bg-accent text-accent-foreground' : ''
-      }`}
+      } ${isFavorite ? 'bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400' : ''}`}
       style={{ paddingLeft: `${(level + 1) * 16}px` }}
       onClick={() => onSelect(audio)}
     >
@@ -160,6 +170,9 @@ function AudioFileItem({
         <span className="truncate">{audio.name}</span>
         {hasMarkers && (
           <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
+        )}
+        {isFavorite && (
+          <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
         )}
       </div>
       <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded uppercase flex-shrink-0">
@@ -196,7 +209,7 @@ export function AudioFolderList({
   }
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       <FolderItem
         name=""
         content={structure}

@@ -19,7 +19,7 @@ import { fileSystemService } from '@/services/file-system'
 import { Header } from '@/components/layout/Header'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
-import { Search, Video as VideoIcon, Music, Youtube, Folder, Star, ChevronRight, ChevronDown } from 'lucide-react'
+import { Search, Video as VideoIcon, Music, Youtube, Folder, Star, ChevronRight, ChevronDown, Circle } from 'lucide-react'
 import Link from 'next/link'
 import { Video, FileSystemVideo } from '@/types/video'
 
@@ -375,9 +375,9 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                   </div>
                 </div>
 
-                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
+                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-2 pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
                   {/* Favorite Videos */}
-                  <div className="space-y-3">
+                  <div className="space-y-1">
                     <div className="flex items-center gap-2 mb-3">
                       <VideoIcon className="h-5 w-5 text-blue-600" />
                       <h3 className="text-lg font-semibold text-foreground">Videos</h3>
@@ -403,12 +403,12 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                       </button>
 
                       {!isLocalVideosCollapsed && (
-                        <div className="space-y-1">
+                        <div className="space-y-0.5">
                           {fileVideos.length > 0 ? (
                             fileVideos.map((video) => (
                               <div
                                 key={video.path}
-                                className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                                className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
                                 style={{ paddingLeft: '32px' }}
                                 onClick={() => loadVideo(video)}
                               >
@@ -419,29 +419,7 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                                     videoPath={video.path}
                                     className="truncate"
                                   />
-                                </div>
-                                <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-                                  {rootHandle && (
-                                    <VideoFavoriteButton
-                                      video={{
-                                        type: 'file' as const,
-                                        id: video.id,
-                                        name: video.name!,
-                                        path: video.path!
-                                      }}
-                                      directoryHandle={rootHandle}
-                                      onFavoriteChange={async (isFavorite) => {
-                                        if (!isFavorite) {
-                                          const favs = await favoritesService.getVideoFavorites()
-                                          setVideoFavorites(favs)
-                                          if (selectedVideo?.id === video.id) {
-                                            setSelectedVideo(null)
-                                            setVideoFile(null)
-                                          }
-                                        }
-                                      }}
-                                    />
-                                  )}
+                                  <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
                                 </div>
                               </div>
                             ))
@@ -473,12 +451,12 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                       </button>
 
                       {!isYouTubeCollapsed && (
-                        <div className="space-y-1">
+                        <div className="space-y-0.5">
                           {youtubeVideos.length > 0 ? (
                             youtubeVideos.map((video) => (
                               <div
                                 key={video.id}
-                                className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                                className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
                                 style={{ paddingLeft: '32px' }}
                                 onClick={() => loadVideo(video)}
                               >
@@ -489,24 +467,7 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                                     videoId={video.id}
                                     className="truncate"
                                   />
-                                </div>
-                                <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-                                  <VideoFavoriteButton
-                                    video={{
-                                      type: 'youtube' as const,
-                                      id: video.id,
-                                      title: video.title
-                                    }}
-                                    onFavoriteChange={async (isFavorite) => {
-                                      if (!isFavorite) {
-                                        const favs = await favoritesService.getVideoFavorites()
-                                        setVideoFavorites(favs)
-                                        if (selectedVideo?.id === video.id) {
-                                          setSelectedVideo(null)
-                                        }
-                                      }
-                                    }}
-                                  />
+                                  <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
                                 </div>
                               </div>
                             ))
@@ -521,7 +482,7 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                   </div>
 
                   {/* Favorite Audio Tracks grouped into collapsible folders */}
-                  <div className="space-y-3">
+                  <div className="space-y-1">
                     <div className="flex items-center gap-2 mb-3">
                       <Music className="h-5 w-5 text-purple-600" />
                       <h3 className="text-lg font-semibold text-foreground">Audio</h3>
@@ -550,11 +511,11 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                             </button>
 
                             {isOpen && (
-                              <div className="space-y-1">
+                              <div className="space-y-0.5">
                                 {audios.map((audio) => (
                                   <div
                                     key={audio.path}
-                                    className={`flex items-center justify-between w-full py-1.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
+                                    className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
                                     style={{ paddingLeft: '32px' }}
                                     onClick={async () => {
                                       // Clear any selected video first
@@ -656,6 +617,10 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                                     <div className="flex items-center gap-2 flex-1 min-w-0">
                                       <Music className="h-4 w-4 text-purple-500 flex-shrink-0" />
                                       <span className="truncate">{audio.name}</span>
+                                      {audio.metadata?.markers?.length && (
+                                        <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
+                                      )}
+                                      <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
                                     </div>
                                     <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                                       {rootHandle && (

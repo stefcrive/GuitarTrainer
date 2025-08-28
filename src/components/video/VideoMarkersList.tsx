@@ -15,7 +15,8 @@ import { YouTubePlayer } from '../youtube/YouTubePlayer'
 import { AudioPlayer } from '../audio/AudioPlayer'
 import { youtubeApi } from '@/services/youtube-api'
 import { getAudioMetadata } from '@/services/audio-metadata'
-import { Search, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react'
+import { Search, ArrowUpDown, ArrowUp, ArrowDown, Video as VideoIcon } from 'lucide-react'
+import { FavoriteButton } from './FavoriteButton'
 
 
 type ContentType = 'local' | 'youtube' | 'audio'
@@ -65,6 +66,15 @@ function ChevronIcon({ className }: { className?: string }) {
       height="24"
     >
       <path d="M9 18L15 12L9 6" />
+    </svg>
+  )
+}
+
+function ClockIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12,6 12,12 16,14" />
     </svg>
   )
 }
@@ -416,38 +426,51 @@ export default function VideoSurfList(): React.ReactElement {
         <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
           <div className="h-full border-r bg-muted/30">
             <div className="p-4 space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Markers List</h2>
-                <div className="flex items-center gap-2">
-                  <Select
-                    value={sortOrder}
-                    onValueChange={(value: SortOrder) => setMarkersSortOrder(value)}
-                  >
-                    <SelectTrigger className="w-32">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="date">By Date</SelectItem>
-                      <SelectItem value="name">By Name</SelectItem>
-                      <SelectItem value="completion">By Completion</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => setMarkersSortDirection(sortDirection === 'desc' ? 'asc' : 'desc')}
-                    className="h-8 w-8"
-                    title={sortDirection === 'desc' 
-                      ? `${sortOrder === 'date' ? 'Newest first' : sortOrder === 'name' ? 'Z-A' : 'Highest first'} (click to reverse)`
-                      : `${sortOrder === 'date' ? 'Oldest first' : sortOrder === 'name' ? 'A-Z' : 'Lowest first'} (click to reverse)`
-                    }
-                  >
-                    {sortDirection === 'desc' ? (
-                      <ArrowDown className="h-4 w-4" />
-                    ) : (
-                      <ArrowUp className="h-4 w-4" />
-                    )}
-                  </Button>
+              {/* Header Section */}
+              <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-lg border">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                      <VideoIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Markers List</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {markers.length} content{markers.length !== 1 ? 's' : ''} with markers
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select
+                      value={sortOrder}
+                      onValueChange={(value: SortOrder) => setMarkersSortOrder(value)}
+                    >
+                      <SelectTrigger className="w-32 bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-purple-200 dark:border-purple-800">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="date">By Date</SelectItem>
+                        <SelectItem value="name">By Name</SelectItem>
+                        <SelectItem value="completion">By Completion</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setMarkersSortDirection(sortDirection === 'desc' ? 'asc' : 'desc')}
+                      className="h-8 w-8 bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-purple-200 dark:border-purple-800"
+                      title={sortDirection === 'desc' 
+                        ? `${sortOrder === 'date' ? 'Newest first' : sortOrder === 'name' ? 'Z-A' : 'Highest first'} (click to reverse)`
+                        : `${sortOrder === 'date' ? 'Oldest first' : sortOrder === 'name' ? 'A-Z' : 'Lowest first'} (click to reverse)`
+                      }
+                    >
+                      {sortDirection === 'desc' ? (
+                        <ArrowDown className="h-4 w-4" />
+                      ) : (
+                        <ArrowUp className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </div>
                 </div>
               </div>
               
@@ -678,119 +701,114 @@ export default function VideoSurfList(): React.ReactElement {
                           return (
                             <div
                               key={marker.id}
-                              className={`border border-gray-200 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors ${
-                                marker.id === selectedMarkerId ? 'border-primary bg-primary/5' : ''
+                              className={`relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md cursor-pointer ${
+                                marker.id === selectedMarkerId ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20 shadow-sm' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                               }`}
-                            >
-                              <button
-                                className="w-full text-left p-3"
-                                onClick={async () => {
-                                  // If we're selecting the same content, seek immediately
-                                  const isSameContent = selectedContent?.path === markerState.content.path
+                              onClick={async () => {
+                                // If we're selecting the same content, seek immediately
+                                const isSameContent = selectedContent?.path === markerState.content.path
+                                
+                                setSelectedContent(markerState.content)
+                                setSelectedMarkerId(marker.id)
+                                setSelectedMarkerState(markerState)
+                                
+                                // Store selected content path for persistence
+                                setMarkersSelectedContent(markerState.content.path)
+                                
+                                // If same content and video controls available, seek immediately
+                                if (isSameContent && videoControls) {
+                                  videoControls.seek(marker.startTime)
+                                }
+                                
+                                // If different content, load the new file first
+                                if (!isSameContent) {
+                                  // First set the file to null to trigger cleanup
+                                  setSelectedFile(null)
                                   
-                                  setSelectedContent(markerState.content)
-                                  setSelectedMarkerId(marker.id)
-                                  setSelectedMarkerState(markerState)
+                                  // Wait a brief moment for cleanup
+                                  await new Promise(resolve => setTimeout(resolve, 100))
                                   
-                                  // Store selected content path for persistence
-                                  setMarkersSelectedContent(markerState.content.path)
-                                  
-                                  // If same content and video controls available, seek immediately
-                                  if (isSameContent && videoControls) {
-                                    videoControls.seek(marker.startTime)
-                                  }
-                                  
-                                  // If different content, load the new file first
-                                  if (!isSameContent) {
-                                    // First set the file to null to trigger cleanup
-                                    setSelectedFile(null)
-                                    
-                                    // Wait a brief moment for cleanup
-                                    await new Promise(resolve => setTimeout(resolve, 100))
-                                    
-                                    // Then load the new file
-                                    if (markerState.content.file) {
-                                      try {
-                                        const pathParts = markerState.content.file.path.split('/')
-                                        const fileName = pathParts.pop()
-                                        let currentHandle = directoryStore.rootHandle
-                                        
-                                        for (const part of pathParts) {
-                                          if (!currentHandle) break
-                                          currentHandle = await currentHandle.getDirectoryHandle(part)
-                                        }
-                                        
-                                        if (currentHandle && fileName) {
-                                          const fileHandle = await currentHandle.getFileHandle(fileName)
-                                          const file = await fileHandle.getFile()
-                                          setSelectedFile(file)
-                                        }
-                                      } catch (error) {
-                                        console.error('Error loading file:', error)
+                                  // Then load the new file
+                                  if (markerState.content.file) {
+                                    try {
+                                      const pathParts = markerState.content.file.path.split('/')
+                                      const fileName = pathParts.pop()
+                                      let currentHandle = directoryStore.rootHandle
+                                      
+                                      for (const part of pathParts) {
+                                        if (!currentHandle) break
+                                        currentHandle = await currentHandle.getDirectoryHandle(part)
                                       }
+                                      
+                                      if (currentHandle && fileName) {
+                                        const fileHandle = await currentHandle.getFileHandle(fileName)
+                                        const file = await fileHandle.getFile()
+                                        setSelectedFile(file)
+                                      }
+                                    } catch (error) {
+                                      console.error('Error loading file:', error)
                                     }
                                   }
-                                }}
-                              >
-                                <div className="flex items-start gap-3">
-                                  {/* Marker number badge */}
-                                  <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white ${
-                                    markerState.content.type === 'youtube' ? 'bg-red-500' :
-                                    markerState.content.type === 'audio' ? 'bg-purple-500' :
-                                    'bg-blue-500'
-                                  }`}>
-                                    {markerIndex + 1}
-                                  </div>
-                                  
-                                  <div className="flex-1 min-w-0">
-                                    {/* Time and title row */}
-                                    <div className="flex items-center justify-between mb-2">
-                                      <span className="text-xs font-medium text-muted-foreground bg-muted px-2 py-1 rounded">
-                                        {markerTime}
-                                      </span>
-                                      <span className={`text-xs font-medium px-2 py-1 rounded ${
-                                        completion >= 75 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
-                                        completion >= 50 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' :
-                                        completion >= 25 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400' :
-                                        'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
-                                      }`}>
-                                        {completion}%
-                                      </span>
-                                    </div>
+                                }
+                              }}
+                            >
+                              {/* Marker Number Badge */}
+                              <div className="absolute -top-2 -left-2 w-6 h-6 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                                {markerIndex + 1}
+                              </div>
+
+                              <div className="space-y-3">
+                                {/* Time and Action Buttons */}
+                                <div className="flex items-center justify-between flex-wrap gap-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-3 py-1 rounded h-8 flex items-center gap-2">
+                                      <ClockIcon className="h-4 w-4" />
+                                      {markerTime}
+                                    </span>
                                     
-                                    {/* Marker title/annotation */}
-                                    <div className="text-sm font-medium mb-2 line-clamp-2">
-                                      {annotation?.text || 'Untitled Marker'}
-                                    </div>
-                                    
-                                    {/* Progress bar */}
-                                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
-                                      <div
-                                        className={`h-full rounded-full transition-all duration-300 ${
-                                          markerState.content.type === 'youtube' ? 'bg-red-500' :
-                                          markerState.content.type === 'audio' ? 'bg-purple-500' :
-                                          'bg-blue-500'
-                                        }`}
-                                        style={{ width: `${completion}%` }}
-                                      />
-                                    </div>
-                                    
-                                    {/* Tags */}
-                                    {annotation?.tags && annotation.tags.length > 0 && (
-                                      <div className="flex gap-1 flex-wrap">
-                                        {annotation.tags.map(tag => (
-                                          <span
-                                            key={tag}
-                                            className="px-1.5 py-0.5 bg-primary/10 text-primary text-xs rounded-full font-medium"
-                                          >
-                                            {tag}
-                                          </span>
-                                        ))}
-                                      </div>
-                                    )}
+                                    <span className={`text-xs font-medium px-2 py-1 rounded h-8 flex items-center ${
+                                      completion >= 75 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
+                                      completion >= 50 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' :
+                                      completion >= 25 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400' :
+                                      'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+                                    }`}>
+                                      {completion}%
+                                    </span>
                                   </div>
                                 </div>
-                              </button>
+
+                                {/* Second row: Completion (read-only in normal view) */}
+                                <div className="flex items-center gap-3 mt-2">
+                                  <div className="text-xs text-muted-foreground font-medium w-32">
+                                    Completion: {completion}%
+                                  </div>
+                                  <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                                    <div
+                                      className="bg-purple-600 h-full rounded-full"
+                                      style={{ width: `${completion}%` }}
+                                    />
+                                  </div>
+                                </div>
+
+                                {/* Marker title/annotation */}
+                                <div className="text-sm font-medium line-clamp-2">
+                                  {annotation?.text || 'Untitled Marker'}
+                                </div>
+                                
+                                {/* Tags */}
+                                {annotation?.tags && annotation.tags.length > 0 && (
+                                  <div className="flex gap-1 flex-wrap">
+                                    {annotation.tags.map(tag => (
+                                      <span
+                                        key={tag}
+                                        className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           )
                         })}
@@ -812,9 +830,32 @@ export default function VideoSurfList(): React.ReactElement {
           <div className="p-6">
             {selectedContent && selectedMarkerState && (
               <div className="space-y-4">
-                {/* Display content title at the top */}
+                {/* Display content title at the top with favorite button */}
                 <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
-                  <h2 className="text-lg font-medium truncate">{selectedContent.title}</h2>
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-medium truncate">{selectedContent.title}</h2>
+                    {/* Favorite Button for selected content */}
+                    {selectedContent.type === 'local' && directoryStore.rootHandle && selectedContent.file && (
+                      <FavoriteButton
+                        video={{
+                          type: 'file' as const,
+                          id: selectedContent.file.name + '-' + selectedContent.path,
+                          name: selectedContent.file.name,
+                          path: selectedContent.path
+                        }}
+                        directoryHandle={directoryStore.rootHandle}
+                      />
+                    )}
+                    {selectedContent.type === 'youtube' && selectedContent.youtubeId && (
+                      <FavoriteButton
+                        video={{
+                          type: 'youtube' as const,
+                          id: selectedContent.youtubeId,
+                          title: selectedContent.title
+                        }}
+                      />
+                    )}
+                  </div>
                 </div>
                 
                 {selectedContent.type === 'local' && selectedFile && (

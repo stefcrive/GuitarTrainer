@@ -122,7 +122,7 @@ export default function AudioPage() {
         <ResizablePanelGroup direction="horizontal" className="min-h-screen">
           <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
             <div className="h-full border-r bg-muted/30">
-              <div className="p-4 space-y-4">
+              <div className="p-4 space-y-2">
                 <h2 className="text-xl font-semibold">Audio Library</h2>
                 
                 {/* Search Box */}

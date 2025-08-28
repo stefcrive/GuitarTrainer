@@ -11,6 +11,7 @@ import { recentlyViewedService } from '@/services/recently-viewed'
 import { useFloatingPlayer } from '@/contexts/floating-player-context'
 import { Button } from '@/components/ui/button'
 import { ExternalLink } from 'lucide-react'
+import { FavoriteButton } from './FavoriteButton'
 
 interface VideoPlayerProps {
   videoFile: File | null
@@ -235,8 +236,16 @@ export function VideoPlayer({
   return (
     <div className={className}>
       <div className="space-y-4">
-        {/* Floating player button */}
-        <div className="flex justify-end">
+        {/* Action buttons */}
+        <div className="flex justify-between items-center">
+          <div>
+            {video && directoryHandle && (
+              <FavoriteButton
+                video={video}
+                directoryHandle={directoryHandle}
+              />
+            )}
+          </div>
           <Button
             variant="outline"
             size="sm"
