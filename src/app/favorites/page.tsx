@@ -97,6 +97,7 @@ export default function FavoritesPage() {
   // Collapsible UI state
   const [isLocalVideosCollapsed, setIsLocalVideosCollapsed] = useState(false)
   const [isYouTubeCollapsed, setIsYouTubeCollapsed] = useState(false)
+  const [isAudioCollapsed, setIsAudioCollapsed] = useState(false)
 
   // Use dedicated favorites state for persistence
   const {
@@ -310,9 +311,10 @@ export default function FavoritesPage() {
     }
   }
 
-// Group videos by type for collapsible folders
-const fileVideos = filteredVideoFavorites.filter(v => v.type === 'file')
-const youtubeVideos = filteredVideoFavorites.filter(v => v.type === 'youtube')
+  // Group videos by type for collapsible folders
+  const fileVideos = filteredVideoFavorites.filter(v => v.type === 'file')
+  const youtubeVideos = filteredVideoFavorites.filter(v => v.type === 'youtube')
+
   if (!rootHandle) {
     return (
       <div className="flex min-h-screen flex-col">
@@ -366,229 +368,235 @@ const youtubeVideos = filteredVideoFavorites.filter(v => v.type === 'youtube')
                 </div>
 
                 <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-2 pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
-                  {/* Favorite Videos */}
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 mb-3">
-                      <VideoIcon className="h-5 w-5 text-blue-600" />
-                      <h3 className="text-lg font-semibold text-foreground">Videos</h3>
-                    </div>
-
-                    {/* Local Videos (collapsible) */}
-                    <div>
-                      <button
-                        className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
-                        onClick={() => setIsLocalVideosCollapsed(prev => !prev)}
-                      >
-                        {isLocalVideosCollapsed ? (
-                          <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
-                        )}
-                        <Folder className="h-4 w-4 mr-2 text-blue-600" />
-                        <span className="flex-1">Local Videos</span>
-                      </button>
-
-                      {!isLocalVideosCollapsed && (
-                        <div className="space-y-0.5">
-                          {fileVideos.length > 0 ? (
-                            fileVideos.map((video) => (
-                              <div
-                                key={video.path}
-                                className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
-                                style={{ paddingLeft: '32px' }}
-                                onClick={() => loadVideo(video)}
-                              >
-                                <div className="flex items-center gap-2 flex-1 min-w-0">
-                                  <VideoIcon className="h-4 w-4 text-blue-500 flex-shrink-0" />
-                                  <VideoTitle
-                                    title={video.name || video.path!}
-                                    videoPath={video.path}
-                                    className="truncate"
-                                  />
-                                  <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
-                                </div>
-                              </div>
-                            ))
-                          ) : (
-                            <div className="flex items-center justify-center py-6">
-                              <p className="text-sm text-muted-foreground">No local videos</p>
-                            </div>
-                          )}
-                        </div>
+                  {/* Videos Folder (collapsible) */}
+                  <div>
+                    <button
+                      className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
+                      onClick={() => setIsLocalVideosCollapsed(prev => !prev)}
+                    >
+                      {isLocalVideosCollapsed ? (
+                        <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
                       )}
-                    </div>
+                      <VideoIcon className="h-4 w-4 mr-2 text-blue-600" />
+                      <span className="flex-1">Videos</span>
+                      <span className="text-xs text-muted-foreground ml-2">{fileVideos.length}</span>
+                    </button>
 
-                    {/* YouTube Videos (collapsible) */}
-                    <div>
-                      <button
-                        className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
-                        onClick={() => setIsYouTubeCollapsed(prev => !prev)}
-                      >
-                        {isYouTubeCollapsed ? (
-                          <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
-                        )}
-                        <Youtube className="h-4 w-4 mr-2 text-red-500" />
-                        <span className="flex-1">YouTube Videos</span>
-                      </button>
-
-                      {!isYouTubeCollapsed && (
-                        <div className="space-y-0.5">
-                          {youtubeVideos.length > 0 ? (
-                            youtubeVideos.map((video) => (
-                              <div
-                                key={video.id}
-                                className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
-                                style={{ paddingLeft: '32px' }}
-                                onClick={() => loadVideo(video)}
-                              >
-                                <div className="flex items-center gap-2 flex-1 min-w-0">
-                                  <Youtube className="h-4 w-4 text-red-500 flex-shrink-0" />
-                                  <VideoTitle
-                                    title={video.title || `YouTube: ${video.id}`}
-                                    videoId={video.id}
-                                    className="truncate"
-                                  />
-                                  <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
-                                </div>
+                    {!isLocalVideosCollapsed && (
+                      <div className="space-y-0.5">
+                        {fileVideos.length > 0 ? (
+                          fileVideos.map((video) => (
+                            <div
+                              key={video.path}
+                              className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                              style={{ paddingLeft: '32px' }}
+                              onClick={() => loadVideo(video)}
+                            >
+                              <div className="flex items-center gap-2 flex-1 min-w-0">
+                                <VideoIcon className="h-4 w-4 text-blue-500 flex-shrink-0" />
+                                <VideoTitle
+                                  title={video.name || video.path!}
+                                  videoPath={video.path}
+                                  className="truncate"
+                                />
+                                <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
                               </div>
-                            ))
-                          ) : (
-                            <div className="flex items-center justify-center py-6">
-                              <p className="text-sm text-muted-foreground">No YouTube favorites</p>
                             </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
+                          ))
+                        ) : (
+                          <div className="flex items-center justify-center py-6">
+                            <p className="text-sm text-muted-foreground">No local videos</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Favorite Audio Tracks - Direct list without folders */}
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Music className="h-5 w-5 text-purple-600" />
-                      <h3 className="text-lg font-semibold text-foreground">Audio</h3>
-                    </div>
+                  {/* YouTube Videos Folder (collapsible) */}
+                  <div>
+                    <button
+                      className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
+                      onClick={() => setIsYouTubeCollapsed(prev => !prev)}
+                    >
+                      {isYouTubeCollapsed ? (
+                        <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
+                      )}
+                      <Youtube className="h-4 w-4 mr-2 text-red-500" />
+                      <span className="flex-1">YouTube Videos</span>
+                      <span className="text-xs text-muted-foreground ml-2">{youtubeVideos.length}</span>
+                    </button>
 
-                    {filteredAudioFavorites.length > 0 ? (
+                    {!isYouTubeCollapsed && (
                       <div className="space-y-0.5">
-                        {filteredAudioFavorites.map((audio) => (
-                          <div
-                            key={audio.path}
-                            className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
-                            onClick={async () => {
-                              // Clear any selected video first
-                              setSelectedVideo(null)
-                              setVideoFile(null)
-                              
-                              try {
-                                let fileHandle: FileSystemFileHandle | null = null
+                        {youtubeVideos.length > 0 ? (
+                          youtubeVideos.map((video) => (
+                            <div
+                              key={video.id}
+                              className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedVideo?.id === video.id ? 'bg-accent text-accent-foreground' : ''}`}
+                              style={{ paddingLeft: '32px' }}
+                              onClick={() => loadVideo(video)}
+                            >
+                              <div className="flex items-center gap-2 flex-1 min-w-0">
+                                <Youtube className="h-4 w-4 text-red-500 flex-shrink-0" />
+                                <VideoTitle
+                                  title={video.title || `YouTube: ${video.id}`}
+                                  videoId={video.id}
+                                  className="truncate"
+                                />
+                                <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="flex items-center justify-center py-6">
+                            <p className="text-sm text-muted-foreground">No YouTube favorites</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Audio Folder (collapsible) */}
+                  <div>
+                    <button
+                      className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
+                      onClick={() => setIsAudioCollapsed(prev => !prev)}
+                    >
+                      {isAudioCollapsed ? (
+                        <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
+                      )}
+                      <Music className="h-4 w-4 mr-2 text-purple-600" />
+                      <span className="flex-1">Audio</span>
+                      <span className="text-xs text-muted-foreground ml-2">{filteredAudioFavorites.length}</span>
+                    </button>
+
+                    {!isAudioCollapsed && (
+                      <div className="space-y-0.5">
+                        {filteredAudioFavorites.length > 0 ? (
+                          filteredAudioFavorites.map((audio) => (
+                            <div
+                              key={audio.path}
+                              className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
+                              style={{ paddingLeft: '32px' }}
+                              onClick={async () => {
+                                // Clear any selected video first
+                                setSelectedVideo(null)
+                                setVideoFile(null)
                                 
-                                // Try audioRootHandle first if available
-                                if (audioRootHandle) {
-                                  try {
-                                    fileHandle = await getFileHandle(audioRootHandle, audio.path)
-                                  } catch (err) {
-                                    // Silently continue to try next directory
+                                try {
+                                  let fileHandle: FileSystemFileHandle | null = null
+                                  
+                                  // Try audioRootHandle first if available
+                                  if (audioRootHandle) {
+                                    try {
+                                      fileHandle = await getFileHandle(audioRootHandle, audio.path)
+                                    } catch (err) {
+                                      // Silently continue to try next directory
+                                    }
                                   }
-                                }
 
-                                // If not found in audio root, try the video root handle
-                                if (!fileHandle && rootHandle) {
-                                  try {
-                                    fileHandle = await getFileHandle(rootHandle, audio.path)
-                                  } catch (err) {
-                                    // Silently continue
+                                  // If not found in audio root, try the video root handle
+                                  if (!fileHandle && rootHandle) {
+                                    try {
+                                      fileHandle = await getFileHandle(rootHandle, audio.path)
+                                    } catch (err) {
+                                      // Silently continue
+                                    }
                                   }
-                                }
 
-                                if (fileHandle) {
-                                  setSelectedAudio({
-                                    ...audio,
-                                    handle: fileHandle
-                                  })
-                                  setFavoritesSelectedAudio({
-                                    id: audio.path,
-                                    name: audio.name,
-                                    path: audio.path,
-                                    type: 'file',
-                                    handle: fileHandle
-                                  })
-                                  setAudioLoadError(null)
-                                  setVideoLoadError(null)
-                                } else {
-                                  throw new Error('Audio file not found in any available directory')
-                                }
-                              } catch (err) {
-                                console.error('Error loading audio:', err)
-                                const errorMessage = (
-                                  <div className="flex flex-col gap-4 p-4 bg-muted rounded">
-                                    <p>Unable to access the audio file in the current directory.</p>
-                                    <p>The audio was favorited from directory: <span className="text-sm text-muted-foreground">{audio.rootDirectoryName}</span></p>
-                                    <button
-                                      onClick={async () => {
-                                        if (isChangingDirectory) return
-                                        setIsChangingDirectory(true)
-                                        try {
-                                          const newRootHandle = await fileSystemService.requestDirectoryAccess()
+                                  if (fileHandle) {
+                                    setSelectedAudio({
+                                      ...audio,
+                                      handle: fileHandle
+                                    })
+                                    setFavoritesSelectedAudio({
+                                      id: audio.path,
+                                      name: audio.name,
+                                      path: audio.path,
+                                      type: 'file',
+                                      handle: fileHandle
+                                    })
+                                    setAudioLoadError(null)
+                                    setVideoLoadError(null)
+                                  } else {
+                                    throw new Error('Audio file not found in any available directory')
+                                  }
+                                } catch (err) {
+                                  console.error('Error loading audio:', err)
+                                  const errorMessage = (
+                                    <div className="flex flex-col gap-4 p-4 bg-muted rounded">
+                                      <p>Unable to access the audio file in the current directory.</p>
+                                      <p>The audio was favorited from directory: <span className="text-sm text-muted-foreground">{audio.rootDirectoryName}</span></p>
+                                      <button
+                                        onClick={async () => {
+                                          if (isChangingDirectory) return
+                                          setIsChangingDirectory(true)
                                           try {
-                                            // Try to get the file in the selected directory
-                                            const fileHandle = await getFileHandle(newRootHandle, audio.path)
-                                            
-                                            // If successful, set both handles since this could be either type of directory
-                                            useDirectoryStore.getState().setRootHandle(newRootHandle)
-                                            useDirectoryStore.getState().setAudioRootHandle(newRootHandle)
-                                            
-                                            setAudioLoadError(null)
-                                            setSelectedAudio({
-                                              ...audio,
-                                              handle: fileHandle
-                                            })
-                                          } catch (accessErr) {
+                                            const newRootHandle = await fileSystemService.requestDirectoryAccess()
+                                            try {
+                                              // Try to get the file in the selected directory
+                                              const fileHandle = await getFileHandle(newRootHandle, audio.path)
+                                              
+                                              // If successful, set both handles since this could be either type of directory
+                                              useDirectoryStore.getState().setRootHandle(newRootHandle)
+                                              useDirectoryStore.getState().setAudioRootHandle(newRootHandle)
+                                              
+                                              setAudioLoadError(null)
+                                              setSelectedAudio({
+                                                ...audio,
+                                                handle: fileHandle
+                                              })
+                                            } catch (accessErr) {
+                                              setAudioLoadError(
+                                                <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
+                                                  Audio file not found in selected directory. Please select the directory containing the audio file.
+                                                </div>
+                                              )
+                                            }
+                                          } catch (dirErr) {
                                             setAudioLoadError(
                                               <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
-                                                Audio file not found in selected directory. Please select the directory containing the audio file.
+                                                Failed to access new directory
                                               </div>
                                             )
+                                          } finally {
+                                            setIsChangingDirectory(false)
                                           }
-                                        } catch (dirErr) {
-                                          setAudioLoadError(
-                                            <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
-                                              Failed to access new directory
-                                            </div>
-                                          )
-                                        } finally {
-                                          setIsChangingDirectory(false)
-                                        }
-                                      }}
-                                      className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
-                                      disabled={isChangingDirectory}
-                                    >
-                                      {isChangingDirectory ? 'Switching...' : 'Switch Directory'}
-                                    </button>
-                                  </div>
-                                )
-                                setAudioLoadError(errorMessage)
-                                setSelectedAudio(null)
-                              }
-                            }}
-                          >
-                            <div className="flex items-center gap-2 flex-1 min-w-0">
-                              <Music className="h-4 w-4 text-purple-500 flex-shrink-0" />
-                              <span className="truncate">{audio.name}</span>
-                              {audio.metadata?.markers?.length && (
-                                <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
-                              )}
-                              <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
+                                        }}
+                                        className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+                                        disabled={isChangingDirectory}
+                                      >
+                                        {isChangingDirectory ? 'Switching...' : 'Switch Directory'}
+                                      </button>
+                                    </div>
+                                  )
+                                  setAudioLoadError(errorMessage)
+                                  setSelectedAudio(null)
+                                }
+                              }}
+                            >
+                              <div className="flex items-center gap-2 flex-1 min-w-0">
+                                <Music className="h-4 w-4 text-purple-500 flex-shrink-0" />
+                                <span className="truncate">{audio.name}</span>
+                                {audio.metadata?.markers?.length && (
+                                  <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
+                                )}
+                                <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
+                              </div>
                             </div>
+                          ))
+                        ) : (
+                          <div className="flex flex-col items-center justify-center py-8 px-4">
+                            <Music className="h-12 w-12 text-muted-foreground/50 mb-2" />
+                            <p className="text-sm text-muted-foreground text-center">{searchQuery ? 'No audio tracks match your search.' : 'No favorite tracks yet.'}</p>
                           </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center justify-center py-8 px-4">
-                        <Music className="h-12 w-12 text-muted-foreground/50 mb-2" />
-                        <p className="text-sm text-muted-foreground text-center">{searchQuery ? 'No audio tracks match your search.' : 'No favorite tracks yet.'}</p>
+                        )}
                       </div>
                     )}
                   </div>

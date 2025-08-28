@@ -255,108 +255,222 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
         )}
       </div>
       
-      <div className="flex items-center gap-4">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={togglePlay}
-        >
-          {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-        </Button>
+      {inFloatingWindow ? (
+        <div className="space-y-3">
+          {/* Control buttons row */}
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={togglePlay}
+              >
+                {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+              </Button>
 
-        <FavoriteButton
-          audio={audioFile}
-          metadata={{
-            id: audioFile.path,
-            path: audioFile.path,
-            tags,
-            loopRegion,
-            markers,
-            annotations,
-            playbackRate,
-            volume
-          }}
-          directoryHandle={directoryHandle}
-        />
-        
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => {
-            if (audioRef.current) audioRef.current.currentTime = 0
-          }}
-        >
-          <RotateCcw className="h-4 w-4" />
-        </Button>
+              <FavoriteButton
+                audio={audioFile}
+                metadata={{
+                  id: audioFile.path,
+                  path: audioFile.path,
+                  tags,
+                  loopRegion,
+                  markers,
+                  annotations,
+                  playbackRate,
+                  volume
+                }}
+                directoryHandle={directoryHandle}
+              />
+              
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  if (audioRef.current) audioRef.current.currentTime = 0
+                }}
+              >
+                <RotateCcw className="h-4 w-4" />
+              </Button>
 
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => {
-            if (audioRef.current) audioRef.current.currentTime -= 5
-          }}
-        >
-          <SkipBack className="h-4 w-4" />
-        </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  if (audioRef.current) audioRef.current.currentTime -= 5
+                }}
+              >
+                <SkipBack className="h-4 w-4" />
+              </Button>
 
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => {
-            if (audioRef.current) audioRef.current.currentTime += 5
-          }}
-        >
-          <SkipForward className="h-4 w-4" />
-        </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  if (audioRef.current) audioRef.current.currentTime += 5
+                }}
+              >
+                <SkipForward className="h-4 w-4" />
+              </Button>
+            </div>
 
-        <div className="flex-1">
-          <Slider
-            value={[currentTime]}
-            min={0}
-            max={duration}
-            step={0.1}
-            onValueChange={handleTimeChange}
-          />
+            <div className="flex items-center gap-2">
+              <Select
+                value={playbackRate.toString()}
+                onValueChange={handlePlaybackRateChange}
+              >
+                <SelectTrigger className="w-[80px]">
+                  <SelectValue>{playbackRate}x</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {PLAYBACK_SPEEDS.map(speed => (
+                    <SelectItem key={speed} value={speed.toString()}>
+                      {speed}x
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <div className="w-20">
+                <Slider
+                  value={[volume * 100]}
+                  min={0}
+                  max={100}
+                  step={1}
+                  onValueChange={(value) => {
+                    const newVolume = value[0] / 100
+                    if (audioRef.current) {
+                      audioRef.current.volume = newVolume
+                    }
+                    setVolume(newVolume)
+                    saveMetadata({ volume: newVolume })
+                  }}
+                  className="w-full"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Progress bar row */}
+          <div className="flex items-center gap-4">
+            <div className="flex-1">
+              <Slider
+                value={[currentTime]}
+                min={0}
+                max={duration}
+                step={0.1}
+                onValueChange={handleTimeChange}
+              />
+            </div>
+            <span className="text-sm text-muted-foreground whitespace-nowrap">
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </span>
+          </div>
         </div>
+      ) : (
+        <div className="flex items-center gap-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={togglePlay}
+          >
+            {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+          </Button>
 
-        <Select
-          value={playbackRate.toString()}
-          onValueChange={handlePlaybackRateChange}
-        >
-          <SelectTrigger className="w-[80px]">
-            <SelectValue>{playbackRate}x</SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            {PLAYBACK_SPEEDS.map(speed => (
-              <SelectItem key={speed} value={speed.toString()}>
-                {speed}x
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <div className="w-24">
-          <Slider
-            value={[volume * 100]}
-            min={0}
-            max={100}
-            step={1}
-            onValueChange={(value) => {
-              const newVolume = value[0] / 100
-              if (audioRef.current) {
-                audioRef.current.volume = newVolume
-              }
-              setVolume(newVolume)
-              saveMetadata({ volume: newVolume })
+          <FavoriteButton
+            audio={audioFile}
+            metadata={{
+              id: audioFile.path,
+              path: audioFile.path,
+              tags,
+              loopRegion,
+              markers,
+              annotations,
+              playbackRate,
+              volume
             }}
-            className="w-full"
+            directoryHandle={directoryHandle}
           />
-        </div>
+          
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => {
+              if (audioRef.current) audioRef.current.currentTime = 0
+            }}
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
 
-        <span className="text-sm text-muted-foreground w-24 text-right">
-          {formatTime(currentTime)} / {formatTime(duration)}
-        </span>
-      </div>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => {
+              if (audioRef.current) audioRef.current.currentTime -= 5
+            }}
+          >
+            <SkipBack className="h-4 w-4" />
+          </Button>
+
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => {
+              if (audioRef.current) audioRef.current.currentTime += 5
+            }}
+          >
+            <SkipForward className="h-4 w-4" />
+          </Button>
+
+          <div className="flex-1">
+            <Slider
+              value={[currentTime]}
+              min={0}
+              max={duration}
+              step={0.1}
+              onValueChange={handleTimeChange}
+            />
+          </div>
+
+          <Select
+            value={playbackRate.toString()}
+            onValueChange={handlePlaybackRateChange}
+          >
+            <SelectTrigger className="w-[80px]">
+              <SelectValue>{playbackRate}x</SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {PLAYBACK_SPEEDS.map(speed => (
+                <SelectItem key={speed} value={speed.toString()}>
+                  {speed}x
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <div className="w-24">
+            <Slider
+              value={[volume * 100]}
+              min={0}
+              max={100}
+              step={1}
+              onValueChange={(value) => {
+                const newVolume = value[0] / 100
+                if (audioRef.current) {
+                  audioRef.current.volume = newVolume
+                }
+                setVolume(newVolume)
+                saveMetadata({ volume: newVolume })
+              }}
+              className="w-full"
+            />
+          </div>
+
+          <span className="text-sm text-muted-foreground w-24 text-right">
+            {formatTime(currentTime)} / {formatTime(duration)}
+          </span>
+        </div>
+      )}
 
       <div className="space-y-2">
         <div className="flex items-center gap-4">
