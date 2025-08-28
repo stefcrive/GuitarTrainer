@@ -19,11 +19,12 @@ interface AudioPlayerProps {
   onControlsReady?: (controls: VideoPlayerControls) => void
   selectedMarkerId?: string | null
   onMarkerSelect?: (markerId: string | null) => void
+  inFloatingWindow?: boolean
 }
 
 const PLAYBACK_SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 
-export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMarkerSelect }: AudioPlayerProps) {
+export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMarkerSelect, inFloatingWindow = false }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -233,23 +234,25 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
       {/* Display audio title at the top */}
       <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
         <h2 className="text-lg font-medium truncate">{audioFile.name}</h2>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            openPlayer({
-              type: 'audio',
-              title: audioFile.name,
-              audioFile,
-              selectedMarkerId,
-              onMarkerSelect
-            })
-          }}
-          className="gap-2 ml-2 flex-shrink-0"
-        >
-          <ExternalLink className="h-4 w-4" />
-          Open in Window
-        </Button>
+        {!inFloatingWindow && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              openPlayer({
+                type: 'audio',
+                title: audioFile.name,
+                audioFile,
+                selectedMarkerId,
+                onMarkerSelect
+              })
+            }}
+            className="gap-2 ml-2 flex-shrink-0"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Open in Window
+          </Button>
+        )}
       </div>
       
       <div className="flex items-center gap-4">

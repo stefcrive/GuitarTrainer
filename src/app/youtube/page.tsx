@@ -78,6 +78,19 @@ export default function YoutubePage() {
             <div className="p-4">
               {selectedVideoId ? (
                 <div className="space-y-4">
+                  {/* Action buttons */}
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <FavoriteButton
+                        video={{
+                          type: 'youtube' as const,
+                          id: selectedVideoId
+                        } satisfies YouTubeVideo}
+                      />
+                    </div>
+                    <div></div>
+                  </div>
+
                   <div className="relative">
                     <YouTubeInitializer>
                       <YouTubePlayer
@@ -86,14 +99,6 @@ export default function YoutubePage() {
                         className="w-full rounded overflow-hidden"
                       />
                     </YouTubeInitializer>
-                    <div className="absolute top-4 right-4">
-                      <FavoriteButton
-                        video={{
-                          type: 'youtube' as const,
-                          id: selectedVideoId
-                        } satisfies YouTubeVideo}
-                      />
-                    </div>
                   </div>
                 </div>
               ) : (

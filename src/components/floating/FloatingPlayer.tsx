@@ -142,6 +142,7 @@ export function FloatingPlayer() {
                 directoryHandle={player.content.directoryHandle}
                 selectedMarkerId={player.content.selectedMarkerId}
                 onMarkerSelect={player.content.onMarkerSelect}
+                inFloatingWindow={true}
                 className="min-h-full"
               />
             )}
@@ -152,6 +153,7 @@ export function FloatingPlayer() {
                   audioFile={player.content.audioFile}
                   selectedMarkerId={player.content.selectedMarkerId}
                   onMarkerSelect={player.content.onMarkerSelect}
+                  inFloatingWindow={true}
                 />
               </div>
             )}
@@ -160,6 +162,7 @@ export function FloatingPlayer() {
               <div className="min-h-full">
                 <YouTubePlayer
                   videoId={player.content.youtubeId}
+                  inFloatingWindow={true}
                   className="w-full min-h-full"
                 />
               </div>

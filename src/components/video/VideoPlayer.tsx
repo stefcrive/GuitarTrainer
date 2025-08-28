@@ -23,6 +23,7 @@ interface VideoPlayerProps {
   onNextVideo?: () => void
   selectedMarkerId?: string | null
   onMarkerSelect?: (markerId: string | null) => void
+  inFloatingWindow?: boolean
 }
 
 export function VideoPlayer({
@@ -34,7 +35,8 @@ export function VideoPlayer({
   onPrevVideo,
   onNextVideo,
   selectedMarkerId,
-  onMarkerSelect
+  onMarkerSelect,
+  inFloatingWindow = false
 }: VideoPlayerProps) {
   const [videoData, setVideoData] = useState<{ url: string; type: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -246,27 +248,29 @@ export function VideoPlayer({
               />
             )}
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              if (videoFile && video) {
-                openPlayer({
-                  type: 'video',
-                  title: video.name,
-                  file: videoFile,
-                  videoFile: video,
-                  directoryHandle,
-                  selectedMarkerId,
-                  onMarkerSelect
-                })
-              }
-            }}
-            className="gap-2"
-          >
-            <ExternalLink className="h-4 w-4" />
-            Open in Window
-          </Button>
+          {!inFloatingWindow && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (videoFile && video) {
+                  openPlayer({
+                    type: 'video',
+                    title: video.name,
+                    file: videoFile,
+                    videoFile: video,
+                    directoryHandle,
+                    selectedMarkerId,
+                    onMarkerSelect
+                  })
+                }
+              }}
+              className="gap-2"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Open in Window
+            </Button>
+          )}
         </div>
 
         <div className="aspect-video bg-black rounded overflow-hidden">

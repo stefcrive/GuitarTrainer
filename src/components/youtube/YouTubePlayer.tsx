@@ -17,6 +17,7 @@ interface YouTubePlayerProps {
   onControlsReady?: (controls: VideoPlayerControls) => void
   onPrevVideo?: () => void
   onNextVideo?: () => void
+  inFloatingWindow?: boolean
 }
 
 export function YouTubePlayer({
@@ -24,7 +25,8 @@ export function YouTubePlayer({
   className,
   onControlsReady,
   onPrevVideo,
-  onNextVideo
+  onNextVideo,
+  inFloatingWindow = false
 }: YouTubePlayerProps) {
   const playerRef = useRef<YT.Player | null>(null)
   const [isReady, setIsReady] = useState(false)
@@ -35,7 +37,13 @@ export function YouTubePlayer({
   const [initializeAttempt, setInitializeAttempt] = useState(0)
   const timeUpdateInterval = useRef<NodeJS.Timeout>()
   const retryTimeoutRef = useRef<NodeJS.Timeout>()
-  const containerId = `youtube-player-${videoId}`
+  const containerIdRef = useRef<string>()
+  
+  // Generate container ID once
+  if (!containerIdRef.current) {
+    containerIdRef.current = `youtube-player-${videoId}${inFloatingWindow ? `-floating-${Date.now()}` : ''}`
+  }
+  const containerId = containerIdRef.current
 
   const MAX_INIT_ATTEMPTS = 3
 
@@ -59,16 +67,26 @@ export function YouTubePlayer({
       }
 
       try {
+        // Wait for DOM element to be available, especially important for floating windows
+        let retries = 0
+        const maxDomRetries = 10
+        while (!document.getElementById(containerId) && retries < maxDomRetries) {
+          console.log(`Waiting for container ${containerId} (attempt ${retries + 1})`)
+          await new Promise(resolve => setTimeout(resolve, 100))
+          retries++
+        }
+
         if (!document.getElementById(containerId)) {
-          console.error('Container not found')
+          console.error(`Container ${containerId} not found after ${maxDomRetries} retries`)
           return
         }
 
         // Make sure YT API is loaded
+        console.log(`${inFloatingWindow ? '[Floating] ' : ''}Ensuring YouTube API is ready...`)
         await youtubeApi.ensurePlayerAPI()
         if (!mounted) return
 
-        console.log('Creating player...')
+        console.log(`${inFloatingWindow ? '[Floating] ' : ''}Creating player for container ${containerId}...`)
         playerRef.current = new window.YT.Player(containerId, {
           videoId,
           height: '100%',
@@ -85,7 +103,7 @@ export function YouTubePlayer({
           events: {
             onReady: (event) => {
               if (!mounted) return
-              console.log('Player ready')
+              console.log(`${inFloatingWindow ? '[Floating] ' : ''}Player ready`)
               setIsReady(true)
               setIsLoading(false)
               try {
@@ -95,12 +113,12 @@ export function YouTubePlayer({
                 }
                 startTimeTracking()
               } catch (error) {
-                console.warn('Error in onReady handler:', error)
+                console.warn(`${inFloatingWindow ? '[Floating] ' : ''}Error in onReady handler:`, error)
               }
             },
             onStateChange: (event) => {
               if (!mounted) return
-              console.log('Player state:', event.data)
+              console.log(`${inFloatingWindow ? '[Floating] ' : ''}Player state:`, event.data)
               if (event.data === window.YT.PlayerState.PLAYING) {
                 startTimeTracking()
               } else {
@@ -108,7 +126,7 @@ export function YouTubePlayer({
               }
             },
             onError: (event) => {
-              console.error('Player error:', event)
+              console.error(`${inFloatingWindow ? '[Floating] ' : ''}Player error:`, event)
               const errorCode = event.data
               let errorMessage = 'Error playing video'
               let shouldRetry = false
@@ -154,7 +172,7 @@ export function YouTubePlayer({
           }
         })
       } catch (err) {
-        console.error('Error creating player:', err)
+        console.error(`${inFloatingWindow ? '[Floating] ' : ''}Error creating player:`, err)
         retryCount++
         // Try again after a short delay
         setTimeout(initPlayer, 1000)
@@ -167,7 +185,7 @@ export function YouTubePlayer({
         initPlayer()
       }
     }).catch(err => {
-      console.error('Failed to load YouTube API:', err)
+      console.error(`${inFloatingWindow ? '[Floating] ' : ''}Failed to load YouTube API:`, err)
       if (mounted) {
         setError('Failed to load YouTube API')
         setIsLoading(false)
@@ -352,21 +370,23 @@ export function YouTubePlayer({
             <h2 className="text-lg font-medium truncate">
               {`YouTube Video: ${videoId}`}
             </h2>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                openPlayer({
-                  type: 'youtube',
-                  title: `YouTube Video: ${videoId}`,
-                  youtubeId: videoId
-                })
-              }}
-              className="gap-2 ml-2 flex-shrink-0"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Open in Window
-            </Button>
+            {!inFloatingWindow && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  openPlayer({
+                    type: 'youtube',
+                    title: `YouTube Video: ${videoId}`,
+                    youtubeId: videoId
+                  })
+                }}
+                className="gap-2 ml-2 flex-shrink-0"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Open in Window
+              </Button>
+            )}
           </div>
         )}
         <div className="relative pt-[56.25%] bg-black">
