@@ -144,6 +144,8 @@ export function FloatingPlayer() {
                 onMarkerSelect={player.content.onMarkerSelect}
                 inFloatingWindow={true}
                 className="min-h-full"
+                syncCurrentTime={player.content.currentTime}
+                syncIsPlaying={player.content.isPlaying}
               />
             )}
             
@@ -154,6 +156,8 @@ export function FloatingPlayer() {
                   selectedMarkerId={player.content.selectedMarkerId}
                   onMarkerSelect={player.content.onMarkerSelect}
                   inFloatingWindow={true}
+                  syncCurrentTime={player.content.currentTime}
+                  syncIsPlaying={player.content.isPlaying}
                 />
               </div>
             )}
@@ -164,6 +168,8 @@ export function FloatingPlayer() {
                   videoId={player.content.youtubeId}
                   inFloatingWindow={true}
                   className="w-full min-h-full"
+                  syncCurrentTime={player.content.currentTime}
+                  syncIsPlaying={player.content.isPlaying}
                 />
               </div>
             )}

@@ -24,6 +24,8 @@ interface VideoPlayerProps {
   selectedMarkerId?: string | null
   onMarkerSelect?: (markerId: string | null) => void
   inFloatingWindow?: boolean
+  syncCurrentTime?: number
+  syncIsPlaying?: boolean
 }
 
 export function VideoPlayer({
@@ -36,12 +38,15 @@ export function VideoPlayer({
   onNextVideo,
   selectedMarkerId,
   onMarkerSelect,
-  inFloatingWindow = false
+  inFloatingWindow = false,
+  syncCurrentTime,
+  syncIsPlaying
 }: VideoPlayerProps) {
   const [videoData, setVideoData] = useState<{ url: string; type: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const hasTrackedView = useRef(false)
 
@@ -92,7 +97,7 @@ export function VideoPlayer({
     onControlsReady?.(videoControls)
   }, [videoControls, onControlsReady])
 
-  // Track current time for timeline
+  // Track current time and play state for timeline
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
@@ -101,8 +106,23 @@ export function VideoPlayer({
       setCurrentTime(video.currentTime)
     }
 
+    const handlePlay = () => {
+      setIsPlaying(true)
+    }
+
+    const handlePause = () => {
+      setIsPlaying(false)
+    }
+
     video.addEventListener('timeupdate', handleTimeUpdate)
-    return () => video.removeEventListener('timeupdate', handleTimeUpdate)
+    video.addEventListener('play', handlePlay)
+    video.addEventListener('pause', handlePause)
+    
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate)
+      video.removeEventListener('play', handlePlay)
+      video.removeEventListener('pause', handlePause)
+    }
   }, [])
 
   // Handle URL creation and cleanup
@@ -196,6 +216,20 @@ export function VideoPlayer({
           console.error('Error tracking video view:', err)
         }
       }
+
+      // Handle synchronization when in floating window
+      if (inFloatingWindow && syncCurrentTime !== undefined) {
+        console.log('VideoPlayer: Synchronizing playback', { syncCurrentTime, syncIsPlaying })
+        videoElement.currentTime = syncCurrentTime
+        
+        if (syncIsPlaying) {
+          try {
+            await videoElement.play()
+          } catch (err) {
+            console.error('VideoPlayer: Auto-play failed:', err)
+          }
+        }
+      }
     }
 
     videoElement.addEventListener('error', handleError)
@@ -207,7 +241,7 @@ export function VideoPlayer({
       videoElement.removeEventListener('loadstart', handleLoadStart)
       videoElement.removeEventListener('canplay', handleCanPlay)
     }
-  }, [video, directoryHandle])
+  }, [video, directoryHandle, inFloatingWindow, syncCurrentTime, syncIsPlaying])
 
   if (!videoFile) {
     return (
@@ -261,7 +295,15 @@ export function VideoPlayer({
                     videoFile: video,
                     directoryHandle,
                     selectedMarkerId,
-                    onMarkerSelect
+                    onMarkerSelect,
+                    currentTime,
+                    isPlaying
+                  }, () => {
+                    // Pause main player when opening floating window
+                    if (videoRef.current && !videoRef.current.paused) {
+                      videoRef.current.pause()
+                      setIsPlaying(false)
+                    }
                   })
                 }
               }}

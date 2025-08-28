@@ -20,11 +20,13 @@ interface AudioPlayerProps {
   selectedMarkerId?: string | null
   onMarkerSelect?: (markerId: string | null) => void
   inFloatingWindow?: boolean
+  syncCurrentTime?: number
+  syncIsPlaying?: boolean
 }
 
 const PLAYBACK_SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
 
-export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMarkerSelect, inFloatingWindow = false }: AudioPlayerProps) {
+export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMarkerSelect, inFloatingWindow = false, syncCurrentTime, syncIsPlaying }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -107,13 +109,28 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
       }
     }
 
-    const handleLoadedMetadata = () => {
+    const handleLoadedMetadata = async () => {
       setDuration(audio.duration)
       setLoopRegion(prev => ({
         ...prev,
         end: prev.end || audio.duration
       }))
       audio.volume = volume
+
+      // Handle synchronization when in floating window
+      if (inFloatingWindow && syncCurrentTime !== undefined) {
+        console.log('AudioPlayer: Synchronizing playback', { syncCurrentTime, syncIsPlaying })
+        audio.currentTime = syncCurrentTime
+        
+        if (syncIsPlaying) {
+          try {
+            await audio.play()
+            setIsPlaying(true)
+          } catch (err) {
+            console.error('AudioPlayer: Auto-play failed:', err)
+          }
+        }
+      }
 
       // Once audio is loaded, expose controls
       if (onControlsReady) {
@@ -150,7 +167,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
       audio.removeEventListener('ended', handleEnded)
     }
-  }, [loopRegion, markers])
+  }, [loopRegion, markers, inFloatingWindow, syncCurrentTime, syncIsPlaying])
 
   const saveMetadata = async (updates: Partial<AudioMetadata>) => {
     try {
@@ -244,7 +261,15 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
                 title: audioFile.name,
                 audioFile,
                 selectedMarkerId,
-                onMarkerSelect
+                onMarkerSelect,
+                currentTime,
+                isPlaying
+              }, () => {
+                // Pause main player when opening floating window
+                if (audioRef.current && !audioRef.current.paused) {
+                  audioRef.current.pause()
+                  setIsPlaying(false)
+                }
               })
             }}
             className="gap-2 ml-2 flex-shrink-0"

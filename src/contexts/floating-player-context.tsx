@@ -14,6 +14,9 @@ export interface FloatingPlayerContent {
   directoryHandle?: FileSystemDirectoryHandle
   selectedMarkerId?: string | null
   onMarkerSelect?: (markerId: string | null) => void
+  // Synchronization data from main player
+  currentTime?: number
+  isPlaying?: boolean
 }
 
 interface FloatingPlayerState {
@@ -26,7 +29,7 @@ interface FloatingPlayerState {
 
 interface FloatingPlayerContextType {
   player: FloatingPlayerState
-  openPlayer: (content: FloatingPlayerContent) => void
+  openPlayer: (content: FloatingPlayerContent, onMainPlayerPause?: () => void) => void
   closePlayer: () => void
   minimizePlayer: () => void
   maximizePlayer: () => void
@@ -48,7 +51,12 @@ export function FloatingPlayerProvider({ children }: { children: ReactNode }) {
     isMinimized: false
   })
 
-  const openPlayer = (content: FloatingPlayerContent) => {
+  const openPlayer = (content: FloatingPlayerContent, onMainPlayerPause?: () => void) => {
+    // Pause main player if callback is provided and main player is playing
+    if (onMainPlayerPause && content.isPlaying) {
+      onMainPlayerPause()
+    }
+    
     setPlayer(prev => ({
       ...prev,
       isOpen: true,

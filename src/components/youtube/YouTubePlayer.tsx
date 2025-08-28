@@ -18,6 +18,8 @@ interface YouTubePlayerProps {
   onPrevVideo?: () => void
   onNextVideo?: () => void
   inFloatingWindow?: boolean
+  syncCurrentTime?: number
+  syncIsPlaying?: boolean
 }
 
 export function YouTubePlayer({
@@ -26,12 +28,15 @@ export function YouTubePlayer({
   onControlsReady,
   onPrevVideo,
   onNextVideo,
-  inFloatingWindow = false
+  inFloatingWindow = false,
+  syncCurrentTime,
+  syncIsPlaying
 }: YouTubePlayerProps) {
   const playerRef = useRef<YT.Player | null>(null)
   const [isReady, setIsReady] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [initializeAttempt, setInitializeAttempt] = useState(0)
@@ -111,6 +116,17 @@ export function YouTubePlayer({
                   const dur = event.target.getDuration()
                   if (dur > 0) setDuration(dur)
                 }
+
+                // Handle synchronization when in floating window
+                if (inFloatingWindow && syncCurrentTime !== undefined) {
+                  console.log(`${inFloatingWindow ? '[Floating] ' : ''}Synchronizing playback`, { syncCurrentTime, syncIsPlaying })
+                  event.target.seekTo(syncCurrentTime, true)
+                  
+                  if (syncIsPlaying) {
+                    event.target.playVideo()
+                  }
+                }
+
                 startTimeTracking()
               } catch (error) {
                 console.warn(`${inFloatingWindow ? '[Floating] ' : ''}Error in onReady handler:`, error)
@@ -120,7 +136,11 @@ export function YouTubePlayer({
               if (!mounted) return
               console.log(`${inFloatingWindow ? '[Floating] ' : ''}Player state:`, event.data)
               if (event.data === window.YT.PlayerState.PLAYING) {
+                setIsPlaying(true)
                 startTimeTracking()
+              } else if (event.data === window.YT.PlayerState.PAUSED || event.data === window.YT.PlayerState.ENDED) {
+                setIsPlaying(false)
+                stopTimeTracking()
               } else {
                 stopTimeTracking()
               }
@@ -214,7 +234,7 @@ export function YouTubePlayer({
       // Clear any error state
       setError(null)
     }
-  }, [videoId, containerId, initializeAttempt, MAX_INIT_ATTEMPTS])
+  }, [videoId, containerId, initializeAttempt, MAX_INIT_ATTEMPTS, inFloatingWindow, syncCurrentTime, syncIsPlaying])
 
   // Track video time
   const startTimeTracking = () => {
@@ -378,7 +398,15 @@ export function YouTubePlayer({
                   openPlayer({
                     type: 'youtube',
                     title: `YouTube Video: ${videoId}`,
-                    youtubeId: videoId
+                    youtubeId: videoId,
+                    currentTime,
+                    isPlaying
+                  }, () => {
+                    // Pause main player when opening floating window
+                    if (playerRef.current && isPlaying) {
+                      playerRef.current.pauseVideo()
+                      setIsPlaying(false)
+                    }
                   })
                 }}
                 className="gap-2 ml-2 flex-shrink-0"
