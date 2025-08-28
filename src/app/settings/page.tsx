@@ -30,7 +30,7 @@ export default function SettingsPage() {
     setScanVideoFolderForAudio
   } = useDirectoryStore()
   
-  const { loadPlaylistsFromFolder } = useYouTubeStore()
+  const { loadPlaylistsFromFolder, clearPlaylists } = useYouTubeStore()
 
   const [videoStats, setVideoStats] = useState<DirectoryStats>({
     videoCount: 0,
@@ -224,8 +224,9 @@ export default function SettingsPage() {
       loadPlaylistsFromFolder(rootHandle)
     } else {
       setVideoStats({ videoCount: 0, audioCount: 0, markerCount: 0, annotationCount: 0, isLoading: false })
+      clearPlaylists()
     }
-  }, [rootHandle, scanVideoFolderForAudio, loadPlaylistsFromFolder])
+  }, [rootHandle, scanVideoFolderForAudio, loadPlaylistsFromFolder, clearPlaylists])
 
   useEffect(() => {
     if (audioRootHandle) {

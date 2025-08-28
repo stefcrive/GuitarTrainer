@@ -54,6 +54,7 @@ interface YouTubeState {
   // Folder sync actions
   loadPlaylistsFromFolder: (rootHandle: FileSystemDirectoryHandle) => Promise<void>
   syncPlaylistsToFolder: (rootHandle: FileSystemDirectoryHandle) => Promise<void>
+  clearPlaylists: () => void
 }
 
 export const useYouTubeStore = create<YouTubeState>()(
@@ -148,6 +149,9 @@ export const useYouTubeStore = create<YouTubeState>()(
           console.error('Failed to sync playlists to folder:', error)
         }
       },
+      clearPlaylists: () => {
+        set({ playlists: [], isInitialized: false })
+      },
     }),
     {
       name: 'youtube-storage',
@@ -156,8 +160,7 @@ export const useYouTubeStore = create<YouTubeState>()(
         searchTerm: state.searchTerm,
         selectedTags: state.selectedTags,
         searchResults: state.searchResults,
-        // Persist YouTube state
-        playlists: state.playlists,
+        // Don't persist playlists - they should be folder-specific
         videoCache: state.videoCache,
         isInitialized: state.isInitialized
       }),

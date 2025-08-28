@@ -56,7 +56,7 @@ export function PlaylistManager() {
           onChange={(e) => setNewPlaylistInput(e.target.value)}
           placeholder="Enter YouTube playlist URL or ID"
           className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={isValidating}
+          disabled={isValidating || !rootHandle}
         />
         <p className="text-xs text-muted-foreground">
           Example formats:
@@ -69,7 +69,7 @@ export function PlaylistManager() {
       
       <Button 
         onClick={handleAddPlaylist} 
-        disabled={isValidating}
+        disabled={isValidating || !rootHandle}
       >
         {isValidating ? 'Validating...' : 'Add Playlist'}
       </Button>
@@ -86,23 +86,25 @@ export function PlaylistManager() {
         </div>
       )}
       
-      <div className="space-y-2 pt-4">
-        {playlists.map(playlist => (
-          <div key={playlist.id} className="flex items-center justify-between p-3 border rounded-md bg-secondary/10">
-            <div className="space-y-1">
-              <span className="text-sm font-medium">{playlist.title}</span>
-              <p className="text-xs text-muted-foreground break-all">{playlist.id}</p>
+      {rootHandle && (
+        <div className="space-y-2 pt-4">
+          {playlists.map(playlist => (
+            <div key={playlist.id} className="flex items-center justify-between p-3 border rounded-md bg-secondary/10">
+              <div className="space-y-1">
+                <span className="text-sm font-medium">{playlist.title}</span>
+                <p className="text-xs text-muted-foreground break-all">{playlist.id}</p>
+              </div>
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => removePlaylist(playlist.id, rootHandle)}
+              >
+                Remove
+              </Button>
             </div>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => removePlaylist(playlist.id, rootHandle)}
-            >
-              Remove
-            </Button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
