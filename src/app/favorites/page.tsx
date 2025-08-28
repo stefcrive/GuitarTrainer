@@ -97,7 +97,6 @@ export default function FavoritesPage() {
   // Collapsible UI state
   const [isLocalVideosCollapsed, setIsLocalVideosCollapsed] = useState(false)
   const [isYouTubeCollapsed, setIsYouTubeCollapsed] = useState(false)
-  const [openAudioGroups, setOpenAudioGroups] = useState<Record<string, boolean>>({})
 
   // Use dedicated favorites state for persistence
   const {
@@ -311,18 +310,9 @@ export default function FavoritesPage() {
     }
   }
 
-// Group videos by type and audio by directory for collapsible folders
+// Group videos by type for collapsible folders
 const fileVideos = filteredVideoFavorites.filter(v => v.type === 'file')
 const youtubeVideos = filteredVideoFavorites.filter(v => v.type === 'youtube')
-
-// Group audio by rootDirectoryName or top-level folder.
-// Use a correctly typed reduce to avoid TS index signature errors.
-const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFile[]>>((acc, audio) => {
- const groupKey = audio.rootDirectoryName || (audio.path ? audio.path.split('/')[0] : 'Unknown')
- if (!acc[groupKey]) acc[groupKey] = []
- acc[groupKey].push(audio)
- return acc
-}, {})
   if (!rootHandle) {
     return (
       <div className="flex min-h-screen flex-col">
@@ -381,7 +371,6 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                     <div className="flex items-center gap-2 mb-3">
                       <VideoIcon className="h-5 w-5 text-blue-600" />
                       <h3 className="text-lg font-semibold text-foreground">Videos</h3>
-                      <span className="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full font-medium">{filteredVideoFavorites.length}</span>
                     </div>
 
                     {/* Local Videos (collapsible) */}
@@ -397,9 +386,6 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                         )}
                         <Folder className="h-4 w-4 mr-2 text-blue-600" />
                         <span className="flex-1">Local Videos</span>
-                        <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-                          {fileVideos.length}
-                        </span>
                       </button>
 
                       {!isLocalVideosCollapsed && (
@@ -445,9 +431,6 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                         )}
                         <Youtube className="h-4 w-4 mr-2 text-red-500" />
                         <span className="flex-1">YouTube Videos</span>
-                        <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-                          {youtubeVideos.length}
-                        </span>
                       </button>
 
                       {!isYouTubeCollapsed && (
@@ -481,178 +464,127 @@ const groupedAudio = filteredAudioFavorites.reduce<Record<string, StoredAudioFil
                     </div>
                   </div>
 
-                  {/* Favorite Audio Tracks grouped into collapsible folders */}
+                  {/* Favorite Audio Tracks - Direct list without folders */}
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 mb-3">
                       <Music className="h-5 w-5 text-purple-600" />
                       <h3 className="text-lg font-semibold text-foreground">Audio</h3>
-                      <span className="px-2 py-1 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full font-medium">{filteredAudioFavorites.length}</span>
                     </div>
 
-                    {Object.keys(groupedAudio).length > 0 ? (
-                      Object.entries(groupedAudio).map(([groupName, audios]) => {
-                        const isOpen = !!openAudioGroups[groupName]
-                        return (
-                          <div key={groupName}>
-                            <button
-                              className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
-                              onClick={() => setOpenAudioGroups(prev => ({ ...prev, [groupName]: !prev[groupName] }))}
-                            >
-                              {isOpen ? (
-                                <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
-                              ) : (
-                                <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
-                              )}
-                              <Folder className="h-4 w-4 mr-2 text-purple-600" />
-                              <span className="flex-1">{groupName}</span>
-                              <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-                                {audios.length}
-                              </span>
-                            </button>
+                    {filteredAudioFavorites.length > 0 ? (
+                      <div className="space-y-0.5">
+                        {filteredAudioFavorites.map((audio) => (
+                          <div
+                            key={audio.path}
+                            className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
+                            onClick={async () => {
+                              // Clear any selected video first
+                              setSelectedVideo(null)
+                              setVideoFile(null)
+                              
+                              try {
+                                let fileHandle: FileSystemFileHandle | null = null
+                                
+                                // Try audioRootHandle first if available
+                                if (audioRootHandle) {
+                                  try {
+                                    fileHandle = await getFileHandle(audioRootHandle, audio.path)
+                                  } catch (err) {
+                                    // Silently continue to try next directory
+                                  }
+                                }
 
-                            {isOpen && (
-                              <div className="space-y-0.5">
-                                {audios.map((audio) => (
-                                  <div
-                                    key={audio.path}
-                                    className={`flex items-center justify-between w-full py-1 px-2 hover:bg-accent rounded text-left cursor-pointer bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400 ${selectedAudio?.path === audio.path ? 'bg-accent text-accent-foreground' : ''}`}
-                                    style={{ paddingLeft: '32px' }}
-                                    onClick={async () => {
-                                      // Clear any selected video first
-                                      setSelectedVideo(null)
-                                      setVideoFile(null)
-                                      
-                                      try {
-                                        let fileHandle: FileSystemFileHandle | null = null
-                                        
-                                        // Try audioRootHandle first if available
-                                        if (audioRootHandle) {
+                                // If not found in audio root, try the video root handle
+                                if (!fileHandle && rootHandle) {
+                                  try {
+                                    fileHandle = await getFileHandle(rootHandle, audio.path)
+                                  } catch (err) {
+                                    // Silently continue
+                                  }
+                                }
+
+                                if (fileHandle) {
+                                  setSelectedAudio({
+                                    ...audio,
+                                    handle: fileHandle
+                                  })
+                                  setFavoritesSelectedAudio({
+                                    id: audio.path,
+                                    name: audio.name,
+                                    path: audio.path,
+                                    type: 'file',
+                                    handle: fileHandle
+                                  })
+                                  setAudioLoadError(null)
+                                  setVideoLoadError(null)
+                                } else {
+                                  throw new Error('Audio file not found in any available directory')
+                                }
+                              } catch (err) {
+                                console.error('Error loading audio:', err)
+                                const errorMessage = (
+                                  <div className="flex flex-col gap-4 p-4 bg-muted rounded">
+                                    <p>Unable to access the audio file in the current directory.</p>
+                                    <p>The audio was favorited from directory: <span className="text-sm text-muted-foreground">{audio.rootDirectoryName}</span></p>
+                                    <button
+                                      onClick={async () => {
+                                        if (isChangingDirectory) return
+                                        setIsChangingDirectory(true)
+                                        try {
+                                          const newRootHandle = await fileSystemService.requestDirectoryAccess()
                                           try {
-                                            fileHandle = await getFileHandle(audioRootHandle, audio.path)
-                                          } catch (err) {
-                                            // Silently continue to try next directory
+                                            // Try to get the file in the selected directory
+                                            const fileHandle = await getFileHandle(newRootHandle, audio.path)
+                                            
+                                            // If successful, set both handles since this could be either type of directory
+                                            useDirectoryStore.getState().setRootHandle(newRootHandle)
+                                            useDirectoryStore.getState().setAudioRootHandle(newRootHandle)
+                                            
+                                            setAudioLoadError(null)
+                                            setSelectedAudio({
+                                              ...audio,
+                                              handle: fileHandle
+                                            })
+                                          } catch (accessErr) {
+                                            setAudioLoadError(
+                                              <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
+                                                Audio file not found in selected directory. Please select the directory containing the audio file.
+                                              </div>
+                                            )
                                           }
+                                        } catch (dirErr) {
+                                          setAudioLoadError(
+                                            <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
+                                              Failed to access new directory
+                                            </div>
+                                          )
+                                        } finally {
+                                          setIsChangingDirectory(false)
                                         }
-
-                                        // If not found in audio root, try the video root handle
-                                        if (!fileHandle && rootHandle) {
-                                          try {
-                                            fileHandle = await getFileHandle(rootHandle, audio.path)
-                                          } catch (err) {
-                                            // Silently continue
-                                          }
-                                        }
-
-                                        if (fileHandle) {
-                                          setSelectedAudio({
-                                            ...audio,
-                                            handle: fileHandle
-                                          })
-                                          setFavoritesSelectedAudio({
-                                            id: audio.path,
-                                            name: audio.name,
-                                            path: audio.path,
-                                            type: 'file',
-                                            handle: fileHandle
-                                          })
-                                          setAudioLoadError(null)
-                                          setVideoLoadError(null)
-                                        } else {
-                                          throw new Error('Audio file not found in any available directory')
-                                        }
-                                      } catch (err) {
-                                        console.error('Error loading audio:', err)
-                                        const errorMessage = (
-                                          <div className="flex flex-col gap-4 p-4 bg-muted rounded">
-                                            <p>Unable to access the audio file in the current directory.</p>
-                                            <p>The audio was favorited from directory: <span className="text-sm text-muted-foreground">{audio.rootDirectoryName}</span></p>
-                                            <button
-                                              onClick={async () => {
-                                                if (isChangingDirectory) return
-                                                setIsChangingDirectory(true)
-                                                try {
-                                                  const newRootHandle = await fileSystemService.requestDirectoryAccess()
-                                                  try {
-                                                    // Try to get the file in the selected directory
-                                                    const fileHandle = await getFileHandle(newRootHandle, audio.path)
-                                                    
-                                                    // If successful, set both handles since this could be either type of directory
-                                                    useDirectoryStore.getState().setRootHandle(newRootHandle)
-                                                    useDirectoryStore.getState().setAudioRootHandle(newRootHandle)
-                                                    
-                                                    setAudioLoadError(null)
-                                                    setSelectedAudio({
-                                                      ...audio,
-                                                      handle: fileHandle
-                                                    })
-                                                  } catch (accessErr) {
-                                                    setAudioLoadError(
-                                                      <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
-                                                        Audio file not found in selected directory. Please select the directory containing the audio file.
-                                                      </div>
-                                                    )
-                                                  }
-                                                } catch (dirErr) {
-                                                  setAudioLoadError(
-                                                    <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg">
-                                                      Failed to access new directory
-                                                    </div>
-                                                  )
-                                                } finally {
-                                                  setIsChangingDirectory(false)
-                                                }
-                                              }}
-                                              className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
-                                              disabled={isChangingDirectory}
-                                            >
-                                              {isChangingDirectory ? 'Switching...' : 'Switch Directory'}
-                                            </button>
-                                          </div>
-                                        )
-                                        setAudioLoadError(errorMessage)
-                                        setSelectedAudio(null)
-                                      }
-                                    }}
-                                  >
-                                    <div className="flex items-center gap-2 flex-1 min-w-0">
-                                      <Music className="h-4 w-4 text-purple-500 flex-shrink-0" />
-                                      <span className="truncate">{audio.name}</span>
-                                      {audio.metadata?.markers?.length && (
-                                        <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
-                                      )}
-                                      <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
-                                    </div>
-                                    <div className="flex items-center gap-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-                                      {rootHandle && (
-                                        <AudioFavoriteButton
-                                          audio={{
-                                            id: audio.path,
-                                            name: audio.name,
-                                            path: audio.path,
-                                            type: 'file',
-                                            handle: undefined as any // Will be set when loaded
-                                          }}
-                                          metadata={audio.metadata}
-                                          directoryHandle={rootHandle}
-                                          onFavoriteChange={async (isFavorite) => {
-                                            if (!isFavorite) {
-                                              const favs = await favoritesService.getAudioFavorites()
-                                              setAudioFavorites(favs)
-                                              if (selectedAudio?.path === audio.path) {
-                                                setSelectedAudio(null)
-                                              }
-                                            }
-                                          }}
-                                        />
-                                      )}
-                                    </div>
+                                      }}
+                                      className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+                                      disabled={isChangingDirectory}
+                                    >
+                                      {isChangingDirectory ? 'Switching...' : 'Switch Directory'}
+                                    </button>
                                   </div>
-                                ))}
-                              </div>
-                            )}
+                                )
+                                setAudioLoadError(errorMessage)
+                                setSelectedAudio(null)
+                              }
+                            }}
+                          >
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                              <Music className="h-4 w-4 text-purple-500 flex-shrink-0" />
+                              <span className="truncate">{audio.name}</span>
+                              {audio.metadata?.markers?.length && (
+                                <Circle className="w-2 h-2 fill-blue-500 text-blue-500" />
+                              )}
+                              <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
+                            </div>
                           </div>
-                        )
-                      })
+                        ))}
+                      </div>
                     ) : (
                       <div className="flex flex-col items-center justify-center py-8 px-4">
                         <Music className="h-12 w-12 text-muted-foreground/50 mb-2" />

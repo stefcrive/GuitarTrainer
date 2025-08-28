@@ -413,6 +413,7 @@ export function YouTubePlayer({
               videoControls={videoControls}
               markerState={markerState}
               setMarkerState={setMarkerState}
+              contentType="youtube"
               className="mt-4"
             />
           </>

@@ -85,9 +85,6 @@ function FolderItem({
           )}
           <Folder className="h-4 w-4 mr-2 text-blue-600" />
           <span className="flex-1">{name}</span>
-          <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-            {content.videos.length}
-          </span>
         </button>
       )}
       

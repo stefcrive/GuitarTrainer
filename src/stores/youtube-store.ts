@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { savePlaylistsToFolder, loadPlaylistsFromFolder } from '@/services/playlist-storage'
 
 interface YouTubePlaylist {
   id: string
@@ -45,11 +46,14 @@ interface YouTubeState {
   videoCache: Record<string, YouTubeVideoCache>
   isInitialized: boolean
   // YouTube actions
-  addPlaylist: (playlist: YouTubePlaylist) => void
-  removePlaylist: (id: string) => void
+  addPlaylist: (playlist: YouTubePlaylist, rootHandle?: FileSystemDirectoryHandle) => void
+  removePlaylist: (id: string, rootHandle?: FileSystemDirectoryHandle) => void
   cacheVideo: (video: YouTubeVideoCache) => void
   setCacheForPlaylist: (playlistId: string, videos: YouTubeVideoCache[]) => void
   setInitialized: (value: boolean) => void
+  // Folder sync actions
+  loadPlaylistsFromFolder: (rootHandle: FileSystemDirectoryHandle) => Promise<void>
+  syncPlaylistsToFolder: (rootHandle: FileSystemDirectoryHandle) => Promise<void>
 }
 
 export const useYouTubeStore = create<YouTubeState>()(
@@ -71,11 +75,21 @@ export const useYouTubeStore = create<YouTubeState>()(
         selectedTags: [],
         searchResults: []
       })),
-      addPlaylist: (playlist) =>
+      addPlaylist: async (playlist, rootHandle) => {
         set((state) => ({
           playlists: [...state.playlists, playlist],
-        })),
-      removePlaylist: (id) =>
+        }))
+        
+        if (rootHandle) {
+          try {
+            const currentState = useYouTubeStore.getState()
+            await savePlaylistsToFolder(rootHandle, currentState.playlists)
+          } catch (error) {
+            console.error('Failed to save playlists to folder:', error)
+          }
+        }
+      },
+      removePlaylist: async (id, rootHandle) => {
         set((state) => ({
           playlists: state.playlists.filter((p) => p.id !== id),
           videoCache: Object.fromEntries(
@@ -83,7 +97,17 @@ export const useYouTubeStore = create<YouTubeState>()(
               ([_, video]) => video.playlistId !== id
             )
           ),
-        })),
+        }))
+        
+        if (rootHandle) {
+          try {
+            const currentState = useYouTubeStore.getState()
+            await savePlaylistsToFolder(rootHandle, currentState.playlists)
+          } catch (error) {
+            console.error('Failed to save playlists to folder:', error)
+          }
+        }
+      },
       cacheVideo: (video) =>
         set((state) => ({
           videoCache: {
@@ -107,6 +131,23 @@ export const useYouTubeStore = create<YouTubeState>()(
         set(() => ({
           isInitialized: value,
         })),
+      loadPlaylistsFromFolder: async (rootHandle) => {
+        try {
+          const playlists = await loadPlaylistsFromFolder(rootHandle)
+          set({ playlists, isInitialized: true })
+        } catch (error) {
+          console.error('Failed to load playlists from folder:', error)
+          set({ isInitialized: true })
+        }
+      },
+      syncPlaylistsToFolder: async (rootHandle) => {
+        try {
+          const currentState = useYouTubeStore.getState()
+          await savePlaylistsToFolder(rootHandle, currentState.playlists)
+        } catch (error) {
+          console.error('Failed to sync playlists to folder:', error)
+        }
+      },
     }),
     {
       name: 'youtube-storage',

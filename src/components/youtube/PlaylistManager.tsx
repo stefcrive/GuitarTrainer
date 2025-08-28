@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useYouTubeStore } from '@/stores/youtube-store'
+import { useDirectoryStore } from '@/stores/directory-store'
 import { fetchPlaylistData } from '@/services/youtube'
 
 export function PlaylistManager() {
   const { playlists, addPlaylist, removePlaylist } = useYouTubeStore()
+  const { rootHandle } = useDirectoryStore()
   const [newPlaylistInput, setNewPlaylistInput] = useState('')
   const [error, setError] = useState('')
   const [isValidating, setIsValidating] = useState(false)
@@ -21,13 +23,18 @@ export function PlaylistManager() {
         return
       }
 
+      if (!rootHandle) {
+        setError('Please select a root directory first in Settings')
+        return
+      }
+
       const playlistData = await fetchPlaylistData(newPlaylistInput)
       
-      addPlaylist({
+      await addPlaylist({
         id: playlistData.id,
         title: playlistData.title,
         description: playlistData.description || ''
-      })
+      }, rootHandle)
       setNewPlaylistInput('')
     } catch (error) {
       if (error instanceof Error) {
@@ -89,7 +96,7 @@ export function PlaylistManager() {
             <Button
               variant="destructive"
               size="sm"
-              onClick={() => removePlaylist(playlist.id)}
+              onClick={() => removePlaylist(playlist.id, rootHandle)}
             >
               Remove
             </Button>

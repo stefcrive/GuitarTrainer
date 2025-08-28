@@ -14,13 +14,15 @@ interface VideoMarkersProps {
   markerState: VideoMarkerState
   setMarkerState: (state: VideoMarkerState) => void
   className?: string
+  contentType?: 'video' | 'youtube'
 }
 
 export function VideoMarkers({ 
   videoControls, 
   markerState, 
   setMarkerState, 
-  className 
+  className,
+  contentType = 'video'
 }: VideoMarkersProps) {
   const [editingMarkerId, setEditingMarkerId] = useState<string | null>(null)
   
@@ -305,10 +307,22 @@ export function VideoMarkers({
   return (
     <div className={cn('space-y-4', className)}>
       {/* Header Section */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border">
+      <div className={`flex items-center justify-between p-4 rounded-lg border ${
+        contentType === 'youtube' 
+          ? 'bg-gradient-to-r from-red-50 to-red-100 dark:from-red-950/20 dark:to-red-900/20'
+          : 'bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20'
+      }`}>
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-            <MarkersIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          <div className={`p-2 rounded-full ${
+            contentType === 'youtube'
+              ? 'bg-red-100 dark:bg-red-900/30'
+              : 'bg-blue-100 dark:bg-blue-900/30'
+          }`}>
+            <MarkersIcon className={`h-5 w-5 ${
+              contentType === 'youtube'
+                ? 'text-red-600 dark:text-red-400'
+                : 'text-blue-600 dark:text-blue-400'
+            }`} />
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Markers & Annotations</h3>
@@ -321,7 +335,11 @@ export function VideoMarkers({
           variant="outline"
           size="sm"
           onClick={addMarker}
-          className="bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+          className={`bg-white dark:bg-gray-800 ${
+            contentType === 'youtube'
+              ? 'hover:bg-red-50 dark:hover:bg-red-900/20 border-red-200 dark:border-red-800'
+              : 'hover:bg-blue-50 dark:hover:bg-blue-900/20 border-blue-200 dark:border-blue-800'
+          }`}
         >
           <PlusIcon className="h-4 w-4 mr-2" />
           Add Marker
@@ -350,7 +368,9 @@ export function VideoMarkers({
                   className={cn(
                     'relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md cursor-pointer',
                     marker.id === markerState.activeMarkerId 
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20 shadow-sm' 
+                      ? (contentType === 'youtube'
+                          ? 'border-red-500 bg-red-50 dark:bg-red-950/20 shadow-sm'
+                          : 'border-blue-500 bg-blue-50 dark:bg-blue-950/20 shadow-sm')
                       : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   )}
                   onClick={(e) => {
@@ -366,7 +386,9 @@ export function VideoMarkers({
                   }}
                 >
                   {/* Marker Number Badge */}
-                  <div className="absolute -top-2 -left-2 w-6 h-6 bg-blue-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                  <div className={`absolute -top-2 -left-2 w-6 h-6 text-white text-xs font-bold rounded-full flex items-center justify-center ${
+                    contentType === 'youtube' ? 'bg-red-500' : 'bg-blue-500'
+                  }`}>
                     {index + 1}
                   </div>
 
@@ -510,7 +532,9 @@ export function VideoMarkers({
                       </div>
                       <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                         <div
-                          className="bg-blue-500 h-full rounded-full"
+                          className={`h-full rounded-full ${
+                            contentType === 'youtube' ? 'bg-red-500' : 'bg-blue-500'
+                          }`}
                           style={{ width: `${marker.completionDegree || 0}%` }}
                         />
                       </div>
@@ -522,8 +546,16 @@ export function VideoMarkers({
                     {!editingMarkerId && annotation && (
                       <div className="bg-muted/50 p-3 rounded-lg border border-muted">
                         <div className="flex items-start gap-3">
-                          <div className="p-1 bg-blue-100 dark:bg-blue-900/30 rounded">
-                            <FileTextIcon className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                          <div className={`p-1 rounded ${
+                            contentType === 'youtube'
+                              ? 'bg-red-100 dark:bg-red-900/30'
+                              : 'bg-blue-100 dark:bg-blue-900/30'
+                          }`}>
+                            <FileTextIcon className={`h-3 w-3 ${
+                              contentType === 'youtube'
+                                ? 'text-red-600 dark:text-red-400'
+                                : 'text-blue-600 dark:text-blue-400'
+                            }`} />
                           </div>
                           <div className="flex-1">
                             <p className="text-sm">{annotation.text}</p>
@@ -563,7 +595,11 @@ export function VideoMarkers({
                       <div className="space-y-2">
                         <div className="flex justify-between items-center text-sm">
                           <span className="text-muted-foreground font-medium">Completion Progress</span>
-                          <span className="font-semibold text-blue-600 dark:text-blue-400">
+                          <span className={`font-semibold ${
+                            contentType === 'youtube'
+                              ? 'text-red-600 dark:text-red-400'
+                              : 'text-blue-600 dark:text-blue-400'
+                          }`}>
                             {marker.completionDegree || 0}%
                           </span>
                         </div>

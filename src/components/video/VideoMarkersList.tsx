@@ -702,7 +702,11 @@ export default function VideoSurfList(): React.ReactElement {
                             <div
                               key={marker.id}
                               className={`relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md cursor-pointer ${
-                                marker.id === selectedMarkerId ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20 shadow-sm' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                                marker.id === selectedMarkerId ? (
+                                  markerState.content.type === 'youtube' ? 'border-red-500 bg-red-50 dark:bg-red-950/20 shadow-sm' :
+                                  markerState.content.type === 'audio' ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20 shadow-sm' :
+                                  'border-blue-500 bg-blue-50 dark:bg-blue-950/20 shadow-sm'
+                                ) : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                               }`}
                               onClick={async () => {
                                 // If we're selecting the same content, seek immediately
@@ -753,7 +757,11 @@ export default function VideoSurfList(): React.ReactElement {
                               }}
                             >
                               {/* Marker Number Badge */}
-                              <div className="absolute -top-2 -left-2 w-6 h-6 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                              <div className={`absolute -top-2 -left-2 w-6 h-6 text-white text-xs font-bold rounded-full flex items-center justify-center ${
+                                markerState.content.type === 'youtube' ? 'bg-red-500' :
+                                markerState.content.type === 'audio' ? 'bg-purple-500' :
+                                'bg-blue-500'
+                              }`}>
                                 {markerIndex + 1}
                               </div>
 
@@ -784,7 +792,11 @@ export default function VideoSurfList(): React.ReactElement {
                                   </div>
                                   <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                                     <div
-                                      className="bg-purple-600 h-full rounded-full"
+                                      className={`h-full rounded-full ${
+                                        markerState.content.type === 'youtube' ? 'bg-red-600' :
+                                        markerState.content.type === 'audio' ? 'bg-purple-600' :
+                                        'bg-blue-600'
+                                      }`}
                                       style={{ width: `${completion}%` }}
                                     />
                                   </div>

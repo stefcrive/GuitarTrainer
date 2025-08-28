@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Header } from '@/components/layout/Header'
 import { FolderSelectorButton } from '@/components/file-system/FolderSelectorButton'
 import { useDirectoryStore } from '@/stores/directory-store'
+import { useYouTubeStore } from '@/stores/youtube-store'
 import { PlaylistManager } from '@/components/youtube/PlaylistManager'
 import { Button } from '@/components/ui/button'
 import { Trash2, RefreshCw, FileVideo, FileAudio, Target, AlertTriangle } from 'lucide-react'
@@ -28,6 +29,8 @@ export default function SettingsPage() {
     setAudioRootHandle,
     setScanVideoFolderForAudio
   } = useDirectoryStore()
+  
+  const { loadPlaylistsFromFolder } = useYouTubeStore()
 
   const [videoStats, setVideoStats] = useState<DirectoryStats>({
     videoCount: 0,
@@ -214,14 +217,15 @@ export default function SettingsPage() {
     }
   }
 
-  // Effect to calculate stats when directories change
+  // Effect to calculate stats and load playlists when directories change
   useEffect(() => {
     if (rootHandle) {
       calculateVideoStats(rootHandle)
+      loadPlaylistsFromFolder(rootHandle)
     } else {
       setVideoStats({ videoCount: 0, audioCount: 0, markerCount: 0, annotationCount: 0, isLoading: false })
     }
-  }, [rootHandle, scanVideoFolderForAudio])
+  }, [rootHandle, scanVideoFolderForAudio, loadPlaylistsFromFolder])
 
   useEffect(() => {
     if (audioRootHandle) {
@@ -516,8 +520,15 @@ export default function SettingsPage() {
                 <h3 className="text-lg font-semibold mb-4">YouTube Playlists</h3>
                 <p className="text-sm text-muted-foreground mb-4">
                   Add YouTube playlists to organize and watch your guitar lessons.
+                  Playlists are stored as 'youtube-playlists.json' in your selected root directory.
                   You can find the playlist ID in the YouTube URL after "?list=".
                 </p>
+                
+                {!rootHandle && (
+                  <div className="p-3 text-sm border border-yellow-500/50 bg-yellow-500/10 rounded-md">
+                    Please select a root directory above to enable playlist storage.
+                  </div>
+                )}
                 
                 <PlaylistManager />
               </div>

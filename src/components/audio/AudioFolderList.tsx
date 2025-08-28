@@ -86,9 +86,6 @@ function FolderItem({
           )}
           <Folder className="h-4 w-4 mr-2 text-purple-600" />
           <span className="flex-1">{name}</span>
-          <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-            {content.audioFiles.length}
-          </span>
         </button>
       )}
       
@@ -175,9 +172,6 @@ function AudioFileItem({
           <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
         )}
       </div>
-      <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded uppercase flex-shrink-0">
-        {audio.fileType}
-      </span>
     </div>
   )
 }
