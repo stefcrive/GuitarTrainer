@@ -240,7 +240,7 @@ export default function RecentPage() {
 
   if (!rootHandle) {
     return (
-      <div className="flex min-h-screen flex-col">
+      <div className="flex h-screen flex-col">
         <Header />
         <main className="flex-1">
           <div className="flex flex-col items-center justify-center gap-4 h-full">
@@ -258,10 +258,10 @@ export default function RecentPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className="flex-1">
-        <ResizablePanelGroup direction="horizontal" className="min-h-screen">
+      <main className="flex-1 overflow-hidden">
+        <ResizablePanelGroup direction="horizontal" className="h-full">
           <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
             <div className="h-full border-r bg-muted/30">
               <div className="p-4 space-y-4">
@@ -297,7 +297,10 @@ export default function RecentPage() {
                   />
                 </div>
 
-                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-2">
+              </div>
+              
+              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
+                <div className="space-y-2">
                   {filteredRecentVideos.length > 0 ? (
                     filteredRecentVideos.map((video) => {
                 const isSelected = video.type === 'file'
@@ -352,15 +355,15 @@ export default function RecentPage() {
                     {searchQuery ? 'No videos match your search.' : 'No recently viewed videos.'}
                   </p>
                 )}
+                </div>
               </div>
             </div>
-          </div>
         </ResizablePanel>
         
         <ResizableHandle />
         
         <ResizablePanel defaultSize={70}>
-          <div className="p-4">
+          <div className="h-full overflow-y-auto custom-scrollbar p-4">
             {videoLoadError && (
               <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg mb-4">
                 {videoLoadError}

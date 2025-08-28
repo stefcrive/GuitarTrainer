@@ -46,9 +46,9 @@ export default function YouTubeVideoPage({ params }: PageProps) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className="flex-1 p-6">
+      <main className="flex-1 overflow-y-auto custom-scrollbar p-6">
         <div className="max-w-5xl mx-auto space-y-4">
           {video && (
             <h2 className="text-xl font-semibold truncate">

@@ -7,9 +7,9 @@ import Link from 'next/link'
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className="flex-1 flex items-center justify-center">
+      <main className="flex-1 overflow-y-auto custom-scrollbar flex items-center justify-center">
         <div className="max-w-4xl mx-auto p-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">Guitar Trainer</h1>

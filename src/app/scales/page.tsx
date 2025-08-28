@@ -29,14 +29,14 @@ export default function ScalesPage() {
   }
 
   return (
-    <div>
+    <div className="flex h-screen flex-col">
       <Header />
-      <div className="flex">
+      <div className="flex flex-1 overflow-hidden">
         <ScaleSidebar
           selectedItem={selectedItem}
           onItemSelect={handleItemSelect}
         />
-        <div className="flex-1 p-8">
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-8">
           <h1 className="text-3xl font-bold mb-6">Scales & Chords</h1>
           <FretboardVisualizer
             selectedItem={selectedItem}

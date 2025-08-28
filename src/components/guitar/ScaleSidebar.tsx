@@ -66,8 +66,8 @@ export function ScaleSidebar({
 
 
   return (
-    <div className="w-64 h-full min-h-screen border-r bg-muted/30">
-      <div className="p-4 space-y-4">
+    <div className="w-64 h-full border-r bg-muted/30 flex flex-col">
+      <div className="p-4 space-y-4 flex-shrink-0">
         {/* Scale/Chord Toggle */}
         <div className="flex gap-2">
           <Button
@@ -87,7 +87,9 @@ export function ScaleSidebar({
             Chords
           </Button>
         </div>
+      </div>
 
+      <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
         {/* Scales List */}
         {activeTab === "scales" && (
           <div className="space-y-2">

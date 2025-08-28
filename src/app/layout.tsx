@@ -20,11 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen bg-background antialiased`}>
+      <body className={`${inter.className} no-global-scroll bg-background antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <FloatingPlayerProvider>
             <YouTubeInitializer />
-            <div className="relative flex min-h-screen flex-col">
+            <div className="relative flex h-screen flex-col">
               {children}
             </div>
             <FloatingPlayer />

@@ -237,9 +237,9 @@ export default function SettingsPage() {
   }, [audioRootHandle])
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 overflow-y-auto custom-scrollbar flex flex-col">
         <div className="p-6">
           <div className="w-full max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-6">Settings</h2>

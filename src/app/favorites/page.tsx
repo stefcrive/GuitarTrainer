@@ -335,13 +335,13 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className="flex-1">
-        <ResizablePanelGroup direction="horizontal" className="min-h-screen">
+      <main className="flex-1 overflow-hidden">
+        <ResizablePanelGroup direction="horizontal" className="h-full">
           <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
-            <div className="h-full border-r bg-muted/30">
-              <div className="p-4 space-y-4">
+            <div className="h-full border-r bg-muted/30 flex flex-col">
+              <div className="p-4 space-y-4 flex-shrink-0">
                 <h2 className="text-xl font-semibold mb-4">Favorites</h2>
                 
                 {/* Search Box */}
@@ -366,8 +366,10 @@ export default function FavoritesPage() {
                     <span>{filteredAudioFavorites.length} Audio</span>
                   </div>
                 </div>
+              </div>
 
-                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-2 pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
+              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
+                <div className="space-y-2 pr-2">
                   {/* Videos Folder (collapsible) */}
                   <div>
                     <button
@@ -608,7 +610,7 @@ export default function FavoritesPage() {
           <ResizableHandle />
           
           <ResizablePanel defaultSize={70}>
-            <div className="p-4">
+            <div className="h-full overflow-y-auto custom-scrollbar p-4">
               {(videoLoadError || audioLoadError) && (
                 <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg mb-4">
                   {videoLoadError || audioLoadError}

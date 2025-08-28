@@ -16,8 +16,8 @@ export default function MarkersPage(): React.ReactElement {
 
   if (!rootHandle) {
     return (
-      <div className="flex min-h-screen flex-col">
-        <main className="flex-1">
+      <div className="flex h-screen flex-col">
+        <main className="flex-1 overflow-y-auto custom-scrollbar">
           <div className="flex flex-col items-center justify-center gap-4 h-full">
             <p>Please select a root directory in settings first</p>
             <Link

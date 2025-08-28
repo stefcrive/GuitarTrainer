@@ -422,10 +422,12 @@ export default function VideoSurfList(): React.ReactElement {
       </div>
 
       {/* Main content */}
-      <ResizablePanelGroup direction="horizontal" className="min-h-screen">
-        <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
-          <div className="h-full border-r bg-muted/30">
-            <div className="p-4 space-y-4">
+      <div className="flex h-screen flex-col">
+        <div className="header-placeholder" style={{height: '56px'}} />
+        <ResizablePanelGroup direction="horizontal" className="h-full">
+          <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
+            <div className="h-full border-r bg-muted/30 flex flex-col">
+            <div className="p-4 space-y-4 flex-shrink-0">
               {/* Header Section */}
               <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-lg border">
                 <div className="flex items-center justify-between">
@@ -570,8 +572,10 @@ export default function VideoSurfList(): React.ReactElement {
                   </div>
                 )}
 
-                {/* Markers list */}
-                <div className="space-y-2 max-h-[calc(100vh-400px)] overflow-y-auto">
+              </div>
+              
+              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
+                <div className="space-y-2">
               {sortMarkers(markers
                 .filter(markerState => {
                    // Filter by type
@@ -839,7 +843,7 @@ export default function VideoSurfList(): React.ReactElement {
         <ResizableHandle />
         
         <ResizablePanel defaultSize={70}>
-          <div className="p-6">
+          <div className="h-full overflow-y-auto custom-scrollbar p-6">
             {selectedContent && selectedMarkerState && (
               <div className="space-y-4">
                 {/* Display content title at the top with favorite button */}
@@ -900,6 +904,7 @@ export default function VideoSurfList(): React.ReactElement {
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
+      </div>
     </>
   )
 }

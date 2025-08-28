@@ -116,12 +116,12 @@ export default function AudioPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex h-screen flex-col">
       <Header />
-      <main className="flex-1">
-        <ResizablePanelGroup direction="horizontal" className="min-h-screen">
+      <main className="flex-1 overflow-hidden">
+        <ResizablePanelGroup direction="horizontal" className="h-full">
           <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
-            <div className="h-full border-r bg-muted/30">
+            <div className="h-full border-r bg-muted/30 flex flex-col">
               <div className="p-4 space-y-2">
                 <h2 className="text-xl font-semibold">Audio Library</h2>
                 
@@ -144,7 +144,10 @@ export default function AudioPage() {
                   </div>
                 </div>
 
-                <div className="max-h-[calc(100vh-350px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
+              </div>
+              
+              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
+                <div className="pr-2">
                   {loading ? (
                     <div className="animate-pulse space-y-2">
                       {[...Array(5)].map((_, i) => (
@@ -174,7 +177,7 @@ export default function AudioPage() {
           <ResizableHandle />
           
           <ResizablePanel defaultSize={70}>
-            <div className="p-4">
+            <div className="h-full overflow-y-auto custom-scrollbar p-4">
               {selectedAudio ? (
                 <AudioPlayer audioFile={selectedAudio} />
               ) : (
