@@ -229,9 +229,6 @@ export default function VideosPage() {
               )}
               {selectedVideo ? (
                 <div className="space-y-4">
-                  <h2 className="text-xl font-semibold truncate">
-                    {selectedVideo.name}
-                  </h2>
                   <VideoPlayer
                     videoFile={videoFile}
                     video={selectedVideo}

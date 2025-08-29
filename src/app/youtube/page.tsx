@@ -5,7 +5,6 @@ import { Header } from '@/components/layout/Header'
 import { PlaylistVideoList } from '@/components/youtube/PlaylistVideoList'
 import { YouTubePlayer } from '@/components/youtube/YouTubePlayer'
 import { YouTubeInitializer } from '@/components/youtube/YouTubeInitializer'
-import { FavoriteButton } from '@/components/video/FavoriteButton'
 import { Input } from '@/components/ui/input'
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
@@ -78,19 +77,6 @@ export default function YoutubePage() {
             <div className="h-full overflow-y-auto custom-scrollbar p-4">
               {selectedVideoId ? (
                 <div className="space-y-4">
-                  {/* Action buttons */}
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <FavoriteButton
-                        video={{
-                          type: 'youtube' as const,
-                          id: selectedVideoId
-                        } satisfies YouTubeVideo}
-                      />
-                    </div>
-                    <div></div>
-                  </div>
-
                   <div className="relative">
                     <YouTubeInitializer>
                       <YouTubePlayer

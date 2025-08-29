@@ -272,9 +272,10 @@ export function VideoPlayer({
   return (
     <div className={className}>
       <div className="space-y-4">
-        {/* Action buttons */}
-        <div className="flex justify-between items-center">
-          <div>
+        {/* Title with favorite and open in window buttons */}
+        <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-medium truncate">{video?.name || 'Video'}</h2>
             {video && directoryHandle && (
               <FavoriteButton
                 video={video}
@@ -307,7 +308,7 @@ export function VideoPlayer({
                   })
                 }
               }}
-              className="gap-2"
+              className="gap-2 ml-2 flex-shrink-0"
             >
               <ExternalLink className="h-4 w-4" />
               Open in Window

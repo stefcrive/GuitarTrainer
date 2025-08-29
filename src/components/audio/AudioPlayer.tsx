@@ -250,7 +250,23 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
       
       {/* Display audio title at the top */}
       <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
-        <h2 className="text-lg font-medium truncate">{audioFile.name}</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-medium truncate">{audioFile.name}</h2>
+          <FavoriteButton
+            audio={audioFile}
+            metadata={{
+              id: audioFile.path,
+              path: audioFile.path,
+              tags,
+              loopRegion,
+              markers,
+              annotations,
+              playbackRate,
+              volume
+            }}
+            directoryHandle={directoryHandle}
+          />
+        </div>
         {!inFloatingWindow && (
           <Button
             variant="outline"
@@ -293,21 +309,6 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
                 {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
               </Button>
 
-              <FavoriteButton
-                audio={audioFile}
-                metadata={{
-                  id: audioFile.path,
-                  path: audioFile.path,
-                  tags,
-                  loopRegion,
-                  markers,
-                  annotations,
-                  playbackRate,
-                  volume
-                }}
-                directoryHandle={directoryHandle}
-              />
-              
               <Button
                 variant="outline"
                 size="icon"
@@ -402,21 +403,6 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
             {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
           </Button>
 
-          <FavoriteButton
-            audio={audioFile}
-            metadata={{
-              id: audioFile.path,
-              path: audioFile.path,
-              tags,
-              loopRegion,
-              markers,
-              annotations,
-              playbackRate,
-              volume
-            }}
-            directoryHandle={directoryHandle}
-          />
-          
           <Button
             variant="outline"
             size="icon"

@@ -10,6 +10,7 @@ import { youtubeApi } from '@/services/youtube-api'
 import { useFloatingPlayer } from '@/contexts/floating-player-context'
 import { Button } from '@/components/ui/button'
 import { ExternalLink } from 'lucide-react'
+import { FavoriteButton } from '@/components/video/FavoriteButton'
 
 interface YouTubePlayerProps {
   videoId: string
@@ -387,9 +388,17 @@ export function YouTubePlayer({
         {/* Display video title at the top */}
         {videoId && (
           <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
-            <h2 className="text-lg font-medium truncate">
-              {`YouTube Video: ${videoId}`}
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-lg font-medium truncate">
+                {`YouTube Video: ${videoId}`}
+              </h2>
+              <FavoriteButton
+                video={{
+                  type: 'youtube' as const,
+                  id: videoId
+                }}
+              />
+            </div>
             {!inFloatingWindow && (
               <Button
                 variant="outline"
