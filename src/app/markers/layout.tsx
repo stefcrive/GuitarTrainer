@@ -6,9 +6,11 @@ interface MarkersLayoutProps {
 
 export default function MarkersLayout({ children }: MarkersLayoutProps) {
   return (
-    <div>
+    <div className="flex h-screen flex-col overflow-hidden">
       <Header />
-      {children}
+      <div className="flex-1 min-h-0">
+        {children}
+      </div>
     </div>
   )
 }

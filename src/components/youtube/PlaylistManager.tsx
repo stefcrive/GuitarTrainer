@@ -1,10 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useYouTubeStore } from '@/stores/youtube-store'
 import { useDirectoryStore } from '@/stores/directory-store'
-import { fetchPlaylistData } from '@/services/youtube'
+import {
+  disconnectYouTubeAccount,
+  fetchPlaylistData,
+  getYouTubeAuthStatus,
+  type YouTubeAuthStatus
+} from '@/services/youtube'
 
 export function PlaylistManager() {
   const { playlists, addPlaylist, removePlaylist } = useYouTubeStore()
@@ -12,6 +17,27 @@ export function PlaylistManager() {
   const [newPlaylistInput, setNewPlaylistInput] = useState('')
   const [error, setError] = useState('')
   const [isValidating, setIsValidating] = useState(false)
+  const [authStatus, setAuthStatus] = useState<YouTubeAuthStatus | null>(null)
+  const [authLoading, setAuthLoading] = useState(true)
+  const [authError, setAuthError] = useState('')
+
+  const refreshAuthStatus = useCallback(async (force = false) => {
+    setAuthLoading(true)
+    setAuthError('')
+    try {
+      const status = await getYouTubeAuthStatus(force)
+      setAuthStatus(status)
+    } catch (error) {
+      console.error('Failed to load YouTube auth status:', error)
+      setAuthError('Unable to check YouTube connection status.')
+    } finally {
+      setAuthLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    refreshAuthStatus()
+  }, [refreshAuthStatus])
 
   async function handleAddPlaylist() {
     setError('')
@@ -47,8 +73,64 @@ export function PlaylistManager() {
     }
   }
 
+  const handleConnect = () => {
+    const redirectPath = window.location.pathname || '/settings'
+    window.location.href = `/api/youtube/auth?redirect=${encodeURIComponent(redirectPath)}`
+  }
+
+  const handleDisconnect = async () => {
+    try {
+      await disconnectYouTubeAccount()
+      await refreshAuthStatus(true)
+    } catch (error) {
+      console.error('Failed to disconnect YouTube account:', error)
+      setAuthError('Failed to disconnect YouTube account.')
+    }
+  }
+
   return (
     <div className="space-y-4">
+      <div className="rounded-md border p-3 space-y-2">
+        <div className="flex items-center justify-between gap-3">
+          <div className="space-y-1">
+            <p className="text-sm font-medium">YouTube account</p>
+            <p className="text-xs text-muted-foreground">
+              Connect to access private or YouTube Music playlists.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            {authStatus?.authorized ? (
+              <Button variant="outline" size="sm" onClick={handleDisconnect}>
+                Disconnect
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleConnect}
+                disabled={authLoading || authStatus?.configured === false}
+              >
+                Connect
+              </Button>
+            )}
+          </div>
+        </div>
+        {authLoading && (
+          <p className="text-xs text-muted-foreground">Checking connection...</p>
+        )}
+        {!authLoading && authStatus?.authorized && (
+          <p className="text-xs text-muted-foreground">Connected.</p>
+        )}
+        {!authLoading && authStatus?.configured === false && (
+          <p className="text-xs text-muted-foreground">
+            OAuth is not configured. Add YouTube OAuth credentials to use private playlists.
+          </p>
+        )}
+        {authError && (
+          <p className="text-xs text-destructive">{authError}</p>
+        )}
+      </div>
+
       <div className="space-y-2">
         <input
           type="text"
@@ -79,8 +161,7 @@ export function PlaylistManager() {
           {error}
           {error.includes('not accessible') && (
             <div className="mt-2 text-xs">
-              Note: Even if you can view the playlist in your browser, the YouTube API can only access public playlists.
-              Try making the playlist public in YouTube settings.
+              Note: Private playlists require a connected YouTube account, or you can make the playlist public.
             </div>
           )}
         </div>

@@ -6,6 +6,7 @@ import { Slider } from '@/components/ui/slider'
 import type { TimeMarker, VideoAnnotation, VideoMarkerState, VideoPlayerControls } from '@/types/video'
 import { AudioRecorder } from '@/services/audio-recorder'
 import { cn } from '@/lib/utils'
+import { useDirectoryStore } from '@/stores/directory-store'
 import { VideoAnnotationEditor } from './VideoAnnotationEditor'
 import { MarkerTimeEditor } from './MarkerTimeEditor'
 
@@ -38,6 +39,25 @@ export function VideoMarkers({
   } | null>(null)
 
   const [recordingError, setRecordingError] = useState<string | null>(null)
+  const rootHandle = useDirectoryStore((state) => state.rootHandle)
+
+  const saveRecording = useCallback(async (marker: TimeMarker, audioBlob: Blob) => {
+    const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
+
+    if (!rootHandle) {
+      setRecordingError('Please select a video root directory in Settings to save recordings.')
+      await AudioRecorder.downloadAudio(audioBlob, filename)
+      return
+    }
+
+    try {
+      await AudioRecorder.saveAudioToRecordingsFolder(audioBlob, filename, rootHandle)
+    } catch (error) {
+      console.error('Failed to save recording:', error)
+      setRecordingError('Failed to save recording to the Recordings folder. Check Settings permissions.')
+      await AudioRecorder.downloadAudio(audioBlob, filename)
+    }
+  }, [rootHandle])
 
   const startRecording = useCallback(async (marker: TimeMarker) => {
     try {
@@ -49,8 +69,7 @@ export function VideoMarkers({
           const audioBlob = await audioRecorderRef.current.stopRecording()
           
           if (audioBlob) {
-            const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
-            await AudioRecorder.downloadAudio(audioBlob, filename)
+            await saveRecording(marker, audioBlob)
           }
           
           const completedMarkers = markerState.markers.map((m: TimeMarker) =>
@@ -96,8 +115,7 @@ export function VideoMarkers({
       promise.then(async audioBlob => {
         console.log('Recording completed automatically:', marker.id)
         if (audioBlob) {
-          const filename = `marker-${formatTime(marker.startTime)}-${formatTime(marker.endTime)}.wav`
-          await AudioRecorder.downloadAudio(audioBlob, filename)
+          await saveRecording(marker, audioBlob)
           const completedMarkers = markerState.markers.map((m: TimeMarker) =>
             m.id === marker.id ? { ...m, isRecording: false } : m
           )
@@ -143,7 +161,7 @@ export function VideoMarkers({
         markers: resetMarkers
       })
     }
-  }, [markerState, setMarkerState, videoControls])
+  }, [markerState, saveRecording, setMarkerState, videoControls])
 
   const cancelRecording = useCallback((marker: TimeMarker) => {
     if (!marker.isRecording) return

@@ -15,8 +15,7 @@ import { YouTubePlayer } from '../youtube/YouTubePlayer'
 import { AudioPlayer } from '../audio/AudioPlayer'
 import { youtubeApi } from '@/services/youtube-api'
 import { getAudioMetadata } from '@/services/audio-metadata'
-import { Search, ArrowUpDown, ArrowUp, ArrowDown, Video as VideoIcon } from 'lucide-react'
-import { FavoriteButton } from './FavoriteButton'
+import { Search, ArrowUp, ArrowDown, Video as VideoIcon } from 'lucide-react'
 import { useTagStore } from '@/stores/tag-store'
 
 
@@ -433,12 +432,12 @@ export default function VideoSurfList(): React.ReactElement {
       </div>
 
       {/* Main content */}
-      <div className="flex h-screen flex-col">
-        <div className="header-placeholder" style={{height: '56px'}} />
-        <ResizablePanelGroup direction="horizontal" className="h-full">
-          <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
-            <div className="h-full border-r bg-muted/30 flex flex-col">
-            <div className="p-4 space-y-4 flex-shrink-0">
+      <div className="flex h-full min-h-0 flex-col">
+        <main className="flex-1 overflow-hidden">
+          <ResizablePanelGroup direction="horizontal" className="h-full min-h-0">
+            <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
+              <div className="h-full min-h-0 flex flex-col overflow-hidden border-r bg-muted/30">
+                <div className="p-4 space-y-4 flex-shrink-0">
               {/* Header Section */}
               <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-lg border">
                 <div className="flex items-center justify-between">
@@ -585,7 +584,7 @@ export default function VideoSurfList(): React.ReactElement {
 
               </div>
               
-              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
+              <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar px-4 pb-4">
                 <div className="space-y-2">
               {sortMarkers(markers
                 .filter(markerState => {
@@ -854,37 +853,9 @@ export default function VideoSurfList(): React.ReactElement {
         <ResizableHandle />
         
         <ResizablePanel defaultSize={70}>
-          <div className="h-full overflow-y-auto custom-scrollbar p-6">
+          <div className="h-full min-h-0 overflow-y-auto custom-scrollbar p-6">
             {selectedContent && selectedMarkerState && (
               <div className="space-y-4">
-                {/* Display content title at the top with favorite button */}
-                <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-medium truncate">{selectedContent.title}</h2>
-                    {/* Favorite Button for selected content */}
-                    {selectedContent.type === 'local' && directoryStore.rootHandle && selectedContent.file && (
-                      <FavoriteButton
-                        video={{
-                          type: 'file' as const,
-                          id: selectedContent.file.name + '-' + selectedContent.path,
-                          name: selectedContent.file.name,
-                          path: selectedContent.path
-                        }}
-                        directoryHandle={directoryStore.rootHandle}
-                      />
-                    )}
-                    {selectedContent.type === 'youtube' && selectedContent.youtubeId && (
-                      <FavoriteButton
-                        video={{
-                          type: 'youtube' as const,
-                          id: selectedContent.youtubeId,
-                          title: selectedContent.title
-                        }}
-                      />
-                    )}
-                  </div>
-                </div>
-                
                 {selectedContent.type === 'local' && selectedFile && (
                   <VideoPlayer
                     videoFile={selectedFile}
@@ -915,7 +886,8 @@ export default function VideoSurfList(): React.ReactElement {
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
-      </div>
+      </main>
+    </div>
     </>
   )
 }

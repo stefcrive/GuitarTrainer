@@ -66,6 +66,112 @@ function writeUTFBytes(view: DataView, offset: number, string: string): void {
   }
 }
 
+const RECORDINGS_DIRECTORY = 'Recordings'
+
+function sanitizeFilename(filename: string): string {
+  const cleaned = filename
+    .replace(/[^a-zA-Z0-9-_. ]/g, '_')
+    .replace(/^[./]+/, '')
+    .trim()
+  return cleaned || 'recording.wav'
+}
+
+async function getUniqueFilename(
+  directoryHandle: FileSystemDirectoryHandle,
+  filename: string
+): Promise<string> {
+  const lastDotIndex = filename.lastIndexOf('.')
+  const baseName = lastDotIndex > 0 ? filename.slice(0, lastDotIndex) : filename
+  const extension = lastDotIndex > 0 ? filename.slice(lastDotIndex) : ''
+
+  let candidate = filename
+  let counter = 1
+
+  while (true) {
+    try {
+      await directoryHandle.getFileHandle(candidate)
+      candidate = `${baseName} (${counter})${extension}`
+      counter += 1
+    } catch (error) {
+      if ((error as { name?: string })?.name === 'NotFoundError') {
+        return candidate
+      }
+      throw error
+    }
+  }
+}
+
+async function prepareAudioForExport(
+  blob: Blob,
+  filename: string
+): Promise<{ blob: Blob; filename: string }> {
+  if (blob.size === 0) {
+    console.error('Cannot export empty audio blob')
+    throw new Error('No audio data available for export')
+  }
+
+  const audioContext = new AudioContext({
+    sampleRate: 44100,  // CD quality
+    latencyHint: 'playback'
+  })
+
+  try {
+    const arrayBuffer = await blob.arrayBuffer()
+
+    if (arrayBuffer.byteLength === 0) {
+      console.error('Empty array buffer from blob')
+      throw new Error('No audio data available for export')
+    }
+
+    try {
+      const audioData = await audioContext.decodeAudioData(arrayBuffer)
+
+      const offlineContext = new OfflineAudioContext({
+        numberOfChannels: 2,
+        length: audioData.length,
+        sampleRate: 44100    // CD quality
+      })
+
+      const source = offlineContext.createBufferSource()
+      source.buffer = audioData
+
+      const compressor = offlineContext.createDynamicsCompressor()
+      compressor.threshold.value = -24
+      compressor.knee.value = 10
+      compressor.ratio.value = 4
+      compressor.attack.value = 0.005
+      compressor.release.value = 0.250
+
+      const gain = offlineContext.createGain()
+      gain.gain.value = 1.2
+
+      const analyzer = offlineContext.createAnalyser()
+      analyzer.fftSize = 2048
+      
+      source
+        .connect(compressor)
+        .connect(gain)
+        .connect(analyzer)
+        .connect(offlineContext.destination)
+
+      source.start(0)
+
+      const renderedBuffer = await offlineContext.startRendering()
+      const wavArrayBuffer = audioBufferToWav(renderedBuffer)
+      
+      const outputBlob = new Blob([wavArrayBuffer], { type: 'audio/wav' })
+      const outputFilename = filename.replace(/\.(webm|mp3)$/, '.wav')
+
+      return { blob: outputBlob, filename: outputFilename }
+    } catch (decodeError) {
+      console.error('Failed to decode audio data:', decodeError)
+      return { blob, filename }
+    }
+  } finally {
+    void audioContext.close().catch(() => {})
+  }
+}
+
 export interface TimeMarkerAudio {
   audioBlob: Blob | null
   isRecording: boolean
@@ -370,102 +476,51 @@ export class AudioRecorder {
   static async downloadAudio(blob: Blob, filename: string, useMP3: boolean = false): Promise<void> {
     try {
       console.log('Downloading audio blob of size:', blob.size, 'bytes')
+      const { blob: outputBlob, filename: outputFilename } = await prepareAudioForExport(blob, filename)
+
+      console.log('Prepared audio file ready for download:', outputFilename, 'size:', outputBlob.size, 'bytes')
       
-      if (blob.size === 0) {
-        console.error('Cannot download empty audio blob')
-        throw new Error('No audio data available for download')
-      }
-      
-      // Create standard quality audio context
-      const audioContext = new AudioContext({
-        sampleRate: 44100,  // CD quality
-        latencyHint: 'playback'
-      })
-
-      // Read and decode the audio data
-      const arrayBuffer = await blob.arrayBuffer()
-      
-      if (arrayBuffer.byteLength === 0) {
-        console.error('Empty array buffer from blob')
-        throw new Error('No audio data available for download')
-      }
-      
-      try {
-        // Try to decode the audio data
-        const audioData = await audioContext.decodeAudioData(arrayBuffer)
-
-        // Create offline context for processing
-        const offlineContext = new OfflineAudioContext({
-          numberOfChannels: 2,
-          length: audioData.length,
-          sampleRate: 44100    // CD quality
-        })
-
-        // Create audio processing nodes
-        const source = offlineContext.createBufferSource()
-        source.buffer = audioData
-
-        // Add compressor for consistent volume
-        const compressor = offlineContext.createDynamicsCompressor()
-        compressor.threshold.value = -24
-        compressor.knee.value = 10
-        compressor.ratio.value = 4
-        compressor.attack.value = 0.005
-        compressor.release.value = 0.250
-
-        // Add gain to maintain proper levels
-        const gain = offlineContext.createGain()
-        gain.gain.value = 1.2
-
-        // Create analyzer for level monitoring
-        const analyzer = offlineContext.createAnalyser()
-        analyzer.fftSize = 2048
-        
-        // Connect the processing chain
-        source
-          .connect(compressor)
-          .connect(gain)
-          .connect(analyzer)
-          .connect(offlineContext.destination)
-
-        // Start the source
-        source.start(0)
-
-        // Render and convert to WAV
-        const renderedBuffer = await offlineContext.startRendering()
-        const wavArrayBuffer = audioBufferToWav(renderedBuffer)
-        
-        // Create the final WAV file
-        const outputBlob = new Blob([wavArrayBuffer], { type: 'audio/wav' })
-        filename = filename.replace(/\.(webm|mp3)$/, '.wav')
-
-        console.log('Processed audio file ready for download:', filename, 'size:', outputBlob.size, 'bytes')
-        
-        const url = URL.createObjectURL(outputBlob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = filename
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
-        URL.revokeObjectURL(url)
-      } catch (decodeError) {
-        console.error('Failed to decode audio data:', decodeError)
-        
-        // Fallback: download the original blob directly if decoding fails
-        console.log('Falling back to direct download of original audio blob')
-        const url = URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = filename
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
-        URL.revokeObjectURL(url)
-      }
+      const url = URL.createObjectURL(outputBlob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = outputFilename
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
     } catch (error) {
       console.error('Error converting audio:', error)
       alert('Failed to convert and download audio file: ' + (error instanceof Error ? error.message : 'Unknown error'))
+    }
+  }
+
+  /**
+   * Save recorded audio to the Recordings folder under the root directory
+   */
+  static async saveAudioToRecordingsFolder(
+    blob: Blob,
+    filename: string,
+    rootHandle: FileSystemDirectoryHandle
+  ): Promise<string> {
+    try {
+      console.log('Saving audio blob of size:', blob.size, 'bytes')
+
+      const recordingsHandle = await rootHandle.getDirectoryHandle(RECORDINGS_DIRECTORY, { create: true })
+      const { blob: outputBlob, filename: outputFilename } = await prepareAudioForExport(blob, filename)
+      const safeFilename = sanitizeFilename(outputFilename)
+      const uniqueFilename = await getUniqueFilename(recordingsHandle, safeFilename)
+
+      const fileHandle = await recordingsHandle.getFileHandle(uniqueFilename, { create: true })
+      const writable = await fileHandle.createWritable()
+      await writable.write(outputBlob)
+      await writable.close()
+
+      console.log('Saved recording to Recordings folder:', uniqueFilename)
+      return uniqueFilename
+    } catch (error) {
+      console.error('Error saving recording to Recordings folder:', error)
+      const message = error instanceof Error ? error.message : 'Unknown error'
+      throw new Error(`Failed to save recording to the Recordings folder: ${message}`)
     }
   }
 }
