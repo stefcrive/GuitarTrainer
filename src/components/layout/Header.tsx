@@ -13,6 +13,7 @@ export function Header() {
     { name: "Videos", href: "/videos" },
     { name: "Audio", href: "/audio" },
     { name: "YouTube", href: "/youtube" },
+    { name: "Spotify", href: "/spotify" },
     { name: "Markers", href: "/markers" },
     { name: "Recent", href: "/recent" },
     { name: "Favorites", href: "/favorites" },

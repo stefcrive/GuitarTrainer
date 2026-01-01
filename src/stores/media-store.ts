@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { VideoFile } from '@/services/file-system'
 import type { AudioFile } from '@/types/audio'
-import type { YouTubeVideo } from '@/types/video'
+import type { SpotifyPlaylist, SpotifyTrack } from '@/types/spotify'
 
 // Types for markers filtering and sorting
 type ContentType = 'local' | 'youtube' | 'audio'
@@ -36,6 +36,13 @@ interface YouTubeState {
   searchQuery: string
   playerState: MediaPlayerState
   expandedPlaylists: string[]
+}
+
+interface SpotifyState {
+  selectedTrack: SpotifyTrack | null
+  selectedPlaylist: SpotifyPlaylist | null
+  searchQuery: string
+  playerState: MediaPlayerState
 }
 
 interface MarkersState {
@@ -73,6 +80,9 @@ interface MediaState {
   
   // YouTube page state
   youtube: YouTubeState
+
+  // Spotify page state
+  spotify: SpotifyState
   
   // Markers page state
   markers: MarkersState
@@ -104,6 +114,13 @@ interface MediaState {
   setYouTubeExpandedPlaylists: (playlists: string[]) => void
   toggleYouTubePlaylist: (playlistId: string) => void
   clearYouTubeState: () => void
+
+  // Actions for Spotify
+  setSelectedSpotifyTrack: (track: SpotifyTrack | null) => void
+  setSelectedSpotifyPlaylist: (playlist: SpotifyPlaylist | null) => void
+  setSpotifySearchQuery: (query: string) => void
+  setSpotifyPlayerState: (state: Partial<MediaPlayerState>) => void
+  clearSpotifyState: () => void
   
   // Actions for markers
   setMarkersSelectedContent: (path: string | null) => void
@@ -163,6 +180,13 @@ const defaultYouTubeState: YouTubeState = {
   expandedPlaylists: []
 }
 
+const defaultSpotifyState: SpotifyState = {
+  selectedTrack: null,
+  selectedPlaylist: null,
+  searchQuery: '',
+  playerState: { ...defaultPlayerState }
+}
+
 const defaultMarkersState: MarkersState = {
   selectedContentPath: null,
   selectedFile: null,
@@ -195,6 +219,7 @@ export const useMediaStore = create<MediaState>()(
       video: { ...defaultVideoState },
       audio: { ...defaultAudioState },
       youtube: { ...defaultYouTubeState },
+      spotify: { ...defaultSpotifyState },
       markers: { ...defaultMarkersState },
       recent: { ...defaultRecentState },
       favorites: { ...defaultFavoritesState },
@@ -308,6 +333,44 @@ export const useMediaStore = create<MediaState>()(
       clearYouTubeState: () =>
         set((state) => ({
           youtube: { ...defaultYouTubeState }
+        })),
+
+      // Spotify actions
+      setSelectedSpotifyTrack: (track) =>
+        set((state) => ({
+          spotify: {
+            ...state.spotify,
+            selectedTrack: track,
+            playerState: { ...defaultPlayerState }
+          }
+        })),
+
+      setSelectedSpotifyPlaylist: (playlist) =>
+        set((state) => ({
+          spotify: {
+            ...state.spotify,
+            selectedPlaylist: playlist,
+            selectedTrack: null,
+            playerState: { ...defaultPlayerState }
+          }
+        })),
+
+      setSpotifySearchQuery: (query) =>
+        set((state) => ({
+          spotify: { ...state.spotify, searchQuery: query }
+        })),
+
+      setSpotifyPlayerState: (playerState) =>
+        set((state) => ({
+          spotify: {
+            ...state.spotify,
+            playerState: { ...state.spotify.playerState, ...playerState }
+          }
+        })),
+
+      clearSpotifyState: () =>
+        set(() => ({
+          spotify: { ...defaultSpotifyState }
         })),
 
       // Markers actions
@@ -425,6 +488,7 @@ export const useMediaStore = create<MediaState>()(
           video: { ...defaultVideoState },
           audio: { ...defaultAudioState },
           youtube: { ...defaultYouTubeState },
+          spotify: { ...defaultSpotifyState },
           markers: { ...defaultMarkersState },
           recent: { ...defaultRecentState },
           favorites: { ...defaultFavoritesState }
@@ -449,6 +513,12 @@ export const useMediaStore = create<MediaState>()(
           searchQuery: state.youtube.searchQuery,
           playerState: state.youtube.playerState,
           expandedPlaylists: state.youtube.expandedPlaylists,
+        },
+        spotify: {
+          selectedTrack: state.spotify.selectedTrack,
+          selectedPlaylist: state.spotify.selectedPlaylist,
+          searchQuery: state.spotify.searchQuery,
+          playerState: state.spotify.playerState,
         },
         markers: {
           selectedContentPath: state.markers.selectedContentPath,

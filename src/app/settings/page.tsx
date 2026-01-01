@@ -7,10 +7,11 @@ import { useDirectoryStore } from '@/stores/directory-store'
 import { useYouTubeStore } from '@/stores/youtube-store'
 import { PlaylistManager } from '@/components/youtube/PlaylistManager'
 import { Button } from '@/components/ui/button'
-import { Trash2, RefreshCw, FileVideo, FileAudio, Target, AlertTriangle } from 'lucide-react'
+import { Trash2, RefreshCw, FileVideo, FileAudio, Target, AlertTriangle, LogOut } from 'lucide-react'
 import { fileSystemService } from '@/services/file-system'
 import { markersService } from '@/services/markers'
 import { getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
+import { getSpotifyStatus } from '@/services/spotify'
 
 interface DirectoryStats {
   videoCount: number
@@ -51,6 +52,9 @@ export default function SettingsPage() {
   const [showResetConfirmVideo, setShowResetConfirmVideo] = useState(false)
   const [showResetConfirmAudio, setShowResetConfirmAudio] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
+  const [spotifyConfigured, setSpotifyConfigured] = useState(false)
+  const [spotifyAuthorized, setSpotifyAuthorized] = useState(false)
+  const [spotifyMessage, setSpotifyMessage] = useState<string | null>(null)
 
   // Calculate video directory statistics
   const calculateVideoStats = async (handle: FileSystemDirectoryHandle) => {
@@ -235,6 +239,31 @@ export default function SettingsPage() {
       setAudioStats({ videoCount: 0, audioCount: 0, markerCount: 0, annotationCount: 0, isLoading: false })
     }
   }, [audioRootHandle])
+
+  useEffect(() => {
+    getSpotifyStatus()
+      .then((status) => {
+        setSpotifyConfigured(status.configured)
+        setSpotifyAuthorized(status.authorized)
+        setSpotifyMessage(null)
+      })
+      .catch(() => {
+        setSpotifyConfigured(false)
+        setSpotifyAuthorized(false)
+        setSpotifyMessage('Unable to check Spotify status.')
+      })
+  }, [])
+
+  const handleSpotifyLogout = async () => {
+    try {
+      const response = await fetch('/api/spotify/logout', { method: 'GET' })
+      if (!response.ok) throw new Error('Request failed')
+      setSpotifyAuthorized(false)
+      setSpotifyMessage('Spotify disconnected.')
+    } catch {
+      setSpotifyMessage('Failed to disconnect Spotify.')
+    }
+  }
 
   return (
     <div className="flex h-screen flex-col">
@@ -532,6 +561,47 @@ export default function SettingsPage() {
                 )}
                 
                 <PlaylistManager />
+              </div>
+
+              <div className="border rounded-lg p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold">Spotify</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Manage your Spotify connection for playlist and playback features.
+                    </p>
+                  </div>
+                  <div className="text-xs text-muted-foreground text-right">
+                    <div>Configured: {spotifyConfigured ? 'Yes' : 'No'}</div>
+                    <div>Authorized: {spotifyAuthorized ? 'Yes' : 'No'}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                  >
+                    <a href="/api/spotify/auth?redirect=/spotify">Connect / Re-auth</a>
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={handleSpotifyLogout}
+                    disabled={!spotifyAuthorized}
+                    className="gap-2"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </Button>
+                </div>
+
+                {spotifyMessage && (
+                  <div className="rounded-md border border-muted-foreground/30 bg-muted/20 px-3 py-2 text-sm text-muted-foreground">
+                    {spotifyMessage}
+                  </div>
+                )}
               </div>
             </div>
           </div>

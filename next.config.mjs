@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['i.ytimg.com', 'img.youtube.com'],
+    domains: ['i.ytimg.com', 'img.youtube.com', 'i.scdn.co', 'mosaic.scdn.co'],
   },
   async headers() {
     return [
@@ -15,10 +15,10 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://www.youtube-nocookie.com",
               "style-src 'self' 'unsafe-inline'",
-              "media-src 'self' blob: https://*.youtube.com https://*.ytimg.com",
-              "img-src 'self' data: https://*.youtube.com https://*.ytimg.com",
-              "frame-src 'self' https://*.youtube.com https://www.youtube-nocookie.com",
-              "connect-src 'self' https://*.googleapis.com https://*.youtube.com https://www.youtube-nocookie.com",
+      "media-src 'self' blob: https://*.youtube.com https://*.ytimg.com",
+      "img-src 'self' data: https://*.youtube.com https://*.ytimg.com https://*.scdn.co",
+      "frame-src 'self' https://*.youtube.com https://www.youtube-nocookie.com",
+      "connect-src 'self' https://*.googleapis.com https://*.youtube.com https://www.youtube-nocookie.com https://api.spotify.com https://accounts.spotify.com",
               "script-src-elem 'self' 'unsafe-inline' https://www.youtube.com https://www.youtube-nocookie.com",
               "worker-src 'self' blob:",
               "child-src 'self' https://*.youtube.com https://www.youtube-nocookie.com"
