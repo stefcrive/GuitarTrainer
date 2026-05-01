@@ -10,6 +10,42 @@ export interface FretPosition {
   note: Note
 }
 
+export type DiagramLabelMode = 'notes' | 'intervals'
+export type DiagramType = 'neck' | 'progression'
+
+export interface DiagramPosition {
+  stringIndex: number // 0-5, where 0 is the highest string
+  fret: number // 0-24
+}
+
+export interface NeckDiagram {
+  id: string
+  type: 'neck'
+  name: string
+  startFret: number
+  endFret: number
+  rootNote: string
+  labelMode: DiagramLabelMode
+  positions: DiagramPosition[]
+  fingerNumbers: string[] // length matches STANDARD_TUNING
+}
+
+export interface ChordProgressionChord {
+  id: string
+  symbol: string
+  name: string
+}
+
+export interface ChordProgressionDiagram {
+  id: string
+  type: 'progression'
+  name: string
+  key: string
+  chords: ChordProgressionChord[]
+}
+
+export type MarkerDiagram = NeckDiagram | ChordProgressionDiagram
+
 export interface Scale {
   name: string
   intervals: number[] // Semitones from root

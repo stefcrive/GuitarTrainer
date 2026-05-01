@@ -128,8 +128,23 @@ export async function PUT(request: NextRequest) {
 
   if (!apiResponse.ok && apiResponse.status !== 204) {
     const text = await apiResponse.text()
+    let details = text || apiResponse.statusText
+    if (text) {
+      try {
+        const parsed = JSON.parse(text)
+        const message =
+          parsed?.error?.message ||
+          parsed?.error_description ||
+          parsed?.message
+        if (message) {
+          details = message
+        }
+      } catch {
+        // Leave details as-is when body is not JSON.
+      }
+    }
     const response = NextResponse.json(
-      { error: 'Spotify API error.', details: text || apiResponse.statusText },
+      { error: 'Spotify API error.', details },
       { status: apiResponse.status }
     )
     if (refreshedTokens) {

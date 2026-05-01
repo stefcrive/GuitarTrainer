@@ -3,17 +3,19 @@
 import { useCallback, useEffect, useRef, useState, useLayoutEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
-import type { TimeMarker, VideoAnnotation, VideoMarkerState, VideoPlayerControls } from '@/types/video'
+import { Input } from '@/components/ui/input'
+import type { TimeMarker, VideoAnnotation, VideoMarkerState, VideoMarkerStateUpdate, VideoPlayerControls } from '@/types/video'
 import { AudioRecorder } from '@/services/audio-recorder'
 import { cn } from '@/lib/utils'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { VideoAnnotationEditor } from './VideoAnnotationEditor'
 import { MarkerTimeEditor } from './MarkerTimeEditor'
+import { MarkerDiagramList } from '@/components/guitar/NeckDiagramEditor'
 
 interface VideoMarkersProps {
   videoControls: VideoPlayerControls
   markerState: VideoMarkerState
-  setMarkerState: (state: VideoMarkerState) => void
+  setMarkerState: (state: VideoMarkerStateUpdate) => void
   className?: string
   contentType?: 'video' | 'youtube'
 }
@@ -200,46 +202,49 @@ export function VideoMarkers({
       endTime: Math.min(currentTime + 10, duration),
       isLooping: false,
       completionDegree: 0,
-      createdAt: Date.now() // Add creation timestamp
+      createdAt: Date.now(), // Add creation timestamp
+      diagrams: []
     }
 
-    setMarkerState({
-      ...markerState,
-      markers: [...markerState.markers, newMarker],
+    setMarkerState((prevState) => ({
+      ...prevState,
+      markers: [...prevState.markers, newMarker],
       activeMarkerId: newMarker.id
-    })
+    }))
     setEditingMarkerId(newMarker.id) // Automatically open in edit mode
-  }, [videoControls, markerState, setMarkerState])
+  }, [videoControls, setMarkerState])
 
   const handleAnnotationSave = useCallback((text: string, tags: string[]) => {
-    if (!markerState.activeMarkerId) return
+    setMarkerState((prevState) => {
+      if (!prevState.activeMarkerId) return prevState
 
-    const newAnnotation: VideoAnnotation = {
-      id: crypto.randomUUID(),
-      markerId: markerState.activeMarkerId,
-      text,
-      tags: [...tags],
-      timestamp: Date.now()
-    }
+      const newAnnotation: VideoAnnotation = {
+        id: crypto.randomUUID(),
+        markerId: prevState.activeMarkerId,
+        text,
+        tags: [...tags],
+        timestamp: Date.now()
+      }
 
-    const updatedAnnotations = markerState.annotations.filter(
-      a => a.markerId !== markerState.activeMarkerId
-    )
+      const updatedAnnotations = prevState.annotations.filter(
+        a => a.markerId !== prevState.activeMarkerId
+      )
 
-    const newState = {
-      ...markerState,
-      annotations: [...updatedAnnotations, newAnnotation]
-    }
+      const newState = {
+        ...prevState,
+        annotations: [...updatedAnnotations, newAnnotation]
+      }
 
-    console.log('Saving annotation:', {
-      annotation: newAnnotation,
-      totalAnnotations: newState.annotations.length,
-      newState
+      console.log('Saving annotation:', {
+        annotation: newAnnotation,
+        totalAnnotations: newState.annotations.length,
+        newState
+      })
+
+      return newState
     })
-
-    setMarkerState(newState)
     setEditingMarkerId(null)
-  }, [markerState, setMarkerState])
+  }, [setMarkerState])
 
   const handleMarkerUpdate = useCallback((updatedMarker: TimeMarker, closeEditor = true) => {
     setMarkerState({
@@ -632,10 +637,27 @@ export function VideoMarkers({
                               }}
                             />
                           </div>
+
+                          <MarkerDiagramList
+                            diagrams={marker.diagrams || []}
+                            onChange={(next) => {
+                              handleMarkerUpdate({ ...marker, diagrams: next }, false)
+                            }}
+                          />
                         </div>
 
                         {/* Right Column: Notes and Tags */}
                         <div className="space-y-2">
+                          <div className="space-y-2">
+                            <label className="text-sm font-medium text-muted-foreground">Marker Title</label>
+                            <Input
+                              value={marker.title || ''}
+                              onChange={(e) => {
+                                handleMarkerUpdate({ ...marker, title: e.target.value }, false)
+                              }}
+                              placeholder="Add a title for this marker..."
+                            />
+                          </div>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                             <FileTextIcon className="h-4 w-4" />
                             <span className="font-medium">Notes and Tags</span>

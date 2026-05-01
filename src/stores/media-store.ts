@@ -5,7 +5,7 @@ import type { AudioFile } from '@/types/audio'
 import type { SpotifyPlaylist, SpotifyTrack } from '@/types/spotify'
 
 // Types for markers filtering and sorting
-type ContentType = 'local' | 'youtube' | 'audio'
+type ContentType = 'local' | 'youtube' | 'audio' | 'spotify'
 type CompletionRange = 'all' | '0-25' | '26-50' | '51-75' | '76-100'
 type SortOrder = 'date' | 'name' | 'completion'
 type SortDirection = 'asc' | 'desc'
@@ -192,7 +192,7 @@ const defaultMarkersState: MarkersState = {
   selectedFile: null,
   searchQuery: '',
   selectedTags: [],
-  selectedTypes: ['local', 'youtube', 'audio'],
+  selectedTypes: ['local', 'youtube', 'audio', 'spotify'],
   completionFilter: 'all',
   sortOrder: 'date',
   sortDirection: 'desc'

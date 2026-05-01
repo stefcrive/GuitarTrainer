@@ -11,6 +11,16 @@ import {
 
 export const runtime = 'nodejs'
 
+function getOrigin(value: string | null): string | null {
+  if (!value) return null
+
+  try {
+    return new URL(value).origin
+  } catch {
+    return null
+  }
+}
+
 export async function GET(request: NextRequest) {
   const { clientId, configured, redirectUri } = getSpotifyOAuthConfig()
 
@@ -19,6 +29,19 @@ export async function GET(request: NextRequest) {
   }
 
   const baseUrl = getBaseUrl(request)
+  const configuredRedirectOrigin = getOrigin(redirectUri)
+
+  // If auth starts on a different host than the configured callback host
+  // (for example localhost vs 127.0.0.1), hand off to the callback host first
+  // so the OAuth state cookie is set on the same origin that receives callback.
+  if (configuredRedirectOrigin && configuredRedirectOrigin !== baseUrl) {
+    const handoffUrl = new URL('/api/spotify/auth', configuredRedirectOrigin)
+    request.nextUrl.searchParams.forEach((value, key) => {
+      handoffUrl.searchParams.set(key, value)
+    })
+    return NextResponse.redirect(handoffUrl.toString())
+  }
+
   const resolvedRedirectUri = redirectUri ?? `${baseUrl}/api/spotify/callback`
   const state = crypto.randomUUID()
 

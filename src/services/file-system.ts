@@ -2,6 +2,7 @@
 
 import { FileSystemVideo } from '@/types/video'
 import { FileSystemAudio } from '@/types/audio'
+import { createMemoryDirectoryHandleFromFiles } from '@/services/memory-file-system'
 
 interface JSONObject {
   [key: string]: any
@@ -16,10 +17,52 @@ class FileSystemService {
   }
 
   async requestDirectoryAccess(): Promise<FileSystemDirectoryHandle> {
-    if (!('showDirectoryPicker' in window)) {
-      throw new Error('File System Access API is not supported in your browser')
+    if ('showDirectoryPicker' in window) {
+      return window.showDirectoryPicker()
     }
-    return window.showDirectoryPicker()
+    const files = await this.requestDirectoryAccessWithInput()
+    return createMemoryDirectoryHandleFromFiles(files)
+  }
+
+  private async requestDirectoryAccessWithInput(): Promise<FileList> {
+    return new Promise((resolve, reject) => {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.multiple = true
+      input.setAttribute('webkitdirectory', '')
+      input.setAttribute('directory', '')
+      input.setAttribute('mozdirectory', '')
+      input.style.position = 'fixed'
+      input.style.top = '-1000px'
+
+      const cleanup = () => {
+        input.remove()
+      }
+
+      const handleChange = () => {
+        const files = input.files
+        cleanup()
+        if (!files || files.length === 0) {
+          reject(new Error('No folder selected'))
+          return
+        }
+        resolve(files)
+      }
+
+      const handleFocus = () => {
+        setTimeout(() => {
+          if (input.files && input.files.length > 0) return
+          cleanup()
+          reject(new Error('Folder selection canceled'))
+        }, 0)
+      }
+
+      input.addEventListener('change', handleChange, { once: true })
+      window.addEventListener('focus', handleFocus, { once: true })
+
+      document.body.appendChild(input)
+      input.click()
+    })
   }
 
   async scanForVideos(directoryHandle: FileSystemDirectoryHandle): Promise<FileSystemVideo[]> {

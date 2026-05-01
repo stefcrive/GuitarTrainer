@@ -3,11 +3,13 @@
 import { useCallback, useRef, useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
+import { Input } from '@/components/ui/input'
 import type { AudioMarker, AudioAnnotation } from '@/types/audio'
 import { AudioRecorder } from '@/services/audio-recorder'
 import { VideoAnnotationEditor } from '../video/VideoAnnotationEditor'
 import { MarkerTimeEditor } from './MarkerTimeEditor'
 import { cn } from '@/lib/utils'
+import { MarkerDiagramList } from '@/components/guitar/NeckDiagramEditor'
 
 // Create a compatible interface adapter for VideoPlayerControls
 interface AudioPlayerControls {
@@ -85,7 +87,8 @@ export function AudioMarkers({
       endTime: Math.min(currentTime + 10, duration), // Default 10 second interval
       isLooping: false,
       completionDegree: 0, // Initialize with 0% completion
-      createdAt: Date.now() // Add creation timestamp
+      createdAt: Date.now(), // Add creation timestamp
+      diagrams: []
     }
 
     onMarkersChange([...markers, newMarker])
@@ -517,10 +520,27 @@ export function AudioMarkers({
                               }}
                             />
                           </div>
+
+                          <MarkerDiagramList
+                            diagrams={marker.diagrams || []}
+                            onChange={(next) => {
+                              handleMarkerUpdate({ ...marker, diagrams: next }, false)
+                            }}
+                          />
                         </div>
 
                         {/* Right Column: Notes and Tags */}
                         <div className="space-y-2">
+                          <div className="space-y-2">
+                            <label className="text-sm font-medium text-muted-foreground">Marker Title</label>
+                            <Input
+                              value={marker.title || ''}
+                              onChange={(e) => {
+                                handleMarkerUpdate({ ...marker, title: e.target.value }, false)
+                              }}
+                              placeholder="Add a title for this marker..."
+                            />
+                          </div>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                             <FileTextIcon className="h-4 w-4" />
                             <span className="font-medium">Notes and Tags</span>

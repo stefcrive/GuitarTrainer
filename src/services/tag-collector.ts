@@ -3,7 +3,6 @@
 import { markersService } from './markers'
 import { getAudioMetadata } from './audio-metadata'
 import { fileSystemService } from './file-system'
-import type { VideoMarkerState } from '@/types/video'
 
 export class TagCollectorService {
   /**
@@ -20,26 +19,17 @@ export class TagCollectorService {
         parsed.forEach(tag => allTags.add(tag))
       }
 
-      // 2. Get tags from YouTube markers
-      const youtubeStorageKeys = Object.keys(localStorage).filter(key =>
-        key.startsWith('youtube_markers_') ||
-        key.startsWith('markers_youtube_') ||
-        key.startsWith('markers-youtube-')
-      )
-
-      for (const key of youtubeStorageKeys) {
+      // 2. Get tags from YouTube markers (stored in SQLite)
+      if (rootHandle) {
         try {
-          const stored = localStorage.getItem(key)
-          if (stored) {
-            const markerState = JSON.parse(stored) as VideoMarkerState
-            if (markerState.annotations) {
-              markerState.annotations.forEach(annotation => {
-                annotation.tags?.forEach(tag => allTags.add(tag))
-              })
-            }
+          const youtubeMarkers = await markersService.loadAllMarkers(rootHandle, 'youtube')
+          for (const record of youtubeMarkers) {
+            record.markerState.annotations.forEach(annotation => {
+              annotation.tags?.forEach(tag => allTags.add(tag))
+            })
           }
         } catch (error) {
-          console.warn('Error reading YouTube markers from', key, error)
+          console.warn('Error loading YouTube markers from database:', error)
         }
       }
 
@@ -77,29 +67,6 @@ export class TagCollectorService {
           }
         } catch (error) {
           console.warn('Error scanning for files:', error)
-        }
-      }
-
-      // 4. Get tags from any other localStorage keys that might contain markers
-      const allLocalStorageKeys = Object.keys(localStorage)
-      for (const key of allLocalStorageKeys) {
-        if (key.includes('marker') || key.includes('annotation')) {
-          try {
-            const stored = localStorage.getItem(key)
-            if (stored) {
-              const parsed = JSON.parse(stored)
-              // Check if it looks like marker data with annotations
-              if (parsed && Array.isArray(parsed.annotations)) {
-                parsed.annotations.forEach((annotation: any) => {
-                  if (annotation.tags && Array.isArray(annotation.tags)) {
-                    annotation.tags.forEach((tag: string) => allTags.add(tag))
-                  }
-                })
-              }
-            }
-          } catch (error) {
-            // Ignore parsing errors for non-marker data
-          }
         }
       }
 

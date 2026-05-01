@@ -60,7 +60,7 @@ export async function fetchPlaylistTracks(playlistId: string): Promise<SpotifyTr
       const details =
         typeof data === 'string'
           ? data
-          : data?.error || data?.details || response.statusText
+          : data?.details || data?.error || response.statusText
       throw new Error(`Failed to load playlist tracks: ${details}`)
     }
 
@@ -126,7 +126,7 @@ export async function searchSpotify(query: string, options?: SpotifySearchOption
     const details =
       typeof data === 'string'
         ? data
-        : data?.error || data?.details || response.statusText
+        : data?.details || data?.error || response.statusText
     throw new Error(`Spotify search failed: ${details}`)
   }
 
@@ -151,7 +151,7 @@ export async function fetchUserPlaylists(): Promise<SpotifyPlaylist[]> {
     const details =
       typeof data === 'string'
         ? data
-        : data?.error || data?.details || response.statusText
+        : data?.details || data?.error || response.statusText
     throw new Error(`Failed to load playlists: ${details}`)
   }
 
@@ -173,7 +173,7 @@ export async function fetchDevices(): Promise<SpotifyDevice[]> {
     const details =
       typeof data === 'string'
         ? data
-        : data?.error || data?.details || response.statusText
+        : data?.details || data?.error || response.statusText
     throw new Error(`Failed to load devices: ${details}`)
   }
 
@@ -195,7 +195,7 @@ export async function fetchPlaybackState(): Promise<SpotifyPlaybackState | null>
     const details =
       typeof data === 'string'
         ? data
-        : data?.error || data?.details || response.statusText
+        : data?.details || data?.error || response.statusText
     throw new Error(`Failed to load playback state: ${details}`)
   }
 
@@ -223,7 +223,7 @@ export async function playSpotifyTrack(trackUri: string, deviceId?: string, posi
       details =
         typeof parsed === 'string'
           ? parsed
-          : parsed?.error || parsed?.details || response.statusText
+          : parsed?.details || parsed?.error || response.statusText
     } catch {
       details = text || response.statusText
     }
@@ -248,7 +248,7 @@ export async function pauseSpotify(deviceId?: string) {
       details =
         typeof parsed === 'string'
           ? parsed
-          : parsed?.error || parsed?.details || response.statusText
+          : parsed?.details || parsed?.error || response.statusText
     } catch {
       details = text || response.statusText
     }
@@ -273,7 +273,7 @@ export async function seekSpotify(positionMs: number, deviceId?: string) {
       details =
         typeof parsed === 'string'
           ? parsed
-          : parsed?.error || parsed?.details || response.statusText
+          : parsed?.details || parsed?.error || response.statusText
     } catch {
       details = text || response.statusText
     }

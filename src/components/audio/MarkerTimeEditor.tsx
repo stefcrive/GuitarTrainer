@@ -41,7 +41,7 @@ export function MarkerTimeEditor({
               false
             )
           }}
-          className="w-16 text-sm border rounded px-2 py-1"
+          className="w-16 rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-2 py-1 text-sm shadow-sm transition-[border-color,box-shadow] hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40"
           placeholder="00:00"
         />
         <Button
@@ -74,7 +74,7 @@ export function MarkerTimeEditor({
               false
             )
           }}
-          className="w-16 text-sm border rounded px-2 py-1"
+          className="w-16 rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-2 py-1 text-sm shadow-sm transition-[border-color,box-shadow] hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40"
           placeholder="00:00"
         />
         <Button

@@ -18,9 +18,8 @@ export function FolderSelectorButton({ onFolderSelect, onError, buttonText = 'Se
     setIsLoading(true)
     try {
       console.log('Requesting directory access...')
-      // Check if File System Access API is available
       if (!('showDirectoryPicker' in window)) {
-        throw new Error('File System Access API is not supported in your browser')
+        console.log('File System Access API not supported; using browser folder picker fallback.')
       }
 
       // Request directory access

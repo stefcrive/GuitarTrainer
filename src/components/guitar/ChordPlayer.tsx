@@ -52,7 +52,14 @@ export const ChordPlayer = forwardRef<
   {
     playChord: () => void;
     stopChord: () => void;
-    playNote: (frequency: number, stringName?: string, stringIndex?: number, fretNumber?: number, octaveOffset?: number) => void
+    playNote: (
+      frequency: number,
+      stringName?: string,
+      stringIndex?: number,
+      fretNumber?: number,
+      octaveOffset?: number,
+      noteVolumeOverride?: number
+    ) => void
   },
   ChordPlayerProps
 >(function ChordPlayer({ rootNote, customIntervals, onPlayingChange, octaveOffset, setOctaveOffset }, ref) {
@@ -222,7 +229,8 @@ export const ChordPlayer = forwardRef<
     stringName?: string,
     stringIndex?: number,
     fretNumber?: number,
-    octaveOffset: number = 0
+    octaveOffset: number = 0,
+    noteVolumeOverride?: number
   ) => {
     if (!audioContextRef.current) {
       initializeAudioContext()
@@ -248,7 +256,10 @@ export const ChordPlayer = forwardRef<
 
     oscillator.frequency.setValueAtTime(adjustedFrequency, audioContext.currentTime)
     
-    gainNode.gain.setValueAtTime(storeNoteVolume, audioContext.currentTime)
+    const noteVolume = typeof noteVolumeOverride === 'number'
+      ? Math.min(Math.max(noteVolumeOverride, 0), 1)
+      : storeNoteVolume
+    gainNode.gain.setValueAtTime(noteVolume, audioContext.currentTime)
     
     gainNode.gain.exponentialRampToValueAtTime(
       0.001,

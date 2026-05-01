@@ -137,7 +137,7 @@ export function PlaylistManager() {
           value={newPlaylistInput}
           onChange={(e) => setNewPlaylistInput(e.target.value)}
           placeholder="Enter YouTube playlist URL or ID"
-          className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex h-9 w-full rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-3 py-1 text-sm shadow-sm transition-[border-color,box-shadow,background-color] placeholder:text-muted-foreground hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40 disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isValidating || !rootHandle}
         />
         <p className="text-xs text-muted-foreground">

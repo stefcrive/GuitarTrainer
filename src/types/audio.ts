@@ -1,3 +1,5 @@
+import type { MarkerDiagram } from './guitar'
+
 export interface FileSystemAudio {
   id: string
   type: 'file'
@@ -19,11 +21,13 @@ export interface AudioMarker {
   id: string
   startTime: number
   endTime: number
+  title?: string
   isLooping: boolean
   isRecording?: boolean
   audioBlob?: Blob
   completionDegree?: number // Track completion percentage
   createdAt?: number // timestamp when marker was created
+  diagrams?: MarkerDiagram[]
 }
 
 export interface AudioAnnotation {

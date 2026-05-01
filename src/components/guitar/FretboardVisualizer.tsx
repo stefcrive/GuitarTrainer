@@ -84,7 +84,14 @@ export function FretboardVisualizer({
   const chordPlayerRef = useRef<{
     playChord: () => void
     stopChord: () => void
-    playNote: (frequency: number, stringName?: string, stringIndex?: number, fretNumber?: number, octaveOffset?: number) => void
+    playNote: (
+      frequency: number,
+      stringName?: string,
+      stringIndex?: number,
+      fretNumber?: number,
+      octaveOffset?: number,
+      noteVolumeOverride?: number
+    ) => void
   } | null>(null)
   
   const strings = STANDARD_TUNING

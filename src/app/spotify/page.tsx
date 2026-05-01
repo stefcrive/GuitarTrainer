@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
 import { Button } from '@/components/ui/button'
@@ -16,11 +16,13 @@ import {
   seekSpotify
 } from '@/services/spotify'
 import { useMediaStore } from '@/stores/media-store'
+import { useDirectoryStore } from '@/stores/directory-store'
 import type { SpotifyPlaylist, SpotifyTrack } from '@/types/spotify'
-import { AlertCircle, ListMusic, Music2, Pause, Play, RefreshCw } from 'lucide-react'
+import { AlertCircle, Circle, ListMusic, Music2, Pause, Play, RefreshCw } from 'lucide-react'
 import { AudioMarkers } from '@/components/audio/AudioMarkers'
 import type { AudioAnnotation, AudioMarker } from '@/types/audio'
 import { Input } from '@/components/ui/input'
+import { getAllAudioMetadata, getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
 
 export default function SpotifyPage() {
   const [statusChecked, setStatusChecked] = useState(false)
@@ -47,17 +49,30 @@ export default function SpotifyPage() {
     markers: [],
     annotations: []
   })
+  const [spotifyMarkerPaths, setSpotifyMarkerPaths] = useState<Set<string>>(new Set())
 
-  const {
-    spotify: { selectedTrack, selectedPlaylist },
-    setSelectedSpotifyTrack,
-    setSelectedSpotifyPlaylist
-  } = useMediaStore()
+  const selectedTrack = useMediaStore((state) => state.spotify.selectedTrack)
+  const selectedPlaylist = useMediaStore((state) => state.spotify.selectedPlaylist)
+  const setSelectedSpotifyTrack = useMediaStore((state) => state.setSelectedSpotifyTrack)
+  const setSelectedSpotifyPlaylist = useMediaStore((state) => state.setSelectedSpotifyPlaylist)
+  const selectedTrackIdRef = useRef<string | null>(null)
 
-  const storageKey = useMemo(
-    () => (selectedTrack?.uri ? `spotify-markers:${selectedTrack.uri}` : null),
-    [selectedTrack?.uri]
-  )
+  const rootHandle = useDirectoryStore((state) => state.rootHandle)
+  const audioRootHandle = useDirectoryStore((state) => state.audioRootHandle)
+  const storageHandle = rootHandle ?? audioRootHandle
+  const spotifyAudioFile = useMemo(() => {
+    if (!selectedTrack?.uri) return null
+    return {
+      id: selectedTrack.uri,
+      type: 'file' as const,
+      name: selectedTrack.name || selectedTrack.uri,
+      path: `spotify:${selectedTrack.uri}`
+    }
+  }, [selectedTrack?.uri, selectedTrack?.name])
+
+  useEffect(() => {
+    selectedTrackIdRef.current = selectedTrack?.id ?? null
+  }, [selectedTrack?.id])
 
   useEffect(() => {
     getSpotifyStatus()
@@ -97,36 +112,81 @@ export default function SpotifyPage() {
     }
   }, [isAuthorized])
 
-  // Load markers for selected track from localStorage
+  // Load markers for selected track from SQLite
   useEffect(() => {
-    if (!storageKey) {
+    if (!spotifyAudioFile || !storageHandle) {
       setMarkerState({ markers: [], annotations: [] })
       return
     }
-    try {
-      const stored = localStorage.getItem(storageKey)
-      if (stored) {
-        const parsed = JSON.parse(stored)
+    getAudioMetadata(spotifyAudioFile, storageHandle)
+      .then((metadata) => {
         setMarkerState({
-          markers: Array.isArray(parsed?.markers) ? parsed.markers : [],
-          annotations: Array.isArray(parsed?.annotations) ? parsed.annotations : []
+          markers: Array.isArray(metadata?.markers) ? metadata.markers : [],
+          annotations: Array.isArray(metadata?.annotations) ? metadata.annotations : []
         })
-      } else {
+      })
+      .catch(() => {
         setMarkerState({ markers: [], annotations: [] })
-      }
-    } catch {
-      setMarkerState({ markers: [], annotations: [] })
-    }
-  }, [storageKey])
-
-  const persistMarkerState = (next: { markers: AudioMarker[]; annotations: AudioAnnotation[] }) => {
-    setMarkerState(next)
-    if (storageKey) {
-      localStorage.setItem(storageKey, JSON.stringify(next))
-    }
-  }
+      })
+  }, [spotifyAudioFile, storageHandle])
 
   useEffect(() => {
+    if (!storageHandle) return
+    getAllAudioMetadata(storageHandle)
+      .then((metadataMap) => {
+        const next = new Set<string>()
+        for (const metadata of Object.values(metadataMap)) {
+          if (!metadata.path?.startsWith('spotify:')) continue
+          if (Array.isArray(metadata.markers) && metadata.markers.length > 0) {
+            next.add(metadata.path)
+          }
+        }
+        setSpotifyMarkerPaths(next)
+      })
+      .catch(() => {
+        setSpotifyMarkerPaths(new Set())
+      })
+  }, [storageHandle])
+
+  const persistMarkerState = useCallback(
+    (update: Partial<{ markers: AudioMarker[]; annotations: AudioAnnotation[] }>) => {
+      setMarkerState((prev) => {
+        const next = { ...prev, ...update }
+
+        if (spotifyAudioFile?.path) {
+          setSpotifyMarkerPaths((prevPaths) => {
+            const nextPaths = new Set(prevPaths)
+            if (next.markers.length > 0) {
+              nextPaths.add(spotifyAudioFile.path)
+            } else {
+              nextPaths.delete(spotifyAudioFile.path)
+            }
+            return nextPaths
+          })
+        }
+
+        if (!spotifyAudioFile || !storageHandle) return next
+
+        saveAudioMetadata(
+          spotifyAudioFile,
+          {
+            markers: next.markers,
+            annotations: next.annotations,
+            title: spotifyAudioFile.name
+          },
+          storageHandle
+        ).catch((error) => {
+          console.error('Failed to save Spotify markers:', error)
+        })
+
+        return next
+      })
+    },
+    [spotifyAudioFile, storageHandle]
+  )
+
+  useEffect(() => {
+    let isActive = true
     const loadTracks = async () => {
       if (!selectedPlaylist?.id || !isAuthorized) {
         setPlaylistTracks([])
@@ -136,19 +196,32 @@ export default function SpotifyPage() {
       setPlaylistTracksError(null)
       try {
         const tracks = await fetchPlaylistTracks(selectedPlaylist.id)
+        if (!isActive) return
         setPlaylistTracks(tracks)
-        if (tracks.length > 0) {
+        if (tracks.length === 0) {
+          setSelectedSpotifyTrack(null)
+          return
+        }
+        const currentTrackId = selectedTrackIdRef.current
+        const hasCurrent = currentTrackId ? tracks.some((track) => track.id === currentTrackId) : false
+        if (!hasCurrent) {
           setSelectedSpotifyTrack(tracks[0])
         }
       } catch (err) {
+        if (!isActive) return
         setPlaylistTracksError(err instanceof Error ? err.message : 'Failed to load playlist tracks.')
         setPlaylistTracks([])
       } finally {
-        setPlaylistTracksLoading(false)
+        if (isActive) {
+          setPlaylistTracksLoading(false)
+        }
       }
     }
 
     loadTracks()
+    return () => {
+      isActive = false
+    }
   }, [selectedPlaylist?.id, isAuthorized, setSelectedSpotifyTrack])
 
   const loadDevices = async () => {
@@ -222,11 +295,11 @@ export default function SpotifyPage() {
   return (
     <div className="flex h-screen flex-col">
       <Header />
-      <main className="flex-1 overflow-hidden">
-        <ResizablePanelGroup direction="horizontal" className="h-full">
+      <main className="flex-1 min-h-0 overflow-hidden">
+        <ResizablePanelGroup direction="horizontal" className="h-full min-h-0">
           <ResizablePanel defaultSize={32} minSize={20} maxSize={50}>
-            <div className="h-full border-r bg-muted/30 flex flex-col">
-              <div className="p-4 space-y-3 flex-1 flex flex-col">
+            <div className="h-full min-h-0 border-r bg-muted/30 flex flex-col">
+              <div className="p-4 space-y-3 flex-1 min-h-0 flex flex-col">
                 <div className="flex items-center gap-2">
                   <Music2 className="h-5 w-5 text-green-600" />
                   <h2 className="text-xl font-semibold">Spotify</h2>
@@ -337,7 +410,7 @@ export default function SpotifyPage() {
                 </div>
 
                 {selectedPlaylist && (
-                  <div className="flex-1 rounded-lg border bg-white/60 dark:bg-gray-900/50 p-3 space-y-2 flex flex-col">
+                  <div className="flex-1 min-h-0 rounded-lg border bg-white/60 dark:bg-gray-900/50 p-3 space-y-2 flex flex-col">
                     <div className="flex items-center justify-between">
                       <div className="text-sm font-medium">{selectedPlaylist.name} Tracks</div>
                       <div className="text-xs text-muted-foreground">
@@ -349,7 +422,7 @@ export default function SpotifyPage() {
                         {playlistTracksError}
                       </div>
                     )}
-                    <div className="flex-1 overflow-y-auto pr-1 space-y-1">
+                    <div className="flex-1 min-h-0 overflow-y-auto pr-1 space-y-1">
                       {playlistTracksLoading ? (
                         <div className="text-sm text-muted-foreground">Loading playlist tracks...</div>
                       ) : playlistTracks.length === 0 ? (
@@ -357,6 +430,8 @@ export default function SpotifyPage() {
                       ) : (
                         playlistTracks.map((track) => {
                           const isSelected = selectedTrack?.id === track.id
+                          const markerPath = track.uri ? `spotify:${track.uri}` : null
+                          const hasMarkers = markerPath ? spotifyMarkerPaths.has(markerPath) : false
                           return (
                             <div
                               key={track.id}
@@ -378,7 +453,10 @@ export default function SpotifyPage() {
                                   )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <div className="font-medium truncate">{track.name}</div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="font-medium truncate">{track.name}</div>
+                                    {hasMarkers && <Circle className="h-2.5 w-2.5 fill-blue-500 text-blue-500" />}
+                                  </div>
                                   <div className="text-xs text-muted-foreground truncate">{track.artists.join(', ')}</div>
                                 </div>
                               </button>
@@ -432,7 +510,7 @@ export default function SpotifyPage() {
                     <select
                       value={selectedDeviceId ?? ''}
                       onChange={(e) => setSelectedDeviceId(e.target.value || null)}
-                      className="w-full rounded-md border bg-background px-3 py-2 text-sm"
+                      className="w-full rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-3 py-2 text-sm shadow-sm transition-[border-color,box-shadow,background-color] hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40"
                     >
                       <option value="">Use active device</option>
                       {devices.map((device) => (
@@ -581,8 +659,8 @@ export default function SpotifyPage() {
                   }}
                   markers={markerState.markers}
                   annotations={markerState.annotations}
-                  onMarkersChange={(next) => persistMarkerState({ ...markerState, markers: next })}
-                  onAnnotationsChange={(next) => persistMarkerState({ ...markerState, annotations: next })}
+                  onMarkersChange={(next) => persistMarkerState({ markers: next })}
+                  onAnnotationsChange={(next) => persistMarkerState({ annotations: next })}
                   className="mb-4"
                 />
               </div>

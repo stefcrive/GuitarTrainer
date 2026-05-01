@@ -1,12 +1,16 @@
+import type { MarkerDiagram } from './guitar'
+
 export interface TimeMarker {
   id: string
   startTime: number // in seconds
   endTime: number // in seconds
+  title?: string
   isLooping?: boolean
   audioBlob?: Blob // recorded audio data
   isRecording?: boolean
   completionDegree?: number // 0-100 percentage of completion
   createdAt?: number // timestamp when marker was created
+  diagrams?: MarkerDiagram[]
 }
 
 export interface VideoAnnotation {
@@ -23,6 +27,10 @@ export interface VideoMarkerState {
   activeMarkerId: string | null
   isLooping: boolean
 }
+
+export type VideoMarkerStateUpdate =
+  | VideoMarkerState
+  | ((prev: VideoMarkerState) => VideoMarkerState)
 
 export interface VideoPlayerControls {
   play: () => void

@@ -11,7 +11,9 @@ import { Trash2, RefreshCw, FileVideo, FileAudio, Target, AlertTriangle, LogOut 
 import { fileSystemService } from '@/services/file-system'
 import { markersService } from '@/services/markers'
 import { getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
+import { getDatabaseFileName } from '@/services/local-sql-db'
 import { getSpotifyStatus } from '@/services/spotify'
+import { isMemoryDirectoryHandle } from '@/services/memory-file-system'
 
 interface DirectoryStats {
   videoCount: number
@@ -55,6 +57,8 @@ export default function SettingsPage() {
   const [spotifyConfigured, setSpotifyConfigured] = useState(false)
   const [spotifyAuthorized, setSpotifyAuthorized] = useState(false)
   const [spotifyMessage, setSpotifyMessage] = useState<string | null>(null)
+  const isBrowserRoot = rootHandle ? isMemoryDirectoryHandle(rootHandle) : false
+  const isBrowserAudioRoot = audioRootHandle ? isMemoryDirectoryHandle(audioRootHandle) : false
 
   // Calculate video directory statistics
   const calculateVideoStats = async (handle: FileSystemDirectoryHandle) => {
@@ -157,7 +161,12 @@ export default function SettingsPage() {
       // Reset video markers
       for (const video of videos) {
         try {
-          await markersService.saveMarkers(rootHandle, video.path, { markers: [], annotations: [] })
+          await markersService.saveMarkers(rootHandle, video.path, {
+            markers: [],
+            annotations: [],
+            activeMarkerId: null,
+            isLooping: false
+          })
         } catch (error) {
           console.error('Error resetting video markers:', error)
         }
@@ -172,7 +181,7 @@ export default function SettingsPage() {
             if (metadata) {
               metadata.markers = []
               metadata.annotations = []
-              await saveAudioMetadata(metadata, rootHandle)
+              await saveAudioMetadata(audio, metadata, rootHandle)
             }
           } catch (error) {
             console.error('Error resetting audio markers:', error)
@@ -204,7 +213,7 @@ export default function SettingsPage() {
           if (metadata) {
             metadata.markers = []
             metadata.annotations = []
-            await saveAudioMetadata(metadata, audioRootHandle)
+            await saveAudioMetadata(audio, metadata, audioRootHandle)
           }
         } catch (error) {
           console.error('Error resetting audio markers:', error)
@@ -293,6 +302,13 @@ export default function SettingsPage() {
                     </span>
                   )}
                 </div>
+                {isBrowserRoot && (
+                  <div className="mt-3 rounded-md border border-yellow-500/40 bg-yellow-500/10 p-3 text-sm text-muted-foreground">
+                    Firefox uses a browser-based folder picker. Your files can be read, but any markers,
+                    playlists, or recordings are stored in browser storage (not written back to disk).
+                    You will need to re-select this folder each time you open the app.
+                  </div>
+                )}
 
                 <div className="mt-4">
                   <label className="flex items-center space-x-2 cursor-pointer">
@@ -441,6 +457,13 @@ export default function SettingsPage() {
                     </span>
                   )}
                 </div>
+                {isBrowserAudioRoot && (
+                  <div className="mt-3 rounded-md border border-yellow-500/40 bg-yellow-500/10 p-3 text-sm text-muted-foreground">
+                    Firefox uses a browser-based folder picker. Your files can be read, but markers and
+                    recordings are stored in browser storage (not written back to disk). You will need to
+                    re-select this folder each time you open the app.
+                  </div>
+                )}
 
                 {/* Audio Directory Statistics */}
                 {audioRootHandle && (
@@ -550,7 +573,7 @@ export default function SettingsPage() {
                 <h3 className="text-lg font-semibold mb-4">YouTube Playlists</h3>
                 <p className="text-sm text-muted-foreground mb-4">
                   Add YouTube playlists to organize and watch your guitar lessons.
-                  Playlists are stored as 'youtube-playlists.json' in your selected root directory.
+                  Playlists are stored in the local SQLite database "{getDatabaseFileName()}" in your selected root directory.
                   You can find the playlist ID in the YouTube URL after "?list=".
                 </p>
                 

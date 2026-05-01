@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import {
   getSpotifyOAuthConfig,
   getBaseUrl,
@@ -27,15 +26,20 @@ export async function GET(request: NextRequest) {
 
   const code = request.nextUrl.searchParams.get('code')
   const state = request.nextUrl.searchParams.get('state')
-  const cookieStore = cookies()
-  const storedState = cookieStore.get(SP_STATE_COOKIE)?.value
+  const storedState = request.cookies.get(SP_STATE_COOKIE)?.value
 
   if (!code) {
     return NextResponse.json({ error: 'Missing authorization code.' }, { status: 400 })
   }
 
   if (!state || !storedState || state !== storedState) {
-    return NextResponse.json({ error: 'Invalid OAuth state.' }, { status: 400 })
+    return NextResponse.json(
+      {
+        error: 'Invalid OAuth state.',
+        hint: 'Start OAuth and callback on the same host (for example, only localhost or only 127.0.0.1).'
+      },
+      { status: 400 }
+    )
   }
 
   const baseUrl = getBaseUrl(request)
@@ -75,10 +79,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid token payload.', details: tokenData }, { status: 500 })
   }
 
-  const existingRefreshToken = cookieStore.get(SP_REFRESH_TOKEN_COOKIE)?.value
+  const existingRefreshToken = request.cookies.get(SP_REFRESH_TOKEN_COOKIE)?.value
   const resolvedRefreshToken = refreshToken || existingRefreshToken
   const expiresAt = Date.now() + expiresIn * 1000
-  const redirectPath = cookieStore.get(SP_REDIRECT_COOKIE)?.value || '/spotify'
+  const redirectPath = request.cookies.get(SP_REDIRECT_COOKIE)?.value || '/spotify'
 
   const response = NextResponse.redirect(new URL(redirectPath, baseUrl))
   response.cookies.set(SP_ACCESS_TOKEN_COOKIE, accessToken, getCookieOptions(expiresIn))

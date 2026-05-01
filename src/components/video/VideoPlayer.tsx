@@ -351,14 +351,15 @@ export function VideoPlayer({
               startTime: currentTime,
               endTime: Math.min(currentTime + 10, duration),
               isLooping: false,
-              createdAt: Date.now() // Add creation timestamp
+              createdAt: Date.now(), // Add creation timestamp
+              diagrams: []
             }
         
-            setMarkerState({
-              ...markerState,
-              markers: [...markerState.markers, newMarker],
+            setMarkerState((prevState) => ({
+              ...prevState,
+              markers: [...prevState.markers, newMarker],
               activeMarkerId: newMarker.id
-            })
+            }))
           }}
         />
 
@@ -368,12 +369,16 @@ export function VideoPlayer({
             ...markerState,
             activeMarkerId: selectedMarkerId || markerState.activeMarkerId
           }}
-          setMarkerState={(newState) => {
-            setMarkerState(newState)
-            // Notify parent about active marker changes
-            if (onMarkerSelect && newState.activeMarkerId !== markerState.activeMarkerId) {
-              onMarkerSelect(newState.activeMarkerId)
-            }
+          setMarkerState={(nextState) => {
+            setMarkerState((prevState) => {
+              const resolvedState =
+                typeof nextState === 'function' ? nextState(prevState) : nextState
+              // Notify parent about active marker changes
+              if (onMarkerSelect && resolvedState.activeMarkerId !== prevState.activeMarkerId) {
+                onMarkerSelect(resolvedState.activeMarkerId)
+              }
+              return resolvedState
+            })
           }}
           className="mt-4"
         />

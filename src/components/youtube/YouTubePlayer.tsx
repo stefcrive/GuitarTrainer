@@ -449,20 +449,19 @@ export function YouTubePlayer({
               onPrevVideo={onPrevVideo}
               onNextVideo={onNextVideo}
               onAddMarker={() => {
-                if (markerState && setMarkerState) {
-                  const newMarker = {
-                    id: crypto.randomUUID(),
-                    startTime: currentTime,
-                    endTime: Math.min(currentTime + 10, duration),
-                    isLooping: false,
-                    createdAt: Date.now() // Add creation timestamp
-                  }
-                  setMarkerState({
-                    ...markerState,
-                    markers: [...markerState.markers, newMarker],
-                    activeMarkerId: newMarker.id
-                  })
+                const newMarker = {
+                  id: crypto.randomUUID(),
+                  startTime: currentTime,
+                  endTime: Math.min(currentTime + 10, duration),
+                  isLooping: false,
+                  createdAt: Date.now(), // Add creation timestamp
+                  diagrams: []
                 }
+                setMarkerState((prevState) => ({
+                  ...prevState,
+                  markers: [...prevState.markers, newMarker],
+                  activeMarkerId: newMarker.id
+                }))
               }}
             />
 
