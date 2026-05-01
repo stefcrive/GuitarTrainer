@@ -43,3 +43,5 @@ next-env.d.ts
 # local practice media
 /GT Listening Folder/*
 !/GT Listening Folder/.gitkeep
+!/GT Listening Folder/*.json
+!/GT Listening Folder/*.sqlite
