@@ -1,15 +1,16 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { YouTubePlayer } from '@/components/youtube/YouTubePlayer'
-import { YouTubeInitializer } from '@/components/youtube/YouTubeInitializer'
 import { FavoriteButton } from '@/components/video/FavoriteButton'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { useYouTubeStore } from '@/stores/youtube-store'
 import { recentlyViewedService } from '@/services/recently-viewed'
 import type { VideoPlayerControls } from '@/types/video'
+import { EmptyState } from '@/components/ui/empty-state'
+import { Youtube } from 'lucide-react'
 
 interface PageProps {
   params: {
@@ -18,6 +19,25 @@ interface PageProps {
 }
 
 export default function YouTubeVideoPage({ params }: PageProps) {
+  return (
+    <Suspense fallback={<YouTubeVideoFallback />}>
+      <YouTubeVideoPageContent params={params} />
+    </Suspense>
+  )
+}
+
+function YouTubeVideoFallback() {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1">
+        <EmptyState icon={Youtube} title="Loading YouTube video" description="Preparing the player." />
+      </main>
+    </div>
+  )
+}
+
+function YouTubeVideoPageContent({ params }: PageProps) {
   const searchParams = useSearchParams()
   const markerId = searchParams.get('marker')
   const { markerState, setMarkerState } = useVideoMarkers(`youtube:${params.videoId}`)
@@ -56,13 +76,11 @@ export default function YouTubeVideoPage({ params }: PageProps) {
             </h2>
           )}
           <div className="relative">
-            <YouTubeInitializer>
-              <YouTubePlayer
-                videoId={params.videoId}
-                onControlsReady={handleControlsReady}
-                className="w-full rounded overflow-hidden"
-              />
-            </YouTubeInitializer>
+            <YouTubePlayer
+              videoId={params.videoId}
+              onControlsReady={handleControlsReady}
+              className="w-full rounded overflow-hidden"
+            />
             <div className="absolute top-4 right-4">
               <FavoriteButton
                 video={{

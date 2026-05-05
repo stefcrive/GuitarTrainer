@@ -1,16 +1,22 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { AudioFolderList } from '@/components/audio/AudioFolderList'
 import Link from 'next/link'
 import { AudioPlayer } from '@/components/audio/AudioPlayer'
-import { Input } from '@/components/ui/input'
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
+import { Button } from '@/components/ui/button'
+import { EmptyState } from '@/components/ui/empty-state'
+import { MetricBadge } from '@/components/ui/metric-badge'
+import { SegmentedControl } from '@/components/ui/segmented-control'
+import { LibraryHeader } from '@/components/layout/LibraryHeader'
+import { WorkspaceLayout } from '@/components/layout/WorkspaceLayout'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
 import { AudioFile } from '@/types/audio'
-import { Search, Music } from 'lucide-react'
+import { getAllAudioMetadata, AUDIO_METADATA_UPDATED_EVENT } from '@/services/audio-metadata'
+import { favoritesService, FAVORITES_UPDATED_EVENT } from '@/services/favorites'
+import { Bookmark, List, Music } from 'lucide-react'
 
 async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): Promise<AudioFile[]> {
   const audioFiles: AudioFile[] = []
@@ -42,9 +48,13 @@ async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): P
 }
 
 export default function AudioPage() {
+  type ListFilter = 'all' | 'markers' | 'favorites'
   const { audioRootHandle, rootHandle, scanVideoFolderForAudio } = useDirectoryStore()
   const [audioFiles, setAudioFiles] = useState<AudioFile[]>([])
-  const [filteredAudioFiles, setFilteredAudioFiles] = useState<AudioFile[]>([])
+  const [audioFilter, setAudioFilter] = useState<ListFilter>('all')
+  const [audioMarkerPaths, setAudioMarkerPaths] = useState<Set<string>>(new Set())
+  const [favoriteAudioPaths, setFavoriteAudioPaths] = useState<Set<string>>(new Set())
+  const [filterRevision, setFilterRevision] = useState(0)
   const [loading, setLoading] = useState(true)
   
   // Use global media store instead of local state
@@ -72,7 +82,6 @@ export default function AudioPage() {
 
         const sortedFiles = files.sort((a, b) => a.path.localeCompare(b.path))
         setAudioFiles(sortedFiles)
-        setFilteredAudioFiles(sortedFiles)
       } catch (error) {
         console.error('Error scanning audio files:', error)
       }
@@ -82,34 +91,91 @@ export default function AudioPage() {
     loadAudioFiles()
   }, [audioRootHandle, rootHandle, scanVideoFolderForAudio])
 
-  // Filter audio files based on search query
   useEffect(() => {
-    if (!searchQuery.trim()) {
-      setFilteredAudioFiles(audioFiles)
-    } else {
-      const query = searchQuery.toLowerCase()
-      const filtered = audioFiles.filter(audio =>
-        audio.name.toLowerCase().includes(query) ||
-        audio.path.toLowerCase().includes(query)
-      )
-      setFilteredAudioFiles(filtered)
+    const handleFavoritesUpdated = (event: Event) => {
+      const detail = (event as CustomEvent<{ kind?: string }>).detail
+      if (!detail || detail.kind === 'audio') {
+        setFilterRevision((prev) => prev + 1)
+      }
     }
-  }, [audioFiles, searchQuery])
+    const handleAudioMetadataUpdated = () => {
+      setFilterRevision((prev) => prev + 1)
+    }
+    window.addEventListener(FAVORITES_UPDATED_EVENT, handleFavoritesUpdated as EventListener)
+    window.addEventListener(AUDIO_METADATA_UPDATED_EVENT, handleAudioMetadataUpdated as EventListener)
+    return () => {
+      window.removeEventListener(FAVORITES_UPDATED_EVENT, handleFavoritesUpdated as EventListener)
+      window.removeEventListener(AUDIO_METADATA_UPDATED_EVENT, handleAudioMetadataUpdated as EventListener)
+    }
+  }, [])
+
+  useEffect(() => {
+    let isCancelled = false
+    const loadFilterData = async () => {
+      try {
+        const metadataPromises: Promise<Record<string, { markers?: unknown[] }>>[] = []
+        if (audioRootHandle) {
+          metadataPromises.push(getAllAudioMetadata(audioRootHandle))
+        }
+        if (scanVideoFolderForAudio && rootHandle && rootHandle !== audioRootHandle) {
+          metadataPromises.push(getAllAudioMetadata(rootHandle))
+        }
+
+        const [favoriteAudio, ...metadataSets] = await Promise.all([
+          favoritesService.getAudioFavorites(),
+          ...metadataPromises
+        ])
+        if (isCancelled) return
+
+        const markerPaths = new Set<string>()
+        for (const metadataSet of metadataSets) {
+          for (const [path, metadata] of Object.entries(metadataSet)) {
+            if (Array.isArray(metadata.markers) && metadata.markers.length > 0) {
+              markerPaths.add(path)
+            }
+          }
+        }
+
+        setAudioMarkerPaths(markerPaths)
+        setFavoriteAudioPaths(new Set(favoriteAudio.map((favorite) => favorite.path)))
+      } catch (filterDataError) {
+        console.error('Error loading audio filter data:', filterDataError)
+      }
+    }
+    loadFilterData()
+    return () => {
+      isCancelled = true
+    }
+  }, [audioRootHandle, rootHandle, scanVideoFolderForAudio, audioFiles, filterRevision])
+
+  const filteredAudioFiles = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase()
+    return audioFiles.filter((audio) => {
+      const matchesSearch = !query
+        || audio.name.toLowerCase().includes(query)
+        || audio.path.toLowerCase().includes(query)
+      if (!matchesSearch) return false
+      if (audioFilter === 'markers') return audioMarkerPaths.has(audio.path)
+      if (audioFilter === 'favorites') return favoriteAudioPaths.has(audio.path)
+      return true
+    })
+  }, [audioFiles, searchQuery, audioFilter, audioMarkerPaths, favoriteAudioPaths])
 
   if (!audioRootHandle && (!scanVideoFolderForAudio || !rootHandle)) {
     return (
       <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">
-          <div className="flex flex-col items-center justify-center gap-4 h-full">
-            <p>Please select a root directory in settings first</p>
-            <Link
-              href="/settings"
-              className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
-            >
-              Go to Settings
-            </Link>
-          </div>
+          <EmptyState
+            icon={Music}
+            title="Select an audio directory"
+            description="Audio files are available after an audio root is configured or video-folder scanning is enabled."
+            action={
+              <Button asChild>
+                <Link href="/settings">Go to Settings</Link>
+              </Button>
+            }
+          />
         </main>
       </div>
     )
@@ -119,75 +185,71 @@ export default function AudioPage() {
     <div className="flex h-screen flex-col">
       <Header />
       <main className="flex-1 overflow-hidden">
-        <ResizablePanelGroup direction="horizontal" className="h-full">
-          <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
-            <div className="h-full border-r bg-muted/30 flex flex-col">
-              <div className="p-4 space-y-2">
-                <h2 className="text-xl font-semibold">Audio Library</h2>
-                
-                {/* Search Box */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Search your audio files..."
-                    value={searchQuery}
-                    onChange={(e) => setAudioSearchQuery(e.target.value)}
-                    className="pl-9 h-10 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary/50 transition-colors"
+        <WorkspaceLayout
+          sidebarLabel="Library"
+          contentLabel="Player"
+          sidebar={
+            <div className="workspace-sidebar flex flex-col">
+              <LibraryHeader
+                title="Audio Library"
+                icon={Music}
+                searchValue={searchQuery}
+                searchPlaceholder="Search audio files..."
+                onSearchChange={setAudioSearchQuery}
+                controls={
+                  <SegmentedControl
+                    size="sm"
+                    className="w-full"
+                    value={audioFilter}
+                    onValueChange={setAudioFilter}
+                    options={[
+                      { value: 'all', label: 'All', icon: List },
+                      { value: 'markers', label: 'Markers', icon: Bookmark },
+                      { value: 'favorites', label: 'Favorites', icon: Bookmark }
+                    ]}
                   />
-                </div>
-                
-                {/* Quick Stats */}
-                <div className="flex gap-2 text-xs">
-                  <div className="px-3 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 rounded-lg flex items-center gap-2">
-                    <Music className="h-3 w-3" />
-                    <span>{filteredAudioFiles.length} Audio Files</span>
+                }
+                metrics={<MetricBadge icon={Music} value={filteredAudioFiles.length} label="Audio" />}
+              />
+              <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3 custom-scrollbar">
+                {loading ? (
+                  <div className="animate-pulse space-y-2">
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className="h-8 rounded-md bg-accent/35" />
+                    ))}
                   </div>
-                </div>
-
-              </div>
-              
-              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
-                <div className="pr-2">
-                  {loading ? (
-                    <div className="animate-pulse space-y-2">
-                      {[...Array(5)].map((_, i) => (
-                        <div key={i} className="h-8 bg-accent/20 rounded"></div>
-                      ))}
-                    </div>
-                  ) : filteredAudioFiles.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-8 px-4">
-                      <Music className="h-12 w-12 text-muted-foreground/50 mb-2" />
-                      <p className="text-sm text-muted-foreground text-center">
-                        {searchQuery ? 'No audio files match your search.' : 'No audio files found. Add some audio files to your selected directories.'}
-                      </p>
-                    </div>
-                  ) : (
-                    <AudioFolderList
-                      audioFiles={filteredAudioFiles}
-                      selectedAudio={selectedAudio}
-                      onAudioSelect={setSelectedAudio}
-                      directoryHandle={audioRootHandle || rootHandle!}
-                    />
-                  )}
-                </div>
+                ) : filteredAudioFiles.length === 0 ? (
+                  <EmptyState
+                    icon={Music}
+                    title={searchQuery ? 'No audio files match your search' : 'No audio files found'}
+                    description={
+                      searchQuery
+                        ? 'Try a different title or path.'
+                        : audioFilter === 'all'
+                          ? 'Add audio files to one of the selected directories.'
+                          : `No audio files match the ${audioFilter === 'markers' ? 'Markers' : 'Favorites'} filter.`
+                    }
+                  />
+                ) : (
+                  <AudioFolderList
+                    audioFiles={filteredAudioFiles}
+                    selectedAudio={selectedAudio}
+                    onAudioSelect={setSelectedAudio}
+                    directoryHandle={audioRootHandle || rootHandle!}
+                  />
+                )}
               </div>
             </div>
-          </ResizablePanel>
-          
-          <ResizableHandle />
-          
-          <ResizablePanel defaultSize={70}>
-            <div className="h-full overflow-y-auto custom-scrollbar p-4">
-              {selectedAudio ? (
-                <AudioPlayer audioFile={selectedAudio} />
-              ) : (
-                <div className="h-full flex items-center justify-center text-muted-foreground">
-                  Select an audio file to play
-                </div>
-              )}
-            </div>
-          </ResizablePanel>
-        </ResizablePanelGroup>
+          }
+        >
+          <div className="workspace-content overflow-y-auto p-3 md:p-4 custom-scrollbar">
+            {selectedAudio ? (
+              <AudioPlayer audioFile={selectedAudio} />
+            ) : (
+              <EmptyState icon={Music} title="Select an audio file" description="Choose a track from the library to start practicing." />
+            )}
+          </div>
+        </WorkspaceLayout>
       </main>
     </div>
   )

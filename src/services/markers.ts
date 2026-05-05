@@ -10,6 +10,7 @@ import {
 } from '@/services/local-sql-db'
 
 const LEGACY_MARKERS_DIR = '.markers'
+export const MARKERS_UPDATED_EVENT = 'markers-updated'
 
 export type MarkerRecord = {
   contentPath: string
@@ -143,6 +144,13 @@ class MarkersService {
         [videoPath, contentType, JSON.stringify(normalized), updatedAt]
       )
       await saveDatabase(context)
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent(MARKERS_UPDATED_EVENT, {
+            detail: { contentPath: videoPath, contentType }
+          })
+        )
+      }
     } catch (err) {
       console.error('Error saving markers:', err)
       throw new Error(`Unable to save markers for video: ${videoPath}`)

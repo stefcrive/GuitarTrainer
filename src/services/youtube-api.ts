@@ -24,6 +24,7 @@ export function resetApiState() {
     if (win.YT) {
       win.YT = null
     }
+    document.getElementById('youtube-iframe-api')?.remove()
   }
   useYouTubeStore.getState().setInitialized(false)
 }
@@ -46,8 +47,11 @@ export const youtubeApi = {
       return loadPromise
     }
 
-    // If already loaded, resolve immediately
-    if (apiLoaded && window.YT?.loaded) {
+    // If already loaded, resolve immediately. The script can remain present
+    // after local state resets, so trust the actual browser API too.
+    if (typeof window !== 'undefined' && typeof window.YT?.Player === 'function') {
+      apiLoaded = true
+      apiLoading = false
       useYouTubeStore.getState().setInitialized(true)
       return Promise.resolve()
     }
@@ -64,7 +68,15 @@ export const youtubeApi = {
           resolve()
         }
 
-        // Add the script tag if not already present
+        const existingScript = document.getElementById('youtube-iframe-api')
+
+        // Add the script tag if not already present. If a stale script tag
+        // exists without a usable YT.Player, replace it so the ready callback
+        // can fire again.
+        if (existingScript && typeof window.YT?.Player !== 'function') {
+          existingScript.remove()
+        }
+
         if (!document.getElementById('youtube-iframe-api')) {
           console.log('Loading YouTube IFrame API script...')
           apiLoading = true
@@ -84,6 +96,22 @@ export const youtubeApi = {
           document.head.appendChild(script)
         } else {
           console.log('YouTube API script already exists')
+          const startedAt = Date.now()
+          const interval = setInterval(() => {
+            if (typeof window.YT?.Player === 'function') {
+              clearInterval(interval)
+              apiLoaded = true
+              apiLoading = false
+              useYouTubeStore.getState().setInitialized(true)
+              resolve()
+            } else if (Date.now() - startedAt > 5000) {
+              clearInterval(interval)
+              apiLoading = false
+              apiLoaded = false
+              loadPromise = null
+              reject(new Error('YouTube API script is present but did not initialize'))
+            }
+          }, 100)
         }
       } catch (error) {
         console.error('Error loading YouTube API:', error)

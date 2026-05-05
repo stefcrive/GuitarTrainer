@@ -1,20 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { Suspense, useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { VideoPlayer } from '@/components/video/VideoPlayer'
 import { VideoFolderList } from '@/components/video/VideoFolderList'
-import { Input } from '@/components/ui/input'
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
+import { Button } from '@/components/ui/button'
+import { EmptyState } from '@/components/ui/empty-state'
+import { MetricBadge } from '@/components/ui/metric-badge'
+import { SegmentedControl } from '@/components/ui/segmented-control'
+import { StatusBanner } from '@/components/ui/status-banner'
 import type { VideoFile } from '@/services/file-system'
 import type { VideoPlayerControls } from '@/types/video'
 import { fileSystemService } from '@/services/file-system'
 import { recentlyViewedService } from '@/services/recently-viewed'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { Header } from '@/components/layout/Header'
+import { LibraryHeader } from '@/components/layout/LibraryHeader'
+import { WorkspaceLayout } from '@/components/layout/WorkspaceLayout'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
-import { Search, Video as VideoIcon, Folder } from 'lucide-react'
+import { favoritesService, FAVORITES_UPDATED_EVENT } from '@/services/favorites'
+import { markersService, MARKERS_UPDATED_EVENT } from '@/services/markers'
+import { Bookmark, List, Video as VideoIcon } from 'lucide-react'
 import Link from 'next/link'
 
 async function getFileHandle(rootHandle: FileSystemDirectoryHandle, path: string) {
@@ -43,12 +50,35 @@ async function getFileHandle(rootHandle: FileSystemDirectoryHandle, path: string
 }
 
 export default function VideosPage() {
+  return (
+    <Suspense fallback={<VideosPageFallback />}>
+      <VideosPageContent />
+    </Suspense>
+  )
+}
+
+function VideosPageFallback() {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1">
+        <EmptyState icon={VideoIcon} title="Loading videos" description="Preparing the video workspace." />
+      </main>
+    </div>
+  )
+}
+
+function VideosPageContent() {
+  type ListFilter = 'all' | 'markers' | 'favorites'
   const searchParams = useSearchParams()
   const videoPath = searchParams.get('video')
   const markerId = searchParams.get('marker')
 
   const [videos, setVideos] = useState<VideoFile[]>([])
-  const [filteredVideos, setFilteredVideos] = useState<VideoFile[]>([])
+  const [videoFilter, setVideoFilter] = useState<ListFilter>('all')
+  const [videoMarkerPaths, setVideoMarkerPaths] = useState<Set<string>>(new Set())
+  const [favoriteVideoPaths, setFavoriteVideoPaths] = useState<Set<string>>(new Set())
+  const [filterRevision, setFilterRevision] = useState(0)
   const { rootHandle, lastUpdate, expandToPath } = useDirectoryStore()
   const [error, setError] = useState<string | null>(null)
   
@@ -95,7 +125,6 @@ export default function VideosPage() {
       fileSystemService.getVideosFromDirectory(rootHandle)
         .then(videos => {
           setVideos(videos)
-          setFilteredVideos(videos)
         })
         .catch((error: Error) => {
           console.error('Error loading videos:', error)
@@ -104,19 +133,72 @@ export default function VideosPage() {
     }
   }, [rootHandle, lastUpdate])
 
-  // Filter videos based on search query
   useEffect(() => {
-    if (!searchQuery.trim()) {
-      setFilteredVideos(videos)
-    } else {
-      const query = searchQuery.toLowerCase()
-      const filtered = videos.filter(video =>
-        video.name.toLowerCase().includes(query) ||
-        video.path.toLowerCase().includes(query)
-      )
-      setFilteredVideos(filtered)
+    const handleFavoritesUpdated = (event: Event) => {
+      const detail = (event as CustomEvent<{ kind?: string }>).detail
+      if (!detail || detail.kind === 'video') {
+        setFilterRevision((prev) => prev + 1)
+      }
     }
-  }, [videos, searchQuery])
+    const handleMarkersUpdated = (event: Event) => {
+      const detail = (event as CustomEvent<{ contentType?: string }>).detail
+      if (!detail || detail.contentType === 'local') {
+        setFilterRevision((prev) => prev + 1)
+      }
+    }
+    window.addEventListener(FAVORITES_UPDATED_EVENT, handleFavoritesUpdated as EventListener)
+    window.addEventListener(MARKERS_UPDATED_EVENT, handleMarkersUpdated as EventListener)
+    return () => {
+      window.removeEventListener(FAVORITES_UPDATED_EVENT, handleFavoritesUpdated as EventListener)
+      window.removeEventListener(MARKERS_UPDATED_EVENT, handleMarkersUpdated as EventListener)
+    }
+  }, [])
+
+  useEffect(() => {
+    let isCancelled = false
+    const loadFilterData = async () => {
+      try {
+        const [favoriteVideos, markerRecords] = await Promise.all([
+          favoritesService.getVideoFavorites(),
+          rootHandle ? markersService.loadAllMarkers(rootHandle, 'local') : Promise.resolve([])
+        ])
+        if (isCancelled) return
+
+        const favoritePaths = new Set(
+          favoriteVideos.flatMap((favorite) => (
+            favorite.type === 'file' && typeof favorite.path === 'string' ? [favorite.path] : []
+          ))
+        )
+        const markerPaths = new Set(
+          markerRecords
+            .filter((record) => record.markerState.markers.length > 0)
+            .map((record) => record.contentPath)
+        )
+
+        setFavoriteVideoPaths(favoritePaths)
+        setVideoMarkerPaths(markerPaths)
+      } catch (filterDataError) {
+        console.error('Error loading video filter data:', filterDataError)
+      }
+    }
+    loadFilterData()
+    return () => {
+      isCancelled = true
+    }
+  }, [rootHandle, videos, lastUpdate, filterRevision])
+
+  const filteredVideos = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase()
+    return videos.filter((video) => {
+      const matchesSearch = !query
+        || video.name.toLowerCase().includes(query)
+        || video.path.toLowerCase().includes(query)
+      if (!matchesSearch) return false
+      if (videoFilter === 'markers') return videoMarkerPaths.has(video.path)
+      if (videoFilter === 'favorites') return favoriteVideoPaths.has(video.path)
+      return true
+    })
+  }, [videos, searchQuery, videoFilter, videoMarkerPaths, favoriteVideoPaths])
 
   const loadVideo = async (video: VideoFile) => {
     setSelectedVideo(video)
@@ -146,15 +228,16 @@ export default function VideosPage() {
       <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">
-          <div className="flex flex-col items-center justify-center gap-4 h-full">
-            <p>Please select a root directory in settings first</p>
-            <Link 
-              href="/settings"
-              className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
-            >
-              Go to Settings
-            </Link>
-          </div>
+          <EmptyState
+            icon={VideoIcon}
+            title="Select a video root directory"
+            description="Local videos are available after a root directory is configured in Settings."
+            action={
+              <Button asChild>
+                <Link href="/settings">Go to Settings</Link>
+              </Button>
+            }
+          />
         </main>
       </div>
     )
@@ -164,108 +247,101 @@ export default function VideosPage() {
     <div className="flex h-screen flex-col">
       <Header />
       <main className="flex-1 overflow-hidden">
-        <ResizablePanelGroup direction="horizontal" className="h-full">
-          <ResizablePanel defaultSize={30} minSize={20} maxSize={50}>
-            <div className="h-full border-r bg-muted/30 flex flex-col">
-              <div className="p-4 space-y-2 flex-shrink-0">
-                <h2 className="text-xl font-semibold">Video Library</h2>
-                
-                {/* Search Box */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Search your videos..."
-                    value={searchQuery}
-                    onChange={(e) => setVideoSearchQuery(e.target.value)}
-                    className="pl-9 h-10 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary/50 transition-colors"
+        <WorkspaceLayout
+          sidebarLabel="Library"
+          contentLabel="Player"
+          sidebar={
+            <div className="workspace-sidebar flex flex-col">
+              <LibraryHeader
+                title="Video Library"
+                icon={VideoIcon}
+                searchValue={searchQuery}
+                searchPlaceholder="Search videos..."
+                onSearchChange={setVideoSearchQuery}
+                controls={
+                  <SegmentedControl
+                    size="sm"
+                    className="w-full"
+                    value={videoFilter}
+                    onValueChange={setVideoFilter}
+                    options={[
+                      { value: 'all', label: 'All', icon: List },
+                      { value: 'markers', label: 'Markers', icon: Bookmark },
+                      { value: 'favorites', label: 'Favorites', icon: Bookmark }
+                    ]}
                   />
+                }
+                metrics={<MetricBadge icon={VideoIcon} value={filteredVideos.length} label="Videos" />}
+              />
+              {error && (
+                <div className="p-3">
+                  <StatusBanner tone="destructive">{error}</StatusBanner>
                 </div>
-                
-                {/* Quick Stats */}
-                <div className="flex gap-2 text-xs">
-                  <div className="px-3 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg flex items-center gap-2">
-                    <VideoIcon className="h-3 w-3" />
-                    <span>{filteredVideos.length} Videos</span>
-                  </div>
-                </div>
-
-                {error && (
-                  <div className="p-2 text-sm text-red-800 bg-red-50 rounded-lg">
-                    {error}
-                  </div>
+              )}
+              <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3 custom-scrollbar">
+                {filteredVideos.length > 0 ? (
+                  <VideoFolderList
+                    videos={filteredVideos}
+                    selectedVideo={selectedVideo}
+                    onVideoSelect={loadVideo}
+                    directoryHandle={rootHandle}
+                  />
+                ) : (
+                  <EmptyState
+                    icon={VideoIcon}
+                    title={searchQuery ? 'No videos match your search' : 'No videos found'}
+                    description={
+                      searchQuery
+                        ? 'Try a different title or path.'
+                        : videoFilter === 'all'
+                          ? 'The selected directory does not contain supported video files.'
+                          : `No videos match the ${videoFilter === 'markers' ? 'Markers' : 'Favorites'} filter.`
+                    }
+                  />
                 )}
               </div>
-              
-              <div className="flex-1 overflow-y-auto custom-scrollbar px-4 pb-4">
-                <div className="pr-2">
-                  {filteredVideos.length > 0 ? (
-                    <VideoFolderList
-                      videos={filteredVideos}
-                      selectedVideo={selectedVideo}
-                      onVideoSelect={loadVideo}
-                      directoryHandle={rootHandle}
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-8 px-4">
-                      <VideoIcon className="h-12 w-12 text-muted-foreground/50 mb-2" />
-                      <p className="text-sm text-muted-foreground text-center">
-                        {searchQuery ? 'No videos match your search.' : 'No videos found in the selected directory.'}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
             </div>
-          </ResizablePanel>
-          
-          <ResizableHandle />
-          
-          <ResizablePanel defaultSize={70}>
-            <div className="h-full overflow-y-auto custom-scrollbar p-4">
-              {videoLoadError && (
-                <div className="p-4 text-sm text-red-800 bg-red-50 rounded-lg mb-4">
-                  {videoLoadError}
-                </div>
-              )}
-              {selectedVideo ? (
-                <div className="space-y-4">
-                  <VideoPlayer
-                    videoFile={videoFile}
-                    video={selectedVideo}
-                    directoryHandle={rootHandle}
-                    className="w-full"
-                    onControlsReady={(controls) => {
-                      setVideoControls(controls)
-                      // If a marker ID is provided, seek to that marker's position
-                      if (markerId && markerState) {
-                        const marker = markerState.markers.find(m => m.id === markerId)
-                        if (marker) {
-                          controls.seek(marker.startTime)
-                        }
-                      }
-                    }}
-                    onPrevVideo={() => {
-                      const currentIndex = videos.findIndex(v => v.path === selectedVideo.path)
-                      if (currentIndex > 0) {
-                        loadVideo(videos[currentIndex - 1])
-                      }
-                    }}
-                    onNextVideo={() => {
-                      const currentIndex = videos.findIndex(v => v.path === selectedVideo.path)
-                      if (currentIndex < videos.length - 1) {
-                        loadVideo(videos[currentIndex + 1])
-                      }
-                    }}
-                  />
-                </div>
-              ) : (
-                <div className="h-full flex items-center justify-center text-muted-foreground">
-                  Select a video file to play
-                </div>
-              )}
-            </div>
-          </ResizablePanel>
-        </ResizablePanelGroup>
+          }
+        >
+          <div className="workspace-content overflow-y-auto p-3 md:p-4 custom-scrollbar">
+            {videoLoadError && (
+              <StatusBanner tone="destructive" className="mb-4">
+                {videoLoadError}
+              </StatusBanner>
+            )}
+            {selectedVideo ? (
+              <VideoPlayer
+                videoFile={videoFile}
+                video={selectedVideo}
+                directoryHandle={rootHandle}
+                className="w-full"
+                onControlsReady={(controls) => {
+                  setVideoControls(controls)
+                  if (markerId && markerState) {
+                    const marker = markerState.markers.find(m => m.id === markerId)
+                    if (marker) {
+                      controls.seek(marker.startTime)
+                    }
+                  }
+                }}
+                onPrevVideo={() => {
+                  const currentIndex = videos.findIndex(v => v.path === selectedVideo.path)
+                  if (currentIndex > 0) {
+                    loadVideo(videos[currentIndex - 1])
+                  }
+                }}
+                onNextVideo={() => {
+                  const currentIndex = videos.findIndex(v => v.path === selectedVideo.path)
+                  if (currentIndex < videos.length - 1) {
+                    loadVideo(videos[currentIndex + 1])
+                  }
+                }}
+              />
+            ) : (
+              <EmptyState icon={VideoIcon} title="Select a video" description="Choose a file from the library to start practicing." />
+            )}
+          </div>
+        </WorkspaceLayout>
       </main>
     </div>
   )

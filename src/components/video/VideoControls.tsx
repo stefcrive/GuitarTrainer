@@ -16,6 +16,7 @@ import {
   ChevronRight,
   Play,
   Pause,
+  Plus,
   Timer
 } from "lucide-react"
 import type { VideoPlayerControls } from '@/types/video'
@@ -91,7 +92,9 @@ export function VideoControls({
           size="sm"
           onClick={onAddMarker}
           title="Add marker at current time"
+          className="gap-2"
         >
+          <Plus className="h-4 w-4" />
           Add Marker
         </Button>
       )}

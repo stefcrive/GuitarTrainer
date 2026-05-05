@@ -9,7 +9,6 @@ import { FavoriteButton as AudioFavoriteButton } from '@/components/audio/Favori
 import { VideoPlayer } from '@/components/video/VideoPlayer'
 import { YouTubePlayer } from '@/components/youtube/YouTubePlayer'
 import { AudioPlayer } from '@/components/audio/AudioPlayer'
-import { YouTubeInitializer } from '@/components/youtube/YouTubeInitializer'
 import { VideoTitle } from '@/components/video/VideoTitle'
 import { Input } from '@/components/ui/input'
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
@@ -628,13 +627,11 @@ export default function FavoritesPage() {
                   </div>
                   <div className="aspect-video bg-muted rounded">
                     {selectedVideo.type === 'youtube' ? (
-                      <YouTubeInitializer>
-                        <YouTubePlayer
-                          videoId={selectedVideo.id}
-                          className="w-full h-full rounded"
-                          onControlsReady={setVideoControls}
-                        />
-                      </YouTubeInitializer>
+                      <YouTubePlayer
+                        videoId={selectedVideo.id}
+                        className="w-full h-full rounded"
+                        onControlsReady={setVideoControls}
+                      />
                     ) : rootHandle ? (
                       <VideoPlayer
                         videoFile={videoFile}

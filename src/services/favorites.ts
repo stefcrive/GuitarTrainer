@@ -17,6 +17,18 @@ type StoredItem = StoredVideo | StoredAudioFile
 
 const VIDEO_FAVORITES_KEY = 'video-favorites'
 const AUDIO_FAVORITES_KEY = 'audio-favorites'
+export const FAVORITES_UPDATED_EVENT = 'favorites-updated'
+
+type FavoritesUpdatedKind = 'video' | 'audio'
+
+function notifyFavoritesUpdated(kind: FavoritesUpdatedKind) {
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(
+    new CustomEvent(FAVORITES_UPDATED_EVENT, {
+      detail: { kind }
+    })
+  )
+}
 
 export const favoritesService = {
   async getVideoFavorites(): Promise<StoredVideo[]> {
@@ -57,6 +69,7 @@ export const favoritesService = {
       }
       favorites.push(favorite)
       localStorage.setItem(VIDEO_FAVORITES_KEY, JSON.stringify(favorites))
+      notifyFavoritesUpdated('video')
     }
   },
 
@@ -64,6 +77,7 @@ export const favoritesService = {
     const favorites = await this.getAudioFavorites()
     if (!favorites.some(fav => fav.path === audio.path)) {
       const favorite: StoredAudioFile = {
+        id: audio.id,
         name: audio.name,
         path: audio.path,
         type: audio.type,
@@ -72,6 +86,7 @@ export const favoritesService = {
       }
       favorites.push(favorite)
       localStorage.setItem(AUDIO_FAVORITES_KEY, JSON.stringify(favorites))
+      notifyFavoritesUpdated('audio')
     }
   },
 
@@ -81,12 +96,14 @@ export const favoritesService = {
       fav => !(fav.id === video.id && fav.type === video.type)
     )
     localStorage.setItem(VIDEO_FAVORITES_KEY, JSON.stringify(filtered))
+    notifyFavoritesUpdated('video')
   },
 
   async removeAudioFavorite(audio: AudioFile) {
     const favorites = await this.getAudioFavorites()
     const filtered = favorites.filter(fav => fav.path !== audio.path)
     localStorage.setItem(AUDIO_FAVORITES_KEY, JSON.stringify(filtered))
+    notifyFavoritesUpdated('audio')
   },
 
   async isVideoFavorite(video: Video): Promise<boolean> {
@@ -105,10 +122,12 @@ export const favoritesService = {
   async setVideoFavorites(favorites: StoredVideo[]) {
     if (typeof window === 'undefined') return
     localStorage.setItem(VIDEO_FAVORITES_KEY, JSON.stringify(favorites))
+    notifyFavoritesUpdated('video')
   },
 
   async setAudioFavorites(favorites: StoredAudioFile[]) {
     if (typeof window === 'undefined') return
     localStorage.setItem(AUDIO_FAVORITES_KEY, JSON.stringify(favorites))
+    notifyFavoritesUpdated('audio')
   }
 }

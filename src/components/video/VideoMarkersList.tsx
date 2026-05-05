@@ -27,6 +27,7 @@ import {
 import type { AudioAnnotation, AudioMarker } from '@/types/audio'
 import { Search, ArrowUp, ArrowDown, Video as VideoIcon, Shuffle, Music2, ExternalLink, RefreshCw, Play, Pause } from 'lucide-react'
 import { useTagStore } from '@/stores/tag-store'
+import { cn } from '@/lib/utils'
 
 
 type ContentType = 'local' | 'youtube' | 'audio' | 'spotify'
@@ -115,6 +116,53 @@ function ClockIcon({ className }: { className?: string }) {
 function getCompletionWeight(completion: number): number {
   const clamped = Math.max(0, Math.min(100, completion))
   return 101 - clamped
+}
+
+function getContentTypeLabel(type: ContentType): string {
+  if (type === 'youtube') return 'YouTube'
+  if (type === 'audio') return 'Audio'
+  if (type === 'spotify') return 'Spotify'
+  return 'Video'
+}
+
+function getContentBadgeClass(type: ContentType): string {
+  if (type === 'youtube') return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+  if (type === 'audio') return 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
+  if (type === 'spotify') return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+  return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+}
+
+function getContentProgressClass(type: ContentType): string {
+  if (type === 'youtube') return 'bg-red-500'
+  if (type === 'audio') return 'bg-purple-500'
+  if (type === 'spotify') return 'bg-green-500'
+  return 'bg-blue-500'
+}
+
+function getContentSelectionClass(type: ContentType): string {
+  if (type === 'youtube') return 'bg-red-500/10 text-red-950 dark:text-red-100'
+  if (type === 'audio') return 'bg-purple-500/10 text-purple-950 dark:text-purple-100'
+  if (type === 'spotify') return 'bg-green-500/10 text-green-950 dark:text-green-100'
+  return 'bg-blue-500/10 text-blue-950 dark:text-blue-100'
+}
+
+function getCompletionPillClass(completion: number): string {
+  if (completion >= 75) return 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+  if (completion >= 50) return 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
+  if (completion >= 25) return 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400'
+  return 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+}
+
+function getMarkerTimeLabel(marker: MarkerWithContent['markers'][number]): string {
+  return `${formatTime(marker.startTime)} - ${formatTime(marker.endTime)}`
+}
+
+function getMarkerTitleText(
+  marker: MarkerWithContent['markers'][number],
+  annotation: MarkerWithContent['annotations'][number] | undefined,
+  index: number
+): string {
+  return marker.title?.trim() || annotation?.text?.trim() || `Marker ${index + 1}`
 }
 
 export default function VideoSurfList(): React.ReactElement {
@@ -989,153 +1037,158 @@ export default function VideoSurfList(): React.ReactElement {
                 </div>
 
               <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar px-3 py-3">
-                <div className="space-y-2">
-              {sortMarkers(filteredMarkerStates)
-                .map(markerState => {
-                  // Calculate overall progress for this content
-                  const totalMarkers = markerState.markers.length
-                  const avgCompletion = totalMarkers > 0 
-                    ? markerState.markers.reduce((sum, m) => sum + (m.completionDegree || 0), 0) / totalMarkers 
-                    : 0
-                  const visibleMarkers = getVisibleMarkers(markerState)
-                  
-                  return (
-                  <div key={markerState.content.path} className="border border-gray-200 dark:border-gray-700 rounded-md bg-muted/20 dark:bg-gray-900/40">
-                    <button
-                      onClick={() => setExpandedPaths(prev => {
-                        const newSet = new Set(prev)
-                        if (prev.has(markerState.content.path)) {
-                          newSet.delete(markerState.content.path)
-                        } else {
-                          newSet.add(markerState.content.path)
-                        }
-                        return newSet
-                      })}
-                      className="w-full hover:bg-muted/40 rounded-md px-2.5 py-2 transition-colors"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <ChevronIcon
-                            className={`h-4 w-4 text-muted-foreground transition-transform ${
-                              expandedPaths.has(markerState.content.path) ? 'rotate-90' : ''
-                            }`}
-                          />
-                          <span className={`px-2 py-0.5 text-[11px] font-medium rounded-full ${
-                            markerState.content.type === 'youtube' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' :
-                            markerState.content.type === 'audio' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400' :
-                            markerState.content.type === 'spotify' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
-                            'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
-                          }`}>
-                            {markerState.content.type === 'youtube' ? 'YouTube' :
-                             markerState.content.type === 'audio' ? 'Audio' :
-                             markerState.content.type === 'spotify' ? 'Spotify' : 'Video'}
-                          </span>
-                          <div className="text-left">
-                            <h3 className="font-medium text-xs">{getContentTitle(markerState.content)}</h3>
-                            <p className="text-[11px] text-muted-foreground">
-                              {markerState.markers.length} marker{markerState.markers.length !== 1 ? 's' : ''} - {avgCompletion.toFixed(0)}% avg completion
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {/* Overall completion progress bar */}
-                          <div className="w-14 bg-gray-200 dark:bg-gray-700 rounded-full h-1">
-                            <div 
-                              className={`h-full rounded-full transition-all duration-300 ${
-                                markerState.content.type === 'youtube' ? 'bg-red-500' :
-                                markerState.content.type === 'audio' ? 'bg-purple-500' :
-                                markerState.content.type === 'spotify' ? 'bg-green-500' :
-                                'bg-blue-500'
-                              }`}
-                              style={{ width: `${avgCompletion}%` }}
+                <div className="space-y-3">
+                  {sortMarkers(filteredMarkerStates).map(markerState => {
+                    const totalMarkers = markerState.markers.length
+                    const avgCompletion = totalMarkers > 0
+                      ? markerState.markers.reduce((sum, m) => sum + (m.completionDegree || 0), 0) / totalMarkers
+                      : 0
+                    const visibleMarkers = getVisibleMarkers(markerState)
+                    const isExpanded = expandedPaths.has(markerState.content.path)
+                    const contentType = markerState.content.type
+
+                    return (
+                      <div
+                        key={markerState.content.path}
+                        className="overflow-hidden rounded-md border bg-background"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setExpandedPaths(prev => {
+                            const next = new Set(prev)
+                            if (prev.has(markerState.content.path)) {
+                              next.delete(markerState.content.path)
+                            } else {
+                              next.add(markerState.content.path)
+                            }
+                            return next
+                          })}
+                          className={cn(
+                            'grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-2 text-left transition-colors hover:bg-muted/45',
+                            isExpanded && 'border-b'
+                          )}
+                        >
+                          <div className="flex min-w-0 items-center gap-2">
+                            <ChevronIcon
+                              className={cn(
+                                'h-4 w-4 shrink-0 text-muted-foreground transition-transform',
+                                isExpanded && 'rotate-90'
+                              )}
                             />
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                    {expandedPaths.has(markerState.content.path) && (
-                      <div className="px-2.5 pb-2.5">
-                        <div className="space-y-2">
-                        {visibleMarkers
-                           .map((marker, markerIndex) => {
-                             const annotation = markerState.annotations.find(a => a.markerId === marker.id)
-
-                            // Calculate marker time and completion
-                            const markerTime = markerState.content.type === 'audio' || markerState.content.type === 'spotify'
-                              ? `${formatTime(marker.startTime)} - ${formatTime(marker.endTime)}`
-                              : formatTime(marker.startTime)
-                            const completion = marker.completionDegree || 0
-                            const markerTitle = marker.title?.trim() || annotation?.text || 'Untitled Marker'
-
-                          return (
-                            <div
-                              key={marker.id}
-                              className={`relative rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60 px-2.5 py-2 transition-all duration-200 hover:shadow-sm cursor-pointer ${
-                                marker.id === selectedMarkerId ? (
-                                  markerState.content.type === 'youtube' ? 'border-red-300 bg-red-50/60 dark:bg-red-950/20' :
-                                  markerState.content.type === 'audio' ? 'border-purple-300 bg-purple-50/60 dark:bg-purple-950/20' :
-                                  markerState.content.type === 'spotify' ? 'border-green-300 bg-green-50/60 dark:bg-green-950/20' :
-                                  'border-blue-300 bg-blue-50/60 dark:bg-blue-950/20'
-                                ) : 'hover:border-gray-300 dark:hover:border-gray-600'
-                              }`}
-                              onClick={() => {
-                                void selectMarker(markerState, marker)
-                              }}
-                            >
-                              {/* Marker Number Badge */}
-                              <div className={`absolute -top-1.5 -left-1.5 w-5 h-5 text-white text-[10px] font-semibold rounded-full flex items-center justify-center ${
-                                markerState.content.type === 'youtube' ? 'bg-red-500' :
-                                markerState.content.type === 'audio' ? 'bg-purple-500' :
-                                markerState.content.type === 'spotify' ? 'bg-green-500' :
-                                'bg-blue-500'
-                              }`}>
-                                {markerIndex + 1}
+                            <span className={cn('shrink-0 rounded-md px-2 py-0.5 text-[11px] font-medium', getContentBadgeClass(contentType))}>
+                              {getContentTypeLabel(contentType)}
+                            </span>
+                            <div className="min-w-0">
+                              <div className="truncate text-xs font-semibold text-foreground">
+                                {getContentTitle(markerState.content)}
                               </div>
-
-                              <div className="space-y-1.5">
-                                <div className="flex items-center justify-between gap-2">
-                                  <div className="flex min-w-0 items-center gap-2">
-                                    <span className="text-xs font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-2 py-0.5 rounded h-5 flex items-center gap-1.5">
-                                      <ClockIcon className="h-3.5 w-3.5" />
-                                      {markerTime}
-                                    </span>
-                                    <div className="min-w-0 text-xs font-medium truncate">
-                                      {markerTitle}
-                                    </div>
-                                  </div>
-                                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded h-5 flex items-center ${
-                                    completion >= 75 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' :
-                                    completion >= 50 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' :
-                                    completion >= 25 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400' :
-                                    'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
-                                  }`}>
-                                    {completion}%
-                                  </span>
-                                </div>
-
-                                {/* Tags */}
-                                {annotation?.tags && annotation.tags.length > 0 && (
-                                  <div className="flex gap-1 flex-wrap">
-                                    {annotation.tags.map(tag => (
-                                      <span
-                                        key={tag}
-                                        className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] rounded-full"
-                                      >
-                                        {tag}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
+                              <div className="text-[11px] text-muted-foreground">
+                                {visibleMarkers.length} shown / {totalMarkers} total
                               </div>
                             </div>
-                          )
-                        })}
-                        </div>
+                          </div>
+
+                          <div className="flex w-24 items-center gap-2">
+                            <span className="w-8 text-right text-[11px] font-medium text-muted-foreground">
+                              {avgCompletion.toFixed(0)}%
+                            </span>
+                            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+                              <div
+                                className={cn('h-full rounded-full transition-all duration-300', getContentProgressClass(contentType))}
+                                style={{ width: `${avgCompletion}%` }}
+                              />
+                            </div>
+                          </div>
+                        </button>
+
+                        {isExpanded && (
+                          <div className="overflow-x-auto">
+                            <table className="w-full min-w-[620px] table-fixed text-xs">
+                              <thead className="border-b bg-muted/35 text-left text-[10px] uppercase tracking-wide text-muted-foreground">
+                                <tr>
+                                  <th className="w-12 px-3 py-2">#</th>
+                                  <th className="w-32 px-3 py-2">Time</th>
+                                  <th className="px-3 py-2">Title</th>
+                                  <th className="w-24 px-3 py-2 text-right">Progress</th>
+                                  <th className="w-40 px-3 py-2">Tags</th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y">
+                                {visibleMarkers.length === 0 ? (
+                                  <tr>
+                                    <td colSpan={5} className="px-3 py-4 text-center text-xs text-muted-foreground">
+                                      No visible markers match the current filters.
+                                    </td>
+                                  </tr>
+                                ) : (
+                                  visibleMarkers.map((marker, markerIndex) => {
+                                    const annotation = markerState.annotations.find(a => a.markerId === marker.id)
+                                    const completion = marker.completionDegree || 0
+                                    const markerTitle = getMarkerTitleText(marker, annotation, markerIndex)
+                                    const hasNotePreview = Boolean(annotation?.text && marker.title?.trim())
+
+                                    return (
+                                      <tr
+                                        key={marker.id}
+                                        className={cn(
+                                          'cursor-pointer transition-colors hover:bg-muted/45',
+                                          marker.id === selectedMarkerId && getContentSelectionClass(contentType)
+                                        )}
+                                        onClick={() => {
+                                          void selectMarker(markerState, marker)
+                                        }}
+                                      >
+                                        <td className="px-3 py-2 align-middle">
+                                          <span className={cn('flex h-5 w-5 items-center justify-center rounded-md text-[10px] font-semibold text-white', getContentProgressClass(contentType))}>
+                                            {markerIndex + 1}
+                                          </span>
+                                        </td>
+                                        <td className="px-3 py-2 align-middle">
+                                          <span className="inline-flex h-6 items-center gap-1.5 rounded-md bg-muted px-2 font-medium tabular-nums text-foreground">
+                                            <ClockIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                                            {getMarkerTimeLabel(marker)}
+                                          </span>
+                                        </td>
+                                        <td className="px-3 py-2 align-middle">
+                                          <div className="truncate font-medium text-foreground">{markerTitle}</div>
+                                          {hasNotePreview && (
+                                            <div className="mt-0.5 truncate text-[11px] text-muted-foreground">
+                                              {annotation?.text}
+                                            </div>
+                                          )}
+                                        </td>
+                                        <td className="px-3 py-2 align-middle text-right">
+                                          <span className={cn('inline-flex h-6 items-center rounded-md px-2 text-[11px] font-semibold', getCompletionPillClass(completion))}>
+                                            {completion}%
+                                          </span>
+                                        </td>
+                                        <td className="px-3 py-2 align-middle">
+                                          {annotation?.tags && annotation.tags.length > 0 ? (
+                                            <div className="flex flex-wrap gap-1">
+                                              {annotation.tags.map(tag => (
+                                                <span
+                                                  key={tag}
+                                                  className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] text-primary"
+                                                >
+                                                  {tag}
+                                                </span>
+                                              ))}
+                                            </div>
+                                          ) : (
+                                            <span className="text-[11px] text-muted-foreground">None</span>
+                                          )}
+                                        </td>
+                                      </tr>
+                                    )
+                                  })
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                  )
-                })}
+                    )
+                  })}
                 </div>
               </div>
             </div>

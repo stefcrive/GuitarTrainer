@@ -10,6 +10,7 @@ import {
 } from '@/services/local-sql-db'
 
 const LEGACY_METADATA_FILE = 'audio-metadata.json'
+export const AUDIO_METADATA_UPDATED_EVENT = 'audio-metadata-updated'
 const legacyCache = new WeakMap<
   FileSystemDirectoryHandle,
   Promise<Record<string, AudioMetadata> | null>
@@ -152,6 +153,13 @@ export async function saveAudioMetadata(
   nextMetadata.markers = stripAudioBlobs(nextMetadata.markers || [])
 
   await upsertMetadata(directoryHandle, nextMetadata)
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(
+      new CustomEvent(AUDIO_METADATA_UPDATED_EVENT, {
+        detail: { path: audioFile.path }
+      })
+    )
+  }
 }
 
 export async function getAllAudioMetadata(

@@ -9,7 +9,6 @@ import { Input } from '@/components/ui/input'
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { YouTubePlayer } from '@/components/youtube/YouTubePlayer'
-import { YouTubeInitializer } from '@/components/youtube/YouTubeInitializer'
 import type { Video, FileSystemVideo, YouTubeVideo, VideoPlayerControls } from '@/types/video'
 import { fileSystemService } from '@/services/file-system'
 import { Header } from '@/components/layout/Header'
@@ -389,13 +388,11 @@ export default function RecentPage() {
                       onControlsReady={setVideoControls}
                     />
                   ) : (
-                    <YouTubeInitializer>
-                      <YouTubePlayer
-                        videoId={selectedVideo.id}
-                        className="w-full h-full rounded"
-                        onControlsReady={setVideoControls}
-                      />
-                    </YouTubeInitializer>
+                    <YouTubePlayer
+                      videoId={selectedVideo.id}
+                      className="w-full h-full rounded"
+                      onControlsReady={setVideoControls}
+                    />
                   )}
                 </div>
               </div>

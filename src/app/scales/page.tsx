@@ -31,13 +31,13 @@ export default function ScalesPage() {
   return (
     <div className="flex h-screen flex-col">
       <Header />
-      <div className="flex flex-1 overflow-hidden">
+      <main className="flex flex-1 overflow-hidden">
         <ScaleSidebar
           selectedItem={selectedItem}
           onItemSelect={handleItemSelect}
         />
         <div className="flex-1 overflow-y-auto custom-scrollbar p-8">
-          <h1 className="text-3xl font-bold mb-6">Scales & Chords</h1>
+          <h1 className="mb-6 text-2xl font-semibold">Scales & Chords</h1>
           <FretboardVisualizer
             selectedItem={selectedItem}
             rootNote={rootNote}
@@ -46,7 +46,7 @@ export default function ScalesPage() {
             onCustomIntervalsChange={handleCustomIntervalsChange}
           />
         </div>
-      </div>
+      </main>
     </div>
   )
 }

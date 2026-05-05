@@ -1,15 +1,23 @@
 'use client'
 
-import { useCallback, useRef, useState, useEffect, useMemo } from 'react'
+import { Fragment, useCallback, useRef, useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import { Input } from '@/components/ui/input'
+import { SegmentedControl } from '@/components/ui/segmented-control'
 import type { AudioMarker, AudioAnnotation } from '@/types/audio'
 import { AudioRecorder } from '@/services/audio-recorder'
 import { VideoAnnotationEditor } from '../video/VideoAnnotationEditor'
 import { MarkerTimeEditor } from './MarkerTimeEditor'
 import { cn } from '@/lib/utils'
 import { MarkerDiagramList } from '@/components/guitar/NeckDiagramEditor'
+import {
+  ChevronDown as ChevronDownIcon,
+  ChevronRight as ChevronRightIcon,
+  List as ListIcon,
+  Plus as PlusIcon,
+  TableProperties as TableIcon
+} from 'lucide-react'
 
 // Create a compatible interface adapter for VideoPlayerControls
 interface AudioPlayerControls {
@@ -41,6 +49,13 @@ interface AudioMarkersProps {
   onActiveMarkerIdChange?: (markerId: string | null) => void
 }
 
+type MarkerViewMode = 'table' | 'list'
+
+const markerViewOptions = [
+  { value: 'table' as const, label: 'Table', icon: TableIcon },
+  { value: 'list' as const, label: 'List', icon: ListIcon }
+]
+
 export function AudioMarkers({
   audioControls,
   markers,
@@ -51,9 +66,8 @@ export function AudioMarkers({
   externalActiveMarkerId,
   onActiveMarkerIdChange
 }: AudioMarkersProps) {
-  const [isAddingAnnotation, setIsAddingAnnotation] = useState(false)
   const [editingMarkerId, setEditingMarkerId] = useState<string | null>(null)
-  const [editingAnnotationId, setEditingAnnotationId] = useState<string | null>(null)
+  const [viewMode, setViewMode] = useState<MarkerViewMode>('table')
   const [activeMarkerId, setActiveMarkerId] = useState<string | null>(externalActiveMarkerId || null)
 
   // Collect all unique tags from current annotations
@@ -182,12 +196,10 @@ export function AudioMarkers({
     }
   }, [markers, onMarkersChange, audioControls])
 
-  const handleAnnotationSave = useCallback((text: string, tags: string[]) => {
-    if (!activeMarkerId) return
-
+  const handleAnnotationSave = useCallback((markerId: string, text: string, tags: string[]) => {
     const newAnnotation: AudioAnnotation = {
       id: crypto.randomUUID(),
-      markerId: activeMarkerId,
+      markerId,
       text,
       tags,
       timestamp: Date.now()
@@ -195,15 +207,14 @@ export function AudioMarkers({
 
     // Filter out any existing annotations for this marker before adding the new one
     const updatedAnnotations = annotations.filter(
-      a => a.markerId !== activeMarkerId
+      a => a.markerId !== markerId
     )
 
     onAnnotationsChange([...updatedAnnotations, newAnnotation])
-    // Close the editor and clear active marker after saving (match VideoMarkers behavior)
-    setIsAddingAnnotation(false)
     setEditingMarkerId(null)
-    setActiveMarkerId(null)
-  }, [activeMarkerId, annotations, onAnnotationsChange, setEditingMarkerId, setActiveMarkerId])
+    setActiveMarkerId(markerId)
+    onActiveMarkerIdChange?.(markerId)
+  }, [annotations, onAnnotationsChange, onActiveMarkerIdChange])
 
   const handleMarkerUpdate = useCallback((updatedMarker: AudioMarker, closeEditor = true) => {
     onMarkersChange(
@@ -230,11 +241,6 @@ export function AudioMarkers({
     setEditingMarkerId(null)
   }, [markers, annotations, activeMarkerId, onMarkersChange, onAnnotationsChange])
 
-  const handleAnnotationDelete = useCallback((annotationId: string) => {
-    onAnnotationsChange(annotations.filter(a => a.id !== annotationId))
-    setEditingAnnotationId(null)
-  }, [annotations, onAnnotationsChange])
-
   const toggleLoop = useCallback((markerId: string) => {
     onMarkersChange(
       markers.map(marker => 
@@ -245,30 +251,249 @@ export function AudioMarkers({
     )
   }, [markers, onMarkersChange])
 
-  return (
-    <div className={cn('space-y-4', className)}>
-      {/* Header Section */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-lg border">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-full">
-            <AudioIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Audio Markers</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {markers.length} marker{markers.length !== 1 ? 's' : ''} created
-            </p>
-          </div>
-        </div>
+  const markerCountLabel = `${markers.length} marker${markers.length !== 1 ? 's' : ''}`
+  const accentProgressClass = 'bg-purple-600'
+  const accentTextClass = 'text-purple-600 dark:text-purple-400'
+
+  const getAnnotation = (markerId: string) => annotations.find(a => a.markerId === markerId)
+  const getMarkerTitle = (marker: AudioMarker, index: number) => marker.title?.trim() || `Marker ${index + 1}`
+  const getTimeLabel = (marker: AudioMarker) => `${formatTime(marker.startTime)} - ${formatTime(marker.endTime)}`
+
+  const activateMarker = (marker: AudioMarker, play = false) => {
+    audioControls.seek(marker.startTime)
+    if (play) {
+      audioControls.play()
+    }
+    setActiveMarkerId(marker.id)
+    onActiveMarkerIdChange?.(marker.id)
+  }
+
+  const toggleMarkerDetails = (marker: AudioMarker) => {
+    activateMarker(marker)
+    setEditingMarkerId(editingMarkerId === marker.id ? null : marker.id)
+  }
+
+  const renderTags = (tags: string[]) => (
+    tags.length > 0 ? (
+      <div className="flex flex-wrap gap-1">
+        {tags.map(tag => (
+          <span
+            key={tag}
+            className="rounded-md bg-primary/10 px-1.5 py-0.5 text-xs text-primary"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    ) : (
+      <span className="text-xs text-muted-foreground">None</span>
+    )
+  )
+
+  const renderProgress = (completion = 0, compact = false) => (
+    <div className={cn('flex items-center gap-2', compact ? 'min-w-28' : 'w-full')}>
+      <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
+        <div
+          className={cn('h-full rounded-full', accentProgressClass)}
+          style={{ width: `${completion}%` }}
+        />
+      </div>
+      <span className={cn('text-xs font-medium tabular-nums', accentTextClass)}>{completion}%</span>
+    </div>
+  )
+
+  const renderRecordControls = (marker: AudioMarker) => (
+    !marker.isRecording ? (
+      <Button
+        variant="outline"
+        size="sm"
+        className="h-8 text-sm"
+        onClick={(e) => {
+          e.stopPropagation()
+          startRecording(marker)
+        }}
+      >
+        <MicIcon className="h-3 w-3 mr-1" />
+        Record
+      </Button>
+    ) : (
+      <div className="flex items-center gap-2">
+        <Button
+          variant="destructive"
+          size="sm"
+          className="h-8 text-sm animate-pulse"
+          onClick={(e) => {
+            e.stopPropagation()
+            startRecording(marker)
+          }}
+        >
+          <MicIcon className="h-3 w-3 mr-1" />
+          Stop & Export
+        </Button>
         <Button
           variant="outline"
           size="sm"
-          onClick={addMarker}
-          className="bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-900/20 border-purple-200 dark:border-purple-800"
+          className="h-8 text-sm"
+          onClick={async (e) => {
+            e.stopPropagation()
+            await audioRecorderRef.current.stopRecording()
+            const resetMarkers = markers.map(m =>
+              m.id === marker.id ? { ...m, isRecording: false } : m
+            )
+            onMarkersChange(resetMarkers)
+          }}
         >
-          <PlusIcon className="h-4 w-4 mr-2" />
-          Add Marker
+          Cancel
         </Button>
+      </div>
+    )
+  )
+
+  const renderLoopButton = (marker: AudioMarker) => (
+    <Button
+      variant={marker.isLooping ? 'default' : 'outline'}
+      size="sm"
+      className="h-8 min-w-16 text-sm"
+      onClick={(e) => {
+        e.stopPropagation()
+        toggleLoop(marker.id)
+      }}
+    >
+      {marker.isLooping ? (
+        <>
+          <StopIcon className="h-3 w-3 mr-1" />
+          Stop
+        </>
+      ) : (
+        <>
+          <LoopIcon className="h-3 w-3 mr-1" />
+          Loop
+        </>
+      )}
+    </Button>
+  )
+
+  const renderDeleteButton = (marker: AudioMarker) => (
+    <Button
+      variant="ghost"
+      size="sm"
+      className="h-8 px-2 text-destructive hover:bg-destructive/10 hover:text-destructive"
+      onClick={(e) => {
+        e.stopPropagation()
+        handleMarkerDelete(marker.id)
+      }}
+      title="Delete marker"
+    >
+      <TrashIcon className="h-4 w-4" />
+    </Button>
+  )
+
+  const renderMarkerDetails = (marker: AudioMarker) => {
+    const annotation = getAnnotation(marker.id)
+    return (
+      <div
+        className="border-t border-border/80 pt-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div className="space-y-5">
+            <section className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Marker Title</label>
+              <Input
+                value={marker.title || ''}
+                onChange={(e) => {
+                  handleMarkerUpdate({ ...marker, title: e.target.value }, false)
+                }}
+                placeholder="Add a title for this marker..."
+              />
+            </section>
+
+            <section className="space-y-3">
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <ClockIcon className="h-4 w-4" />
+                Timing
+              </div>
+              <MarkerTimeEditor
+                marker={marker}
+                maxDuration={audioControls.getDuration()}
+                audioControls={audioControls}
+                onSave={handleMarkerUpdate}
+              />
+              <div className="flex flex-wrap gap-2">
+                {renderRecordControls(marker)}
+                {renderLoopButton(marker)}
+              </div>
+            </section>
+
+            <section className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium text-muted-foreground">Completion Progress</span>
+                <span className={cn('font-semibold', accentTextClass)}>
+                  {marker.completionDegree || 0}%
+                </span>
+              </div>
+              <Slider
+                value={[marker.completionDegree || 0]}
+                min={0}
+                max={100}
+                step={1}
+                className="w-full"
+                onValueChange={([value]) => {
+                  handleCompletionUpdate(marker, value)
+                }}
+              />
+            </section>
+          </div>
+
+          <div className="space-y-5">
+            <section className="space-y-2">
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <FileTextIcon className="h-4 w-4" />
+                Notes and Tags
+              </div>
+              <VideoAnnotationEditor
+                initialText={annotation?.text || ''}
+                initialTags={annotation?.tags || []}
+                clearOnSave={!annotation}
+                availableTags={allAnnotationTags}
+                onSave={(text, tags) => handleAnnotationSave(marker.id, text, tags)}
+                onCancel={() => setEditingMarkerId(null)}
+              />
+            </section>
+
+            <MarkerDiagramList
+              diagrams={marker.diagrams || []}
+              onChange={(next) => {
+                handleMarkerUpdate({ ...marker, diagrams: next }, false)
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className={cn('space-y-4', className)}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="text-sm text-muted-foreground">{markerCountLabel}</div>
+        <div className="flex flex-wrap items-center gap-2">
+          <SegmentedControl
+            options={markerViewOptions}
+            value={viewMode}
+            onValueChange={setViewMode}
+            size="sm"
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={addMarker}
+            className="gap-2"
+          >
+            <PlusIcon className="h-4 w-4" />
+            Add Marker
+          </Button>
+        </div>
       </div>
 
       {recordingError && (
@@ -280,141 +505,145 @@ export function AudioMarkers({
         </div>
       )}
 
-      {/* Markers Container */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-        <div className="p-4">
-          <div className="space-y-4">
+      {markers.length === 0 ? (
+        <div className="rounded-md border border-dashed bg-background p-6 text-center text-sm text-muted-foreground">
+          No markers yet.
+        </div>
+      ) : viewMode === 'table' ? (
+        <div className="overflow-hidden rounded-md border bg-background">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[760px] text-sm">
+              <thead className="border-b bg-muted/45 text-left text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                <tr>
+                  <th className="w-14 px-3 py-2">#</th>
+                  <th className="px-3 py-2">Title</th>
+                  <th className="w-36 px-3 py-2">Timestamp</th>
+                  <th className="w-40 px-3 py-2">Progress</th>
+                  <th className="px-3 py-2">Tags</th>
+                  <th className="w-44 px-3 py-2 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {markers.map((marker, index) => {
+                  const annotation = getAnnotation(marker.id)
+                  const isExpanded = editingMarkerId === marker.id
+                  const isActive = marker.id === activeMarkerId
+                  return (
+                    <Fragment key={marker.id}>
+                      <tr
+                        className={cn(
+                          'cursor-pointer transition-colors hover:bg-muted/45',
+                          isActive && 'bg-purple-500/10'
+                        )}
+                        onClick={() => {
+                          activateMarker(marker, true)
+                          setEditingMarkerId(isExpanded ? null : marker.id)
+                        }}
+                      >
+                        <td className="px-3 py-3 align-middle">
+                          <div className="flex items-center gap-2">
+                            {isExpanded ? (
+                              <ChevronDownIcon className="h-4 w-4 text-muted-foreground" />
+                            ) : (
+                              <ChevronRightIcon className="h-4 w-4 text-muted-foreground" />
+                            )}
+                            <span className={cn('flex h-5 w-5 items-center justify-center rounded-md text-[10px] font-bold text-white', accentProgressClass)}>
+                              {index + 1}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-3 py-3 align-middle">
+                          <div className="font-medium text-foreground">{getMarkerTitle(marker, index)}</div>
+                          {annotation?.text && (
+                            <div className="mt-1 line-clamp-1 text-xs text-muted-foreground">{annotation.text}</div>
+                          )}
+                        </td>
+                        <td className="px-3 py-3 align-middle font-medium tabular-nums">
+                          {getTimeLabel(marker)}
+                        </td>
+                        <td className="px-3 py-3 align-middle">
+                          {renderProgress(marker.completionDegree || 0, true)}
+                        </td>
+                        <td className="px-3 py-3 align-middle">
+                          {renderTags(annotation?.tags || [])}
+                        </td>
+                        <td className="px-3 py-3 align-middle">
+                          <div className="flex justify-end gap-1.5">
+                            {renderLoopButton(marker)}
+                            {renderDeleteButton(marker)}
+                          </div>
+                        </td>
+                      </tr>
+                      {isExpanded && (
+                        <tr key={`${marker.id}-details`}>
+                          <td colSpan={6} className="bg-background px-4 py-4">
+                            {renderMarkerDetails(marker)}
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-md border bg-background p-3">
+          <div className="space-y-3">
             {markers.map((marker, index) => {
-              const annotation = annotations.find(a => a.markerId === marker.id)
+              const annotation = getAnnotation(marker.id)
+              const isExpanded = editingMarkerId === marker.id
               return (
                 <div
                   key={marker.id}
                   className={cn(
-                    'relative p-4 rounded-lg border-2 transition-all duration-200 hover:shadow-md cursor-pointer',
-                    marker.id === activeMarkerId 
-                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20 shadow-sm' 
-                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                    'relative cursor-pointer rounded-md border p-3 transition-colors',
+                    marker.id === activeMarkerId
+                      ? 'border-purple-500/60 bg-purple-500/10'
+                      : 'border-border hover:bg-muted/45'
                   )}
                   onClick={(e) => {
-                    // Only handle clicks on the container itself, not on buttons
-                    if (e.target === e.currentTarget || e.target instanceof HTMLElement && !e.target.closest('button')) {
-                      audioControls.seek(marker.startTime)
-                      audioControls.play()
-                      setActiveMarkerId(marker.id)
-                      onActiveMarkerIdChange?.(marker.id)
+                    if (e.target === e.currentTarget || e.target instanceof HTMLElement && !e.target.closest('button, input, textarea, [role="slider"]')) {
+                      activateMarker(marker, true)
                     }
                   }}
                 >
-                  {/* Marker Number Badge */}
-                  <div className="absolute -top-2 -left-2 w-6 h-6 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                  <div className={cn('absolute -left-2 -top-2 flex h-5 w-5 items-center justify-center rounded-md text-[10px] font-bold text-white', accentProgressClass)}>
                     {index + 1}
                   </div>
 
                   <div className="space-y-3">
-                    {/* First row: Time and primary action buttons */}
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="font-medium">{getMarkerTitle(marker, index)}</div>
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-8 px-3 text-sm font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600"
+                          className="h-8 px-3 text-sm font-medium"
                           onClick={(e) => {
                             e.stopPropagation()
-                            audioControls.seek(marker.startTime)
-                            setActiveMarkerId(marker.id)
-                            onActiveMarkerIdChange?.(marker.id)
+                            activateMarker(marker)
                           }}
                         >
                           <ClockIcon className="h-4 w-4 mr-2" />
-                          {formatTime(marker.startTime)} - {formatTime(marker.endTime)}
+                          {getTimeLabel(marker)}
                         </Button>
-
-                        {/* Record / Stop / Cancel Buttons directly next to marker time */}
-                        {!marker.isRecording ? (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-8 text-sm"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              startRecording(marker)
-                            }}
-                          >
-                            <MicIcon className="h-3 w-3 mr-1" />
-                            Record
-                          </Button>
-                        ) : (
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="destructive"
-                              size="sm"
-                              className="h-8 text-sm animate-pulse"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                startRecording(marker)
-                              }}
-                            >
-                              <MicIcon className="h-3 w-3 mr-1" />
-                              Stop & Export
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="h-8 text-sm"
-                              onClick={async (e) => {
-                                e.stopPropagation()
-                                await audioRecorderRef.current.stopRecording()
-                                const resetMarkers = markers.map(m =>
-                                  m.id === marker.id ? { ...m, isRecording: false } : m
-                                )
-                                onMarkersChange(resetMarkers)
-                              }}
-                            >
-                              Cancel
-                            </Button>
-                          </div>
-                        )}
                       </div>
 
-                      <div className="flex items-center gap-2">
-                        {/* Loop Button */}
-                        <Button
-                          variant={marker.isLooping ? 'default' : 'outline'}
-                          size="sm"
-                          className="h-8 min-w-16 text-sm"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            toggleLoop(marker.id)
-                          }}
-                        >
-                          {marker.isLooping ? (
-                            <>
-                              <StopIcon className="h-3 w-3 mr-1" />
-                              Stop
-                            </>
-                          ) : (
-                            <>
-                              <LoopIcon className="h-3 w-3 mr-1" />
-                              Loop
-                            </>
-                          )}
-                        </Button>
-
-                        {/* Edit Button */}
+                      <div className="flex flex-wrap items-center justify-end gap-2">
+                        {renderRecordControls(marker)}
+                        {renderLoopButton(marker)}
                         <Button
                           variant="ghost"
                           size="sm"
                           className="h-8 px-3 text-sm"
                           onClick={(e) => {
                             e.stopPropagation()
-                            const willClose = editingMarkerId === marker.id
-                            setEditingMarkerId(willClose ? null : marker.id)
-                            const newActiveId = willClose ? null : marker.id
-                            setActiveMarkerId(newActiveId)
-                            onActiveMarkerIdChange?.(newActiveId)
+                            toggleMarkerDetails(marker)
                           }}
                         >
-                          {editingMarkerId === marker.id ? (
+                          {isExpanded ? (
                             <>
                               <XIcon className="h-3 w-3 mr-1" />
                               Close
@@ -426,172 +655,31 @@ export function AudioMarkers({
                             </>
                           )}
                         </Button>
-
-                        {/* Delete Button */}
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleMarkerDelete(marker.id)
-                          }}
-                        >
-                          <TrashIcon className="h-4 w-4" />
-                        </Button>
+                        {renderDeleteButton(marker)}
                       </div>
                     </div>
 
-                    {/* Audio Recording Controls */}
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {/* Removed extra download/delete buttons for simplicity */}
-                    </div>
-
-                    {/* Second row: Completion with inline annotation when not editing */}
-                    <div className="space-y-2 mt-2">
-                      <div className="flex items-center gap-3">
-                        <div className="text-xs text-muted-foreground font-medium w-32">
-                          Completion: {marker.completionDegree || 0}%
-                        </div>
-                        <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                          <div
-                            className="bg-purple-600 h-full rounded-full"
-                            style={{ width: `${marker.completionDegree || 0}%` }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Display existing annotation inline when not editing */}
-                      {!editingMarkerId && annotation && (
+                    <div className="space-y-2">
+                      {renderProgress(marker.completionDegree || 0)}
+                      {annotation && !isExpanded && (
                         <div className="flex items-start gap-2">
-                          <FileTextIcon className="h-3 w-3 text-purple-600 dark:text-purple-400 mt-0.5" />
-                          <div className="flex-1">
-                            <p className="text-xs text-muted-foreground line-clamp-2">{annotation.text}</p>
-                            {annotation.tags.length > 0 && (
-                              <div className="flex gap-1 flex-wrap mt-1">
-                                {annotation.tags.map(tag => (
-                                  <span
-                                    key={tag}
-                                    className="px-1.5 py-0.5 bg-primary/10 text-primary text-xs rounded-full"
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
+                          <FileTextIcon className={cn('mt-0.5 h-3 w-3', accentTextClass)} />
+                          <div className="min-w-0 flex-1">
+                            <p className="line-clamp-2 text-xs text-muted-foreground">{annotation.text}</p>
+                            <div className="mt-1">{renderTags(annotation.tags)}</div>
                           </div>
                         </div>
                       )}
                     </div>
+
+                    {isExpanded && renderMarkerDetails(marker)}
                   </div>
-
-                  {/* Expanded Edit Section */}
-                  {editingMarkerId === marker.id && (
-                    <div 
-                      className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Left Column: Time Editor and Completion */}
-                        <div className="space-y-4">
-                          <MarkerTimeEditor
-                            marker={marker}
-                            maxDuration={audioControls.getDuration()}
-                            audioControls={audioControls}
-                            onSave={handleMarkerUpdate}
-                          />
-                          
-                          {/* Editable completion progress */}
-                          <div className="space-y-2">
-                            <div className="flex justify-between items-center text-sm">
-                              <span className="text-muted-foreground font-medium">Completion Progress</span>
-                              <span className="font-semibold text-purple-600 dark:text-purple-400">
-                                {marker.completionDegree || 0}%
-                              </span>
-                            </div>
-                            <Slider
-                              value={[marker.completionDegree || 0]}
-                              min={0}
-                              max={100}
-                              step={1}
-                              className="w-full"
-                              onValueChange={([value]) => {
-                                handleCompletionUpdate(marker, value)
-                              }}
-                            />
-                          </div>
-
-                          <MarkerDiagramList
-                            diagrams={marker.diagrams || []}
-                            onChange={(next) => {
-                              handleMarkerUpdate({ ...marker, diagrams: next }, false)
-                            }}
-                          />
-                        </div>
-
-                        {/* Right Column: Notes and Tags */}
-                        <div className="space-y-2">
-                          <div className="space-y-2">
-                            <label className="text-sm font-medium text-muted-foreground">Marker Title</label>
-                            <Input
-                              value={marker.title || ''}
-                              onChange={(e) => {
-                                handleMarkerUpdate({ ...marker, title: e.target.value }, false)
-                              }}
-                              placeholder="Add a title for this marker..."
-                            />
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                            <FileTextIcon className="h-4 w-4" />
-                            <span className="font-medium">Notes and Tags</span>
-                          </div>
-                          {annotations.some(a => a.markerId === marker.id) ? (
-                            annotations
-                              .filter(a => a.markerId === marker.id)
-                              .map(annotation => (
-                                <VideoAnnotationEditor
-                                  key={annotation.id}
-                                  initialText={annotation.text}
-                                  initialTags={annotation.tags}
-                                  clearOnSave={false}
-                                  availableTags={allAnnotationTags}
-                                  onSave={(text, tags) => {
-                                    onAnnotationsChange(
-                                      annotations.map(a =>
-                                        a.id === annotation.id
-                                          ? { ...a, text, tags, timestamp: Date.now() }
-                                          : a
-                                      )
-                                    )
-                                  }}
-                                  onCancel={() => {
-                                    setEditingMarkerId(null)
-                                    setActiveMarkerId(null)
-                                  }}
-                                />
-                              ))
-                          ) : (
-                            <VideoAnnotationEditor
-                              onSave={handleAnnotationSave}
-                              onCancel={() => {
-                                setEditingMarkerId(null)
-                                setActiveMarkerId(null)
-                              }}
-                              initialTags={[]}
-                              clearOnSave={true}
-                              availableTags={allAnnotationTags}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               )
             })}
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -604,22 +692,6 @@ function formatTime(seconds: number): string {
 }
 
 // Icon components
-function AudioIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M9 18V5l12-2v13M6 19a3 3 0 100-6 3 3 0 000 6zM18 16a3 3 0 100-6 3 3 0 000 6z" />
-    </svg>
-  )
-}
-
-function PlusIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M12 5v14M5 12h14" />
-    </svg>
-  )
-}
-
 function AlertIcon({ className }: { className?: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -674,14 +746,6 @@ function MicIcon({ className }: { className?: string }) {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
       <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8" />
-    </svg>
-  )
-}
-
-function DownloadIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
     </svg>
   )
 }

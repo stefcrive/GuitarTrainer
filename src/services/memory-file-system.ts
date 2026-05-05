@@ -65,11 +65,13 @@ async function saveStoredFile(
   lastModified: number
 ): Promise<void> {
   const db = await openDatabase()
+  const dataBuffer = new ArrayBuffer(data.byteLength)
+  new Uint8Array(dataBuffer).set(data)
   const record: StoredFileRecord = {
     key: `${storageKey}::${path}`,
     storageKey,
     path,
-    data: data.buffer,
+    data: dataBuffer,
     mimeType,
     lastModified
   }
@@ -236,7 +238,15 @@ class MemoryFileHandle implements FileSystemFileHandle {
       this.node.data = new Uint8Array(0)
       this.node.lastModified = Date.now()
     }
-    return new MemoryWritableFileStream(this.node, this.path, this.storageKey) as FileSystemWritableFileStream
+    return new MemoryWritableFileStream(this.node, this.path, this.storageKey) as unknown as FileSystemWritableFileStream
+  }
+
+  async isSameEntry(other: FileSystemHandle): Promise<boolean> {
+    const otherHandle = other as { storageKey?: string; path?: string }
+    return other.kind === this.kind
+      && other.name === this.name
+      && otherHandle.storageKey === this.storageKey
+      && otherHandle.path === this.path
   }
 }
 
@@ -319,6 +329,45 @@ class MemoryDirectoryHandle implements FileSystemDirectoryHandle {
     }
 
     throw Object.assign(new Error(`File not found: ${name}`), { name: 'NotFoundError' })
+  }
+
+  async removeEntry(name: string, options?: { recursive?: boolean }): Promise<void> {
+    if (this.node.files.delete(name)) return
+
+    const directory = this.node.directories.get(name)
+    if (!directory) {
+      throw Object.assign(new Error(`Entry not found: ${name}`), { name: 'NotFoundError' })
+    }
+
+    const hasChildren = directory.files.size > 0 || directory.directories.size > 0
+    if (hasChildren && !options?.recursive) {
+      throw Object.assign(new Error(`Directory is not empty: ${name}`), { name: 'InvalidModificationError' })
+    }
+
+    this.node.directories.delete(name)
+  }
+
+  async resolve(possibleDescendant: FileSystemHandle): Promise<string[] | null> {
+    const descendant = possibleDescendant as { storageKey?: string; path?: string }
+    if (descendant.storageKey !== this.storageKey || typeof descendant.path !== 'string') {
+      return null
+    }
+
+    const basePath = normalizePath(this.path)
+    const descendantPath = normalizePath(descendant.path)
+    if (descendantPath === basePath) return []
+    if (basePath && !descendantPath.startsWith(`${basePath}/`)) return null
+
+    const relativePath = basePath ? descendantPath.slice(basePath.length + 1) : descendantPath
+    return relativePath ? relativePath.split('/').filter(Boolean) : []
+  }
+
+  async isSameEntry(other: FileSystemHandle): Promise<boolean> {
+    const otherHandle = other as { storageKey?: string; path?: string }
+    return other.kind === this.kind
+      && other.name === this.name
+      && otherHandle.storageKey === this.storageKey
+      && otherHandle.path === this.path
   }
 
   private joinPath(name: string): string {

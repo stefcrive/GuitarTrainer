@@ -7,6 +7,7 @@ import {
   SP_EXPIRES_AT_COOKIE,
   SP_REFRESH_TOKEN_COOKIE
 } from '@/lib/spotify-oauth'
+import type { SpotifyTrack } from '@/types/spotify'
 
 export const runtime = 'nodejs'
 
@@ -150,7 +151,7 @@ export async function GET(request: NextRequest) {
             durationMs: track?.duration_ms || 0
           }
         })
-        .filter((t) => t && t.id && t.uri)
+        .filter((t: SpotifyTrack | null): t is SpotifyTrack => Boolean(t && t.id && t.uri))
     : []
 
   const response = NextResponse.json({

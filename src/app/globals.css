@@ -33,6 +33,7 @@
     --ring: 222.2 84% 4.9%;
  
     --radius: 0.5rem;
+    --app-sidebar-width: 15rem;
   }
  
   .dark {
@@ -72,18 +73,17 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at 8% 4%, hsl(var(--primary) / 0.08), transparent 35%),
-      radial-gradient(circle at 95% 0%, hsl(var(--accent-foreground) / 0.06), transparent 33%),
-      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted) / 0.45) 100%);
-    background-attachment: fixed;
+    background-image: none;
   }
 
-  .dark body {
-    background-image:
-      radial-gradient(circle at 8% 4%, hsl(var(--primary) / 0.14), transparent 42%),
-      radial-gradient(circle at 95% 0%, hsl(var(--accent) / 0.09), transparent 38%),
-      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary) / 0.45) 100%);
+  main {
+    @apply pt-14 md:pt-0;
+  }
+
+  @media (min-width: 768px) {
+    main {
+      padding-left: var(--app-sidebar-width);
+    }
   }
 }
 
@@ -122,5 +122,17 @@
   .no-global-scroll {
     overflow: hidden;
     height: 100vh;
+  }
+
+  .surface-panel {
+    @apply border bg-background;
+  }
+
+  .workspace-sidebar {
+    @apply h-full min-h-0 border-r bg-muted/25;
+  }
+
+  .workspace-content {
+    @apply h-full min-h-0 bg-background;
   }
 }

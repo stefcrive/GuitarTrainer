@@ -351,6 +351,7 @@ export function VideoPlayer({
               startTime: currentTime,
               endTime: Math.min(currentTime + 10, duration),
               isLooping: false,
+              completionDegree: 0,
               createdAt: Date.now(), // Add creation timestamp
               diagrams: []
             }

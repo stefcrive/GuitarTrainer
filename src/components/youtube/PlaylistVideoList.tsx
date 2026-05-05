@@ -7,7 +7,6 @@ import { fetchPlaylistData } from '@/services/youtube'
 import { FavoriteButton } from '@/components/video/FavoriteButton'
 import { VideoTitle } from '@/components/video/VideoTitle'
 import { Video } from '@/types/video'
-import { useCallback } from 'react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 
 interface PlaylistVideo {
@@ -27,9 +26,17 @@ function convertToVideo(playlistVideo: PlaylistVideo): Video {
 
 interface PlaylistVideoListProps {
   onVideoSelect: (videoId: string) => void
+  filter?: 'all' | 'markers' | 'favorites'
+  markerVideoIds?: Set<string>
+  favoriteVideoIds?: Set<string>
 }
 
-export function PlaylistVideoList({ onVideoSelect }: PlaylistVideoListProps) {
+export function PlaylistVideoList({
+  onVideoSelect,
+  filter = 'all',
+  markerVideoIds = new Set(),
+  favoriteVideoIds = new Set()
+}: PlaylistVideoListProps) {
   const { playlists, setCacheForPlaylist, videoCache } = useYouTubeStore()
   const {
     youtube: { expandedPlaylists, selectedVideoId },
@@ -191,6 +198,11 @@ export function PlaylistVideoList({ onVideoSelect }: PlaylistVideoListProps) {
         const isLoading = loading[playlist.id]
         const playlistError = error[playlist.id]
         const playlistVideos = videos[playlist.id] || []
+        const visiblePlaylistVideos = playlistVideos.filter((video) => {
+          if (filter === 'markers') return markerVideoIds.has(video.id)
+          if (filter === 'favorites') return favoriteVideoIds.has(video.id)
+          return true
+        })
 
         return (
           <div key={playlist.id} className="space-y-2">
@@ -220,44 +232,52 @@ export function PlaylistVideoList({ onVideoSelect }: PlaylistVideoListProps) {
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    {playlistVideos.map(video => {
-                      const videoData = convertToVideo(video)
-                      const isSelected = selectedVideoId === video.id
-                      return (
-                        <div
-                          key={video.id}
-                          className={`flex items-center gap-3 p-2 rounded-lg transition-colors ${
-                            isSelected ? 'bg-accent text-accent-foreground' : 'hover:bg-secondary/50'
-                          }`}
-                        >
-                          <button
-                            onClick={() => onVideoSelect(video.id)}
-                            className="flex-1 flex items-center gap-3 text-left"
+                    {visiblePlaylistVideos.length === 0 ? (
+                      <div className="p-3 text-sm text-muted-foreground">
+                        {filter === 'all'
+                          ? 'No videos in this playlist.'
+                          : `No videos found for the "${filter === 'markers' ? 'With markers' : 'Favorites'}" filter.`}
+                      </div>
+                    ) : (
+                      visiblePlaylistVideos.map(video => {
+                        const videoData = convertToVideo(video)
+                        const isSelected = selectedVideoId === video.id
+                        return (
+                          <div
+                            key={video.id}
+                            className={`flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                              isSelected ? 'bg-accent text-accent-foreground' : 'hover:bg-secondary/50'
+                            }`}
                           >
-                            <img
-                              src={video.thumbnailUrl}
-                              alt={video.title}
-                              className="w-32 aspect-video object-cover rounded"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <div className="font-medium text-sm mb-1">
-                                <VideoTitle
-                                  title={video.title}
-                                  videoId={video.id}
-                                  className="line-clamp-2"
-                                />
+                            <button
+                              onClick={() => onVideoSelect(video.id)}
+                              className="flex-1 flex items-center gap-3 text-left"
+                            >
+                              <img
+                                src={video.thumbnailUrl}
+                                alt={video.title}
+                                className="w-32 aspect-video object-cover rounded"
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="font-medium text-sm mb-1">
+                                  <VideoTitle
+                                    title={video.title}
+                                    videoId={video.id}
+                                    className="line-clamp-2"
+                                  />
+                                </div>
+                                {video.description && (
+                                  <p className="text-xs text-muted-foreground line-clamp-1">
+                                    {video.description}
+                                  </p>
+                                )}
                               </div>
-                              {video.description && (
-                                <p className="text-xs text-muted-foreground line-clamp-1">
-                                  {video.description}
-                                </p>
-                              )}
-                            </div>
-                          </button>
-                          <FavoriteButton video={videoData} />
-                        </div>
-                      )
-                    })}
+                            </button>
+                            <FavoriteButton video={videoData} />
+                          </div>
+                        )
+                      })
+                    )}
                   </div>
                 )}
               </div>

@@ -48,46 +48,76 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
   const { openPlayer } = useFloatingPlayer()
 
   useEffect(() => {
+    const audio = audioRef.current
+    let objectUrl: string | null = null
+    let isCancelled = false
+
     const loadAudio = async () => {
-      if (!audioRef.current) return
+      if (!audio) return
       
       try {
+        audio.pause()
+        audio.removeAttribute('src')
+        audio.load()
+        setIsPlaying(false)
+        setCurrentTime(0)
+        setDuration(0)
+
         // Load audio file
         if (!audioFile.handle) {
           throw new Error("No file handle available")
         }
         const file = await audioFile.handle.getFile()
-        const url = URL.createObjectURL(file)
-        audioRef.current.src = url
+        if (isCancelled) return
+
+        objectUrl = URL.createObjectURL(file)
+        audio.src = objectUrl
+        audio.load()
 
         // Auto-play when loaded
-        const playPromise = audioRef.current.play()
+        const playPromise = audio.play()
         if (playPromise !== undefined) {
           playPromise.then(() => {
-            setIsPlaying(true)
+            if (!isCancelled) {
+              setIsPlaying(true)
+            }
           }).catch(error => {
-            console.error("Auto-play failed:", error)
+            if (!isCancelled) {
+              console.error("Auto-play failed:", error)
+            }
           })
         }
 
         // Load metadata
         const metadata = await getAudioMetadata(audioFile, directoryHandle)
+        if (isCancelled) return
+
         setTags(metadata.tags)
         setPlaybackRate(metadata.playbackRate)
         setVolume(metadata.volume ?? 1)
         setLoopRegion(metadata.loopRegion)
         setMarkers(metadata.markers || [])
         setAnnotations(metadata.annotations || [])
-        
-        return () => {
-          URL.revokeObjectURL(url)
-        }
       } catch (error) {
-        console.error('Error loading audio file:', error)
+        if (!isCancelled) {
+          console.error('Error loading audio file:', error)
+        }
       }
     }
 
     loadAudio()
+
+    return () => {
+      isCancelled = true
+      audio?.pause()
+      if (audio) {
+        audio.removeAttribute('src')
+        audio.load()
+      }
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl)
+      }
+    }
   }, [audioFile, directoryHandle])
 
   useEffect(() => {
