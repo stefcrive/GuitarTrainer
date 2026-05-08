@@ -12,6 +12,10 @@ class AppConfig(BaseModel):
     output_folder: str = "outputs"
     database_path: str = "outputs/processor.sqlite"
     whisper_model: str = "small"
+    whisper_device: str = "cpu"
+    whisper_compute_type: str = "int8"
+    whisper_cpu_threads: int = 2
+    whisper_num_workers: int = 1
     language: str = "auto"
     llm_provider: str = "openai"
     llm_model: str = "gpt-4o-mini"
@@ -55,6 +59,12 @@ def apply_runtime_overrides(
     database_path: str | None = None,
     limit: int | None = None,
     force: bool | None = None,
+    whisper_model: str | None = None,
+    whisper_device: str | None = None,
+    whisper_compute_type: str | None = None,
+    whisper_cpu_threads: int | None = None,
+    whisper_num_workers: int | None = None,
+    audio_classifier: str | None = None,
 ) -> AppConfig:
     data = config.model_dump()
     if root_folder is not None:
@@ -69,5 +79,16 @@ def apply_runtime_overrides(
         data["force_reprocess"] = force
         if force:
             data["skip_existing"] = False
+    if whisper_model is not None:
+        data["whisper_model"] = whisper_model
+    if whisper_device is not None:
+        data["whisper_device"] = whisper_device
+    if whisper_compute_type is not None:
+        data["whisper_compute_type"] = whisper_compute_type
+    if whisper_cpu_threads is not None:
+        data["whisper_cpu_threads"] = whisper_cpu_threads
+    if whisper_num_workers is not None:
+        data["whisper_num_workers"] = whisper_num_workers
+    if audio_classifier is not None:
+        data["audio_classifier"] = audio_classifier
     return AppConfig(**data)
-

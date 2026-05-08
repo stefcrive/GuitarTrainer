@@ -86,11 +86,35 @@ def scan(
 def process(
     root: str = typer.Argument(..., help="Root folder containing videos."),
     limit: Optional[int] = typer.Option(None, "--limit", help="Maximum videos to process this run."),
+    video_path: Optional[str] = typer.Option(
+        None,
+        "--video-path",
+        help="Process only one video by relative path from the root folder.",
+    ),
     force: bool = typer.Option(False, "--force", help="Reprocess videos even if already processed."),
+    safe_mode: bool = typer.Option(
+        False,
+        "--safe-mode",
+        help="Use resource-limited local settings for UI-triggered processing.",
+    ),
+    whisper_model: Optional[str] = typer.Option(None, "--whisper-model", help="Override faster-whisper model."),
+    whisper_cpu_threads: Optional[int] = typer.Option(None, "--whisper-cpu-threads", help="CPU threads for faster-whisper."),
+    audio_classifier: Optional[str] = typer.Option(None, "--audio-classifier", help="yamnet or fallback."),
     full_hash: bool = typer.Option(False, "--full-hash", help="Hash complete files instead of partial fingerprints."),
     config_path: str = typer.Option("config.yaml", "--config", help="Config file path."),
 ) -> None:
-    config = apply_runtime_overrides(load_config(config_path), root_folder=root, limit=limit, force=force)
+    config = apply_runtime_overrides(
+        load_config(config_path),
+        root_folder=root,
+        limit=limit,
+        force=force,
+        whisper_model=whisper_model,
+        whisper_device="cpu" if safe_mode else None,
+        whisper_compute_type="int8" if safe_mode else None,
+        whisper_cpu_threads=whisper_cpu_threads if whisper_cpu_threads is not None else (2 if safe_mode else None),
+        whisper_num_workers=1 if safe_mode else None,
+        audio_classifier=audio_classifier if audio_classifier is not None else ("fallback" if safe_mode else None),
+    )
     _setup_logging(config)
     ensure_output_tree(config.output_folder)
     db = _db(config)
@@ -105,6 +129,11 @@ def process(
     }
     try:
         videos = scan_videos(root, full_hash=full_hash, include_media=True)
+        if video_path:
+            normalized_video_path = video_path.replace("\\", "/").strip("/")
+            videos = [item for item in videos if item["relative_path"] == normalized_video_path]
+            if not videos:
+                raise typer.BadParameter(f"Video path was not found under root: {video_path}")
         stats["found"] = len(videos)
         selected = []
         for item in videos:
@@ -141,6 +170,7 @@ def process(
                 root,
                 config.output_folder,
                 source="chapters",
+                video_path=video_path,
                 db_path=config.guitar_trainer_db_path,
                 merge=config.guitar_trainer_merge_mode,
                 dry_run=not bool(config.guitar_trainer_db_path),
@@ -155,7 +185,7 @@ def process(
 def _process_one(db: ProcessorDB, config: AppConfig, video_id: int, item: dict) -> None:
     db.clear_processing_outputs(video_id)
     db.set_video_status(video_id, "processing")
-    audio_path = Path(config.output_folder) / "audio_cache" / f"{video_id}.wav"
+    audio_path = Path(config.output_folder) / "audio_cache" / f"{video_id}.mp3"
     transcript_segments = []
     transcript_paths = {}
     if item.get("audio_codec"):
@@ -248,6 +278,11 @@ def export_command(
 def export_guitar_trainer_command(
     root: str = typer.Argument(..., help="Same root folder selected in Guitar Trainer."),
     source: str = typer.Option("chapters", "--source", help="chapters or timeline-segments."),
+    video_path: Optional[str] = typer.Option(
+        None,
+        "--video-path",
+        help="Export only one video by relative path from the Guitar Trainer root.",
+    ),
     db_path: Optional[str] = typer.Option(None, "--db", help="Path to guitar-trainer.sqlite."),
     merge: str = typer.Option("preserve-existing", "--merge", help="preserve-existing, replace-generated, or force."),
     force: bool = typer.Option(False, "--force", help="Allow force replacement when merge=force."),
@@ -262,6 +297,7 @@ def export_guitar_trainer_command(
             root,
             config.output_folder,
             source=source,  # type: ignore[arg-type]
+            video_path=video_path,
             db_path=db_path,
             merge=merge,  # type: ignore[arg-type]
             force=force,
@@ -341,4 +377,3 @@ def _print_gt_summary(report: dict) -> None:
 
 if __name__ == "__main__":
     app()
-

@@ -20,7 +20,13 @@ def transcribe_audio(audio_path: str | Path, config: AppConfig) -> dict[str, Any
         ) from exc
 
     language = None if config.language == "auto" else config.language
-    model = WhisperModel(config.whisper_model)
+    model = WhisperModel(
+        config.whisper_model,
+        device=config.whisper_device,
+        compute_type=config.whisper_compute_type,
+        cpu_threads=max(1, int(config.whisper_cpu_threads)),
+        num_workers=max(1, int(config.whisper_num_workers)),
+    )
     segments_iter, info = model.transcribe(str(audio_path), language=language, vad_filter=True)
     segments: list[dict[str, Any]] = []
     for idx, segment in enumerate(segments_iter):
@@ -56,4 +62,3 @@ def save_transcript_outputs(video_id: int, transcript: dict[str, Any], output_fo
         lines.append(f"[{start} - {end}] {text}".rstrip())
     write_text(txt_path, "\n".join(lines) + ("\n" if lines else ""))
     return {"json": json_path, "txt": txt_path}
-

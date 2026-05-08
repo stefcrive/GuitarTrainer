@@ -22,12 +22,13 @@ def extract_audio(video_path: str | Path, output_path: str | Path, *, sample_rat
         "1",
         "-ar",
         str(sample_rate),
-        "-f",
-        "wav",
-        str(target),
     ]
+    if target.suffix.lower() == ".mp3":
+        args.extend(["-codec:a", "libmp3lame", "-b:a", "32k"])
+    else:
+        args.extend(["-f", "wav"])
+    args.append(str(target))
     result = run_command(args, timeout=None)
     if result.returncode != 0:
         raise AudioExtractionError(result.stderr.strip() or "ffmpeg audio extraction failed")
     return target
-

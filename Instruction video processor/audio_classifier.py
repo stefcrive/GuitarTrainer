@@ -3,6 +3,8 @@ from __future__ import annotations
 import csv
 import io
 import math
+import json
+import subprocess
 import wave
 from pathlib import Path
 from typing import Any
@@ -112,6 +114,9 @@ def _fallback_classify(
     config: AppConfig,
     transcript_segments: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
+    if Path(audio_path).suffix.lower() != ".wav":
+        return _fallback_classify_from_transcript_gaps(audio_path, config, transcript_segments)
+
     with wave.open(str(audio_path), "rb") as wav:
         sample_rate = wav.getframerate()
         frame_count = wav.getnframes()
@@ -160,6 +165,72 @@ def _fallback_classify(
     return windows
 
 
+def _fallback_classify_from_transcript_gaps(
+    audio_path: str | Path,
+    config: AppConfig,
+    transcript_segments: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    duration = _probe_duration(audio_path)
+    window_seconds = float(config.audio_analysis_window_seconds)
+    hop_seconds = float(config.audio_analysis_hop_seconds)
+    windows: list[dict[str, Any]] = []
+    idx = 0
+    start = 0.0
+    while start < duration:
+        end = min(duration, start + window_seconds)
+        transcript_overlap = _has_transcript_overlap(start, end, transcript_segments)
+        if transcript_overlap:
+            labels = ["speech", "possible_music_or_guitar"]
+            speech_score = 0.7
+            music_score = 0.25
+            guitar_score = 0.2
+            silence = 0.05
+        else:
+            labels = ["possible_music_or_silence"]
+            speech_score = 0.05
+            music_score = 0.35
+            guitar_score = 0.18
+            silence = 0.35
+        windows.append(
+            {
+                "window_index": idx,
+                "start_seconds": start,
+                "end_seconds": end,
+                "top_labels": labels,
+                "top_scores": [max(speech_score, music_score, silence)],
+                "speech_score": speech_score,
+                "music_score": music_score,
+                "guitar_or_instrument_score": guitar_score,
+                "silence_or_noise_score": silence,
+            }
+        )
+        idx += 1
+        start += hop_seconds
+    return windows
+
+
+def _probe_duration(audio_path: str | Path) -> float:
+    result = subprocess.run(
+        [
+            "ffprobe",
+            "-v",
+            "error",
+            "-show_entries",
+            "format=duration",
+            "-of",
+            "json",
+            str(audio_path),
+        ],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return 0.0
+    payload = json.loads(result.stdout or "{}")
+    return float(payload.get("format", {}).get("duration") or 0)
+
+
 def _pcm_rms(frames: bytes) -> float:
     if not frames:
         return 0.0
@@ -178,4 +249,3 @@ def _has_transcript_overlap(start: float, end: float, segments: list[dict[str, A
         if seg_start < end and seg_end > start:
             return True
     return False
-

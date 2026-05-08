@@ -64,6 +64,15 @@ export async function getDatabaseContext(
   return context
 }
 
+export async function reloadDatabaseContext(
+  rootHandle: FileSystemDirectoryHandle
+): Promise<DbContext> {
+  const cached = dbCache.get(rootHandle)
+  cached?.db.close()
+  dbCache.delete(rootHandle)
+  return getDatabaseContext(rootHandle)
+}
+
 export async function saveDatabase(context: DbContext): Promise<void> {
   const data = context.db.export()
   const writable = await context.fileHandle.createWritable()

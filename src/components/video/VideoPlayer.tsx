@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { VideoMarkers } from './VideoMarkers'
 import { VideoTimeline } from './VideoTimeline'
 import { VideoControls } from './VideoControls'
@@ -8,9 +8,12 @@ import type { VideoPlayerControls } from '@/types/video'
 import type { VideoFile } from '@/services/file-system'
 import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { recentlyViewedService } from '@/services/recently-viewed'
+import { markersService } from '@/services/markers'
+import { reloadDatabaseContext } from '@/services/local-sql-db'
 import { useFloatingPlayer } from '@/contexts/floating-player-context'
 import { Button } from '@/components/ui/button'
-import { ExternalLink } from 'lucide-react'
+import { StatusBanner } from '@/components/ui/status-banner'
+import { ExternalLink, RefreshCw, Sparkles } from 'lucide-react'
 import { FavoriteButton } from './FavoriteButton'
 
 interface VideoPlayerProps {
@@ -26,6 +29,15 @@ interface VideoPlayerProps {
   inFloatingWindow?: boolean
   syncCurrentTime?: number
   syncIsPlaying?: boolean
+}
+
+type MarkerGenerationJob = {
+  id: string
+  status: 'queued' | 'running' | 'completed' | 'failed'
+  phase: string
+  progress: number
+  elapsedMs: number
+  error?: string
 }
 
 export function VideoPlayer({
@@ -47,16 +59,17 @@ export function VideoPlayer({
   const [isLoading, setIsLoading] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isGeneratingMarkers, setIsGeneratingMarkers] = useState(false)
+  const [markerGenerationJob, setMarkerGenerationJob] = useState<MarkerGenerationJob | null>(null)
+  const [markerGenerationStatus, setMarkerGenerationStatus] = useState<string | null>(null)
+  const [markerGenerationError, setMarkerGenerationError] = useState<string | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const hasTrackedView = useRef(false)
+  const completedMarkerJobIds = useRef<Set<string>>(new Set())
 
-  // Use the video markers hook with the video path from the VideoFile
   const { markerState, setMarkerState, isLoaded } = useVideoMarkers(video?.path || '')
-  
-  // Use floating player context
   const { openPlayer } = useFloatingPlayer()
 
-  // Create video controls interface
   const videoControls: VideoPlayerControls = useMemo(() => ({
     play: () => videoRef.current?.play(),
     pause: () => videoRef.current?.pause(),
@@ -92,32 +105,125 @@ export function VideoPlayer({
     getVideoElement: () => videoRef.current
   }), [])
 
-  // Notify parent of controls availability
+  const generateAutomaticMarkers = async () => {
+    if (!video || !directoryHandle) {
+      setMarkerGenerationError('Load a local video before generating markers.')
+      return
+    }
+
+    setIsGeneratingMarkers(true)
+    setMarkerGenerationError(null)
+    setMarkerGenerationStatus(null)
+    setMarkerGenerationJob(null)
+
+    try {
+      const response = await fetch('/api/automatic-marker-generation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videoPath: video.path })
+      })
+      const payload = await response.json()
+      if (!response.ok) {
+        throw new Error(payload?.error || 'Automatic marker generation failed.')
+      }
+
+      setMarkerGenerationJob({
+        id: payload.jobId,
+        status: payload.status,
+        phase: payload.phase,
+        progress: payload.progress,
+        elapsedMs: 0
+      })
+    } catch (generationError) {
+      setMarkerGenerationJob(null)
+      setMarkerGenerationStatus(null)
+      setMarkerGenerationError(
+        generationError instanceof Error ? generationError.message : 'Automatic marker generation failed.'
+      )
+      setIsGeneratingMarkers(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!markerGenerationJob?.id || !video || !directoryHandle) return
+    if (markerGenerationJob.status !== 'queued' && markerGenerationJob.status !== 'running') return
+
+    let isCancelled = false
+    let intervalId: ReturnType<typeof setInterval> | null = null
+
+    const pollJob = async () => {
+      try {
+        const response = await fetch(`/api/automatic-marker-generation?jobId=${encodeURIComponent(markerGenerationJob.id)}`)
+        const payload = await response.json()
+        if (!response.ok) {
+          throw new Error(payload?.error || 'Unable to read marker generation progress.')
+        }
+        if (isCancelled) return
+
+        const nextJob = payload.job as MarkerGenerationJob
+        setMarkerGenerationJob(nextJob)
+
+        if (nextJob.status === 'completed') {
+          if (intervalId) clearInterval(intervalId)
+          setIsGeneratingMarkers(false)
+
+          if (!completedMarkerJobIds.current.has(nextJob.id)) {
+            completedMarkerJobIds.current.add(nextJob.id)
+            await reloadDatabaseContext(directoryHandle)
+            const importedState = await markersService.loadMarkers(directoryHandle, video.path)
+            if (isCancelled) return
+
+            if (importedState) {
+              await setMarkerState(importedState)
+              setMarkerGenerationStatus(
+                `Generated ${importedState.markers.length} lesson marker${importedState.markers.length === 1 ? '' : 's'} with titles and tags.`
+              )
+            } else {
+              setMarkerGenerationStatus('Processing finished, but no generated markers were imported for this video.')
+            }
+          }
+        }
+
+        if (nextJob.status === 'failed') {
+          if (intervalId) clearInterval(intervalId)
+          setIsGeneratingMarkers(false)
+          setMarkerGenerationError(nextJob.error || 'Automatic marker generation failed.')
+        }
+      } catch (pollError) {
+        if (isCancelled) return
+        if (intervalId) clearInterval(intervalId)
+        setIsGeneratingMarkers(false)
+        setMarkerGenerationError(
+          pollError instanceof Error ? pollError.message : 'Unable to read marker generation progress.'
+        )
+      }
+    }
+
+    void pollJob()
+    intervalId = setInterval(pollJob, 2000)
+
+    return () => {
+      isCancelled = true
+      if (intervalId) clearInterval(intervalId)
+    }
+  }, [markerGenerationJob?.id, video?.path, directoryHandle, setMarkerState])
+
   useEffect(() => {
     onControlsReady?.(videoControls)
   }, [videoControls, onControlsReady])
 
-  // Track current time and play state for timeline
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
 
-    const handleTimeUpdate = () => {
-      setCurrentTime(video.currentTime)
-    }
-
-    const handlePlay = () => {
-      setIsPlaying(true)
-    }
-
-    const handlePause = () => {
-      setIsPlaying(false)
-    }
+    const handleTimeUpdate = () => setCurrentTime(video.currentTime)
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
 
     video.addEventListener('timeupdate', handleTimeUpdate)
     video.addEventListener('play', handlePlay)
     video.addEventListener('pause', handlePause)
-    
+
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate)
       video.removeEventListener('play', handlePlay)
@@ -125,7 +231,6 @@ export function VideoPlayer({
     }
   }, [])
 
-  // Handle URL creation and cleanup
   useEffect(() => {
     let url: string | null = null
 
@@ -142,32 +247,15 @@ export function VideoPlayer({
       setError(null)
 
       try {
-        console.log('VideoPlayer: Setting up video', {
-          name: videoFile.name,
-          type: videoFile.type,
-          size: videoFile.size
-        })
-
-        // Create new URL for the video file
         url = URL.createObjectURL(videoFile)
-        console.log('VideoPlayer: Created URL:', url)
-
-        // Test if video is playable
-        const video = videoRef.current
-        if (video) {
-          video.load() // Force reload with new source
-        }
-
+        videoRef.current?.load()
         setVideoData({
           url,
           type: videoFile.type || 'video/mp4'
         })
-      } catch (err) {
-        console.error('VideoPlayer: Error setting up video:', err)
+      } catch {
         setError('Error loading video')
-        if (url) {
-          URL.revokeObjectURL(url)
-        }
+        if (url) URL.revokeObjectURL(url)
       } finally {
         setIsLoading(false)
       }
@@ -175,58 +263,39 @@ export function VideoPlayer({
 
     setupVideo()
 
-    // Cleanup function
     return () => {
-      if (url) {
-        console.log('VideoPlayer: Cleaning up URL:', url)
-        URL.revokeObjectURL(url)
-      }
+      if (url) URL.revokeObjectURL(url)
     }
   }, [videoFile])
 
-  // Handle video loading events
   useEffect(() => {
     const videoElement = videoRef.current
     if (!videoElement) return
 
-    const handleError = () => {
-      console.error('VideoPlayer: Video element error:', videoElement.error)
-      setError('Error playing video')
-    }
-
-    const handleLoadStart = () => {
-      console.log('VideoPlayer: Video loading started')
-      setIsLoading(true)
-    }
-
+    const handleError = () => setError('Error playing video')
+    const handleLoadStart = () => setIsLoading(true)
     const handleCanPlay = async () => {
-      console.log('VideoPlayer: Video can play')
       setIsLoading(false)
       setError(null)
 
-      // Track video view when it's ready to play and we have the necessary metadata
       if (!hasTrackedView.current && videoElement.readyState >= 2) {
         try {
-          // Only track if we have both video metadata and directory handle
           if (video && directoryHandle && !hasTrackedView.current) {
             await recentlyViewedService.addRecentVideo(video, directoryHandle)
             hasTrackedView.current = true
           }
-        } catch (err) {
-          console.error('Error tracking video view:', err)
+        } catch (viewError) {
+          console.error('Error tracking video view:', viewError)
         }
       }
 
-      // Handle synchronization when in floating window
       if (inFloatingWindow && syncCurrentTime !== undefined) {
-        console.log('VideoPlayer: Synchronizing playback', { syncCurrentTime, syncIsPlaying })
         videoElement.currentTime = syncCurrentTime
-        
         if (syncIsPlaying) {
           try {
             await videoElement.play()
-          } catch (err) {
-            console.error('VideoPlayer: Auto-play failed:', err)
+          } catch (playError) {
+            console.error('VideoPlayer: Auto-play failed:', playError)
           }
         }
       }
@@ -242,6 +311,14 @@ export function VideoPlayer({
       videoElement.removeEventListener('canplay', handleCanPlay)
     }
   }, [video, directoryHandle, inFloatingWindow, syncCurrentTime, syncIsPlaying])
+
+  const markerGenerationProgress = Math.min(
+    100,
+    Math.max(0, Math.round(markerGenerationJob?.progress ?? 0))
+  )
+  const markerGenerationElapsed = markerGenerationJob
+    ? formatElapsed(markerGenerationJob.elapsedMs)
+    : '0:00'
 
   if (!videoFile) {
     return (
@@ -272,15 +349,11 @@ export function VideoPlayer({
   return (
     <div className={className}>
       <div className="space-y-4">
-        {/* Title with favorite and open in window buttons */}
-        <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-medium truncate">{video?.name || 'Video'}</h2>
+        <div className="mb-2 flex items-center justify-between rounded-md bg-muted/50 px-3 py-2">
+          <div className="flex min-w-0 items-center gap-2">
+            <h2 className="truncate text-lg font-medium">{video?.name || 'Video'}</h2>
             {video && directoryHandle && (
-              <FavoriteButton
-                video={video}
-                directoryHandle={directoryHandle}
-              />
+              <FavoriteButton video={video} directoryHandle={directoryHandle} />
             )}
           </div>
           {!inFloatingWindow && (
@@ -300,7 +373,6 @@ export function VideoPlayer({
                     currentTime,
                     isPlaying
                   }, () => {
-                    // Pause main player when opening floating window
                     if (videoRef.current && !videoRef.current.paused) {
                       videoRef.current.pause()
                       setIsPlaying(false)
@@ -308,7 +380,7 @@ export function VideoPlayer({
                   })
                 }
               }}
-              className="gap-2 ml-2 flex-shrink-0"
+              className="ml-2 shrink-0 gap-2"
             >
               <ExternalLink className="h-4 w-4" />
               Open in Window
@@ -316,10 +388,10 @@ export function VideoPlayer({
           )}
         </div>
 
-        <div className="aspect-video bg-black rounded overflow-hidden">
+        <div className="aspect-video overflow-hidden rounded bg-black">
           <video
             ref={videoRef}
-            className="w-full h-full object-contain"
+            className="h-full w-full object-contain"
             controls
             autoPlay={false}
             preload="metadata"
@@ -343,19 +415,18 @@ export function VideoPlayer({
           onPrevVideo={onPrevVideo}
           onNextVideo={onNextVideo}
           onAddMarker={() => {
-            const currentTime = videoControls.getCurrentTime()
+            const startTime = videoControls.getCurrentTime()
             const duration = videoControls.getDuration()
-            
             const newMarker = {
               id: crypto.randomUUID(),
-              startTime: currentTime,
-              endTime: Math.min(currentTime + 10, duration),
+              startTime,
+              endTime: Math.min(startTime + 10, duration),
               isLooping: false,
               completionDegree: 0,
-              createdAt: Date.now(), // Add creation timestamp
+              createdAt: Date.now(),
               diagrams: []
             }
-        
+
             setMarkerState((prevState) => ({
               ...prevState,
               markers: [...prevState.markers, newMarker],
@@ -363,6 +434,74 @@ export function VideoPlayer({
             }))
           }}
         />
+
+        <div className="rounded-md border bg-background p-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="text-sm font-medium">Automatic marker generation</h3>
+              <p className="text-xs text-muted-foreground">
+                Process this video with Whisper, then create coherent titled and tagged lesson markers.
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={generateAutomaticMarkers}
+              disabled={isGeneratingMarkers || !video || !directoryHandle}
+              className="gap-2 sm:shrink-0"
+            >
+              {isGeneratingMarkers ? (
+                <RefreshCw className="h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="h-4 w-4" />
+              )}
+              {isGeneratingMarkers ? 'Generating...' : 'Automatic marker generation'}
+            </Button>
+          </div>
+
+          {markerGenerationJob && (
+            <div className="mt-3 space-y-2">
+              <div className="flex items-center justify-between gap-3 text-xs">
+                <span className="min-w-0 truncate font-medium text-muted-foreground">
+                  {markerGenerationJob.phase}
+                </span>
+                <span className="shrink-0 tabular-nums text-muted-foreground">
+                  {markerGenerationProgress}% - {markerGenerationElapsed}
+                </span>
+              </div>
+              <div
+                className="h-2 overflow-hidden rounded-full bg-muted"
+                role="progressbar"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={markerGenerationProgress}
+                aria-label="Automatic marker generation progress"
+              >
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-700 ease-out"
+                  style={{ width: `${markerGenerationProgress}%` }}
+                />
+              </div>
+              {isGeneratingMarkers && (
+                <p className="text-xs text-muted-foreground">
+                  Long lessons can take a while. Processing is limited to a small CPU budget to keep the system responsive.
+                </p>
+              )}
+            </div>
+          )}
+
+          {markerGenerationStatus && (
+            <StatusBanner tone="success" className="mt-3">
+              {markerGenerationStatus}
+            </StatusBanner>
+          )}
+          {markerGenerationError && (
+            <StatusBanner tone="destructive" className="mt-3">
+              {markerGenerationError}
+            </StatusBanner>
+          )}
+        </div>
 
         <VideoMarkers
           videoControls={videoControls}
@@ -374,7 +513,6 @@ export function VideoPlayer({
             setMarkerState((prevState) => {
               const resolvedState =
                 typeof nextState === 'function' ? nextState(prevState) : nextState
-              // Notify parent about active marker changes
               if (onMarkerSelect && resolvedState.activeMarkerId !== prevState.activeMarkerId) {
                 onMarkerSelect(resolvedState.activeMarkerId)
               }
@@ -386,4 +524,11 @@ export function VideoPlayer({
       </div>
     </div>
   )
+}
+
+function formatElapsed(milliseconds: number): string {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000))
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import sqlite3
 from datetime import datetime
@@ -17,6 +18,7 @@ from utils import (
     json_loads,
     normalize_relative_path,
     normalize_tags,
+    hhmmss_to_seconds,
     utc_now_iso,
     write_json,
     write_text,
@@ -44,6 +46,7 @@ def export_guitar_trainer(
     output_folder: str | Path,
     *,
     source: SourceType = "chapters",
+    video_path: str | None = None,
     db_path: str | Path | None = None,
     merge: MergeMode = "preserve-existing",
     force: bool = False,
@@ -64,6 +67,18 @@ def export_guitar_trainer(
     marker_count = 0
     annotation_count = 0
     videos = db.list_videos()
+    if video_path:
+        normalized_video_path = video_path.replace("\\", "/").strip("/")
+        videos = [video for video in videos if video["relative_path"] == normalized_video_path]
+        if not videos:
+            skipped.append(
+                {
+                    "video_id": None,
+                    "relative_path": normalized_video_path,
+                    "reason": "Requested video path was not found in the processor database.",
+                    "severity": "error",
+                }
+            )
 
     for video in videos:
         warnings = _visibility_warnings(video)
@@ -150,6 +165,8 @@ def _marker_state_for_video(
     updated_at = epoch_ms()
     if source == "chapters":
         rows = db.fetch_chapters(video["video_id"])
+        if not rows:
+            rows = _chapters_from_extracted_markdown(video)
         source_kind = "chapter"
     else:
         rows = db.fetch_timeline(video["video_id"], "segments")
@@ -204,9 +221,90 @@ def _marker_state_for_video(
     }
 
 
+def _chapters_from_extracted_markdown(video: Any) -> list[dict[str, Any]]:
+    markdown_path = _find_extracted_markdown(video)
+    if not markdown_path:
+        return []
+
+    text = markdown_path.read_text(encoding="utf-8", errors="ignore")
+    global_tags = _concept_tags_from_markdown(text)
+    chapter_rows: list[dict[str, Any]] = []
+    pattern = re.compile(
+        r"^\s*-\s+\*\*(\d{1,2}:\d{2}(?::\d{2})?)\s+-\s+(\d{1,2}:\d{2}(?::\d{2})?):\s+(.+?)\*\*\s*$",
+        re.MULTILINE,
+    )
+    matches = list(pattern.finditer(text))
+    for index, match in enumerate(matches):
+        start = hhmmss_to_seconds(match.group(1))
+        end = hhmmss_to_seconds(match.group(2))
+        title = match.group(3).strip()
+        next_start = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        block = text[match.end() : next_start]
+        bullet_summaries = [
+            line.strip().lstrip("- ").strip()
+            for line in block.splitlines()
+            if line.strip().startswith("- ")
+        ]
+        summary = bullet_summaries[0] if bullet_summaries else title
+        tags = normalize_tags([title, *global_tags], max_count=8)
+        if end - start < 1:
+            continue
+        chapter_rows.append(
+            {
+                "chapter_index": index,
+                "start_seconds": start,
+                "end_seconds": end,
+                "title": title,
+                "summary": summary,
+                "confidence": 0.8,
+                "_tags": tags,
+            }
+        )
+    return chapter_rows
+
+
+def _find_extracted_markdown(video: Any) -> Path | None:
+    exports_dir = Path("outputs") / "exports"
+    candidates = list(exports_dir.glob("*_extracted.md"))
+    if not candidates:
+        return None
+
+    video_tokens = _name_tokens(Path(video["filename"]).stem)
+    best: tuple[int, Path] | None = None
+    for candidate in candidates:
+        candidate_tokens = _name_tokens(candidate.stem.replace("_extracted", ""))
+        score = len(video_tokens & candidate_tokens)
+        if best is None or score > best[0]:
+            best = (score, candidate)
+    return best[1] if best and best[0] >= 2 else None
+
+
+def _name_tokens(value: str) -> set[str]:
+    return {
+        token
+        for token in re.split(r"[^a-z0-9]+", value.lower())
+        if len(token) > 1 and token not in {"the", "and", "part", "pt"}
+    }
+
+
+def _concept_tags_from_markdown(text: str) -> list[str]:
+    match = re.search(r"## Concepts And Terms\s*(.+?)(?:\n## |\Z)", text, re.DOTALL | re.IGNORECASE)
+    if not match:
+        return []
+    tags = []
+    for line in match.group(1).splitlines():
+        cleaned = line.strip().lstrip("- ").strip()
+        if cleaned:
+            tags.append(cleaned)
+    return normalize_tags(tags, max_count=20)
+
+
 def _annotation_tags(db: ProcessorDB, video_id: int, row: Any, global_tags: list[str], source: SourceType) -> list[str]:
     if source == "chapters":
-        row_tags = db.fetch_chapter_tags(video_id, row["chapter_index"])
+        if isinstance(row, dict) and "_tags" in row:
+            row_tags = row["_tags"]
+        else:
+            row_tags = db.fetch_chapter_tags(video_id, row["chapter_index"])
         semantic = []
     else:
         row_tags = json_loads(row["tags"], [])
@@ -369,4 +467,3 @@ def _source_kind_from_markers(marker_state: dict[str, Any]) -> str:
     if ":segment:" in marker_id:
         return "segment"
     return "chapter"
-
