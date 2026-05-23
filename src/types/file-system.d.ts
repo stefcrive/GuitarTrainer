@@ -1,6 +1,8 @@
 interface FileSystemHandle {
   kind: 'file' | 'directory'
   name: string
+  queryPermission?(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>
+  requestPermission?(descriptor?: FileSystemHandlePermissionDescriptor): Promise<PermissionState>
 }
 
 interface FileSystemFileHandle extends FileSystemHandle {
@@ -32,4 +34,8 @@ interface Window {
   showDirectoryPicker(options?: {
     mode?: 'read' | 'readwrite'
   }): Promise<FileSystemDirectoryHandle>
+}
+
+interface FileSystemHandlePermissionDescriptor {
+  mode?: 'read' | 'readwrite'
 }

@@ -1,0 +1,917 @@
+{
+  "chapters": [
+    {
+      "start_seconds": 0,
+      "end_seconds": 7.0,
+      "title": "Short performed example",
+      "summary": "Practice the short performed example as a short, focused marker.",
+      "confidence": 0.35,
+      "tags": [
+        "performance",
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 7.0,
+      "end_seconds": 36.0,
+      "title": "Other",
+      "summary": "Well, the song that this YouTube clip is from is a song called Elegant Decovince, which is a book that I read about New Orleans, which is kind of explaining the whole decay of New Orleans, but yet the elegance that it ha",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Repertoire",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Develops a concrete piece of music into playable repertoire.",
+        "practice_use_case": "Use this to make a tune, study, or performance excerpt more playable and recordable.",
+        "weekly_practice_role": "Repertoire Support",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "slow tempo reference",
+          "form awareness",
+          "basic chord tones"
+        ],
+        "suggested_output": "Record one chorus or section with clear time, melody, and harmony.",
+        "repertoire_relevance": 5,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "melody always audible",
+          "one section only",
+          "record one take"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice one short section slowly, connect melody to harmony, then record a check take.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 3,
+        "notes_for_weekly_planner": "Use as the weekly anchor and attach one device, one technique item, and one recording deliverable."
+      }
+    },
+    {
+      "start_seconds": 36.0,
+      "end_seconds": 42.0,
+      "title": "Short performed example",
+      "summary": "Practice the short performed example as a short, focused marker.",
+      "confidence": 0.35,
+      "tags": [
+        "performance",
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 42.0,
+      "end_seconds": 99.0,
+      "title": "Other",
+      "summary": "That's kind of the lick with some open strings ringing that if you have...let me clean it up a little bit.",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 99.0,
+      "end_seconds": 156.0,
+      "title": "Other",
+      "summary": "It's just kind of a New Orleans-esque type of groove over D blues, pretty much.",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 156.0,
+      "end_seconds": 211.0,
+      "title": "Melodic minor color note",
+      "summary": "Now, learning the modes is like, you know, I don't want you too much into theory or anything, but the one mode in melodic minor that's really super useful is the 7th mode from melodic minor, which is the altered scale.",
+      "confidence": 0.55,
+      "tags": [
+        "melodic minor",
+        "modes",
+        "groove",
+        "legato",
+        "metronome"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "melodic minor",
+          "modes",
+          "groove",
+          "legato",
+          "metronome"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "melodic minor",
+          "modes",
+          "groove",
+          "legato",
+          "metronome"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 211.0,
+      "end_seconds": 213.0,
+      "title": "Short performed example",
+      "summary": "Practice the short performed example as a short, focused marker.",
+      "confidence": 0.35,
+      "tags": [
+        "performance",
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 213.0,
+      "end_seconds": 275.0,
+      "title": "Other",
+      "summary": "But you'll find a lot of times that, like, on the downbeat I'll usually resolve back.",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 275.0,
+      "end_seconds": 338.0,
+      "title": "Other",
+      "summary": "and I always bring it back to blues, because, you know, blues, you know, blues everybody can relate to.",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 338.0,
+      "end_seconds": 404.0,
+      "title": "Other",
+      "summary": "I mean, he, like all of us at MI, were working over chord changes a lot.",
+      "confidence": 0.55,
+      "tags": [
+        "legato",
+        "groove",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "legato",
+          "groove",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "legato",
+          "groove",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 404.0,
+      "end_seconds": 460.0,
+      "title": "Finger attack color",
+      "summary": "But when you brush, you can get anywhere from really like soft like that, almost like hardly any volume at all, just snapping it.",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 460.0,
+      "end_seconds": 518.0,
+      "title": "Other",
+      "summary": "When I first started off, it just kind of mutated into that style.",
+      "confidence": 0.55,
+      "tags": [
+        "tone",
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "tone",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tone",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 518.0,
+      "end_seconds": 589.0,
+      "title": "Other",
+      "summary": "And this goes to my equipment too, which we can talk about more later.",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 589.0,
+      "end_seconds": 634.0,
+      "title": "Other",
+      "summary": "That kind of stuff.",
+      "confidence": 0.55,
+      "tags": [
+        "metronome",
+        "groove",
+        "legato",
+        "melodic minor",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "metronome",
+          "groove",
+          "legato",
+          "melodic minor",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "metronome",
+          "groove",
+          "legato",
+          "melodic minor",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 634.0,
+      "end_seconds": 640.0,
+      "title": "Short performed example",
+      "summary": "Practice the short performed example as a short, focused marker.",
+      "confidence": 0.35,
+      "tags": [
+        "performance",
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "performance",
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 640.0,
+      "end_seconds": 681.0,
+      "title": "Other",
+      "summary": "You know, they can get into doing that, but it just kind of connects everything together.",
+      "confidence": 0.55,
+      "tags": [
+        "groove",
+        "legato",
+        "melodic minor",
+        "metronome",
+        "modes"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "groove",
+          "legato",
+          "melodic minor",
+          "metronome",
+          "modes"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    }
+  ]
+}

@@ -22,3 +22,54 @@ HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small
 Processing audio with duration 01:43:15.392
 VAD filter removed 06:31.664 of audio
 Detected language 'en' with probability 0.91
+Failed processing Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4
+Traceback (most recent call last):
+  File "C:\Users\stefa\Documents\VSCprojects\Guitar trainer\Instruction video processor\transcriber.py", line 16, in transcribe_audio
+    from faster_whisper import WhisperModel
+ModuleNotFoundError: No module named 'faster_whisper'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\stefa\Documents\VSCprojects\Guitar trainer\Instruction video processor\app.py", line 157, in process
+    _process_one(db, config, video_id, item)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stefa\Documents\VSCprojects\Guitar trainer\Instruction video processor\app.py", line 199, in _process_one
+    transcript = transcribe_audio(audio_path, config)
+  File "C:\Users\stefa\Documents\VSCprojects\Guitar trainer\Instruction video processor\transcriber.py", line 18, in transcribe_audio
+    raise TranscriptionError(
+        "faster-whisper is not installed. Install requirements.txt before processing videos."
+    ) from exc
+transcriber.TranscriptionError: faster-whisper is not installed. Install requirements.txt before processing videos.
+HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/config.json "HTTP/1.1 307 Temporary Redirect"
+HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/config.json "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
+HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt "HTTP/1.1 200 OK"
+HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/config.json "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json "HTTP/1.1 200 OK"
+HTTP Request: HEAD https://huggingface.co/Systran/faster-whisper-small/resolve/536b0662742c02347bc0e980a01041f333bce120/model.bin "HTTP/1.1 302 Found"
+HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/tokenizer.json "HTTP/1.1 200 OK"
+HTTP Request: GET https://huggingface.co/api/resolve-cache/models/Systran/faster-whisper-small/536b0662742c02347bc0e980a01041f333bce120/vocabulary.txt "HTTP/1.1 200 OK"
+HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/xet-read-token/536b0662742c02347bc0e980a01041f333bce120 "HTTP/1.1 200 OK"
+Processing audio with duration 11:21.856
+VAD filter removed 01:43.792 of audio
+Detected language 'en' with probability 0.97
+HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
+Processing audio with duration 10:36.267
+VAD filter removed 02:01.200 of audio
+Detected language 'en' with probability 0.99
+HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
+Processing audio with duration 11:21.856
+VAD filter removed 01:43.792 of audio
+Detected language 'en' with probability 0.97
+HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
+Processing audio with duration 01:43:15.392
+VAD filter removed 06:31.664 of audio
+Detected language 'en' with probability 0.90
+HTTP Request: GET https://huggingface.co/api/models/Systran/faster-whisper-small/revision/main "HTTP/1.1 200 OK"
+Processing audio with duration 01:52:08.853
+VAD filter removed 16:01.077 of audio
+Detected language 'en' with probability 0.98

@@ -40,7 +40,10 @@ export class TagCollectorService {
           const videos = await fileSystemService.scanForVideos(rootHandle)
           for (const video of videos) {
             try {
-              const markerState = await markersService.loadMarkers(rootHandle, video.path)
+              const file = video.handle ? await video.handle.getFile() : null
+              const markerState = file
+                ? await markersService.loadMarkersForFile(rootHandle, video.path, file)
+                : await markersService.loadMarkers(rootHandle, video.path)
               if (markerState?.annotations) {
                 markerState.annotations.forEach(annotation => {
                   annotation.tags?.forEach(tag => allTags.add(tag))

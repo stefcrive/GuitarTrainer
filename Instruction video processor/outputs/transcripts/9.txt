@@ -1,0 +1,2023 @@
+[00:00:05 - 00:00:13] Hello guys and welcome to this brand new tutorial of mine. This is basically fretboard visualization and playing over changes and
+[00:00:14 - 00:00:19] The goal of this tutorial is really to give you the tools required to be able to see any
+[00:00:20 - 00:00:24] Harmonic device on the fretboard be it scales chords or arpeggios
+[00:00:25 - 00:00:28] Any of those things basically on the fretboard in a very concise
+[00:00:29 - 00:00:34] Manipulable very important manipulable way using basically small chunks of information
+[00:00:34 - 00:00:42] Now a lot of the times when we visualize the fretboard the traditional ways it's taught. It's taught in big chunks big position-based
+[00:00:43 - 00:00:48] Ideas on the fretboard and we're gonna have a look at a couple of those just to start with just a basic introduction to them
+[00:00:48 - 00:00:52] So that if you're not familiar with them you at least know where we're coming from in terms of the standard ways
+[00:00:52 - 00:00:54] That people would visualize the fretboard however
+[00:00:54 - 00:00:59] I'm not going to teach them in a really big way and the two of those will be the cage system and also three note
+[00:00:59 - 00:01:03] Posturing which any rockers out there. Well, I'm sure we'll be very familiar with now
+[00:01:03 - 00:01:06] What we're going to do is I'm going to introduce those to you so that you're familiar with them
+[00:01:06 - 00:01:12] I'm just going to say what the downsides of them can be as far as playing other changes now
+[00:01:12 - 00:01:16] Really important to mention two things at this stage before we even get started
+[00:01:17 - 00:01:22] The first is those two systems are fantastic and anything I say and any information
+[00:01:22 - 00:01:26] I give you here is designed to be bolted on top of those systems that you may already know
+[00:01:27 - 00:01:30] fretboard visualization is not about one system of
+[00:01:31 - 00:01:36] Looking at the fretboard. It's about lots and lots of things an amalgamation of all your experience on the instrument
+[00:01:36 - 00:01:43] From literally day one up until now and however long you've been playing for whether that's you know a few months or years and years like me
+[00:01:44 - 00:01:47] It's an amalgamation of all those things. That's really important
+[00:01:47 - 00:01:52] Don't think the one giving you here is the be the be all and end all of kind of fretboard visualization
+[00:01:52 - 00:01:54] Although it is a very useful system
+[00:01:54 - 00:01:57] You don't abandon the stuff you already know it's really important
+[00:01:57 - 00:02:00] We're going to bolt this information on top this way of looking at the fretboard
+[00:02:00 - 00:02:04] Which I'm going to teach you in this tutorial is very useful for playing over changes
+[00:02:04 - 00:02:07] Which is obviously very interesting for a lot of guitar players these days
+[00:02:07 - 00:02:10] It's quite fashionable and people are really into it and it's a very cool thing to be able to do
+[00:02:11 - 00:02:15] Now with that said the second thing that's really important before we even get started is the tuning
+[00:02:15 - 00:02:21] I'm using and the reason I'm going to mention this is because I want you to understand that it's completely irrelevant to the tutorial
+[00:02:21 - 00:02:28] Some people get worried about this the tuning I use is a tuning called fourths tuning or all fourths tuning now the way it works is
+[00:02:28 - 00:02:32] I'm exactly the same as standard tuning for the lowest four strings
+[00:02:32 - 00:02:39] So I have an e and a a d and a g but my B string is tuned up a semi-tone or up one fret to C
+[00:02:39 - 00:02:45] And my E string is tuned up a semi-tone to f. Okay, that gives me all fourths all the way down
+[00:02:45 - 00:02:47] If you don't know what that means don't worry too much
+[00:02:48 - 00:02:54] Basically what I'm going to say is this makes the fretboard very symmetrical and works very nicely for fretboard visualization
+[00:02:54 - 00:02:59] But even though I'm in this tuning now. We've got close-ups of the fretboard and stuff in this particular tutorial
+[00:02:59 - 00:03:02] I've got another camera set up over there. It's got a close-up of the fretboard
+[00:03:02 - 00:03:05] I'll just show you that now so you can see obviously here we go with the
+[00:03:05 - 00:03:11] Close-up of the fretboard here so you can see what my fingers are doing back to the main cam now when we look at
+[00:03:11 - 00:03:16] The close-ups the fact that we're in forced tuning or I'm in forced tuning makes no difference
+[00:03:16 - 00:03:18] It's all to the visualization process
+[00:03:18 - 00:03:25] I'll explain how you can adapt the ideas to fit for standard tuning and I will show you all the shapes for standard tuning as well
+[00:03:25 - 00:03:28] And then in the accompanying PDF files
+[00:03:28 - 00:03:33] Everything is in both standard tuning for you guys in standard tuning and then because it gets requested a lot
+[00:03:33 - 00:03:37] I've got a few players or few students who buy my stuff to
+[00:03:37 - 00:03:45] Tune in fourth, so I'm going to give you the fourth tune version as well. Okay, so with that said let's start now by looking at these two
+[00:03:45 - 00:03:47] standard kind of
+[00:03:47 - 00:03:50] fretboard visualization systems and look at how they can be
+[00:03:51 - 00:03:55] Useful and some of the disadvantages of them for playing over chord changes. So we'll do that now
+[00:03:55 - 00:04:07] So two of the most common ways for visualizing the fretboard are the three-in-out post string system and the cage system
+[00:04:07 - 00:04:12] And again, we're not going to go through them in masses of detail here because we just don't have time on this tutorial
+[00:04:12 - 00:04:16] I want to actually go through the system that I use to visualize the fretboard or the main system
+[00:04:16 - 00:04:23] I use again remember fretboard visualization is an amalgam or amalgamation of all of the different things that you learn as you go through the
+[00:04:23 - 00:04:25] guitar and everybody is
+[00:04:25 - 00:04:28] unique in a way in the way they see the fretboard because of the
+[00:04:29 - 00:04:33] Combination of your experiences. However, let's have a look at the three-in-out post string system to start
+[00:04:33 - 00:04:39] Now the three-in-out post string system relies on as it suggests a certain number of notes per string
+[00:04:39 - 00:04:43] So three in this case. Okay, and it's a position-based system
+[00:04:43 - 00:04:46] as is the case system majority of
+[00:04:46 - 00:04:51] Things you know the ways we visualize the fretboard at least when we first start learning the guitar based on position
+[00:04:52 - 00:04:56] Based playing so playing on a certain part of the guitar or a certain position
+[00:04:56 - 00:05:01] Okay, so for instance if you think about your minor pentatonic scale you learn it in five different positions
+[00:05:01 - 00:05:03] So you've got position one
+[00:05:04 - 00:05:12] Which will look slightly different in my tuning, but obviously you guys have should be familiar with the different pentatonic positions position number two
+[00:05:14 - 00:05:16] So on and so forth so there's different positions
+[00:05:16 - 00:05:20] Now the same thing applies for all of our scales that are seven note scales
+[00:05:21 - 00:05:27] So the pentatonic scale is a five note scale now the system that we use for learning seven note scales like the major scale and its
+[00:05:27 - 00:05:30] Modes don't worry if you don't know the modes. That's absolutely fine
+[00:05:31 - 00:05:34] I'm not going to teach you the modes in this tutorial as such
+[00:05:34 - 00:05:39] But the you can learn them from this tutorial you could use this tutorial to actually learn your modes
+[00:05:39 - 00:05:46] And you'll see why later on you could actually learn any scale or any harmonic device once you've covered this tutorial very very easily and very
+[00:05:46 - 00:05:50] Quickly and that's not hyperbole. That's actually you know this this system
+[00:05:50 - 00:05:52] I'm going to show you actually does allow you to do that so
+[00:05:53 - 00:05:56] Let me explain further with three note press string if I have a major scale
+[00:05:56 - 00:06:00] Let's say we start with a major up at the fifth fret of the E string
+[00:06:00 - 00:06:06] So first thing we're on this fifth fret here the way the three-note press string system works out is that we arrange the scale
+[00:06:06 - 00:06:10] So we have three notes on each string. Okay, so that would be in the case of a major
+[00:06:11 - 00:06:13] We would have a B
+[00:06:13 - 00:06:18] C sharp on the low E string which would be five seven nine
+[00:06:19 - 00:06:22] And then on the next string we again arrange so you've got three notes on that string
+[00:06:22 - 00:06:28] So we have D E F sharp which would be five seven nine on the a string
+[00:06:29 - 00:06:33] And we keep going basically arrange the notes again three-note press ring
+[00:06:33 - 00:06:38] So on the next string we would have G sharp and there's an octave a and then we've got B again
+[00:06:38 - 00:06:41] So on and so forth and we continue up the guitar
+[00:06:43 - 00:06:50] Okay, so that takes us all the way up to this D here now that's the 10th fret of the E string for you guys again
+[00:06:50 - 00:06:51] Don't worry too much about this shape
+[00:06:51 - 00:06:55] I just want to teach you the principle of three-note press string or remind you if you if you're not familiar with it
+[00:06:56 - 00:06:59] So don't worry too much if the actual shape of the scale is not familiar
+[00:06:59 - 00:07:03] We're going to deal with how you can visualize all of these scales later on okay
+[00:07:03 - 00:07:06] So again just one more time you can see we've got three notes on each string
+[00:07:08 - 00:07:15] Now what a lot of guitar players do especially if they come from a rock background is they will learn
+[00:07:15 - 00:07:20] The next position of that a major scale starting on the note B
+[00:07:21 - 00:07:24] And again, so that was the a at the fifth fret of the E string
+[00:07:24 - 00:07:27] And we can play the scale from a all the way up
+[00:07:27 - 00:07:32] Rising three notes first ring each time until we hit this D at the 10th fret of the high E string or in my case
+[00:07:32 - 00:07:35] The ninth fret again don't worry too much about that. That's just the tuning
+[00:07:35 - 00:07:40] Okay, if we start on the B instead of the a so the next note in the scale his a at the fifth fret
+[00:07:40 - 00:07:43] Okay, make sure you can see my nuts so you can see where I am
+[00:07:43 - 00:07:46] So there's the fifth fret and there's the be the next note in the scale again
+[00:07:46 - 00:07:49] We can arrange the scale so we've got three notes on every single string
+[00:07:51 - 00:07:54] Oops
+[00:07:54 - 00:08:00] Okay, now that particular arrangement of
+[00:08:01 - 00:08:06] Three notes per string allows us to learn the scale in seven different positions
+[00:08:07 - 00:08:11] Starting from each of the notes within the scale so we can start from a
+[00:08:11 - 00:08:15] We can start from B
+[00:08:17 - 00:08:19] We can start from C sharp
+[00:08:20 - 00:08:26] So on and so forth we could go all the way up the guitar and we could learn all seven positions of that particular scale
+[00:08:26 - 00:08:30] Now in doing that what we've done is we've covered the entire guitar
+[00:08:30 - 00:08:35] With seven positions of an a major scale and we've learned the scale live of the fretboard
+[00:08:35 - 00:08:41] Okay, we can do that with any scale apart from five note scales pentatonic scales
+[00:08:41 - 00:08:45] Because they only have two notes per string in the standard way that we play them
+[00:08:45 - 00:08:47] But again, we can learn them in a position-based
+[00:08:48 - 00:08:50] Method this is the same idea as we use for pentatonics
+[00:08:50 - 00:08:55] We start on the first note learn a pattern we start on the second of the scale learn a pattern
+[00:08:55 - 00:09:01] We start on the third note of the scale learn a pattern and we build up seven note seven patterns for a seven note scale and five
+[00:09:01 - 00:09:04] Patterns for a five note scale now this system is useful
+[00:09:05 - 00:09:08] Especially if you're playing on a single chord vamp
+[00:09:08 - 00:09:13] Or if you're playing in a single key and you don't like to think over each chord individually
+[00:09:13 - 00:09:16] So you aren't really thinking changes. You're just thinking a key
+[00:09:17 - 00:09:19] But the problem with it is twofold
+[00:09:19 - 00:09:24] The problem is that when you learn a scale like this a big shape that comes all six strings
+[00:09:24 - 00:09:32] You've got one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen notes in each position
+[00:09:33 - 00:09:39] You end up when you start to improvise doing two things first of all playing in a position, which is very limiting
+[00:09:39 - 00:09:44] Okay, we all talk about playing in the box. We're all you know, how do I break outside the box?
+[00:09:44 - 00:09:47] It's a such a common thing that students say how do I break out the box?
+[00:09:47 - 00:09:51] That's the first thing and the second thing is you end up playing very scaleically
+[00:09:51 - 00:09:56] You're not thinking in terms of chord tones or in terms of intervals. You're thinking in terms of a scale shape
+[00:10:03 - 00:10:06] Very hard to break out of that kind of
+[00:10:07 - 00:10:13] Thought process of here's a shape now. I'm gonna play a shape and even when you do kind of manage to play more melodically
+[00:10:13 - 00:10:20] It's very difficult to break outside of thinking about the scale shape as opposed to in a more detailed way about the chord tones
+[00:10:20 - 00:10:21] Okay
+[00:10:21 - 00:10:27] So through a pedestrian systems great for fairly quickly learning a scale in bulk across the neck
+[00:10:27 - 00:10:34] The other place where it becomes very difficult to use is when we play over changes and playing over changes
+[00:10:34 - 00:10:38] Means that we're playing over a chord progression or each new chord requires a new scale
+[00:10:39 - 00:10:42] Okay, so for instance if I was playing over a major 7
+[00:10:43 - 00:10:47] And don't worry about the chord shape. It's that shape for you guys just with the sound of it
+[00:10:48 - 00:10:56] Then I might use my 7 a major boxes my seven different positions to play about a major the Wi-Fi they went to f sharp major 7
+[00:10:57 - 00:11:04] Suddenly these big shapes that I'm thinking of don't move around so well. I've got to kind of think about alright
+[00:11:04 - 00:11:05] So if I'm in this position
+[00:11:05 - 00:11:13] Where's f sharp major and I've got to go through my different positions and find where f sharp major is in this particular part of the
+[00:11:13 - 00:11:14] neck
+[00:11:14 - 00:11:17] Visualizing from the lowest e and a strings
+[00:11:17 - 00:11:22] It's kind of difficult to actually visualize well when you're always thinking about six strings
+[00:11:22 - 00:11:27] And you're thinking about seven different boxes. It's very difficult to play through the changes successfully
+[00:11:27 - 00:11:29] It can be done
+[00:11:29 - 00:11:33] But generally there are better ways to do this and I'm going to show you that a better way of doing it
+[00:11:33 - 00:11:35] Which is very very useful
+[00:11:35 - 00:11:38] Based on intervals and that's the main system that we're going to use for this tutorial
+[00:11:38 - 00:11:40] So the 3D outpost string system is great
+[00:11:40 - 00:11:46] And if you already know it that's a huge bonus for you because you're going to have a great foundation for building upon
+[00:11:47 - 00:11:51] When you're developing your improvisation, you're developing your fretboard knowledge if you don't know it
+[00:11:51 - 00:11:57] It's certainly something that's worth studying. Okay when I'm playing now because I learned 3D outpost string system initially
+[00:11:57 - 00:12:02] I still do use the 3D outpost string system in my mind from time to time when I'm improvising
+[00:12:03 - 00:12:08] Especially if I'm playing faster lines, but I was going to improvise around a major or the key of a major
+[00:12:09 - 00:12:11] When I was actually going to play really fast kind of legato lines
+[00:12:11 - 00:12:17] I'll often my brain sort of is using part of that 3D outpost string system in order to play those faster lines
+[00:12:17 - 00:12:19] Okay, so I was going to go
+[00:12:23 - 00:12:29] Those kind of things for the faster based playing it's very useful to have the 3D outpost string system in your mind
+[00:12:30 - 00:12:34] And the cage system which we're going to go through next. So that's the 3D outpost string system
+[00:12:34 - 00:12:36] let's now have a look at the cage system very quickly and
+[00:12:37 - 00:12:43] It that again will help you guys to see the benefits of that system and why you should learn it and also some of the slight
+[00:12:43 - 00:12:46] Disadvantages with it the case system in my mind is a better system for playing other changes
+[00:12:46 - 00:12:58] And we'll see why in the next deception. Okay, so the cage system basically caged
+[00:12:58 - 00:13:04] Stands for five different chord shapes that you learn when you're first picking up a guitar C
+[00:13:05 - 00:13:08] basic C shape a your basic a shape
+[00:13:09 - 00:13:10] G
+[00:13:10 - 00:13:14] Okay, and then e and D which spells caged obviously
+[00:13:15 - 00:13:17] Now the cage system
+[00:13:17 - 00:13:24] Basically teaches you to learn scales and arpeggios based around chord shapes moved around the guitar
+[00:13:24 - 00:13:31] Now as compared to the three note post string system the huge benefit of the cage system is let's say you learn a chord
+[00:13:31 - 00:13:37] So we've got here a C major chord. It's based around a G major shape
+[00:13:37 - 00:13:39] So the same shape you would use for G here
+[00:13:39 - 00:13:44] I'm not going to play it because the tuning I use this force tune is going to make it sound really horrible like this
+[00:13:44 - 00:13:46] So we're not going to do that
+[00:13:46 - 00:13:50] But if we take that shape up and place it at the eighth fret we now have this C chord
+[00:13:51 - 00:13:52] Okay, it's a G that's been moved up
+[00:13:52 - 00:13:59] So G G sharp a a sharp B C and I'm barring across to replace the nut
+[00:13:59 - 00:14:03] That was down at the the zero fret if you want to call it that or the open strings
+[00:14:04 - 00:14:09] Okay, so now we've got this C chord and if I learn the scale based around that chord
+[00:14:11 - 00:14:18] That means that I know where the chord tones are at least some of those chord tones
+[00:14:18 - 00:14:21] I know where they are I can see a C here, which is the root
+[00:14:21 - 00:14:26] I can see the third I can see the fifth then I can see the root
+[00:14:26 - 00:14:30] Then I can see the third song and so forth like I can see the fifth up here as well
+[00:14:30 - 00:14:32] So sorry the root up here
+[00:14:32 - 00:14:40] I should say so that system of using chord shapes to learn scales or using chord shapes to base your scales upon if you like
+[00:14:40 - 00:14:42] It's very useful
+[00:14:42 - 00:14:48] compared to clean up your string because it teaches you to visualize chord tones as well and
+[00:14:48 - 00:14:53] Court tones coming very very useful when you're thinking about selling out the chord changes
+[00:14:53 - 00:14:58] That makes sense if you're thinking about the scale or the arpeggio based around the chord shape that you already know
+[00:14:58 - 00:15:00] And they're all basic chord shapes that we use
+[00:15:01 - 00:15:05] Just your basic major and you can do the same thing with mine as if you so desire
+[00:15:05 - 00:15:09] But most people just use the major the major shapes the cage systems a C a
+[00:15:10 - 00:15:13] Gd if you're thinking around those chord shapes
+[00:15:13 - 00:15:18] It's much easier to think about where the chord tones are and therefore you'll target those in your solos
+[00:15:18 - 00:15:20] And your solo will sound more like the chords
+[00:15:20 - 00:15:26] Okay, the slight downside of this system and it is a slight downside because there are some
+[00:15:27 - 00:15:31] Unbelievable players like Sean Baxter for instance one of the greatest guitar players I've ever heard
+[00:15:31 - 00:15:37] As far as I'm aware exclusively uses the cage system not exclusively but uses the cage system in the majority of his
+[00:15:37 - 00:15:40] Visualization systems I could be wrong, but I'm pretty sure that's correct
+[00:15:41 - 00:15:46] And there's loads of great great guitar players who use the cage system as their primary source of
+[00:15:46 - 00:15:50] Visualization information if you like when they're improvising. So it's a great system
+[00:15:50 - 00:15:56] But again, what are the problems with it is that it relies on shapes that cover six or five strings
+[00:15:56 - 00:16:01] It's a lot of information and you're using big scale shapes to think about
+[00:16:02 - 00:16:04] How you're going to visualize the fretboard?
+[00:16:04 - 00:16:12] So you're usually thinking about six or five strings and the other issue is you can often be visualizing from the lowest two strings
+[00:16:12 - 00:16:16] Exclusively a little bit like when you think about your bar chords when you place a bar chord
+[00:16:16 - 00:16:23] You're generally placing it with the root note or you're thinking about or visualizing the root note on the e or the a string
+[00:16:23 - 00:16:27] But often with the cage system the same thing happens not always but often
+[00:16:27 - 00:16:29] so
+[00:16:29 - 00:16:32] Actually visualizing where those root notes are and visualizing
+[00:16:33 - 00:16:37] More information than you necessarily need to at the same time can be a hindrance
+[00:16:37 - 00:16:43] However, let me say I do like the cage system. I think it's a really good system and it's definitely worth learning
+[00:16:43 - 00:16:45] I think it's a fantastic system for playing over changes
+[00:16:45 - 00:16:51] What I want to present to you now is a system based on intervals pure intervals. That's really going to help you to
+[00:16:52 - 00:16:56] System systematically visualize the fretboard in a way that you can manipulate
+[00:16:57 - 00:17:03] The information in an improvisational manner and what I mean by that is it's a very wordy way of saying that you get very good
+[00:17:04 - 00:17:11] Creating lines and being in control of your note choice as opposed to thinking of a scale shape all the time
+[00:17:11 - 00:17:16] Okay, and then picking and choosing notes from the scale shape. I want to give you more detail
+[00:17:16 - 00:17:21] And allow you to make more conscious choices within your improvisation more quickly
+[00:17:21 - 00:17:28] Okay, you make more better musical decisions based on which notes you want to play as opposed to always thinking of a scale shape
+[00:17:28 - 00:17:32] And then just kind of like picking and choosing notes based in the scale shape
+[00:17:32 - 00:17:37] I'm not really knowing why okay, so that's the cage system and the three-in-out posturing system again
+[00:17:37 - 00:17:40] Just remember this tutorial is not to teach you either of those systems
+[00:17:40 - 00:17:45] I just wanted to highlight what they are and that you should definitely learn them
+[00:17:45 - 00:17:48] But there are disadvantages to them and advantages of course as well
+[00:17:49 - 00:17:55] So research those more as you so desire you don't need to necessarily but I'd recommend that you do now
+[00:17:55 - 00:17:58] Let's move on to the system of visualization that we're going to use for the rest of this tutorial
+[00:17:58 - 00:18:02] I really think it's going to help you out a great deal with your harmonic and fretboard based knowledge
+[00:18:02 - 00:18:04] So let's do that now
+[00:18:04 - 00:18:15] Okay, so the system that we're going to use to visualize the fretboard is based on
+[00:18:16 - 00:18:22] Purely thinking about intervals. Okay, not necessarily thinking about scale shapes in particular
+[00:18:22 - 00:18:23] Although they will form in your mind
+[00:18:23 - 00:18:29] And if you know your three-in-out posturing in case system must still be there but thinking about two things a root note
+[00:18:30 - 00:18:34] Where is that root note on the fretboard and against that particular root note?
+[00:18:35 - 00:18:40] Where are all the other intervals in the scale and here's the really important piece of information
+[00:18:41 - 00:18:44] We're only ever going to be thinking about one octave
+[00:18:45 - 00:18:48] When you think about the three-note posturing system or the cage system
+[00:18:48 - 00:18:51] They are fantastic systems for visualizing the fretboard
+[00:18:51 - 00:18:57] But you tend to think about two maybe two and a half sometimes full three octaves
+[00:18:57 - 00:19:02] Sorry, not three octaves two and a half octaves in some cases you tend to be thinking about a lot of notes
+[00:19:02 - 00:19:08] You know like we found out with the three-in-out posturing system at times you can have up to 18 notes in a particular pattern
+[00:19:08 - 00:19:11] Well in our system the system we're going to use based on
+[00:19:12 - 00:19:17] Visualizing intervals. We're only really thinking about one octave at a time and within that octave
+[00:19:17 - 00:19:22] It becomes very easy to think about where all the chord tones are and any
+[00:19:22 - 00:19:25] Extensions that you want to put on some nights 11th and 13th
+[00:19:25 - 00:19:29] So you can be very very clear and very conscious with your note choice
+[00:19:30 - 00:19:35] And be able to see where all of those intervals are anywhere on the fretboard
+[00:19:35 - 00:19:41] But before we can do this this intervalical formula will come on to what formula means later if you're not sure
+[00:19:41 - 00:19:44] This this interval based system of improvisation
+[00:19:44 - 00:19:48] We need to be very very clear with note names on the fretboard
+[00:19:49 - 00:19:54] We need to know where all the notes are on the fretboard now. This is very different to visualizing scales
+[00:19:54 - 00:19:56] It's a very different exercise
+[00:19:57 - 00:20:03] Because when you visualize scales you visualize a root note and then you think about whether your other intervals are against that root note
+[00:20:03 - 00:20:07] And you form a particular shape or series of shapes on the instrument
+[00:20:07 - 00:20:13] Knowing where notes are on the fretboard is fundamental to any system of visualization
+[00:20:13 - 00:20:19] The problem that guitar players often have is they usually rely on systems of visualization at least at first
+[00:20:19 - 00:20:26] Until they start getting more advanced where they only have to know what the notes are on say this the first five frets
+[00:20:26 - 00:20:31] Usually people are very familiar with and then the lowest two strings at least up to the 12th or 15th frets
+[00:20:32 - 00:20:36] Now what I'm saying is you need to know where all the notes are on the fretboard
+[00:20:36 - 00:20:38] Now this seems like a monumental task
+[00:20:38 - 00:20:42] But it's like anything else if you spend a little bit of time every day
+[00:20:43 - 00:20:47] Learning where the notes are on the fretboard soon enough it will all come together for you
+[00:20:47 - 00:20:50] And of course there's lots of ways you can do this
+[00:20:50 - 00:20:55] You can learn what the dots are on each string and then the other notes in between will fall into place
+[00:20:55 - 00:20:58] I'm not actually going to teach you what the notes on the fretboard are today
+[00:20:58 - 00:21:02] I'm assuming that you know that or if you don't know it you're going to go away and learn it
+[00:21:02 - 00:21:04] It's not a difficult thing to do
+[00:21:04 - 00:21:09] You need a little bit of music theory in terms of what the musical alphabet is or the chromatic scale if you like
+[00:21:10 - 00:21:16] So basically knowing where your sharps and flats occur and then you just apply that to the instrument
+[00:21:16 - 00:21:20] Okay, that's not the purpose of this tutorial. That's too basic if you like for want of a better term
+[00:21:21 - 00:21:28] But let me really reiterate it's massively important that you know what notes on the fretboard are and I'll explain why in a second
+[00:21:28 - 00:21:32] Now you need to know if I pointed to the 10th fret on the B string
+[00:21:32 - 00:21:36] Immediately that that's an A if I point to the 4th fret on the G string
+[00:21:36 - 00:21:40] That's a B by point to the 7th fret. That's right the 9th fret on the on the D string
+[00:21:40 - 00:21:46] That's a B second fret on the D string. That's an E so on and so forth. That has this that information has to be there
+[00:21:47 - 00:21:53] Now the reason that has to be there is the system that we're going to use for visualizing intervals is based on root notes
+[00:21:54 - 00:21:56] And if you can't see the root note
+[00:21:56 - 00:22:01] Immediately the rest of the visualization process falls on its you know falls on its face
+[00:22:01 - 00:22:03] It's not going to work anymore
+[00:22:03 - 00:22:08] So it's massively important that you understand and can find root notes anywhere on the fretboard very quickly
+[00:22:08 - 00:22:12] Now obviously all guitar players have kind of gray zones or weaker spots
+[00:22:12 - 00:22:17] Certainly for me, you know this kind of area is less comfortable than anywhere else on the fretboard
+[00:22:17 - 00:22:23] Although I do know where those notes are but then the amount of time I spend improvising up the you know
+[00:22:23 - 00:22:28] There's the 19th or 20th frets of the A string is very minimal indeed because there's notes
+[00:22:28 - 00:22:31] A don't sound that great up there and B are much easier to play elsewhere
+[00:22:31 - 00:22:35] So, you know, it's okay if you're not that familiar here
+[00:22:35 - 00:22:40] But certainly up to the 15th fret on every single string that recommend you learn or not recommend
+[00:22:41 - 00:22:44] Guarantee if you recommend it's going to make you a much better player
+[00:22:44 - 00:22:52] Okay, so with that said let's set up a harmonic scenario. Okay, or a kind of playing scenario
+[00:22:52 - 00:22:58] Let's say we're going to play over an a-7 chord. Okay, so I'm minus seven chord. We've got this kind of a sound
+[00:23:00 - 00:23:05] Where you guys can play that you can basically bar across the fifth fret of all six strings
+[00:23:05 - 00:23:10] And they put your third finger on the seventh fret of the A string that gives you an a-7. Okay, I'm gonna play like this
+[00:23:11 - 00:23:16] Now some of you guys might immediately be thinking of a scale that you can play over this
+[00:23:16 - 00:23:19] I'm gonna stop you right there and say don't do that yet
+[00:23:20 - 00:23:23] If you know how to do that if you can think of you know a few different scales
+[00:23:23 - 00:23:24] You can play over that chord
+[00:23:24 - 00:23:28] Fantastic if you can find them in a position where you can find a shape for them
+[00:23:29 - 00:23:33] Great, but don't worry about that just yet. We're gonna think about that later down the line again
+[00:23:33 - 00:23:40] Remember our system is going to work on octaves. Okay, rather than thinking big six string shapes or five string shapes
+[00:23:40 - 00:23:47] Okay, so let's start by just identifying where all of the A's are on the fretboard and again
+[00:23:47 - 00:23:49] I'm not going to do this so I teach you where they all are
+[00:23:49 - 00:23:53] That's up to you. I'm going to teach you all the other interval shapes that we're gonna learn
+[00:23:53 - 00:23:58] But I'm not going to teach you early the root notes are for every single, you know note on the fretboard
+[00:23:58 - 00:24:05] That would just take forever. That's another tutorial unto itself. Okay, but let's start this fifth fret of the age of the
+[00:24:05 - 00:24:12] Okay, so again make sure you can see my nuts, you know, okay now all I'm gonna do is I'm gonna spend some time identifying where all the A's are
+[00:24:20 - 00:24:30] Now if I find that I can't see those root notes quickly enough
+[00:24:30 - 00:24:34] Anywhere on the fretboard again given that some of us will have some gray areas
+[00:24:34 - 00:24:37] I need to work on that. I need to be able to see them really really quickly
+[00:24:38 - 00:24:44] Okay, now we get into changes playing later on this becomes even more important because the root note
+[00:24:44 - 00:24:47] It's going to be the fundamental position that we're going to look for not position
+[00:24:47 - 00:24:51] But the fundamental note that we're going to look for to visualize all of our other intervals from
+[00:24:51 - 00:24:55] But let's say we've gone through that process and now we know where all of those A's are
+[00:24:55 - 00:25:00] Now before we think about any scales or any arpeggios
+[00:25:00 - 00:25:06] Let's think about the chord construction for that particular chord. Okay now again
+[00:25:06 - 00:25:09] This is not a theory lesson. So if you don't know the chord construction
+[00:25:09 - 00:25:14] I recommend you do some basic music theory into how chords are constructed how scales are constructed
+[00:25:14 - 00:25:21] So on and so forth. That's just fundamental information that if you don't know this system of visualization is going to be a nightmare for you
+[00:25:21 - 00:25:27] Okay, as is any other visualization system. You really should know that basic music theory. Okay, so if you don't it's not a lecture
+[00:25:27 - 00:25:31] Just go away and learn it really important. So for those that do know a
+[00:25:32 - 00:25:36] Minus seven chord has a root note a flattened third a
+[00:25:37 - 00:25:44] Perfect fifth or a natural fifth and a flattened seventh. Okay, let's figure all of that information except just for the root and the flattened third
+[00:25:44 - 00:25:49] Okay, so that root and flattened third we can find the root anywhere on the guitar
+[00:25:49 - 00:25:53] We know we can do that so we can find A's in this case anywhere on the guitar
+[00:25:53 - 00:25:56] If it was a different root note if it was an F sharp minus seven or a B minus seven
+[00:25:56 - 00:25:59] We'd do the same thing but we'll be looking for F sharps or B's okay
+[00:25:59 - 00:26:02] But in this case we're looking for a's a minus seven. Okay, so here's the chord
+[00:26:04 - 00:26:06] Now that flat three interval
+[00:26:06 - 00:26:11] Without referring to any scales without referring to any arpeggio shapes
+[00:26:11 - 00:26:17] We can visualize that as a standalone thing on the guitar by looking at what the shape of a root and
+[00:26:17 - 00:26:20] Flat three in relation to one another looks like well
+[00:26:20 - 00:26:25] The first way of doing it is on the same string now all of these intervals that we're going to go through
+[00:26:26 - 00:26:31] Mapped out in a PDF file for you as part of the tutorial so if you don't know this and you need to learn them
+[00:26:31 - 00:26:33] We're going to go through all the different intervals
+[00:26:34 - 00:26:39] Within an octave and then I'm going to show you the different ways or some of the different ways that you can play them on the
+[00:26:39 - 00:26:43] Guitar and then I'll all be mapped out in standard tuning and in force tuning
+[00:26:43 - 00:26:45] And then there'll be a little supplemental bit at the end of this
+[00:26:45 - 00:26:51] I need to show you how to figure these out in standard tuning when you move between the G and the B string the
+[00:26:51 - 00:26:54] G and the E string because that changes things up slightly because of the tuning
+[00:26:54 - 00:27:00] Okay, so let's start before you get any any further. Let's have a look at this route to flat three relationship
+[00:27:00 - 00:27:04] Okay, so on the same string on one string we can go from the fifth fret
+[00:27:05 - 00:27:07] to the eighth fret
+[00:27:09 - 00:27:10] That's shape
+[00:27:10 - 00:27:18] One two three four or if you count this as being zero one two three frets higher so five going to eight
+[00:27:19 - 00:27:21] It's the shape of a flat three interval
+[00:27:23 - 00:27:26] Now wherever I place my first finger on an A
+[00:27:28 - 00:27:32] The same shape is gonna work if I get to the 12th fret of the A string
+[00:27:33 - 00:27:38] This is an A do the same shape I get a flat three interval. I'm not thinking about a scale
+[00:27:38 - 00:27:39] I'm not thinking about an arpeggio
+[00:27:39 - 00:27:41] I'm just thinking about a root note
+[00:27:41 - 00:27:46] And I know the chord that I'm playing over contains a flat three or a flatten or a minor third interval
+[00:27:46 - 00:27:48] So I'm gonna play that shape
+[00:27:49 - 00:27:51] Again here at the 14th fret of the G string. That's an A
+[00:27:53 - 00:27:58] Same shape works for you guys the 10th fret of the B string for me the ninth fret the C string
+[00:28:00 - 00:28:02] So be there guys that'll be 10 to 13
+[00:28:04 - 00:28:07] Okay, down here at the second fret. Okay, let me just make sure you can see the nuts
+[00:28:09 - 00:28:12] Okay, then at the for you guys the fifth fret of the
+[00:28:12 - 00:28:16] The E string going up to the 8th fret for me. It's the 4th going to the 7th
+[00:28:17 - 00:28:23] All of these are a's everywhere I place my first finger there is an A. Okay, and then
+[00:28:24 - 00:28:26] Not everywhere, but everywhere I place put my first finger on an A
+[00:28:26 - 00:28:32] I should say that same shape is gonna work for a flat three interval now the key to this is at no point here
+[00:28:32 - 00:28:36] When I thinking a scale shape, I'm not thinking a particular pattern on the guitar
+[00:28:36 - 00:28:41] I'm thinking a very small piece of information and your brain is very good at manipulating
+[00:28:42 - 00:28:49] Small pieces of information. It's not so good and manipulating large pieces of information big six string shapes
+[00:28:49 - 00:28:52] It's not so good about it's much better at manipulating small pieces of information
+[00:28:53 - 00:28:59] Okay, so with that said in the next section what we're gonna do is we'll look at how we can take this flat three interval and
+[00:28:59 - 00:29:05] Expand this idea and play this all over the guitar using lots of different shapes for this flat three interval
+[00:29:05 - 00:29:10] But again only within the space of one octave and this will allow you to play this interval anywhere on the guitar with
+[00:29:11 - 00:29:18] E so let's do that now
+[00:29:18 - 00:29:24] Okay, so now we've mapped out this basic flat third interval using this one shape and we know we can play it anywhere on the guitar
+[00:29:25 - 00:29:26] starting on an A and
+[00:29:26 - 00:29:32] We know where all the a's are again a few kind of assumptions here, but make sure you learn where all these group notes are
+[00:29:32 - 00:29:38] It's very all the notes are on the guitar. It's really important to map out the next part of the process
+[00:29:38 - 00:29:40] Now the thing is
+[00:29:40 - 00:29:43] Before we start mapping out any other flat third intervals
+[00:29:43 - 00:29:48] I want to make it very clear that the only note name that I'm thinking about when I'm improvising is the root notes
+[00:29:49 - 00:29:53] Of course, I know what the other notes are on the guitar because I've gone through the process of learning them
+[00:29:53 - 00:29:57] But the thing is we want generic pieces of information to think about
+[00:29:58 - 00:30:00] We don't always want to be thinking as guitar players
+[00:30:00 - 00:30:05] Especially about what all the note names that we're playing are of course you can and you should be able to tell
+[00:30:05 - 00:30:07] Anybody at any point what note you're playing
+[00:30:07 - 00:30:14] That's very important, especially if you're a reader or so on you know any of the the kind of core musical skills of being musician
+[00:30:14 - 00:30:16] Not just a guitar player
+[00:30:16 - 00:30:21] However, for the sake of getting to the information quickly and making good note choices
+[00:30:21 - 00:30:23] We only need to know that this is an A
+[00:30:24 - 00:30:28] The only other piece of information that's relevant here is that this is a flat three interval
+[00:30:28 - 00:30:31] The fact that it's a C is kind of secondary information
+[00:30:31 - 00:30:36] It's not so important and the reason I say that is because again if we were playing over chord changes
+[00:30:36 - 00:30:38] Let's say we're going from a minus seven
+[00:30:40 - 00:30:42] up to C minus seven
+[00:30:42 - 00:30:45] And there was like two bars on each chord. So we had
+[00:30:50 - 00:31:08] When we play over those two chords if we just think about the root notes and the flat threes
+[00:31:09 - 00:31:11] If we think about where the root notes are we go from a
+[00:31:12 - 00:31:14] to C
+[00:31:15 - 00:31:19] Okay, the root note changes, but the flat three part doesn't change
+[00:31:20 - 00:31:24] The note name would change if we think about the note name we go from a to C
+[00:31:24 - 00:31:26] That's root to flat three for a
+[00:31:27 - 00:31:29] But for C we'd go from C to E flat
+[00:31:30 - 00:31:32] But if you look at the shape that I'm playing
+[00:31:35 - 00:31:36] It's identical
+[00:31:36 - 00:31:42] So in terms of thinking about the note name of the flat three it becomes superfluous or extraneous information
+[00:31:42 - 00:31:47] We don't necessarily need to think about it again. I'm not saying you shouldn't know what it is
+[00:31:47 - 00:31:49] It's very useful to know what it is
+[00:31:49 - 00:31:54] But if you referred to let's say you're talking to a sax player or piano player and you said oh
+[00:31:54 - 00:31:57] I was gonna play let's play over a minus seven so play the a then the flat three
+[00:31:58 - 00:32:02] They would know exactly what you were talking about so you can communicate that way. That's the first thing
+[00:32:02 - 00:32:04] But the second thing is it's much more
+[00:32:05 - 00:32:07] You know so much more sort of
+[00:32:08 - 00:32:12] What's the word? It's a much more kind of a faster process or
+[00:32:13 - 00:32:18] Yeah faster process basically or a streamline that was the way I was looking for a more streamlined process to actually think about
+[00:32:18 - 00:32:22] There's the root. There's the flat three. There's the root. There's the flat three
+[00:32:22 - 00:32:24] There's the root. There's the flat three. There's the root. There's the flat three
+[00:32:24 - 00:32:28] So that any minus seven chord you're playing over it's a generic system
+[00:32:28 - 00:32:31] You look for the root and you see the flat three. Don't worry about thinking what the note name is
+[00:32:31 - 00:32:35] Just look for the root. There's the flat three. Okay, so now I've said that
+[00:32:36 - 00:32:41] Let's have a look at some other flat three shapes that we can play just based around an octave
+[00:32:41 - 00:32:46] Okay, we're not gonna go any higher than an octave. Okay, so there's our first flat three interval
+[00:32:47 - 00:32:50] And we can also play a flat three game
+[00:32:50 - 00:32:52] Let's show you can see my nut from the fifth fret
+[00:32:53 - 00:32:57] The age of the e-string for the third fret of the a string
+[00:33:01 - 00:33:03] Okay, same notes
+[00:33:03 - 00:33:05] But again, I'm not thinking a to c
+[00:33:06 - 00:33:10] I'm just thinking root notes a to flat three and I'll learn the shape
+[00:33:12 - 00:33:15] So five on the e-string three on the a string
+[00:33:16 - 00:33:20] Now again anywhere I place my third finger on an a
+[00:33:22 - 00:33:24] I get the same shape happening
+[00:33:27 - 00:33:32] The only problem you have with this it's not really a problem because you've been doing it your entire guitar playing life
+[00:33:32 - 00:33:40] If you play in standard tuning is anytime you get an interval between the g and the b string or the g and the e string
+[00:33:40 - 00:33:46] The high e you need to change the shape by moving the higher note up and up a semi ton or up a fret
+[00:33:46 - 00:33:51] So let me give you an example if I take this a on the 14th fret the g string, okay?
+[00:33:52 - 00:33:56] Well the shape is no longer this in standard tuning
+[00:33:56 - 00:34:01] We need to move this first finger up a fret and that's because of the way the guitar is tuned
+[00:34:02 - 00:34:05] The guitar is tuned so it's perfect fourths all the way
+[00:34:06 - 00:34:11] Except between the g and the b string where we have a major third and we need to compensate for that
+[00:34:11 - 00:34:15] By any time that we have an interval let's say the root note is on the g string
+[00:34:15 - 00:34:18] And we've got another note on the b or the e
+[00:34:18 - 00:34:24] We need to move that note on the b or the e string up a semi ton or up a fret really really important now in my
+[00:34:24 - 00:34:27] Tuning and force tuning. I don't need to do that. It's the same
+[00:34:28 - 00:34:30] There's my a and my flat through
+[00:34:31 - 00:34:37] But for you guys in standard tuning that will be 14th fret on the g to the 13th fret on the b
+[00:34:38 - 00:34:41] Okay, so really important to understand that again catalog that shape
+[00:34:42 - 00:34:46] This is what we're doing. We're cataloging very small pieces of information here
+[00:34:48 - 00:34:53] Okay, go to any a make sure you can visualize both types of flat through both shapes of flat through
+[00:34:54 - 00:34:56] Go to this a
+[00:34:57 - 00:35:03] Okay for you guys remember it's going to be at the first fret of the b string here because we have to move up a fret
+[00:35:03 - 00:35:07] So g2 going to b1 for me. It's the open string
+[00:35:08 - 00:35:11] Okay, go to this a here at the 12th fret of the a string
+[00:35:14 - 00:35:17] Okay, go to this a let's say at the
+[00:35:18 - 00:35:24] For you guys, it's going to be the 15th fret so sorry the 17th fret. I do apologize of the beach of the high e string
+[00:35:25 - 00:35:30] It's the fret below
+[00:35:30 - 00:35:35] Okay, so now we've got two ways of visualizing a flat three interval
+[00:35:51 - 00:35:54] Important what I was doing there is I was making music based on
+[00:35:55 - 00:35:58] Those two interval shapes and at this point we've made some music
+[00:35:58 - 00:36:03] We've just got a root and a flat three and we've created something with it something musical. So if my pulse is here
+[00:36:05 - 00:36:24] Make music with those intervals and that's really important because we've not thought of a scale shape
+[00:36:24 - 00:36:28] We've not thought of an arpeggio shape. We're not grounding this in a particular big box
+[00:36:28 - 00:36:34] We're just thinking about those two things root flat three root flat three root flat three, okay
+[00:36:34 - 00:36:39] So that's two ways of thinking about that root note ascending. We've got this version
+[00:36:39 - 00:36:42] On the same string and this version on an adjacent string
+[00:36:44 - 00:36:49] We can also descend. Okay, think about descending intervals and we should so here's an a
+[00:36:50 - 00:36:51] the
+[00:36:51 - 00:36:55] The seventh fret of the D string sorry brain failure there guys the seventh fret of the D string
+[00:36:55 - 00:36:59] Well, we can play our flat three interval like this
+[00:37:01 - 00:37:06] Okay, so that's seventh fret of the D string going down to the third fret of the a string
+[00:37:06 - 00:37:11] Okay, so that's another way of visualizing that
+[00:37:14 - 00:37:18] Okay, now when we do that on the between the B and the G string again
+[00:37:18 - 00:37:24] Remember, it's gonna be a wider shape. So it's gonna be this it's gonna be there's the a at the 10th fret the B string again
+[00:37:24 - 00:37:29] This is written out for you in the PDF files. Okay, we're gonna be at the fifth fret of the B string
+[00:37:29 - 00:37:31] Okay, so for me, it's the same shape
+[00:37:32 - 00:37:38] You guys it's 10 to 5 10 on the B 5 on the G and remember the reason for that is any time we have a
+[00:37:40 - 00:37:43] Interval between the G and the B string we have to move them out on the B string upper frets
+[00:37:44 - 00:37:47] Okay, or in this case we have to move down on the G string
+[00:37:52 - 00:37:54] Okay, so I can look for those a's
+[00:37:55 - 00:37:58] Play that same interval shape. Okay files to play it
+[00:37:59 - 00:38:03] The 16th fret for me or the 17th fret for you guys of the B of the high E string
+[00:38:05 - 00:38:07] The same thing works
+[00:38:07 - 00:38:09] The same shape
+[00:38:09 - 00:38:15] Okay, so that's another way the final way we're gonna do the the interval is if we put the first finger on this a
+[00:38:15 - 00:38:21] At the 7th fret of the D string we can play flat 3 at the 8th fret of the low e
+[00:38:23 - 00:38:25] Again descending flat and third interval
+[00:38:29 - 00:38:35] And again, I'm just cataloging these four different shapes now for a flat 3 interval. So here's one
+[00:38:36 - 00:38:38] Here's the second one
+[00:38:38 - 00:38:40] Both descending here's the third one this one descends
+[00:38:42 - 00:38:44] And here's the fourth one
+[00:38:46 - 00:38:48] And again, I will write those out in various parts of the guitar
+[00:38:48 - 00:38:51] So if you are in standard tuning you can see where they're supposed to go
+[00:38:51 - 00:38:55] When you're between the G and the B or the G in the E string because that's a little bit more confusing
+[00:38:59 - 00:39:05] And again, what I would do at this point is once you've learned where these intervals are you've learned the shape of them
+[00:39:05 - 00:39:12] I would identify them from every single a on the fretboard. Okay, sometimes you can't descend if you're on this a here
+[00:39:13 - 00:39:15] Obviously, you can't descend you run out of strings
+[00:39:15 - 00:39:23] Okay, but within reason wherever you can descend and they send I would play the intervals so find every single a on the fretboard
+[00:39:23 - 00:39:25] So
+[00:39:29 - 00:39:31] Don't play G like I just did
+[00:39:34 - 00:39:41] So on and so forth so that you're really
+[00:39:42 - 00:39:49] Taking into your minds exactly where all of those a's are and where all of those flat 3's are but not at this point
+[00:39:49 - 00:39:54] Relating it to a scale at all and the key here is you are improvising with very conscious note choices
+[00:39:54 - 00:40:00] You find in the root note you find the flat 3 and you're making a decision which note to play and you're always aware of which interval
+[00:40:00 - 00:40:05] You're playing if you try to do this with big scale shapes or three note per string system say for instance
+[00:40:05 - 00:40:09] This will be much much harder. Okay, so having said that now
+[00:40:09 - 00:40:13] Let's move on to some other intervals and we'll have a look at how we can map those out on the fretboard as well
+[00:40:13 - 00:40:18] I want to talk a little bit more about how you can visualize scales and arpeggios as well
+[00:40:18 - 00:40:19] Okay, let's do that now
+[00:40:19 - 00:40:26] Okay, so for now
+[00:40:26 - 00:40:32] Let's stick with our a minus seven sound and the reason this is useful is because first of all the a minus seven
+[00:40:32 - 00:40:33] It's got four intervals in it
+[00:40:33 - 00:40:38] So if we map out those four intervals and actually three extra intervals because the root note
+[00:40:38 - 00:40:41] Well, we don't need to really to map those out if you know where they are
+[00:40:41 - 00:40:47] So we've got the flat 3 the 5 and the flat 7 if we map those out within each octave
+[00:40:47 - 00:40:51] So we know how to play them at least two or three different ways then in theory
+[00:40:51 - 00:40:52] We should be able to play
+[00:40:52 - 00:40:57] Full arpeggio anywhere we like on the fretboard and visualize it in tons of different ways
+[00:40:57 - 00:40:59] So we'll have a look at that
+[00:40:59 - 00:41:06] We're gonna map out the fifth and the flat 7 next and once we've done that if we then add the fourth interval in so that natural 4
+[00:41:07 - 00:41:09] Against the root note. We've got a minor pentatonic scale
+[00:41:10 - 00:41:14] But the beauty of this is we'll be able to play that minor pentatonic scale
+[00:41:14 - 00:41:17] But we won't be thinking any positions or patterns at all
+[00:41:17 - 00:41:23] We'll just be thinking in terms of where's the root note? Where's the flat 3? Where's the 4?
+[00:41:23 - 00:41:25] Where's the flat 7? Where's the 5 so on and so forth?
+[00:41:25 - 00:41:27] So we'll be able to play completely freely
+[00:41:28 - 00:41:33] Making up our own shapes and our own ways of playing the through the scale thinking about intervals
+[00:41:33 - 00:41:36] Rather than thinking about a predetermined scale shape
+[00:41:36 - 00:41:40] Now, of course the beauty of this is that if you already know some predetermined shapes
+[00:41:40 - 00:41:42] Those are just going to help you out even more
+[00:41:42 - 00:41:48] But the beauty of this system is that it's going to allow you to stop thinking in terms of boxes and shapes and start
+[00:41:48 - 00:41:54] Thinking in smaller pieces of information that are much much easier to manipulate and much much easier to see on the fretboard
+[00:41:54 - 00:42:01] And then later when we get into changes based playing you'll find it much easier to play over changes and target chord tones
+[00:42:01 - 00:42:06] So having said that let's now have a look at fifths. Okay, so this is the root note
+[00:42:06 - 00:42:08] his RA again
+[00:42:09 - 00:42:14] We've mapped those out all over the fretboard. Let's now have a look for fifths. So our fifth looks like this
+[00:42:14 - 00:42:16] It looks like a power chord basically. That's the root note
+[00:42:18 - 00:42:23] fifth fret of the E string and then we're going to play the seventh fret of the A string
+[00:42:25 - 00:42:27] Okay, so that's what our fifth looks like
+[00:42:28 - 00:42:33] Again, now what we've got to do is take that shape and place our first finger on A's all over the fretboard
+[00:42:34 - 00:42:37] And start thinking about that shape and try to fit it
+[00:42:38 - 00:42:40] from every A
+[00:42:40 - 00:42:46] On the fretboard remember when you get to the any time that you're going from the G to the B or the G to the
+[00:42:46 - 00:42:48] E string we need to move up a fret
+[00:42:48 - 00:42:52] So instead of being here's our A at the second fret of the G string instead of being the same shape
+[00:42:52 - 00:42:55] We now move up a fret. Okay, for me, it's the same shape
+[00:42:56 - 00:43:00] Maybe you guys just like to see some of the advantages if you didn't already know a force tuning
+[00:43:02 - 00:43:03] Making a time more symmetrical
+[00:43:03 - 00:43:07] Then we take the A at the 10th fret of the B string and we get the same shape
+[00:43:07 - 00:43:10] Okay, we go from the 10th fret to the 12th fret for me
+[00:43:10 - 00:43:12] It's the ninth going up to the 11th because of the tuning
+[00:43:13 - 00:43:18] But you can hear it's the same you guys play 10 on the B to 12 on the E. You'll hear it's the same
+[00:43:19 - 00:43:21] So again
+[00:43:23 - 00:43:31] Just going through mapping out from every single A root note that interval making sure I can play it
+[00:43:31 - 00:43:36] Okay, if you try to play the A at the fifth fret of the E string obviously you couldn't play that interval
+[00:43:36 - 00:43:40] It wouldn't work anymore. So just to be aware of that, you know, it's
+[00:43:41 - 00:43:46] Just being sort of sensible with where you visualize the interval. Okay another way of visualizing the fifth
+[00:43:47 - 00:43:49] Okay, it's to go from the fifth fret on the E string
+[00:43:50 - 00:43:51] and then going
+[00:43:51 - 00:43:53] Onto the second fret of the D string
+[00:43:56 - 00:43:58] That's another way of visualizing that fifth
+[00:44:01 - 00:44:03] So five on the E to two on the D
+[00:44:04 - 00:44:10] And again, I can do the same thing if I take this A here at the fifth fret of the D string now because I'm going to the B
+[00:44:10 - 00:44:12] String I have to go up a fret
+[00:44:12 - 00:44:16] Okay, so this also occurs if I go from the D string to the B string
+[00:44:16 - 00:44:19] I have to do the same thing again because of the tuning
+[00:44:19 - 00:44:21] Okay, because I'm incorporating this
+[00:44:21 - 00:44:25] Interval between the G and the B string or the D and the B string and now have to move up a fret
+[00:44:25 - 00:44:30] So instead of this shape going seven on the D to four on the B
+[00:44:30 - 00:44:32] I go seven on the D to five on the B
+[00:44:32 - 00:44:34] For me, it's the same
+[00:44:34 - 00:44:37] If you guys go to the fifth fret you'll hear it sounds correct
+[00:44:38 - 00:44:40] Go to this A at the 12th fret of the A string
+[00:44:41 - 00:44:43] Okay, this one here
+[00:44:44 - 00:44:48] Again because I'm going from G to the E string. I need to move up a fret
+[00:44:48 - 00:44:50] Okay
+[00:44:50 - 00:44:52] For me, it's the same because of the tuning
+[00:44:53 - 00:44:58] Okay, so that's our fifth ascending now. Let's have a look at some fifths descending
+[00:44:58 - 00:45:08] So in terms of fifths descending we're actually going to use one shape
+[00:45:08 - 00:45:10] So if we've got say for instance
+[00:45:10 - 00:45:14] There's no point visualizing a fifth descending from this low A because we can't go any lower
+[00:45:14 - 00:45:20] But if we visualize this A at the seventh fret of the D string we can visualize the fifth
+[00:45:20 - 00:45:27] Descending down onto the next string but the same fret so D7 going to A7 and again catalog that shape in your mind
+[00:45:30 - 00:45:32] Okay, really important that you catalog all of these shapes as you're going
+[00:45:34 - 00:45:36] This is not meant to be a fast process by the way
+[00:45:36 - 00:45:41] It's obviously recovering these fairly quick for the purpose of the tutorial, but it's not a fast process
+[00:45:41 - 00:45:43] You need to do this slowly and work on them slowly
+[00:45:44 - 00:45:48] Okay, so that's our shape going down is the A
+[00:45:49 - 00:45:54] Descending down to the fifth and again, I know what note this is it's an E, but I'm not worried about that
+[00:45:54 - 00:45:57] I'm just worried about this is the roots. What does the fifth descending look like?
+[00:45:58 - 00:46:01] And again now I can place my A anywhere. I like on the fretboard
+[00:46:01 - 00:46:05] Well anyway, I've got to play now you but I can place the A in different parts of the fretboard
+[00:46:08 - 00:46:10] We get the same shape place it here
+[00:46:11 - 00:46:13] Place it here
+[00:46:14 - 00:46:17] Again for you guys that's going to look slightly different because of the tuning
+[00:46:18 - 00:46:20] Okay, place it here
+[00:46:21 - 00:46:27] And all of those are mapped all of these intervals out again remember in the PDF file so you can learn all of these different shapes
+[00:46:27 - 00:46:29] So now we know how to play a root
+[00:46:29 - 00:46:32] That was a given we're now to play a flat three
+[00:46:32 - 00:46:36] We're now to play a fifth in various different ways of sending and descending
+[00:46:36 - 00:46:40] Well now we should be able to map out a minor arpeggio or a minor chord
+[00:46:40 - 00:46:47] Because we've basically got root flat three and five. Okay, so hopefully you can see how this system starting to build now
+[00:46:47 - 00:46:49] So if I take this a here, I
+[00:46:50 - 00:46:52] Can see roots
+[00:46:52 - 00:46:54] flat three
+[00:46:54 - 00:46:56] I can see roots flat three
+[00:46:57 - 00:46:59] I can see roots five
+[00:47:00 - 00:47:02] I can see root five
+[00:47:02 - 00:47:04] I can see roots
+[00:47:04 - 00:47:06] flat three five
+[00:47:07 - 00:47:09] roots flat three
+[00:47:09 - 00:47:10] Five
+[00:47:10 - 00:47:12] Here's another route
+[00:47:12 - 00:47:14] Here's a flat three descending
+[00:47:14 - 00:47:16] Here's a flat three ascending
+[00:47:17 - 00:47:20] Here's the same route is the fifth
+[00:47:20 - 00:47:23] Here's the same route is the fifth
+[00:47:23 - 00:47:26] Here's the same route is the fifth
+[00:47:27 - 00:47:35] You get the idea. So now we've got roots flat three five five roots flat three roots
+[00:47:35 - 00:47:37] five
+[00:47:37 - 00:47:38] three
+[00:47:38 - 00:47:40] roots
+[00:47:40 - 00:47:42] five roots
+[00:47:42 - 00:47:45] five roots flat three roots
+[00:47:46 - 00:47:48] Send descending to flat three roots
+[00:47:49 - 00:47:51] descending to flat three roots
+[00:47:52 - 00:47:54] ascending flat three roots
+[00:47:54 - 00:48:00] descending flat three and then fifth roots and then flat three
+[00:48:02 - 00:48:06] That means I can play this particular
+[00:48:06 - 00:48:11] arpeggio, if you want to call it that, or particular set of intervals, anywhere I like on the fretboard.
+[00:48:16 - 00:48:33] Am I thinking a big arpeggio shape? I'm not thinking...
+[00:48:35 - 00:48:42] I'm not learning that as a big, constructed, six-string shape.
+[00:48:42 - 00:48:44] And then I have to play within that.
+[00:48:45 - 00:48:50] What tends to happen if people learn arpeggios that way, or learn chords that, or scales that way,
+[00:48:50 - 00:48:52] is they end up playing that shape.
+[00:48:53 - 00:48:56] Now, when you ask them to improvise, you get things like this.
+[00:48:59 - 00:49:02] You don't get a more kind of constructed or thought-out process,
+[00:49:02 - 00:49:05] in terms of not more constructed, but a more thought-out process.
+[00:49:05 - 00:49:09] And they don't tend to think so much about which intervals they're playing at any given time.
+[00:49:09 - 00:49:12] This allows you to visualize much smaller pieces of information.
+[00:49:12 - 00:49:14] Root, flat three.
+[00:49:14 - 00:49:17] Root, five.
+[00:49:17 - 00:49:18] Flat three.
+[00:49:18 - 00:49:19] Root.
+[00:49:19 - 00:49:20] Root.
+[00:49:20 - 00:49:22] Flat three.
+[00:49:22 - 00:49:23] Now, this root.
+[00:49:23 - 00:49:25] This root.
+[00:49:25 - 00:49:26] Sorry, five.
+[00:49:26 - 00:49:27] Flat three.
+[00:49:27 - 00:49:28] So on and so forth.
+[00:49:28 - 00:49:31] So you're much more in control of your note choice,
+[00:49:31 - 00:49:33] and much more in control of your visualization process.
+[00:49:33 - 00:49:34] Okay?
+[00:49:34 - 00:49:36] So now we need to look at the flat seven.
+[00:49:36 - 00:49:37] Okay?
+[00:49:37 - 00:49:38] There's two ways we can do this.
+[00:49:38 - 00:49:40] One ascending, and one descending.
+[00:49:40 - 00:49:41] Flat seven.
+[00:49:41 - 00:49:43] Here's the A here.
+[00:49:44 - 00:49:47] Well, flat seven is two strings higher.
+[00:49:47 - 00:49:49] So two strings towards the floor on the same fret.
+[00:49:49 - 00:49:51] So A five, sorry, E five is A,
+[00:49:51 - 00:49:54] and then we go to D five on the fifth fret on the D string.
+[00:49:54 - 00:49:56] That gives us our flat seven interval.
+[00:49:58 - 00:49:59] Okay?
+[00:49:59 - 00:50:01] So that's our ascending version of flat seven.
+[00:50:01 - 00:50:02] Okay?
+[00:50:02 - 00:50:04] All these intervals are within one octave.
+[00:50:05 - 00:50:09] We're only thinking from a root note and then an octave above or below.
+[00:50:10 - 00:50:11] Okay?
+[00:50:11 - 00:50:12] That's the first way.
+[00:50:12 - 00:50:13] Again, place your first finger on an A,
+[00:50:13 - 00:50:15] or any finger, in fact, on an A,
+[00:50:15 - 00:50:17] and then you can make the same shape.
+[00:50:17 - 00:50:19] Again, in standard tuning, it's slightly different.
+[00:50:19 - 00:50:21] We have to go up a fret on the B string.
+[00:50:21 - 00:50:22] For me, it's the same.
+[00:50:22 - 00:50:23] Again, these are all written out,
+[00:50:23 - 00:50:24] so don't worry if you're a little bit confused.
+[00:50:24 - 00:50:26] Check out the PDF if you get confused
+[00:50:26 - 00:50:28] about this standard tuning issue.
+[00:50:30 - 00:50:31] Okay?
+[00:50:31 - 00:50:33] This A here at the 12th fret of the A string.
+[00:50:34 - 00:50:36] This A at the 14th fret of the G string.
+[00:50:36 - 00:50:39] Remember, again, because I'm going between the G and the E string,
+[00:50:39 - 00:50:43] I need to move up a fret.
+[00:50:43 - 00:50:44] Okay?
+[00:50:44 - 00:50:45] Really important.
+[00:50:45 - 00:50:48] So it would be 14 on the G going to 15 on the high E.
+[00:50:48 - 00:50:49] Okay?
+[00:50:49 - 00:50:50] Again, this is...
+[00:50:50 - 00:50:52] You can see how important it is to know these note names now.
+[00:50:52 - 00:50:54] Got to find all these A's really quickly.
+[00:50:54 - 00:50:55] Same thing happens down here
+[00:50:55 - 00:50:57] at the second fret of the G string.
+[00:50:57 - 00:50:59] Except again, you have to move up a fret.
+[00:50:59 - 00:51:01] For me, it's the same.
+[00:51:01 - 00:51:02] Okay?
+[00:51:02 - 00:51:04] So you can see that's our flat seven interval ascending.
+[00:51:04 - 00:51:05] Okay?
+[00:51:05 - 00:51:07] Our flat seven interval descending is really easy.
+[00:51:07 - 00:51:09] It's on the same string,
+[00:51:09 - 00:51:11] and we can go back two frets.
+[00:51:14 - 00:51:15] Okay?
+[00:51:15 - 00:51:17] There's a third way we're going to do this as well.
+[00:51:17 - 00:51:20] So I'll make sure this third way is written out as well.
+[00:51:20 - 00:51:21] Okay?
+[00:51:21 - 00:51:22] So that's on the same string.
+[00:51:22 - 00:51:23] Here's our A.
+[00:51:23 - 00:51:26] Back two frets is the flat seven.
+[00:51:26 - 00:51:27] Here's another A.
+[00:51:27 - 00:51:29] Back two frets.
+[00:51:29 - 00:51:30] Here's another A.
+[00:51:30 - 00:51:32] Back two frets.
+[00:51:32 - 00:51:33] Keep going.
+[00:51:38 - 00:51:43] Just shows again how fast you have to be able to find these A's
+[00:51:43 - 00:51:45] on the fretboard of these root notes.
+[00:51:45 - 00:51:46] Okay?
+[00:51:46 - 00:51:47] Another way we can do this, the final way,
+[00:51:47 - 00:51:49] is here's our A with the first finger.
+[00:51:49 - 00:51:51] There's another descending interval.
+[00:51:51 - 00:51:53] And we're going to go to this next string down.
+[00:51:53 - 00:51:55] So in this case, the A string.
+[00:51:55 - 00:51:58] And we're going to go to the tenth fret.
+[00:52:00 - 00:52:02] So now we've got this,
+[00:52:03 - 00:52:05] that shape, and then this as well.
+[00:52:05 - 00:52:08] So in this case, seven on the A,
+[00:52:08 - 00:52:11] on the D, sorry, going to ten on the A.
+[00:52:12 - 00:52:15] And again, wherever we place our first finger on an A,
+[00:52:15 - 00:52:16] A.
+[00:52:23 - 00:52:25] Again, between the B and the G string,
+[00:52:25 - 00:52:27] we just need to modify this slightly
+[00:52:27 - 00:52:29] so that effectively we get this shape.
+[00:52:29 - 00:52:30] Okay?
+[00:52:30 - 00:52:32] Again, it's not this, it's this,
+[00:52:32 - 00:52:33] because of the tuning.
+[00:52:33 - 00:52:34] Okay?
+[00:52:34 - 00:52:36] Again, you'll see that written out in the PDF file.
+[00:52:36 - 00:52:37] Okay?
+[00:52:37 - 00:52:39] So we've got the tenth fret on the B string
+[00:52:39 - 00:52:41] and the twelfth fret, not the thirteenth fret,
+[00:52:41 - 00:52:43] but the twelfth fret on the G string.
+[00:52:43 - 00:52:45] For me, it's the same shape.
+[00:52:46 - 00:52:48] Take this A here at the sixteenth fret.
+[00:52:50 - 00:52:52] Same shape works, okay?
+[00:52:52 - 00:52:55] And then again, here at the fourth fret of the E string.
+[00:52:56 - 00:52:58] The fifth fret and eighth fret for you guys.
+[00:53:04 - 00:53:05] So now we've mapped out,
+[00:53:05 - 00:53:07] well you're going to have to learn them obviously
+[00:53:07 - 00:53:09] and really spend some time with these.
+[00:53:09 - 00:53:10] Take as long as it takes.
+[00:53:10 - 00:53:12] Don't try and jump around too much.
+[00:53:12 - 00:53:14] Get your flat three sorted first.
+[00:53:14 - 00:53:16] Or get your root note sorted first.
+[00:53:16 - 00:53:18] Then get your flat three sorted.
+[00:53:18 - 00:53:20] The fifths then do your flat sevens, okay?
+[00:53:20 - 00:53:23] Now you've mapped out the minor seven sound.
+[00:53:23 - 00:53:25] The harmonic formula,
+[00:53:25 - 00:53:28] the formula being that the intervals contained within,
+[00:53:28 - 00:53:31] sorry, within the arpeggio of a minor seven chord
+[00:53:31 - 00:53:32] and an A minor seven in this case.
+[00:53:32 - 00:53:34] Although it could be any minor seven
+[00:53:34 - 00:53:36] because the interval shapes were learning a generic.
+[00:53:36 - 00:53:38] They're not unique to A minor seven.
+[00:53:38 - 00:53:40] The only thing that's unique to A minor seven
+[00:53:40 - 00:53:42] is the A in this case.
+[00:53:42 - 00:53:44] If it was G sharp minor seven,
+[00:53:44 - 00:53:46] all the same shape supply, they're generic.
+[00:53:46 - 00:53:48] We just changed the root note to a G sharp
+[00:53:48 - 00:53:50] and that's the beauty of this system,
+[00:53:50 - 00:53:51] the beauty of the guitar actually
+[00:53:51 - 00:53:53] because the guitar allows us to transpose like this
+[00:53:53 - 00:53:55] very nicely indeed.
+[00:53:55 - 00:53:58] But because we did them with very small pieces of information,
+[00:53:58 - 00:54:00] just an interval at a time,
+[00:54:00 - 00:54:02] it's very easy to see this stuff on the fretboard.
+[00:54:02 - 00:54:04] Very easy to manipulate it, okay?
+[00:54:04 - 00:54:06] So in the next section,
+[00:54:06 - 00:54:08] we're going to basically just very quickly make some music
+[00:54:08 - 00:54:11] with this minor seven arpeggio sound.
+[00:54:11 - 00:54:13] Add in the fourth and then just basically
+[00:54:13 - 00:54:15] finish with a minor
+[00:54:15 - 00:54:17] pentatonic scale.
+[00:54:17 - 00:54:19] And then we're going to move on from there,
+[00:54:19 - 00:54:21] basically I'm going to show you how you can learn
+[00:54:21 - 00:54:23] all of the other intervals and then apply it
+[00:54:23 - 00:54:25] to any harmonic situation you like.
+[00:54:25 - 00:54:32] Okay, so let's do that now.
+[00:54:32 - 00:54:34] So we've reached the point now
+[00:54:34 - 00:54:36] where in quite a powerful position,
+[00:54:36 - 00:54:38] we've learned basically flat three,
+[00:54:38 - 00:54:40] the five and the flat seven interval.
+[00:54:40 - 00:54:42] Now before you go any further,
+[00:54:42 - 00:54:44] let me just give you an idea of how powerful this is.
+[00:54:44 - 00:54:46] Think about those three intervals.
+[00:54:46 - 00:54:48] The Dorian scale, the Eolian scale,
+[00:54:48 - 00:54:50] the Phrygian scale.
+[00:54:50 - 00:54:52] Two of them occur in the Locrian scale,
+[00:54:52 - 00:54:54] they occur in the Melodic Minor scale
+[00:54:54 - 00:54:56] or two of them do.
+[00:54:56 - 00:54:58] The Harmonic Minor scale, two of them occur in
+[00:54:58 - 00:55:00] the Minor Pentatonic scale they occur in.
+[00:55:00 - 00:55:02] They occur in a couple of other
+[00:55:02 - 00:55:04] Melodic Minor modes as well.
+[00:55:04 - 00:55:06] Very, very useful now
+[00:55:06 - 00:55:08] because they apply to lots of different scales.
+[00:55:08 - 00:55:10] We're not just learning these
+[00:55:10 - 00:55:12] three intervals and then
+[00:55:12 - 00:55:14] using them on one scale or one arpeggio.
+[00:55:14 - 00:55:16] They apply to all sorts
+[00:55:16 - 00:55:18] of harmonic scenarios, okay?
+[00:55:18 - 00:55:20] And that's one of the other reasons
+[00:55:20 - 00:55:22] why this system is so powerful
+[00:55:22 - 00:55:24] because it enables us to use
+[00:55:24 - 00:55:26] small pieces of information
+[00:55:26 - 00:55:28] in a very, very kind of efficient manner.
+[00:55:28 - 00:55:30] We can use them in lots of different places.
+[00:55:30 - 00:55:32] So, let's now
+[00:55:32 - 00:55:34] apply a harmonic situation,
+[00:55:34 - 00:55:36] this A minor seven sound.
+[00:55:36 - 00:55:38] I've got a backing track for you guys
+[00:55:38 - 00:55:40] that you can practice this over as well.
+[00:55:40 - 00:55:42] Okay, there's our A minor seven sound.
+[00:55:42 - 00:55:44] Let's take any given A
+[00:55:44 - 00:55:46] and this is how you're going to practice this.
+[00:55:46 - 00:55:48] You're going to take any given A on the fret board
+[00:55:48 - 00:55:50] and you're going to identify within an octave
+[00:55:50 - 00:55:52] where each of those intervals are.
+[00:55:52 - 00:55:54] So, let's take this A here.
+[00:55:54 - 00:55:56] This is the seventh fret of the D string.
+[00:55:56 - 00:55:58] Let's play the flat three.
+[00:56:00 - 00:56:02] It's descending.
+[00:56:02 - 00:56:04] Let's do the fifth.
+[00:56:04 - 00:56:06] Descending.
+[00:56:06 - 00:56:08] Again, just watch that one in standard tuning.
+[00:56:08 - 00:56:10] You need to be a fret higher at the fifth fret.
+[00:56:12 - 00:56:14] Descending.
+[00:56:14 - 00:56:16] And then the flat seven.
+[00:56:16 - 00:56:18] Again, for you guys, that's a fret higher.
+[00:56:22 - 00:56:24] And then, sorry,
+[00:56:24 - 00:56:26] I'm doing it in flat three there.
+[00:56:28 - 00:56:30] So, now I've mapped those intervals out.
+[00:56:30 - 00:56:32] I can play the arpeggio in many different ways.
+[00:56:32 - 00:56:34] So, root, flat three,
+[00:56:34 - 00:56:36] five, flat seven.
+[00:56:36 - 00:56:38] Or I could go root,
+[00:56:38 - 00:56:40] flat three,
+[00:56:40 - 00:56:42] five, flat seven.
+[00:56:42 - 00:56:44] I could go root
+[00:56:44 - 00:56:46] and then flat seven,
+[00:56:46 - 00:56:48] five, flat three,
+[00:56:48 - 00:56:50] root, flat three,
+[00:56:50 - 00:56:52] and then five,
+[00:56:52 - 00:56:54] root, flat seven,
+[00:56:54 - 00:56:56] five, root,
+[00:56:56 - 00:56:58] flat three,
+[00:56:58 - 00:57:00] five,
+[00:57:00 - 00:57:02] flat three,
+[00:57:02 - 00:57:04] root, flat seven,
+[00:57:04 - 00:57:06] root,
+[00:57:06 - 00:57:08] five, flat seven,
+[00:57:08 - 00:57:10] five, flat seven.
+[00:57:10 - 00:57:12] In each case, when I'm visualizing,
+[00:57:12 - 00:57:14] I'm always moving to the nearest
+[00:57:14 - 00:57:16] and most efficient A to visualize from.
+[00:57:16 - 00:57:18] I'm not seeing all the As at the same time.
+[00:57:18 - 00:57:20] I don't need to.
+[00:57:20 - 00:57:22] I only visualize the A nearest
+[00:57:22 - 00:57:24] to where I am at any given time.
+[00:57:24 - 00:57:26] So, if I'm in this part of the neck,
+[00:57:26 - 00:57:28] on the D string, I'm visualizing from this A.
+[00:57:32 - 00:57:34] I'll move over here. I'm visualizing from this A now.
+[00:57:34 - 00:57:36] My ninth fret, for you guys,
+[00:57:36 - 00:57:38] is my 10th fret of the B string.
+[00:57:38 - 00:57:43] Maybe back to this A now.
+[00:57:45 - 00:57:47] Now, maybe I'll move to this A
+[00:57:47 - 00:57:49] and visualize from here.
+[00:57:49 - 00:57:51] I'm not visualizing these other two As anymore.
+[00:57:51 - 00:57:53] I don't need to. I'm not in that part of the neck.
+[00:57:53 - 00:57:55] So, root five, root flat three.
+[00:57:55 - 00:57:57] I don't need to play the root even.
+[00:57:57 - 00:57:59] I can just use it to visualize from.
+[00:57:59 - 00:58:01] I don't necessarily need to play that root
+[00:58:01 - 00:58:03] in order to visualize the other intervals.
+[00:58:03 - 00:58:05] I don't even need to put my finger on it.
+[00:58:05 - 00:58:07] I just need to know where it is.
+[00:58:07 - 00:58:09] From this A here, whether I play it or not,
+[00:58:09 - 00:58:11] I can see where the fifth is.
+[00:58:11 - 00:58:13] I can see where the flat three is.
+[00:58:13 - 00:58:15] I can see where that flat seven is.
+[00:58:15 - 00:58:17] I can see where the fifth is, so on and so forth.
+[00:58:17 - 00:58:19] From this A here,
+[00:58:19 - 00:58:21] it's not so much position-based playing.
+[00:58:21 - 00:58:23] It's just playing within a small area of the neck
+[00:58:23 - 00:58:25] that allows you to visualize
+[00:58:25 - 00:58:27] very small pieces of information, basically.
+[00:58:27 - 00:58:29] But trying to do it in the most efficient manner.
+[00:58:29 - 00:58:31] So, from this A,
+[00:58:31 - 00:58:33] there's the flat three.
+[00:58:33 - 00:58:35] Or I could have visualized this flat three
+[00:58:35 - 00:58:37] from this A as an ascending interval.
+[00:58:37 - 00:58:39] I don't have to play either A.
+[00:58:39 - 00:58:41] I can just visualize where the flat three
+[00:58:41 - 00:58:43] is and only play that.
+[00:58:47 - 00:58:50] So that's playing around
+[00:58:50 - 00:58:52] that minor seven arpeggio sound
+[00:58:52 - 00:58:54] without ever having to learn
+[00:58:56 - 00:58:58] a big arpeggio shape.
+[00:58:58 - 00:59:00] Not that you shouldn't learn them.
+[00:59:00 - 00:59:02] Learn them, absolutely.
+[00:59:02 - 00:59:04] It's just that they're not as useful for improvisation.
+[00:59:04 - 00:59:06] They're useful in terms of ear training
+[00:59:06 - 00:59:08] and in terms of knowing
+[00:59:08 - 00:59:10] these bigger shapes are good
+[00:59:10 - 00:59:12] if you just want to play through an arpeggio.
+[00:59:14 - 00:59:16] But if you really want to be good
+[00:59:16 - 00:59:18] at identifying where all the intervals are
+[00:59:18 - 00:59:20] and improvise with these
+[00:59:20 - 00:59:22] and create interesting rhythmic sounds
+[00:59:22 - 00:59:24] and making good note choices,
+[00:59:24 - 00:59:26] this is a very useful system.
+[00:59:26 - 00:59:28] So, just really quickly, let's add the four things.
+[00:59:28 - 00:59:30] So we've got a full minor pentatonic scale
+[00:59:30 - 00:59:32] that I'm going to improvise
+[00:59:32 - 00:59:34] because it works in practice.
+[00:59:34 - 00:59:36] So the fourth is going to be
+[00:59:36 - 00:59:38] here's our A
+[00:59:38 - 00:59:40] and by the way the reason we're adding the fourth in
+[00:59:40 - 00:59:42] is because then that gives us a full minor pentatonic scale.
+[00:59:42 - 00:59:44] A minor pentatonic scale
+[00:59:44 - 00:59:46] is a root flat three, five, flat seven
+[00:59:46 - 00:59:48] like the arpeggio, the A minor seven arpeggio
+[00:59:48 - 00:59:50] but with the fourth added in
+[00:59:50 - 00:59:52] or the eleventh same note as well.
+[00:59:52 - 00:59:54] So here's the A.
+[00:59:54 - 00:59:56] Well the fourth is located on the same fret
+[00:59:56 - 00:59:58] upper string
+[00:59:58 - 01:00:00] on the A string in this case
+[01:00:00 - 01:00:02] so moving towards the floor.
+[01:00:04 - 01:00:06] So that's our fourth interval.
+[01:00:06 - 01:00:08] Now again, place your first finger
+[01:00:08 - 01:00:10] or any finger on any A
+[01:00:12 - 01:00:14] and just get used to that shape.
+[01:00:14 - 01:00:16] Again, get used to moving it so it fits for standard tuning.
+[01:00:16 - 01:00:18] For you guys that would be
+[01:00:18 - 01:00:20] second fret on the G to third fret on the D.
+[01:00:22 - 01:00:24] For me they're all the same.
+[01:00:24 - 01:00:26] They're all the same.
+[01:00:28 - 01:00:30] So that's our ascending
+[01:00:30 - 01:00:32] version of the fourth.
+[01:00:32 - 01:00:34] If we want to play a descending version
+[01:00:34 - 01:00:36] of the fourth we play
+[01:00:36 - 01:00:38] let's take our A here with the third finger
+[01:00:38 - 01:00:40] at the seventh fret of the D string
+[01:00:40 - 01:00:42] and then we go down to the A string
+[01:00:42 - 01:00:44] at the fifth fret. Again, catalogue that shape.
+[01:00:44 - 01:00:46] It's like going down a power chord.
+[01:00:48 - 01:00:50] You can hear it's the same thing
+[01:00:50 - 01:00:52] just reversed.
+[01:00:52 - 01:00:54] Again, look at that shape.
+[01:00:56 - 01:00:58] That gives us our fourth interval.
+[01:00:58 - 01:01:00] Again, place your A
+[01:01:00 - 01:01:02] on various parts of the fret board.
+[01:01:02 - 01:01:06] For you guys, your A is going to be
+[01:01:06 - 01:01:08] here at the tenth fret of the B string
+[01:01:08 - 01:01:10] and again look, the shape is slightly different
+[01:01:10 - 01:01:12] by a fret going back.
+[01:01:12 - 01:01:14] Again, you'll get used to this the more you do it.
+[01:01:14 - 01:01:16] For me it's the same.
+[01:01:16 - 01:01:18] We can also play that fourth
+[01:01:18 - 01:01:20] if we go from A here
+[01:01:20 - 01:01:22] at the seventh fret. Again, these are written out
+[01:01:22 - 01:01:24] I'm going through them fairly quickly
+[01:01:24 - 01:01:26] but take your time with them using the PDF file
+[01:01:26 - 01:01:28] just cataloging each of these intervals.
+[01:01:28 - 01:01:30] Here's the A again at the seventh fret of the D
+[01:01:30 - 01:01:32] we can also play our fourth
+[01:01:32 - 01:01:34] at the E string at the tenth fret
+[01:01:34 - 01:01:36] and again, catalogue that shape.
+[01:01:36 - 01:01:38] You'll notice it looks like
+[01:01:38 - 01:01:40] the fifth interval that we learned
+[01:01:40 - 01:01:42] but it's reversed, it's going down this time
+[01:01:42 - 01:01:44] because a fifth inverted
+[01:01:44 - 01:01:46] or going the other way is a fourth
+[01:01:46 - 01:01:48] perfect fourth.
+[01:01:48 - 01:01:50] Again, basic music theory
+[01:01:50 - 01:01:52] top up on that if you're not familiar with it.
+[01:01:54 - 01:01:56] So, there's our root note A
+[01:01:56 - 01:01:58] going down to the fourth
+[01:01:58 - 01:02:00] again place that first finger on an A
+[01:02:00 - 01:02:02] same shape still works
+[01:02:02 - 01:02:04] again place your first finger on an A
+[01:02:04 - 01:02:06] at the tenth fret
+[01:02:06 - 01:02:08] again it's not this
+[01:02:08 - 01:02:10] it's this because of the tuning
+[01:02:10 - 01:02:12] so we're going back a fret
+[01:02:12 - 01:02:14] with the interval that we want to actually learn
+[01:02:14 - 01:02:16] so for me it's the same shape
+[01:02:16 - 01:02:18] again refer to the PDF if you get confused
+[01:02:18 - 01:02:20] more of these you do the easier it becomes
+[01:02:20 - 01:02:22] same thing here
+[01:02:22 - 01:02:24] here's the fifth fret of the E string
+[01:02:24 - 01:02:26] that's an A and it's not this
+[01:02:26 - 01:02:28] it's this, that's your fourth interval
+[01:02:28 - 01:02:30] descending
+[01:02:30 - 01:02:32] maybe it's the same
+[01:02:32 - 01:02:34] so now you've catalogue those
+[01:02:34 - 01:02:36] now we've got an entire minor pentatonic scale
+[01:02:36 - 01:02:38] now you need to get each of these
+[01:02:38 - 01:02:40] intervals to the point where you know them
+[01:02:40 - 01:02:42] really clearly and fast and
+[01:02:42 - 01:02:44] subconsciously
+[01:02:44 - 01:02:46] so if you've got to this point of the tutorial
+[01:02:46 - 01:02:48] having never done this before
+[01:02:48 - 01:02:50] I don't know how long we've been going for
+[01:02:50 - 01:02:52] maybe just over an hour now or around an hour
+[01:02:52 - 01:02:54] and you feel like okay I'm a bit overwhelmed
+[01:02:54 - 01:02:56] how am I supposed to remember all of these interval shapes
+[01:02:56 - 01:02:58] where you're going too fast
+[01:02:58 - 01:03:00] you can watch the whole tutorial but bear in mind
+[01:03:00 - 01:03:02] you might need to spend a week or two weeks on one interval
+[01:03:02 - 01:03:04] getting it down but remember
+[01:03:04 - 01:03:06] once you've done that flat three interval
+[01:03:06 - 01:03:08] it might seem like man two weeks to learn one interval
+[01:03:08 - 01:03:10] really thoroughly all over the neck
+[01:03:10 - 01:03:12] but that interval occurs in all sorts
+[01:03:12 - 01:03:14] of chords and scales and arpeggios
+[01:03:14 - 01:03:16] now flat three interval or if it was the fifth
+[01:03:16 - 01:03:18] you'd learn on a flat seven
+[01:03:18 - 01:03:20] they occur in all sorts of scales and chords
+[01:03:20 - 01:03:22] if you think about the fifth
+[01:03:22 - 01:03:24] that occurs in the major scale
+[01:03:24 - 01:03:26] it occurs in the Dorian scale
+[01:03:26 - 01:03:28] it occurs in the Phrygian scale
+[01:03:28 - 01:03:30] it occurs in the Mixolydian scale
+[01:03:30 - 01:03:32] it occurs in the Lydian scale
+[01:03:32 - 01:03:34] it occurs in all sorts of information
+[01:03:34 - 01:03:36] all sorts of harmonic scenarios
+[01:03:36 - 01:03:38] so it's not just that you're learning it once
+[01:03:38 - 01:03:40] and you can only use it once
+[01:03:40 - 01:03:42] it's in all sorts of things
+[01:03:42 - 01:03:44] just to know how to play these intervals
+[01:03:44 - 01:03:46] from a root note
+[01:03:46 - 01:03:48] within an octave
+[01:03:48 - 01:03:50] so now we've basically got an entire minor pentatonic scale
+[01:03:50 - 01:03:52] mapped out with intervals
+[01:03:52 - 01:03:54] without ever having thought about
+[01:03:54 - 01:03:56] a box pattern or a box shape
+[01:03:56 - 01:03:58] something giving you an example
+[01:03:58 - 01:04:00] this A here
+[01:04:00 - 01:04:02] I know what intervals are in that scale
+[01:04:02 - 01:04:04] I know it's got a root which I'm fine with
+[01:04:04 - 01:04:06] I know that's A
+[01:04:06 - 01:04:08] so we don't need to think about that
+[01:04:08 - 01:04:10] we just need to know where the As are
+[01:04:10 - 01:04:12] flat 3, I know the scale's got a 4
+[01:04:12 - 01:04:14] I know it's got a 5
+[01:04:14 - 01:04:16] and a flat 7
+[01:04:16 - 01:04:18] again if you don't know that
+[01:04:18 - 01:04:20] you need to work on your basic music theory
+[01:04:20 - 01:04:22] however I have written out all the formulas
+[01:04:22 - 01:04:24] for every single scale
+[01:04:24 - 01:04:26] within reason
+[01:04:26 - 01:04:28] I've not written out weird kind of modes
+[01:04:28 - 01:04:30] of weird pentatonic scales
+[01:04:30 - 01:04:32] but all the usual useful scales
+[01:04:32 - 01:04:34] I've written all the formulas out
+[01:04:34 - 01:04:36] so all the intervals that contain them
+[01:04:36 - 01:04:38] within the PDF file of this tutorial
+[01:04:38 - 01:04:40] will scale that way
+[01:04:40 - 01:04:42] so if I've got one is my root notes
+[01:04:42 - 01:04:44] otherwise known as one
+[01:04:44 - 01:04:46] I can also find the flat 3
+[01:04:46 - 01:04:48] I can find the 4
+[01:04:48 - 01:04:50] I can find the 4
+[01:04:50 - 01:04:52] descending if I wanted to
+[01:04:52 - 01:04:54] if it was possible
+[01:04:54 - 01:04:56] the flat 3 descending but in this case I can't
+[01:04:56 - 01:04:58] so I've got flat 3
+[01:04:58 - 01:05:00] 4, 5
+[01:05:00 - 01:05:02] or 5
+[01:05:02 - 01:05:04] flat 7
+[01:05:04 - 01:05:06] so now I can start mapping these out in different ways
+[01:05:08 - 01:05:10] so
+[01:05:14 - 01:05:36] very very useful
+[01:05:36 - 01:05:38] so what I'm going to do now is I'm going to
+[01:05:38 - 01:05:40] improvise over a backing track I've created for you guys
+[01:05:40 - 01:05:42] and just trust me
+[01:05:42 - 01:05:44] that I'm thinking in this manner
+[01:05:44 - 01:05:46] and this is basically going to be me
+[01:05:46 - 01:05:48] improvising in an intervalic sense
+[01:05:48 - 01:05:50] as opposed to improvising using scale boxes
+[01:05:50 - 01:05:52] although I can't switch those off
+[01:05:52 - 01:05:54] in my mind I do know them
+[01:05:54 - 01:05:56] but I'm really thinking intervals and chord tones
+[01:05:56 - 01:05:58] so let's do that now
+[01:05:58 - 01:07:25] one thing to be aware of of course
+[01:07:25 - 01:07:27] is that you can't get inside of my head
+[01:07:27 - 01:07:29] and see what I'm thinking that would be impossible
+[01:07:29 - 01:07:31] but take my word for it
+[01:07:31 - 01:07:33] for the majority of that improvisation process
+[01:07:33 - 01:07:35] I was thinking in terms of root notes
+[01:07:35 - 01:07:37] and intervals based through an octave
+[01:07:37 - 01:07:39] basically and then updating as I go
+[01:07:39 - 01:07:41] which A I'm visualising from
+[01:07:41 - 01:07:43] in order to be as efficient as possible
+[01:07:43 - 01:07:45] so you can practice this in isolation
+[01:07:45 - 01:07:47] I'm going to show you how
+[01:07:47 - 01:07:49] so we're going to start
+[01:07:49 - 01:07:51] with A just here at the low E string
+[01:07:51 - 01:07:53] and we're going to try and find different pathways
+[01:07:53 - 01:07:55] through the scale
+[01:07:55 - 01:07:57] updating where our visualisation
+[01:07:57 - 01:07:59] or which root note we're visualising from as we go
+[01:07:59 - 01:08:01] to be as efficient as possible
+[01:08:01 - 01:08:03] so if we only visualise from this A here
+[01:08:03 - 01:08:05] by the time we get up around this area
+[01:08:05 - 01:08:07] it's starting to get pretty hazy
+[01:08:07 - 01:08:09] because we've not learnt the intervals
+[01:08:09 - 01:08:11] going that far away from this root note
+[01:08:11 - 01:08:13] so we need to update which root note
+[01:08:13 - 01:08:15] we're visualising from as we move around the fret board
+[01:08:15 - 01:08:17] okay so from this A here
+[01:08:17 - 01:08:19] let's take our pentatonic box pattern first
+[01:08:19 - 01:08:21] just so you really get to grips with this straight away
+[01:08:21 - 01:08:23] so our first pentatonic box
+[01:08:23 - 01:08:25] that we all know
+[01:08:25 - 01:08:27] looks slightly different in my tuning
+[01:08:27 - 01:08:29] because of the C and the F strings
+[01:08:29 - 01:08:31] but you know 5 to 8
+[01:08:31 - 01:08:33] on the B and the E for you guys
+[01:08:33 - 01:08:35] now this I'm going to make sure
+[01:08:35 - 01:08:37] all of these lines that I play here
+[01:08:37 - 01:08:39] and all of these ideas are written out for you
+[01:08:39 - 01:08:41] so you can see exactly where I'm going
+[01:08:41 - 01:08:43] these will be transcribed for you
+[01:08:43 - 01:08:45] so 5th fret on the E string
+[01:08:45 - 01:08:47] pentatonic box I can see from this 5th fret here
+[01:08:47 - 01:08:49] visualising from here I can see the flat 3
+[01:08:49 - 01:08:51] 4
+[01:08:51 - 01:08:53] and the 5
+[01:08:53 - 01:08:55] and the flat 7
+[01:08:57 - 01:08:59] okay but when I get to the next A
+[01:08:59 - 01:09:01] I start visualising from this A now
+[01:09:01 - 01:09:03] okay so now I've got A
+[01:09:03 - 01:09:05] to flat 3
+[01:09:05 - 01:09:07] A to 4
+[01:09:07 - 01:09:09] A to 5
+[01:09:09 - 01:09:11] which is like that for me
+[01:09:11 - 01:09:13] A to flat 7 which looks like that for you guys
+[01:09:15 - 01:09:17] and then I've got the A again
+[01:09:17 - 01:09:19] 5th fret on the E string for you
+[01:09:19 - 01:09:21] 4th fret on the F string for me
+[01:09:21 - 01:09:23] and I've got roots of flat 3
+[01:09:23 - 01:09:25] so what I was doing there is I was updating
+[01:09:25 - 01:09:27] my root notes that I'm visualising from
+[01:09:27 - 01:09:29] my reference point if you like
+[01:09:29 - 01:09:31] to fit with the scale
+[01:09:31 - 01:09:33] in the most efficient manner
+[01:09:33 - 01:09:35] so in this position down on the low E string
+[01:09:35 - 01:09:37] everything's visualised from here
+[01:09:37 - 01:09:39] now I'm visualising from here
+[01:09:41 - 01:09:43] now from here
+[01:09:45 - 01:09:47] okay so when I've improvised
+[01:09:47 - 01:09:49] with that particular box pattern
+[01:09:49 - 01:09:51] if I ever do
+[01:09:51 - 01:09:53] I'm thinking about where those As are
+[01:09:53 - 01:09:55] and thinking about the intervals that I'm playing
+[01:09:55 - 01:09:57] now the practice that you guys are going to do
+[01:09:57 - 01:09:59] is rather than use those box patterns
+[01:09:59 - 01:10:01] which again if you know them
+[01:10:01 - 01:10:03] great, don't forget them
+[01:10:03 - 01:10:05] don't feel it's bad to use them
+[01:10:05 - 01:10:07] it's all part of the process
+[01:10:07 - 01:10:09] you're going to look for different pathways
+[01:10:09 - 01:10:11] through that particular scale
+[01:10:11 - 01:10:13] so if I started on this A
+[01:10:13 - 01:10:15] I could go roots, flat 3
+[01:10:15 - 01:10:17] 4
+[01:10:17 - 01:10:19] again visualising from this A
+[01:10:19 - 01:10:21] 5
+[01:10:21 - 01:10:23] now I could go flat 7 here
+[01:10:23 - 01:10:25] now I could go to this A
+[01:10:25 - 01:10:27] I'm going to visualise from here now
+[01:10:27 - 01:10:29] and that means that I can see this flat 3
+[01:10:29 - 01:10:31] or this one
+[01:10:31 - 01:10:33] I can see this 4
+[01:10:33 - 01:10:35] this 5
+[01:10:35 - 01:10:37] okay I can see this flat 7
+[01:10:37 - 01:10:39] which is there for you guys
+[01:10:39 - 01:10:41] then I can see this A
+[01:10:41 - 01:10:43] see this flat 3
+[01:10:43 - 01:10:45] now this 4
+[01:10:45 - 01:10:47] now this 5
+[01:10:47 - 01:10:49] now I'm going to visualise from this A
+[01:10:49 - 01:10:51] and slide up to the flat 7
+[01:10:51 - 01:10:53] which would be the 15th fret for you guys
+[01:10:55 - 01:10:57] now I can see this A
+[01:10:57 - 01:10:59] for you guys the 17th fret for me the 16th
+[01:10:59 - 01:11:03] there's the flat 3
+[01:11:05 - 01:11:07] now if I visualise from this A
+[01:11:07 - 01:11:09] here for you guys it's the 20th fret
+[01:11:09 - 01:11:11] for me it's the 19th
+[01:11:11 - 01:11:13] I can see the flat 3
+[01:11:13 - 01:11:15] now I can see the 4
+[01:11:15 - 01:11:17] and if I wanted to
+[01:11:17 - 01:11:19] I can bend up because if you've got 24
+[01:11:19 - 01:11:21] for actually be able to do this as well you can be able to actually play it
+[01:11:21 - 01:11:26] but I can bend up to the 5th
+[01:11:26 - 01:11:28] okay so that was one
+[01:11:28 - 01:11:30] pathway through that particular scale
+[01:11:30 - 01:11:32] I could have done a different pathway
+[01:11:32 - 01:11:34] I could have started on this A
+[01:11:34 - 01:11:36] I could have visualised the flat 3
+[01:11:36 - 01:11:38] then gone to this A
+[01:11:38 - 01:11:40] visually I'm not playing it
+[01:11:40 - 01:11:42] I'm just visualising it okay
+[01:11:42 - 01:11:44] 7th fret of the D
+[01:11:44 - 01:11:46] slide up to the 4th
+[01:11:46 - 01:11:48] slide up to the 5th
+[01:11:48 - 01:11:50] then see this flat 7
+[01:11:50 - 01:11:52] slide up to the root again
+[01:11:52 - 01:11:54] see this flat 3, 4, 5
+[01:11:54 - 01:11:56] again these will be written out in standard tuning
+[01:11:56 - 01:11:58] all of these ways of playing the scale
+[01:11:58 - 01:12:00] then visualise from this A
+[01:12:00 - 01:12:02] slide up to the flat 7
+[01:12:02 - 01:12:04] so on and so forth
+[01:12:04 - 01:12:06] so you get the idea basically
+[01:12:06 - 01:12:08] I'm looking for different pathways
+[01:12:08 - 01:12:10] through this particular scale
+[01:12:10 - 01:12:12] in this way subconsciously
+[01:12:12 - 01:12:14] so that when it comes to improvising
+[01:12:14 - 01:12:16] I can make conscious note choices
+[01:12:16 - 01:12:18] and visualise from the most efficient root note
+[01:12:18 - 01:12:20] not always from this low E string
+[01:12:20 - 01:12:22] or from the A string
+[01:12:22 - 01:12:24] really really important to develop that scale
+[01:12:24 - 01:12:26] and that's going to come in massively useful
+[01:12:26 - 01:12:28] when we deal with changes playing later on
+[01:12:28 - 01:12:30] okay so next what we're going to do
+[01:12:30 - 01:12:32] is we're going to have a look at all the other intervals
+[01:12:32 - 01:12:34] we've got 11 intervals that we can play
+[01:12:34 - 01:12:36] we've got the root note
+[01:12:36 - 01:12:38] and because there's 12 notes in music
+[01:12:38 - 01:12:40] there must be 11 intervals that we can play
+[01:12:40 - 01:12:42] and we've already covered 4 of them
+[01:12:42 - 01:12:44] so we're now going to cover the rest
+[01:12:44 - 01:12:46] I'm going to do these fairly quickly
+[01:12:46 - 01:12:48] because they're all written out in the PDF file
+[01:12:48 - 01:12:50] now you've got standard tuning PDF
+[01:12:50 - 01:12:52] and a fourth PDF file
+[01:12:52 - 01:12:54] so whichever tuning you're in make sure you're up in the appropriate one
+[01:12:54 - 01:12:56] and you'll see the intervals written out
+[01:12:56 - 01:12:58] learn them and catalogue them
+[01:12:58 - 01:13:00] it's going to take a long time
+[01:13:00 - 01:13:02] it's not a shortcut process this
+[01:13:02 - 01:13:04] but once you've catalogue them
+[01:13:04 - 01:13:06] you can then look at the formula for each of the scales
+[01:13:06 - 01:13:08] and you can then apply your knowledge
+[01:13:08 - 01:13:10] to that particular scale or formula
+[01:13:10 - 01:13:12] and you can learn the scale in this kind of way
+[01:13:12 - 01:13:14] and think very very kind of like
+[01:13:14 - 01:13:16] you know melodically as you're improvising
+[01:13:16 - 01:13:18] pick chord tones, pick extensions
+[01:13:18 - 01:13:20] okay so let's look at those other intervals now
+[01:13:20 - 01:13:28] so let's start to go through these intervals now
+[01:13:28 - 01:13:30] we're going to start basically
+[01:13:30 - 01:13:32] in the most logical manner
+[01:13:32 - 01:13:34] so we're going to have A as our root note
+[01:13:34 - 01:13:36] for the entirety of this section
+[01:13:36 - 01:13:38] but of course the root note
+[01:13:38 - 01:13:40] is almost irrelevant in that
+[01:13:40 - 01:13:42] it could be any root note on the fretboard
+[01:13:42 - 01:13:44] but the shapes between the root note and the intervals
+[01:13:44 - 01:13:46] will stay the same
+[01:13:46 - 01:13:48] so we're going to start with a flat 2 or a flat 9
+[01:13:48 - 01:13:50] just for the sake of completeness
+[01:13:50 - 01:13:52] for those who aren't sure and again
+[01:13:52 - 01:13:54] if you're not sure about this I recommend you do
+[01:13:54 - 01:13:56] investigate basic music theory
+[01:13:56 - 01:13:58] before you even continue really
+[01:13:58 - 01:14:00] a 2 is the same thing as a 9
+[01:14:02 - 01:14:04] a 4 is the same as an 11
+[01:14:04 - 01:14:06] and a 6 is the same as a 13th
+[01:14:06 - 01:14:08] and I'm going to refer to both things
+[01:14:08 - 01:14:10] I'll refer to them both ways as we go through
+[01:14:10 - 01:14:12] so remember 2 9
+[01:14:12 - 01:14:14] 4 11 6 13
+[01:14:14 - 01:14:16] I'm not explaining that now
+[01:14:16 - 01:14:18] you need to go and check out your basic music theory
+[01:14:18 - 01:14:20] if you're not sure what that means
+[01:14:20 - 01:14:22] if you're not sure what that means you're just going to struggle with the rest of this tutorial
+[01:14:22 - 01:14:24] so definitely worth checking that out
+[01:14:24 - 01:14:26] so having said that let's do our flat 2
+[01:14:26 - 01:14:28] now flat 2 if we take this
+[01:14:28 - 01:14:30] A just here can be played in two different ways
+[01:14:30 - 01:14:32] we can either go between the 5th
+[01:14:32 - 01:14:34] and the 6th frets on the same string
+[01:14:34 - 01:14:36] so that was a different A
+[01:14:36 - 01:14:38] or I can take this A
+[01:14:38 - 01:14:40] again
+[01:14:40 - 01:14:42] doesn't matter where I place it
+[01:14:42 - 01:14:44] as long as I have my first finger or any finger on an A
+[01:14:44 - 01:14:46] on the same string on the next frets
+[01:14:46 - 01:14:48] that gives me a flat 2 interval
+[01:14:48 - 01:14:50] another way I can play that interval
+[01:14:50 - 01:14:52] is I can play 5
+[01:14:52 - 01:14:54] on the E string
+[01:14:54 - 01:14:56] and then I can go to 1 on the A string
+[01:14:58 - 01:15:00] now because that's an interval
+[01:15:00 - 01:15:02] on an adjacent string
+[01:15:02 - 01:15:04] again if we play A for instance
+[01:15:04 - 01:15:06] 14th fret of the G string
+[01:15:06 - 01:15:08] we need to move on the B string
+[01:15:08 - 01:15:10] up a fret as usual
+[01:15:10 - 01:15:12] for me it's the same
+[01:15:12 - 01:15:14] you'll find that written out in standard tuning
+[01:15:14 - 01:15:16] as well as fourths for the PDFR
+[01:15:20 - 01:15:22] now we'll start on this A here
+[01:15:22 - 01:15:24] at the 7th fret of the D string
+[01:15:24 - 01:15:26] and we can of course also do a descending
+[01:15:26 - 01:15:28] flat 2 which would look like this
+[01:15:28 - 01:15:30] or flat 9
+[01:15:30 - 01:15:32] don't worry about what these intervals sound like
+[01:15:32 - 01:15:34] just yet we're going to apply them to formulas
+[01:15:34 - 01:15:36] I'm just going to do a topic later on
+[01:15:36 - 01:15:38] on how you can apply these to formulas for scales
+[01:15:38 - 01:15:40] or the interval make it proper scale
+[01:15:40 - 01:15:42] it's that little shape there
+[01:15:42 - 01:15:44] that's that flat 2
+[01:15:44 - 01:15:46] so the A going down
+[01:15:46 - 01:15:48] to its flat 2
+[01:15:48 - 01:15:50] I would imagine most of you guys will find it much easier
+[01:15:50 - 01:15:52] with a flat 2 because it's just a semi-tone
+[01:15:52 - 01:15:54] above a root note to just visualize it
+[01:15:54 - 01:15:56] as an assembly interval
+[01:15:56 - 01:15:58] so if I was going to visualize this flat 2
+[01:15:58 - 01:16:00] I would visualize it from this A here
+[01:16:04 - 01:16:06] ok so that's your flat 2
+[01:16:06 - 01:16:08] so your natural 2
+[01:16:08 - 01:16:10] or natural 9 is a semi-tone
+[01:16:10 - 01:16:12] higher than that so we get this shape
+[01:16:12 - 01:16:14] here's the A again
+[01:16:14 - 01:16:16] fifth fret of the E string
+[01:16:16 - 01:16:18] and we go two frets higher
+[01:16:29 - 01:16:31] just moving around between different A's there
+[01:16:31 - 01:16:33] and another way we can play it
+[01:16:33 - 01:16:35] basically fifth fret on the E string
+[01:16:35 - 01:16:37] going to the second fret
+[01:16:37 - 01:16:39] on the A string
+[01:16:39 - 01:16:41] so that's shape there
+[01:16:41 - 01:16:43] again catalogue of these shapes
+[01:16:45 - 01:16:49] and again if you're going to move that between the G
+[01:16:49 - 01:16:51] and the B strings you'll find the shape changes
+[01:16:51 - 01:16:53] by one fret so again worth checking that out
+[01:16:53 - 01:16:55] again you'll find it in the PDF
+[01:16:55 - 01:17:02] but for me it's the same
+[01:17:02 - 01:17:07] oops
+[01:17:07 - 01:17:09] sorry guys
+[01:17:09 - 01:17:11] so on and so forth
+[01:17:11 - 01:17:13] flat 3 we've already done
+[01:17:13 - 01:17:15] let's do major 3rd or natural 3 now
+[01:17:15 - 01:17:17] so on the same string a natural 3
+[01:17:21 - 01:17:23] would look like that
+[01:17:23 - 01:17:25] by the way again we didn't do a descending
+[01:17:25 - 01:17:27] natural 2 for the same reason we didn't do
+[01:17:27 - 01:17:29] a descending we didn't really consider
+[01:17:29 - 01:17:31] the descending flat 2
+[01:17:31 - 01:17:33] particularly because it's so easy to visualize
+[01:17:33 - 01:17:35] from a root note ascending
+[01:17:35 - 01:17:37] ok so the natural 3 or major 3rd
+[01:17:37 - 01:17:39] fifth fret on the E string
+[01:17:39 - 01:17:41] that's our A and then we've got this shape
+[01:17:41 - 01:17:43] we've got the ninth fret on the E string
+[01:17:43 - 01:17:45] ok
+[01:17:45 - 01:17:47] our major 3rd
+[01:17:47 - 01:17:49] I recommend singing these as well
+[01:17:49 - 01:17:51] just so you get used to the sound of them
+[01:17:51 - 01:17:53] but obviously this is not an ear training
+[01:17:53 - 01:17:55] tutorial so we don't go too far into that
+[01:17:57 - 01:17:59] and again that shape
+[01:17:59 - 01:18:01] put that anywhere on the guitar
+[01:18:05 - 01:18:09] ok another way we can play that
+[01:18:09 - 01:18:11] is to play the fifth fret
+[01:18:11 - 01:18:13] on the low E and the fourth fret on the A
+[01:18:17 - 01:18:19] and of course that's going to change between the G and the B
+[01:18:19 - 01:18:21] you're going to get say the A at the 14th fret
+[01:18:21 - 01:18:23] the G string you're going to get the 14th fret
+[01:18:23 - 01:18:25] the B as well
+[01:18:25 - 01:18:27] same for me
+[01:18:31 - 01:18:40] just moving those around from all the A's
+[01:18:40 - 01:18:42] on the fretboard ok then we can do a descending version
+[01:18:42 - 01:18:44] so again there's two ways of doing this
+[01:18:44 - 01:18:46] if we take this A just here
+[01:18:46 - 01:18:48] at the 7th fret of the D string
+[01:18:48 - 01:18:50] we can descend
+[01:18:50 - 01:18:52] to the major 3rd or 4th fret
+[01:18:52 - 01:18:54] of the A string and again catalogue the shape
+[01:18:56 - 01:18:58] as in
+[01:18:58 - 01:19:00] that G's a little ending
+[01:19:00 - 01:19:02] that's often put onto all sorts of tunes
+[01:19:04 - 01:19:06] so that's 7 on the D to 4 on the A
+[01:19:08 - 01:19:10] ok and again any place we place
+[01:19:10 - 01:19:12] our little finger in this case
+[01:19:12 - 01:19:14] on an A
+[01:19:14 - 01:19:16] and of course that's going to
+[01:19:16 - 01:19:18] slightly differ between the B and the G strings
+[01:19:18 - 01:19:20] you're going to get this shape
+[01:19:20 - 01:19:22] 10th fret on the B and then
+[01:19:22 - 01:19:24] 6th fret on the G
+[01:19:24 - 01:19:26] this is A
+[01:19:26 - 01:19:28] and this is the 3rd so it's just a fret
+[01:19:28 - 01:19:30] back basically from where you were before
+[01:19:30 - 01:19:32] again you'll find these all written out
+[01:19:32 - 01:19:34] for me it's the same
+[01:19:34 - 01:19:36] and then finally we can do
+[01:19:36 - 01:19:38] his A again at the 7th fret
+[01:19:38 - 01:19:40] of the D and we can do our major 3rd
+[01:19:40 - 01:19:42] here at the 9th fret of the D
+[01:19:42 - 01:19:44] of the E string sorry
+[01:19:44 - 01:19:46] so 2 ascending
+[01:19:46 - 01:19:48] intervals
+[01:19:48 - 01:19:50] and 2 descending
+[01:19:54 - 01:19:56] again just modify that as required
+[01:19:56 - 01:19:58] for the B string and D string
+[01:19:58 - 01:20:00] relationship and then also for the
+[01:20:00 - 01:20:02] E string to G string relationship
+[01:20:02 - 01:20:04] and you'll see those written out again
+[01:20:04 - 01:20:06] so I'm going through this pretty quickly
+[01:20:06 - 01:20:08] because if we did them
+[01:20:08 - 01:20:10] really in depth they'd take an entire
+[01:20:10 - 01:20:12] tutorial for themselves and you guys
+[01:20:12 - 01:20:14] can just use the PDF file to learn these
+[01:20:14 - 01:20:16] and catalogue them as part of your practice
+[01:20:16 - 01:20:18] just catalogue the intervals
+[01:20:18 - 01:20:20] okay the 4th we've done
+[01:20:20 - 01:20:22] the flat 5 we can play
+[01:20:22 - 01:20:24] and this occurs in like
+[01:20:24 - 01:20:26] minus 7 flat 5 or in some altered dominant chords
+[01:20:26 - 01:20:28] you know
+[01:20:28 - 01:20:30] or you could think of a sharp 4
+[01:20:30 - 01:20:32] if you're thinking of Lydian same thing
+[01:20:32 - 01:20:34] flat 5 sharp 4
+[01:20:34 - 01:20:36] so we've got
+[01:20:36 - 01:20:38] A 5th fret of the E string
+[01:20:38 - 01:20:40] and we're going to play the 6th fret of the A string
+[01:20:42 - 01:20:44] sounds like the Simpsons
+[01:20:44 - 01:20:46] okay so that little
+[01:20:46 - 01:20:48] interval shape there
+[01:20:50 - 01:20:52] now between the G and the B string
+[01:20:52 - 01:20:54] it looks like that
+[01:20:54 - 01:20:56] so that's the interval you're going to get
+[01:20:56 - 01:20:58] this being E flat
+[01:20:58 - 01:21:00] so A going to E flat
+[01:21:00 - 01:21:02] or A going to flat 5
+[01:21:02 - 01:21:07] for me it's the same
+[01:21:07 - 01:21:09] so what we can do is like this bit of a stretch
+[01:21:09 - 01:21:11] this actually
+[01:21:11 - 01:21:13] and again I'm slightly off camera there
+[01:21:13 - 01:21:15] in fact I'm going to do it from this A here
+[01:21:15 - 01:21:17] so you can really see it
+[01:21:17 - 01:21:19] this 12th fret
+[01:21:19 - 01:21:21] another ascending flat 5
+[01:21:21 - 01:21:23] we can play 12th fret on the A string
+[01:21:23 - 01:21:25] and then we can play the 8th fret
+[01:21:25 - 01:21:27] on the G string
+[01:21:27 - 01:21:29] again that sounds the same
+[01:21:29 - 01:21:31] as the previous shape that we learned
+[01:21:33 - 01:21:35] again look at these in the PDF file
+[01:21:35 - 01:21:37] wherever we place an A
+[01:21:39 - 01:21:41] again between the D and the B string
+[01:21:41 - 01:21:43] you're going to have to modify it by going up a fret
+[01:21:43 - 01:21:45] but it's the same for me
+[01:21:45 - 01:21:47] check that out in the PDF file
+[01:21:47 - 01:21:49] slightly off camera there
+[01:21:49 - 01:21:51] sorry guys
+[01:21:51 - 01:21:53] okay again
+[01:21:53 - 01:21:56] again that would modify
+[01:21:56 - 01:21:58] for the standard tuning
+[01:21:58 - 01:22:00] because you're on the E string
+[01:22:00 - 01:22:02] between the G and the E so you need to be this shape
+[01:22:02 - 01:22:04] 14 on the G
+[01:22:04 - 01:22:06] on the E
+[01:22:06 - 01:22:08] that's our flat 5 ascending
+[01:22:08 - 01:22:10] so two shapes
+[01:22:10 - 01:22:12] okay if you're going to do it descending
+[01:22:12 - 01:22:14] you can do
+[01:22:14 - 01:22:16] here's our A here
+[01:22:16 - 01:22:18] the 7th fret of the D string
+[01:22:18 - 01:22:20] we just go down you can see where that flat 5 is again
+[01:22:20 - 01:22:22] it's the same shape but going backwards
+[01:22:24 - 01:22:26] this interval is also known as a tritone
+[01:22:30 - 01:22:32] okay so again if I have an A here
+[01:22:32 - 01:22:34] the 10th fret of the B string
+[01:22:34 - 01:22:36] okay I would go down
+[01:22:36 - 01:22:38] so here
+[01:22:38 - 01:22:40] the 8th fret again we see these written out guys
+[01:22:40 - 01:22:42] in standard and fourth tuning
+[01:22:42 - 01:22:44] okay for me it's this again
+[01:22:44 - 01:22:46] I take this A here at the 2nd fret of the G string
+[01:22:46 - 01:22:48] again make sure I'm on camera
+[01:22:48 - 01:22:50] I need the 1st fret on the D
+[01:22:52 - 01:22:54] I take this A
+[01:22:54 - 01:22:56] 12th fret of the A string
+[01:22:56 - 01:22:58] okay so you get the idea
+[01:22:58 - 01:23:00] okay
+[01:23:00 - 01:23:02] so we can also do
+[01:23:02 - 01:23:04] if we've got
+[01:23:04 - 01:23:06] let's say we take
+[01:23:06 - 01:23:08] we'll take this A just here
+[01:23:10 - 01:23:12] we could do it in all sorts of different places
+[01:23:12 - 01:23:14] I was going to show you something else
+[01:23:14 - 01:23:16] but I should have decided not to
+[01:23:16 - 01:23:18] that's enough to be getting on with
+[01:23:18 - 01:23:20] okay so one descending
+[01:23:20 - 01:23:22] two ascending versions
+[01:23:22 - 01:23:24] now we'll do the 5th we've done
+[01:23:24 - 01:23:26] let's do the flat 6
+[01:23:26 - 01:23:28] so a flat 6 or a flat 13
+[01:23:28 - 01:23:30] quite uncommon to find a flat 6
+[01:23:30 - 01:23:32] or a flat 13 maybe a sharp 5
+[01:23:32 - 01:23:34] you could name it as well
+[01:23:34 - 01:23:36] okay so again basic music theory
+[01:23:36 - 01:23:38] knowing your own harmonic intervals is very important
+[01:23:38 - 01:23:40] and again that's not what this tutorial is about
+[01:23:40 - 01:23:42] but knowing a flat 6
+[01:23:42 - 01:23:44] or a flat 13
+[01:23:44 - 01:23:46] and a sharp 5 are the same thing
+[01:23:46 - 01:23:48] okay so this interval we'll call it a sharp 5
+[01:23:48 - 01:23:50] for now we can play here's the A
+[01:23:50 - 01:23:52] and again I realize it's a fast guys
+[01:23:52 - 01:23:54] but you want to sort of pause
+[01:23:54 - 01:23:56] after each of these intervals and learn
+[01:23:56 - 01:23:58] the more as fast as I'm going through
+[01:23:58 - 01:24:00] okay there's the A
+[01:24:00 - 01:24:02] and our flat 13 or flat 6
+[01:24:02 - 01:24:04] or sharp 5 is at the 8th fret
+[01:24:04 - 01:24:06] of the A string
+[01:24:08 - 01:24:10] okay again modify
+[01:24:10 - 01:24:12] for the tuning that you're in
+[01:24:14 - 01:24:16] you'll see them modified
+[01:24:18 - 01:24:20] okay and then another way that you can play that
+[01:24:20 - 01:24:22] is basically between the A here
+[01:24:22 - 01:24:24] and the 5th fret of the E string
+[01:24:24 - 01:24:26] and the 3rd fret of the D string
+[01:24:28 - 01:24:30] and again modify for
+[01:24:30 - 01:24:32] which tuning you're in so you would get this shape
+[01:24:32 - 01:24:34] between 7 on the D
+[01:24:34 - 01:24:36] and 6 on the B
+[01:24:40 - 01:24:44] okay so the natural 6
+[01:24:44 - 01:24:46] we'll start on this A again
+[01:24:46 - 01:24:48] 5th fret of the E string
+[01:24:48 - 01:24:50] okay the natural 6 or natural 13
+[01:24:50 - 01:24:52] we're going to stretch up
+[01:24:52 - 01:24:54] and we're going to play the 9th fret of the A string
+[01:24:54 - 01:24:58] okay that's our interval
+[01:24:58 - 01:25:00] again move that around the guitar
+[01:25:00 - 01:25:02] as part of your practice
+[01:25:04 - 01:25:06] now when you get to this point on the guitar
+[01:25:06 - 01:25:08] it might be a little bit too big a stretch
+[01:25:08 - 01:25:10] because of the tuning
+[01:25:10 - 01:25:12] the note that you want is an F sharp here
+[01:25:12 - 01:25:14] it's located all the way up
+[01:25:14 - 01:25:16] at the 7th fret
+[01:25:16 - 01:25:18] it's a bit too big a stretch
+[01:25:18 - 01:25:20] so you have to do this
+[01:25:20 - 01:25:22] within reason
+[01:25:22 - 01:25:24] in my tuning it's perfectly applicable
+[01:25:24 - 01:25:26] but in standard it's going to be like that
+[01:25:26 - 01:25:28] so you might want to abandon that
+[01:25:28 - 01:25:30] at least in this part of the guitar
+[01:25:30 - 01:25:32] okay so now we've gotten to a slightly stretch
+[01:25:32 - 01:25:34] your interval that's something that's well worth
+[01:25:34 - 01:25:36] bearing in mind
+[01:25:36 - 01:25:38] okay however from this A here at the 7th fret
+[01:25:38 - 01:25:40] of the D string
+[01:25:40 - 01:25:42] you can use that same shape no problem
+[01:25:42 - 01:25:44] you can use it from here at the 12th fret
+[01:25:44 - 01:25:46] of the A string
+[01:25:46 - 01:25:48] 15th fret here sorry 17th fret
+[01:25:50 - 01:25:52] okay so that all works
+[01:25:52 - 01:25:54] you can play this interval ascending
+[01:25:54 - 01:25:56] it's to go from the 5th fret of the E string
+[01:25:56 - 01:25:58] to the 4th fret of the D string
+[01:26:00 - 01:26:02] now this negates now
+[01:26:02 - 01:26:04] the problem that we had here
+[01:26:04 - 01:26:06] between the 2nd fret of the G string
+[01:26:06 - 01:26:08] this A and then the 7th fret here
+[01:26:08 - 01:26:10] because we can now play
+[01:26:10 - 01:26:12] instead of this shape
+[01:26:12 - 01:26:14] which is the 2nd fret on the G string
+[01:26:14 - 01:26:16] and the 1st fret on the
+[01:26:16 - 01:26:18] high E
+[01:26:18 - 01:26:20] so 2nd fret on the G, 1st fret on the high E
+[01:26:20 - 01:26:22] this shape
+[01:26:22 - 01:26:24] moved to there
+[01:26:24 - 01:26:26] obviously we need to move this note up a fret
+[01:26:26 - 01:26:28] because of the tuning
+[01:26:28 - 01:26:30] so we get 2 on the G and 2 on the high E
+[01:26:30 - 01:26:32] and that's much easier to play
+[01:26:32 - 01:26:34] than that
+[01:26:34 - 01:26:36] you can still use that as a visualization reference
+[01:26:36 - 01:26:38] okay but you might want to
+[01:26:38 - 01:26:40] visualize this note from this A
+[01:26:40 - 01:26:42] and the more of this you do
+[01:26:42 - 01:26:44] the more you get used to it
+[01:26:44 - 01:26:46] the more you get more efficient
+[01:26:46 - 01:26:48] remember we talked about practicing that pentatonic scale
+[01:26:48 - 01:26:50] that minor pentatonic scale
+[01:26:50 - 01:26:52] using different
+[01:26:52 - 01:26:54] pathways through the scale
+[01:26:54 - 01:26:56] when we start looking at particular scales
+[01:26:56 - 01:26:58] you'll find
+[01:26:58 - 01:27:00] this becomes much more intuitive
+[01:27:00 - 01:27:02] because at the moment you're looking at intervals
+[01:27:02 - 01:27:04] in isolated events
+[01:27:04 - 01:27:06] you're looking at each interval on its own
+[01:27:06 - 01:27:08] we're not applying these to any harmonic situations at the moment
+[01:27:08 - 01:27:10] but your job to do at the moment
+[01:27:10 - 01:27:12] is to catalogue all of these intervals
+[01:27:12 - 01:27:14] and learn the shapes
+[01:27:14 - 01:27:16] but you can be learning scales
+[01:27:16 - 01:27:18] and of course this information
+[01:27:18 - 01:27:20] so here's our 6th
+[01:27:20 - 01:27:22] or 13th
+[01:27:22 - 01:27:24] don't worry
+[01:27:24 - 01:27:26] some of you might be thinking
+[01:27:26 - 01:27:28] if you're classical theory guys
+[01:27:28 - 01:27:30] hang on a 13th is only called a 13th
+[01:27:30 - 01:27:32] it's in the next octave above
+[01:27:32 - 01:27:34] so it's like a compound interval
+[01:27:34 - 01:27:36] well for jazz and fusion
+[01:27:36 - 01:27:38] we don't worry so much about stuff like that
+[01:27:38 - 01:27:40] we can call this a 6th or a 13th
+[01:27:40 - 01:27:42] it's absolutely fine
+[01:27:42 - 01:27:44] either is applicable
+[01:27:44 - 01:27:46] to our improvisation
+[01:27:46 - 01:27:48] so what you call it is fine
+[01:27:48 - 01:27:50] as long as you know that this is the 6th
+[01:27:50 - 01:27:52] or 13th
+[01:27:52 - 01:27:54] so
+[01:27:54 - 01:27:56] if we're going to descend now from a root note
+[01:27:56 - 01:27:58] to our 6th or 13th
+[01:27:58 - 01:28:00] I think we've got this A here
+[01:28:00 - 01:28:02] at the 7th fret of the D string
+[01:28:02 - 01:28:04] we can come down to this F sharp here
+[01:28:04 - 01:28:06] at the 4th fret
+[01:28:06 - 01:28:08] so that's root
+[01:28:08 - 01:28:10] 13 or 6
+[01:28:10 - 01:28:12] descending
+[01:28:12 - 01:28:14] same string we don't have any tuning issues
+[01:28:14 - 01:28:16] obviously we can't do it here
+[01:28:16 - 01:28:18] because we've run out of notes
+[01:28:18 - 01:28:20] but we can
+[01:28:20 - 01:28:22] I use this
+[01:28:22 - 01:28:24] in my funk playing all the time
+[01:28:24 - 01:28:26] so if I'm playing like a funk bass line
+[01:28:26 - 01:28:28] based around A minor
+[01:28:28 - 01:28:30] I might do a little bass line that goes root
+[01:28:30 - 01:28:32] to flat 3
+[01:28:32 - 01:28:34] to then 6th or 13th
+[01:28:34 - 01:28:46] then the flat 7
+[01:28:46 - 01:28:48] flat 3, 6th
+[01:28:48 - 01:28:50] flat 7
+[01:28:50 - 01:28:52] and I found those intervals by not thinking about scales
+[01:28:52 - 01:28:54] or scale shapes
+[01:28:54 - 01:28:56] or chord shapes, it's more just about the intervals
+[01:28:58 - 01:29:06] very, very useful skill to have
+[01:29:06 - 01:29:08] to be able to identify those intervals
+[01:29:08 - 01:29:10] that was from Dorian by the way
+[01:29:10 - 01:29:12] in case you weren't sure, A Dorian
+[01:29:12 - 01:29:14] cool kind of funk sound
+[01:29:14 - 01:29:16] and all that will work over your A minor backing track
+[01:29:16 - 01:29:18] that you've got as well
+[01:29:18 - 01:29:20] so that's the 6th
+[01:29:20 - 01:29:22] descending that way
+[01:29:22 - 01:29:24] we can also descend the 6th like this
+[01:29:24 - 01:29:26] sorry not like that
+[01:29:26 - 01:29:28] I've got a drone for it
+[01:29:32 - 01:29:34] so we can descend it that way as well
+[01:29:34 - 01:29:36] now that will be going from the 7th fret on the D string
+[01:29:36 - 01:29:38] down to the 9th fret on the A string
+[01:29:40 - 01:29:56] lots of ways of doing the 6th there again
+[01:29:56 - 01:29:58] lap out though
+[01:29:58 - 01:30:00] using the PDF file for standard tuning
+[01:30:00 - 01:30:02] if you're in standard tuning
+[01:30:02 - 01:30:04] if you're in 4th you only need to learn it once
+[01:30:04 - 01:30:06] ok flat 7 we've done
+[01:30:06 - 01:30:08] so the only thing we've got to do now
+[01:30:08 - 01:30:10] is the natural 7
+[01:30:10 - 01:30:12] then we've covered all 11
+[01:30:12 - 01:30:14] intervals on top of the root note
+[01:30:14 - 01:30:16] or on top of any given root note
+[01:30:16 - 01:30:18] so here's our A
+[01:30:18 - 01:30:20] ok our natural 7 or major 7th
+[01:30:20 - 01:30:22] we can play at the 6th fret
+[01:30:22 - 01:30:24] of the D string
+[01:30:24 - 01:30:26] sounds very dissonant on its own
+[01:30:26 - 01:30:28] but in the context of
+[01:30:28 - 01:30:30] playing over a certain type of chord
+[01:30:30 - 01:30:32] like a major 7 chord
+[01:30:32 - 01:30:34] or a minor major 7
+[01:30:34 - 01:30:36] this is a particularly useful interval to know
+[01:30:36 - 01:30:38] so that shape there
+[01:30:38 - 01:30:40] again we can move it around
+[01:30:40 - 01:30:42] to any given A
+[01:30:42 - 01:30:44] again you'll have to modify for standard tuning
+[01:30:44 - 01:30:46] so instead of this between
+[01:30:46 - 01:30:48] the 2nd fret on the G string
+[01:30:48 - 01:30:50] the 3rd fret on the E
+[01:30:50 - 01:30:52] we'd have to go to the 4th fret
+[01:30:52 - 01:30:54] standard tuning
+[01:30:54 - 01:30:56] for me it's the same
+[01:30:56 - 01:30:58] ok that's kind of cool
+[01:30:58 - 01:31:00] and again just modify as you
+[01:31:00 - 01:31:02] require hopefully by now you're getting used to this idea
+[01:31:02 - 01:31:04] of modifying these intervals for standard tuning
+[01:31:04 - 01:31:06] ok so that's the ascending
+[01:31:06 - 01:31:08] version
+[01:31:08 - 01:31:10] you can do this as well
+[01:31:10 - 01:31:12] but I wouldn't imagine that's that useful
+[01:31:12 - 01:31:14] for most people
+[01:31:14 - 01:31:16] it's a big stretch and it's kind of awkward across
+[01:31:16 - 01:31:18] 4 strings so this is better
+[01:31:18 - 01:31:20] the other way of visualising
+[01:31:20 - 01:31:22] it is the descending version
+[01:31:22 - 01:31:24] where we just literally go back a semitone
+[01:31:24 - 01:31:28] ok so this is the root A
+[01:31:28 - 01:31:30] and back a semitone
+[01:31:30 - 01:31:32] back a semitone is it's 7th
+[01:31:32 - 01:31:34] natural 7th
+[01:31:34 - 01:31:42] ok so on and so forth
+[01:31:42 - 01:31:44] so that's all
+[01:31:44 - 01:31:46] 11 intervals mapped on top of a root note
+[01:31:46 - 01:31:48] and then ascending
+[01:31:48 - 01:31:50] and descending
+[01:31:50 - 01:31:52] so that in and of itself could take you quite a few months
+[01:31:52 - 01:31:54] to learn and that's absolutely fine
+[01:31:54 - 01:31:56] take the time to learn that
+[01:31:56 - 01:31:58] and get it really solid within your playing
+[01:31:58 - 01:32:00] don't just do that of course do other things as well
+[01:32:00 - 01:32:02] but it's a very good goal to have all of those down
+[01:32:02 - 01:32:04] and it's going to help you in the next section of this tutorial
+[01:32:04 - 01:32:06] I'm going to go through every scale
+[01:32:06 - 01:32:08] but just show you how you can apply this to scales
+[01:32:08 - 01:32:10] which will allow you to kind of
+[01:32:10 - 01:32:12] improvise more freely
+[01:32:12 - 01:32:14] and learn scales much more quickly
+[01:32:14 - 01:32:16] ok so let's do that now
+[01:32:16 - 01:32:24] so when we're looking at learning scales
+[01:32:24 - 01:32:26] using this system
+[01:32:26 - 01:32:28] we can think of every single scale
+[01:32:28 - 01:32:30] as being built from a particular formula
+[01:32:30 - 01:32:32] and a lot of you already know that
+[01:32:32 - 01:32:34] we use the major scales of blueprint
+[01:32:34 - 01:32:36] from which to describe
+[01:32:36 - 01:32:38] all the other scales that we learn
+[01:32:38 - 01:32:40] so our basic major scale contains the intervals
+[01:32:40 - 01:32:43] 1, 2, 3, 4, 5, 6 and 7
+[01:32:43 - 01:32:45] and they're all natural intervals
+[01:32:45 - 01:32:47] there's no flats or sharps
+[01:32:47 - 01:32:49] so if I was to pick again a root note
+[01:32:49 - 01:32:51] let's stick with A
+[01:32:51 - 01:32:53] because that's the theme of what we've been doing so far
+[01:32:53 - 01:32:55] regardless of whether I knew my major scale
+[01:32:55 - 01:32:57] as a shape or not
+[01:32:57 - 01:32:59] and you probably do be unusual
+[01:32:59 - 01:33:01] if you bought this tutorial for you to not
+[01:33:01 - 01:33:03] at least know the major scale
+[01:33:03 - 01:33:05] and maybe the minor pentatonic scale
+[01:33:05 - 01:33:07] but you probably know them as a shape
+[01:33:07 - 01:33:09] like this kind of cage system shape
+[01:33:09 - 01:33:11] so on and so forth
+[01:33:11 - 01:33:13] but you might know it as a 3 note per string shape
+[01:33:15 - 01:33:17] ok you might know it a different way
+[01:33:17 - 01:33:19] there's tons of different ways you can visualize on the guitar
+[01:33:19 - 01:33:21] however let's say you didn't know this scale
+[01:33:21 - 01:33:23] and for a lot of you guys
+[01:33:23 - 01:33:25] I'm sure there's loads of scales you don't know
+[01:33:25 - 01:33:27] there's probably scales I don't know
+[01:33:27 - 01:33:29] especially some of the weird kind of like the kumwai scale
+[01:33:29 - 01:33:31] or some of those that I'll probably never use
+[01:33:31 - 01:33:33] but let's say you don't know the major scale
+[01:33:33 - 01:33:35] ok well you can work it out
+[01:33:35 - 01:33:37] but using your interval knowledge
+[01:33:37 - 01:33:39] fairly quickly on the guitar
+[01:33:39 - 01:33:41] because you know what the intervals are
+[01:33:41 - 01:33:43] or the formula make up of the scale
+[01:33:43 - 01:33:45] so it's like it's genetic code basically
+[01:33:45 - 01:33:47] so if we take A
+[01:33:47 - 01:33:49] we know it's got a natural 2
+[01:33:49 - 01:33:51] and we know that we can play that like this
+[01:33:51 - 01:33:53] or like this
+[01:33:53 - 01:33:55] from this A we know that we can play that
+[01:33:55 - 01:33:57] we can do
+[01:33:57 - 01:33:59] or we can descend
+[01:33:59 - 01:34:01] ok
+[01:34:01 - 01:34:03] well let's take the 3
+[01:34:03 - 01:34:05] or a major 3rd
+[01:34:07 - 01:34:11] we can do the descending version from another A
+[01:34:13 - 01:34:15] now again remember
+[01:34:15 - 01:34:17] we're looking at this scale now but we're not thinking
+[01:34:17 - 01:34:19] of a massive scale shape
+[01:34:19 - 01:34:21] we're just looking at the intervals that are contained within it
+[01:34:21 - 01:34:23] ok now if you get very quick at this
+[01:34:23 - 01:34:25] you can start to make your own
+[01:34:25 - 01:34:27] or not make your own but see the scale in different ways
+[01:34:27 - 01:34:29] this is where the fretboard opens up for you
+[01:34:29 - 01:34:31] a great deal
+[01:34:31 - 01:34:33] and again I'm not implying that you shouldn't learn
+[01:34:33 - 01:34:35] you should learn as much information as you can
+[01:34:35 - 01:34:37] about the fretboard
+[01:34:37 - 01:34:39] but this is a very good way of being able to develop
+[01:34:39 - 01:34:41] scales that you've never played before
+[01:34:41 - 01:34:43] very very quickly and of course the more of this you do
+[01:34:43 - 01:34:45] the quicker you get at it
+[01:34:45 - 01:34:47] so then we've got the 4th
+[01:34:47 - 01:34:49] so we know it's got a natural 4
+[01:34:51 - 01:34:55] ok so already I'm mapping out the scale
+[01:34:55 - 01:34:57] quite successfully
+[01:34:57 - 01:34:59] now I've got the 5th natural 5
+[01:35:05 - 01:35:07] ok then
+[01:35:07 - 01:35:09] then I've got the natural 6
+[01:35:11 - 01:35:16] I'm just mapping these out from A's
+[01:35:16 - 01:35:18] ok then I've got the natural 7
+[01:35:24 - 01:35:26] sorry natural 7 played 6 there
+[01:35:28 - 01:35:30] ok so from every A root note
+[01:35:30 - 01:35:32] I'm mapping out those intervals that
+[01:35:32 - 01:35:34] relates to the major scale
+[01:35:34 - 01:35:36] 1, 2, 3, 4, 5, 6 and 7
+[01:35:38 - 01:35:40] ok now that gives me the ability
+[01:35:40 - 01:35:42] when I'm improvising and again remember
+[01:35:42 - 01:35:44] this is sort of separate from this kind of
+[01:35:46 - 01:35:48] that requires a different skill
+[01:35:48 - 01:35:50] you just have to, well it's not a different skill
+[01:35:50 - 01:35:52] playing really fast like that
+[01:35:52 - 01:35:54] requires a different mindset
+[01:35:54 - 01:35:56] ok you can still use the information in the same way
+[01:35:56 - 01:35:58] I'm talking about improvising melodies
+[01:35:58 - 01:36:00] and improvising more
+[01:36:00 - 01:36:02] kind of considerably than more by muscle memory
+[01:36:02 - 01:36:04] ok so
+[01:36:04 - 01:36:06] now the benefit of this is I can look at
+[01:36:06 - 01:36:08] my major scale maybe I see this A
+[01:36:08 - 01:36:10] and I can see 7
+[01:36:10 - 01:36:12] I can see 2
+[01:36:12 - 01:36:14] 3, 5, 7
+[01:36:14 - 01:36:16] 6
+[01:36:16 - 01:36:18] here's one again another A
+[01:36:18 - 01:36:20] I can see 7
+[01:36:20 - 01:36:22] 4, 3, 5
+[01:36:22 - 01:36:24] 1, 2, 3
+[01:36:24 - 01:36:26] now visualizing from here
+[01:36:26 - 01:36:28] 4, 5
+[01:36:28 - 01:36:30] 6
+[01:36:30 - 01:36:32] now visualizing from this A
+[01:36:32 - 01:36:34] ok the 12th fret 7
+[01:36:34 - 01:36:36] going down to the 3
+[01:36:36 - 01:36:38] 4, 5
+[01:36:38 - 01:36:40] now here's another A
+[01:36:40 - 01:36:42] here which is the 10th fret for you guys again
+[01:36:42 - 01:36:44] I'll make sure this is written out in standard tuning
+[01:36:44 - 01:36:46] ok so I've got A
+[01:36:46 - 01:36:48] and then 2
+[01:36:48 - 01:36:50] 3, 5
+[01:36:50 - 01:36:52] 1
+[01:36:52 - 01:36:54] going down to the 5th
+[01:36:54 - 01:36:56] now visualizing from this A
+[01:36:56 - 01:36:58] the 7th fret of the D string
+[01:36:58 - 01:37:00] 4, 5, 1, 6
+[01:37:00 - 01:37:02] now this A
+[01:37:02 - 01:37:04] 4, 5
+[01:37:04 - 01:37:06] 3, 7, 1
+[01:37:06 - 01:37:08] which means that I can see
+[01:37:08 - 01:37:10] basically when I'm improvising
+[01:37:10 - 01:37:12] I have an ability
+[01:37:12 - 01:37:14] to manipulate that information
+[01:37:14 - 01:37:16] much more diversely
+[01:37:16 - 01:37:18] than if I just saw this
+[01:37:24 - 01:37:26] means I'm much more free
+[01:37:26 - 01:37:28] I can basically play
+[01:37:28 - 01:37:46] D which interval I'm on
+[01:37:46 - 01:37:48] if you stopped me at any point
+[01:37:48 - 01:37:50] when I was on and why I'm playing
+[01:37:50 - 01:37:52] I think that's important
+[01:37:52 - 01:37:54] I'm selecting certain intervals
+[01:37:54 - 01:37:56] because of the way they sound
+[01:37:56 - 01:37:58] or the way that I know I want to play the 7th fret
+[01:37:58 - 01:38:00] or the 9th so on and so forth
+[01:38:00 - 01:38:02] as opposed to just playing a shape
+[01:38:02 - 01:38:04] I'm playing with much smaller pieces of information
+[01:38:04 - 01:38:06] now if we were to translate this into another scale
+[01:38:06 - 01:38:08] so let's take Dorian for instance
+[01:38:08 - 01:38:10] now again all of your scales
+[01:38:10 - 01:38:12] your basic scales
+[01:38:12 - 01:38:14] that you're going to use in the majority
+[01:38:14 - 01:38:16] 99.9% of improvisation
+[01:38:16 - 01:38:18] you measure scale on all its modes
+[01:38:18 - 01:38:20] you melodic minor scale on all its modes
+[01:38:20 - 01:38:22] and then your diminished scale
+[01:38:22 - 01:38:24] your whole tone scale
+[01:38:24 - 01:38:26] and your pentatonic scales you measure in your minor
+[01:38:26 - 01:38:28] are written out in the PDF file
+[01:38:28 - 01:38:30] with their formulas
+[01:38:30 - 01:38:32] and you won't see any of the intervals in the ones you've covered
+[01:38:32 - 01:38:34] there's only 11 intervals plus a root note
+[01:38:34 - 01:38:36] so if I was to take Dorian
+[01:38:36 - 01:38:38] Dorian's formula is 1, 2, flat 3
+[01:38:38 - 01:38:40] 4, 5, 6, flat 7
+[01:38:40 - 01:38:42] and then back to 1
+[01:38:42 - 01:38:44] so if I already know the 1
+[01:38:44 - 01:38:46] well that's the root
+[01:38:46 - 01:38:48] the 2 is the same as the major scale
+[01:38:52 - 01:38:54] and we've got a flat 3
+[01:38:54 - 01:38:56] well we've done that already in this tutorial
+[01:39:00 - 01:39:02] the ascending versions there
+[01:39:02 - 01:39:04] I could play the descending versions
+[01:39:10 - 01:39:12] okay we've got a 4
+[01:39:12 - 01:39:14] well we did that with a major scale
+[01:39:14 - 01:39:16] we've got a 5
+[01:39:16 - 01:39:18] we did that with a major scale
+[01:39:18 - 01:39:20] we've got a 6
+[01:39:24 - 01:39:26] and a flat 7 this time
+[01:39:36 - 01:39:38] now I can see from any given A
+[01:39:38 - 01:39:40] where all of the intervals are
+[01:39:40 - 01:39:42] it could be any root note to be fair
+[01:39:42 - 01:39:44] it doesn't need to be A
+[01:39:44 - 01:39:46] it could be F sharp or G or G sharp
+[01:39:46 - 01:39:48] any given root note
+[01:39:48 - 01:39:50] so if I start here
+[01:39:50 - 01:39:52] let's say the A at 7th fret to D string
+[01:39:52 - 01:39:54] I can play 4, 5
+[01:39:54 - 01:39:56] visualising from this A
+[01:39:56 - 01:39:58] flat 3
+[01:39:58 - 01:40:00] visualise here now
+[01:40:00 - 01:40:02] this A, 5
+[01:40:02 - 01:40:04] and you'll see this written out in standard tuning
+[01:40:04 - 01:40:06] 4, flat 3
+[01:40:06 - 01:40:08] 1, 5
+[01:40:08 - 01:40:10] 6
+[01:40:10 - 01:40:12] and then flat 3 visualising from this A
+[01:40:14 - 01:40:16] and the root note flat 7
+[01:40:16 - 01:40:18] flat 6
+[01:40:18 - 01:40:20] 4, 5
+[01:40:20 - 01:40:22] flat 7
+[01:40:22 - 01:40:24] flat 3
+[01:40:24 - 01:40:26] 4, 5
+[01:40:26 - 01:40:28] 6
+[01:40:28 - 01:40:30] would look like that for you guys
+[01:40:30 - 01:40:32] okay then flat 7
+[01:40:32 - 01:40:34] and then root
+[01:40:34 - 01:40:36] going down to the flat 3
+[01:40:36 - 01:40:38] and then 9 or 2
+[01:40:38 - 01:40:40] 1
+[01:40:40 - 01:40:42] you get the idea
+[01:40:42 - 01:40:44] now if you did that with any given scale
+[01:40:44 - 01:40:46] and you knew those intervals really really well
+[01:40:46 - 01:40:48] very succinctly very well
+[01:40:48 - 01:40:50] and you were fluent with them
+[01:40:50 - 01:40:52] you could learn any scale
+[01:40:52 - 01:40:54] just by being given the formula of that scale
+[01:40:54 - 01:40:56] okay now again on top of that
+[01:40:56 - 01:40:58] you should learn 3 nut per string versions
+[01:40:58 - 01:41:00] I know my 3 nut per string version of an orient scale
+[01:41:02 - 01:41:04] I can start at any point within that scale
+[01:41:04 - 01:41:06] and play it as 3 nut per string
+[01:41:08 - 01:41:10] because I've done that work as well
+[01:41:10 - 01:41:12] however that's not as I say
+[01:41:12 - 01:41:14] there are a lot of variations to this
+[01:41:14 - 01:41:16] and when we get to changes playing at the end of this tutorial
+[01:41:16 - 01:41:18] which we're very close to now
+[01:41:18 - 01:41:20] the changes playing aside of things
+[01:41:20 - 01:41:22] you see the benefits massively for this
+[01:41:22 - 01:41:24] so the deal is
+[01:41:24 - 01:41:26] take formulas in terms of your practice
+[01:41:26 - 01:41:28] and I'm setting assignments to your notes as we go
+[01:41:28 - 01:41:30] I'm sort of talking at the end of each chapter
+[01:41:30 - 01:41:32] there's an assignment that you can sort of practice
+[01:41:32 - 01:41:34] in terms of your practice regime
+[01:41:34 - 01:41:36] in this assignment
+[01:41:36 - 01:41:38] you're going to basically take each of those scales
+[01:41:38 - 01:41:40] and you're going to work through them
+[01:41:40 - 01:41:42] just by learning the intervals
+[01:41:42 - 01:41:44] first take a scale of Dorian
+[01:41:44 - 01:41:46] learn its interval formula
+[01:41:46 - 01:41:48] and then practice finding those intervals
+[01:41:48 - 01:41:50] from given root notes anywhere on the fretboard
+[01:41:50 - 01:41:52] you'd have to do it in all 12 keys
+[01:41:52 - 01:41:54] once you've done it in 6 different keys
+[01:41:54 - 01:41:56] you'll be so fluent at it
+[01:41:56 - 01:41:58] you'll be able to do it from any given root notes
+[01:41:58 - 01:42:00] just make sure you're practicing where your root notes are
+[01:42:00 - 01:42:02] so hopefully that makes sense
+[01:42:02 - 01:42:04] so what we're going to do now is basically
+[01:42:04 - 01:42:06] making the assumption that you guys are okay with that
+[01:42:06 - 01:42:08] and you can apply it to various different things
+[01:42:08 - 01:42:10] you can of course apply it to arpeggios
+[01:42:10 - 01:42:12] you can of course apply it to
+[01:42:12 - 01:42:14] chord shapes for instance
+[01:42:14 - 01:42:16] you can figure out
+[01:42:16 - 01:42:18] certain inversions of chords
+[01:42:18 - 01:42:20] so you can make, you know, within a Dorian scale
+[01:42:20 - 01:42:22] you can pick to play I don't know
+[01:42:22 - 01:42:24] the 2, the 4 and the 6
+[01:42:24 - 01:42:26] okay
+[01:42:26 - 01:42:28] within the actual scale so if I did that here's my A
+[01:42:28 - 01:42:30] like I said the 2 is here
+[01:42:30 - 01:42:32] the 4
+[01:42:32 - 01:42:34] and the 6
+[01:42:34 - 01:42:38] you can pick to play any intervals
+[01:42:38 - 01:42:40] you want as a chord basically
+[01:42:40 - 01:42:42] so that's a nice side product of this
+[01:42:42 - 01:42:44] or a benefit of this as well
+[01:42:44 - 01:42:46] okay so now let's get into changes based playing
+[01:42:46 - 01:42:48] explain how this is useful in changes based playing
+[01:42:48 - 01:42:50] but obviously treat this
+[01:42:50 - 01:42:52] as just an opener
+[01:42:52 - 01:42:54] for what we're about to do
+[01:42:54 - 01:42:56] so you need to do all the work with your scales
+[01:42:56 - 01:42:58] before you really start getting into
+[01:42:58 - 01:43:00] changes based playing
+[01:43:00 - 01:43:02] really work with these intervals
+[01:43:02 - 01:43:04] work with visualising all 11 intervals from a given root note
+[01:43:04 - 01:43:06] and then once you've done that
+[01:43:06 - 01:43:08] the next section becomes much much easier
+[01:43:08 - 01:43:10] if you jump too far ahead too quickly
+[01:43:10 - 01:43:12] it's going to be a nightmare for you
+[01:43:12 - 01:43:14] so that's my word of advice
+[01:43:14 - 01:43:16] get working on your scales guys

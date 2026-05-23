@@ -1,0 +1,10 @@
+
+> guitar-course-manager@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.28
+  - Local:        http://localhost:3003
+  - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 2.3s

@@ -1,0 +1,70 @@
+{
+  "timeline": [
+    {
+      "start_seconds": 0.0,
+      "end_seconds": 511.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "So let's start out by breaking down what happens in measures 1 through 13 of the solo. Now there's not a lot technically going on as far as licks and stuff, but what is happening is something that's a running theme with Alan's playing and he's doing it here and he's doing it throughout this whole solo. He's playing extremely dynamically. A lot of people don't take full advantage of the dynamic range that the guitar has to offer. Alan, that's kind of something that separates him from so many players, is he's extremely dynamic with his playing. And what I mean by that is you'll always see him adjusting his volume pot while he's playing to clean up the tone of the guitar, but also to get it a little softer, get it a little louder. He also goes between playing with his pick and his fingers and that offers so many different sounds that you'll just have to experiment with to really understand what we mean by that. Playing with a pick, picks are made out of different materials and a plastic pick sounds different than a Tolex pick and there's a million different variations and people go years trying to find the right pick for them because each one sounds slightly different and your fingers sound completely different than a pick. So Alan switches between those two things and not only that, but a lot of players when they use their pick, they'll pick soft or they'll pick hard. And there's not a lot in between areas where Alan picks extremely lightly to where you almost can't even hear the note and you almost don't hear the pick attack. Then he goes all the way up to really pounding on the strings and then in between there's so many other levels of attack. So that creates a completely unique and huge dynamic range. Then throw in picking with your fingers which the fleshy part of your fingers sound completely different than hitting it with the nail of your fingers. Now again these things might be basic to a lot of people but even knowing these things a lot of times we forget to use them because we're so wrapped up in licks and phrasing and all that. But what he's doing at the beginning of the solo is a really cool thing too because he's drawing the listener in. Again this is the very beginning of the solo so the first thing he does instead of just coming out with a crazy lick or just blazing, he starts out slow and he does a few notes and he just phrases with those notes. And now that brings the listener in. They're like great tone, cool lick, okay I understand that. And then he repeats the phrase and it's like oh okay that's cool but he repeats it slightly differently. And then he goes into throwing in, in this instance he throws in the seventh degree of a chord so it sounds like melodic minor or harmonic minor or something so that kind of tweaks the ear a little bit too. And we'll analyze all this as we go on what exactly he's doing but that's how he's drawing the listener in. He's starting out slow, playing dynamically. And the listener is able to grab onto that real quickly. And then he gets deeper and deeper into it and then after all this phrasing he ends up going into a really cool diminished lick which we'll get into next. And that really peaks the interest because he's doing all this bluesy stuff and then he gets into this one cool phrase but nothing's played really fast so it's not these terrifying licks or runs especially at the beginning of a solo. You want to draw the listener in. So basically what he's doing in the first 13 measures is he's just riffing on D minor pentatonic. Now, he throws in a melodic minor little phrase in there to tweak the listener's ear a little bit but primarily it's all D minor pentatonic. And if you refer to the scale chart that we supplied, you'll see that it's the fifth position D minor pentatonic scale. And I'm sure most of you are very familiar with this scale. So it's basically, if you start on the A string on the D note fifth fret, it's right, very familiar scale. But what he's doing is he is starting out with this double stop. And he's bending up the B string just slightly like a quarter step and he goes right. But if you also notice that the first time he hits the note, there's a rest after it. So he's not letting it ring. It's not just a lazy holding the note. He's going and then he goes into the now that's the phrase that's going to be repeated. It's this little thing because then he does that again. He goes and what I was confused with when I transcribed this at the beginning, again, I couldn't really see his hands in the video so I didn't know if he was actually going like picking it and letting it fall off dynamically. So you had but really what's going on is he has his delay set at a really slow delay time. So he actually only hits the note once. You could hear it come back and repeat a few times. So that's what's actually happening the second time he plays the phrase. He goes then you hear it go dot dot dot dot again. So the beginning phrase is this. Then he goes then the third time he does the phrase, instead of doing right, he goes down to that A note but it's kind of muted so it's not a full A note. It's almost like just hearing that but you sort of get that tone in there. And this is where he starts using the pick. So the very beginning he's using his fingers, I think. Now this is where he gets into that little melodic minor phrase. He goes and then he goes back to minor pentatonic. He pulls off that note from the sixth fret, I'm sorry, the eighth fret to the sixth fret on the B string. And he bends that up so it's a pull off to a slight bend. And it's really quick. It's just a really cool, again, very subtle kind of phrasing thing. So the whole thing in one more time is. OK, so after he pulls off the eighth fret to the sixth fret on the B string, he just walks down pretty much the D minor pentatonic scale with that flat five in there. That would be the scale, but then he throws a sixth in here as he's riffing off of this.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "02_AHLP_M01_13_GB.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/02_AHLP_M01_13_GB.mp4"
+    },
+    {
+      "start_seconds": 510.0,
+      "end_seconds": 516.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "02_AHLP_M01_13_GB.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/02_AHLP_M01_13_GB.mp4"
+    },
+    {
+      "start_seconds": 514.5,
+      "end_seconds": 634.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "He goes down to that sixth instead of the flat seven. And again, he's playing just extremely dynamically. So when you practice this, just literally sit there and just really experiment with the dynamics. You don't have to get it exactly the way he played it, but you want to really take away from this playing softer than you're used to. Because when I first transcribed all this, I wasn't used to playing that light with the pick and almost barely hearing a note. It's OK not to hear the note completely. You don't have to distinctively play every note so everybody can hear it. Those hidden notes are very tasty. The ones that kind of die off. You almost don't hear. It's just a really cool thing. And also pay attention to when he's walking down, there is a part in the notation, the dot above the note, means that it's a staccato note. So instead of playing where all those notes ring together into the next, it's you pick the note and then you stop it. So there's that element too, which again, makes it just very dynamic because every note has a different flavor to it. So and then that last note, he kind of bends that up a little bit. And also pay attention to the notation where there are little quarter bends because you don't have to do it all the time. But those little bends make the note breathe a little bit.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "02_AHLP_M01_13_GB.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/02_AHLP_M01_13_GB.mp4"
+    },
+    {
+      "start_seconds": 633.0,
+      "end_seconds": 636.266938,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "02_AHLP_M01_13_GB.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/02_AHLP_M01_13_GB.mp4"
+    }
+  ]
+}

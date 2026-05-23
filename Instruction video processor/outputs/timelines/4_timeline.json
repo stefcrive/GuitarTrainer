@@ -1,0 +1,136 @@
+{
+  "timeline": [
+    {
+      "start_seconds": 0.0,
+      "end_seconds": 9.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    },
+    {
+      "start_seconds": 7.5,
+      "end_seconds": 37.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Well, the song that this YouTube clip is from is a song called Elegant Decovince, which is a book that I read about New Orleans, which is kind of explaining the whole decay of New Orleans, but yet the elegance that it had at one time, well, it still has, even with the decay and the patinas. But the groove was kind of based on a New Orleans groove, which was in the key of D, and I think it was like a...more like D blues, pretty much, you know, is it?",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    },
+    {
+      "start_seconds": 36.0,
+      "end_seconds": 43.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    },
+    {
+      "start_seconds": 42.0,
+      "end_seconds": 213.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "That's kind of the lick with some open strings ringing that if you have it, let me clean it up a little bit. Here, you can kind of flail away with the right hand, which is probably a flashback to some early Led Zeppelin and Jimmy Page stuff. And I like...it goes through changes with the other melodies in the other sections, but most of the solo sections are all in pretty much just D blues, I think. And the way we're using...I mean, you know, a lot of my songs are the same way where I kind of use the songs as vehicles just to get the band into these kind of creative zones of improvising. You know, it's not really about notey playing over a lot of cerebral chord changes, it's more about seeing what you can make up with one chord and make it interesting. So we're always trying to, you know, channel our Jeff Beck within us to try to get something really creative happening. That's basically what the groove is about. It's just kind of a New Orleans-esque type of groove over D blues, pretty much. Yeah, probably at the very beginning of that...I mean, usually I like to set up solos with, like, as simple as possible, but sometimes I just take it out because the band... Usually the keyboard player is laying out, so your harmonic boundaries are wide open, you know. So probably what I was thinking in that early phrase when you hear the major 7, I would guess... I'm just guessing now because who knows what I was actually thinking that night. But I probably was thinking the 5 chord. I do that sometimes. I'll just superimpose a 5 chord where there's not one being played. So it sounds like I'm playing a major 7 of the chord, but really what I'm doing is kind of outlining the 5 chord, which, of course, is just going to lead you back to the 1 chord. So if it's, like, an E in D minor... So all I did was play some A-altres and stuff. The starting mode is like, you know, I don't want to get too much into theory or anything, but the one mode in melodic minor that's really super useful is the 7th mode from melodic minor, which is the altered scale. Because thinking 5-1-5-1 happens in everything from Beatles to weather report to playing traditional jazz. So I do that a lot. I mean, there's a lot of ways to go. A lot of guys go up a half step, down a half step. Sometimes they go to, like, the 4 minor and play melodic minor from the 4 chord that I'm at. That's kind of interesting. A lot of times it's just geometric shapes that I find, and I just kind of repeat them as motifs and make them connect to the scale I know. It's a lot of multitasking going on, because a lot of times I'm kind of thinking something else, but I'm still kind of seeing the D blues scale, so I always can get hop-back on track depending on the moment.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    },
+    {
+      "start_seconds": 211.5,
+      "end_seconds": 214.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    },
+    {
+      "start_seconds": 213.0,
+      "end_seconds": 637.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "But you'll find a lot of times that, like, on the downbeat I'll usually resolve back. People ask me all the time what I'm thinking about when I play outside, and a lot of times I think what I'm probably doing in my head is I'm kind of targeting the notes I really want on the strong beats of the measure. So I'm targeting it on the downbeat of the measure, maybe beats 2 or 4 or whatever I feel, but I'm always kind of going, I can't just go randomly off into another key or it's just going to sound horrible, you know? But a lot of times when I transcribe, when I hear anything interesting, I'll transcribe it, whether it's an Alan Holder's lick or a Michael Brecker lick, you know, like, I... Now that is just a, I stole, it's just like one little bit of a motif and why not even, I'm sure it wasn't even a whole thing. But all I heard in my head was... And then I just kind of put it wherever it fits symmetrically on the fretboard within the scales. And, you know, sometimes you luck up, but you can... And I always bring it back to blues, because, you know, blues, you know, blues everybody can relate to. I mean, my mother, if I just play a bunch of out stuff, you know, my mother would be going, what is wrong with my son, you know? Here we go, wrong. But if I resolve it to a blues lick, you know, she's going to stand up and yell with the rest of the people, you know? So a lot of times when I practice these outlicks, I don't only learn the motif, which I see it as a motif or a geometric shape, I really practice getting back to a bluesy lick that everybody can relate to, that I can relate to, you know? That's the big thing. So if I learn a lick like... I'll bring it back home with something like that, you know? I don't mean to drop any names or anything, but when I was at school at MI, one of my... We weren't really friends or mortals or acquaintances, it was Jeff Buckley, who was a great Jeff Buckley, who was not many people know, but he was really a great jazz player. I mean, he, like all of us at MI, were working over chord changes a lot. And one thing I noticed about him, even back then, and before he went on his... What he really made him famous, you know, his songwriting and stuff ability, was that he had... His personality was such that he would... If you wanted to make a point, instead of blasting it out of you as loud as he could, he would talk very softly and very deliberately and very precisely, very whatsoever you're looking for, very deliberately for everything you know he said. And I found a lot of times it's the same way with guitar. I mean, I often like to start myself as at least with less instead of more. And I do that in a lot of... A few different ways. I mean, dynamically, I do a lot of legato picking, so my right hand changes a lot from picking heavy for bluesy, robin 40 type stuff, to where I tuck it away and I actually just kind of rush with my right hand like this, as opposed to if I were picking everything that sounded like that, and I had my action so low it probably buzzed like crazy. But when you brush, you can get anywhere from really like soft like that, almost like hardly any volume at all, just snapping it. I do that a lot. And that's years of, you know, listening to... I grew up listening to Dwayne Aumann, and he played a lot of slide guitar and used his fingers mostly, and that's what I got. And you can harmonically... So many things jump out when you use the flesh on the fingers, you know, in different places over the top of the pickups. So that just became really natural to me. And also, say, if the string of the guitar were strung between me and you, I kind of stroke, you know, like this. This is really the way. I never really pick like most conventional guys do. I kind of stroke it on the side, and they use three fingers for a pick. I mean, I don't know. It's just the way I did it. It wasn't any kind of, you know, kind of deliberate thing. When I first started off, it just kind of mutated into that style. But it works for me. And so what you hear in there on the beginning of the tape, I usually back down my volume with distortion full on, I'll just back down the volume on my Les Paul to about seven or eight where it cleans it up. Where it still gets a very vocal. You can get all sorts of really cool... And then if you want to just crank up the volume a little bit on your guitar, or the Robin Ford thing, if you want to go full blown, you go full blown on that stuff. So it gives you a kind of wide range. I mean, in a way, I'm really limited in that I use predominantly always my bridge pickup when I solo. And, you know, I never do like the... It all sounds like a Carlos Santana vibe, which I was never personally into so much. But I obviously feel the harmonics are so rich back then. I just kind of play with the tone a little bit in the volume a lot when I'm playing. And this goes to my equipment, too, which we can talk about more later. Because that all plays a really important role in my sound. But mostly at the beginning of that video, here is me kind of screwing around in D minor. But backing down the volume in the band's low so you get the guitar... This is a really nice guitar, by the way, it's like an old 54 Les Paul, which has a different sound of any of the Les Paul I've ever heard. It's really dynamic. It picks up everything. It's very vocal. And even at low volumes, it's very sweet and very juicy without having to be really overdone. Well, people ask me sometimes if I'm singing along with what I'm playing because, well, I mean, I've just been told that that you can kind of see me thinking whatever that means when I'm doing stuff. I guess that's flattering. A lot of times when I tell my students when they're first trying to figure out how to make a melodic solo, I tell them to sing along with their playing. And not because I want to hear them do any Keith Jarrett noises behind their singing and I'm not a really big fan of it. That kind of stuff. But it connects you, it connects your playing with what's inside. And that's ideally where the music should come from anyway. So I always encourage them to sing along because if you can do that, then, you know, number one, if you're dancing at all and you're keeping time with your playing, which I have, you know, as students, guitar players especially tend to rush like crazy and I always get them to get some kind of metronome going on their body like this. And if they're kind of dancing at times, it's going to be harder for them to play at a time. And I say, well, sing along with what you play because, you know, most likely they're not going to sing like that. But they are going to sing.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    },
+    {
+      "start_seconds": 636.0,
+      "end_seconds": 642.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    },
+    {
+      "start_seconds": 640.5,
+      "end_seconds": 681.856,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "You know, that's, you know, they can get into doing that but it just kind of connects everything together. So if it looks like I'm kind of singing along or miming or doing a ventriloquist act, it's maybe because I am kind of internalizing everything when I play stuff. And I don't notice it and that's why one reason I hate looking at videos of myself playing because it looks like I'm chewing some tobacco or something. But yeah, I mean, I can definitely sing everything I play and I recommend that for everybody who's learning, you know, at the very beginning to make sure that what they're learning means anything, you know. Everything should come from a singing point and that's where I try to get, that's where I'm trying to go, you know, with my soloing for sure.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "01_AHLP_M01_13_AH.mp4",
+      "relative_path": "Allen Hinds -  Blues Fusion/Lesson_01/01_AHLP_M01_13_AH.mp4"
+    }
+  ]
+}

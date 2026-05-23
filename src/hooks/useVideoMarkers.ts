@@ -10,7 +10,7 @@ const EMPTY_STATE: VideoMarkerState = {
   isLooping: false
 }
 
-export function useVideoMarkers(videoPath: string) {
+export function useVideoMarkers(videoPath: string, contentFile?: File | null) {
   const rootHandle = useDirectoryStore((state) => state.rootHandle)
   const [markerState, setInternalMarkerState] = useState<VideoMarkerState>(EMPTY_STATE)
   const markerStateRef = useRef<VideoMarkerState>(EMPTY_STATE)
@@ -29,7 +29,9 @@ export function useVideoMarkers(videoPath: string) {
       }
 
       try {
-        const savedState = await markersService.loadMarkers(rootHandle, videoPath)
+        const savedState = contentFile
+          ? await markersService.loadMarkersForFile(rootHandle, videoPath, contentFile)
+          : await markersService.loadMarkers(rootHandle, videoPath)
         if (savedState) {
           markerStateRef.current = savedState
           setInternalMarkerState(savedState)
@@ -46,7 +48,7 @@ export function useVideoMarkers(videoPath: string) {
     }
 
     loadMarkers()
-  }, [videoPath, rootHandle])
+  }, [videoPath, rootHandle, contentFile])
 
   // Save markers to SQLite whenever they change
   const setMarkerState = useCallback(async (nextState: VideoMarkerStateUpdate) => {
@@ -57,14 +59,18 @@ export function useVideoMarkers(videoPath: string) {
 
     if (videoPath && rootHandle) {
       try {
-        await markersService.saveMarkers(rootHandle, videoPath, resolvedState)
+        if (contentFile) {
+          await markersService.saveMarkersForFile(rootHandle, videoPath, resolvedState, contentFile)
+        } else {
+          await markersService.saveMarkers(rootHandle, videoPath, resolvedState)
+        }
         // Refresh video list to update metadata status
         useDirectoryStore.getState().refreshVideoList()
       } catch (error) {
         console.error('Error saving video markers:', error)
       }
     }
-  }, [videoPath, rootHandle])
+  }, [videoPath, rootHandle, contentFile])
 
   return {
     markerState,

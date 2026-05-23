@@ -7,13 +7,18 @@ import { useDirectoryStore } from '@/stores/directory-store'
 import { useYouTubeStore } from '@/stores/youtube-store'
 import { PlaylistManager } from '@/components/youtube/PlaylistManager'
 import { Button } from '@/components/ui/button'
-import { Trash2, RefreshCw, FileVideo, FileAudio, Target, AlertTriangle, LogOut } from 'lucide-react'
+import { Trash2, RefreshCw, FileVideo, FileAudio, Target, AlertTriangle, LogOut, CheckCircle2 } from 'lucide-react'
 import { fileSystemService } from '@/services/file-system'
+import type { VideoFile } from '@/services/file-system'
 import { markersService } from '@/services/markers'
 import { getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
 import { getDatabaseFileName } from '@/services/local-sql-db'
 import { getSpotifyStatus } from '@/services/spotify'
 import { isMemoryDirectoryHandle } from '@/services/memory-file-system'
+import {
+  clearPersistentDirectoryHandle,
+  savePersistentDirectoryHandle
+} from '@/services/persistent-directory-handles'
 
 interface DirectoryStats {
   videoCount: number
@@ -27,9 +32,11 @@ export default function SettingsPage() {
   const { 
     rootHandle, 
     audioRootHandle,
+    rootPath,
     scanVideoFolderForAudio,
     setRootHandle,
     setAudioRootHandle,
+    setRootPath,
     setScanVideoFolderForAudio
   } = useDirectoryStore()
   
@@ -57,6 +64,8 @@ export default function SettingsPage() {
   const [spotifyConfigured, setSpotifyConfigured] = useState(false)
   const [spotifyAuthorized, setSpotifyAuthorized] = useState(false)
   const [spotifyMessage, setSpotifyMessage] = useState<string | null>(null)
+  const [generatorRootStatus, setGeneratorRootStatus] = useState<'idle' | 'resolving' | 'linked' | 'failed'>('idle')
+  const [generatorRootMessage, setGeneratorRootMessage] = useState<string | null>(null)
   const isBrowserRoot = rootHandle ? isMemoryDirectoryHandle(rootHandle) : false
   const isBrowserAudioRoot = audioRootHandle ? isMemoryDirectoryHandle(audioRootHandle) : false
 
@@ -92,7 +101,10 @@ export default function SettingsPage() {
       // Count video markers and annotations
       for (const video of videos) {
         try {
-          const markerState = await markersService.loadMarkers(handle, video.path)
+          const file = video.handle ? await video.handle.getFile() : null
+          const markerState = file
+            ? await markersService.loadMarkersForFile(handle, video.path, file)
+            : await markersService.loadMarkers(handle, video.path)
           if (markerState) {
             markerCount += markerState.markers?.length || 0
             annotationCount += markerState.annotations?.length || 0
@@ -161,12 +173,18 @@ export default function SettingsPage() {
       // Reset video markers
       for (const video of videos) {
         try {
-          await markersService.saveMarkers(rootHandle, video.path, {
+          const nextState = {
             markers: [],
             annotations: [],
             activeMarkerId: null,
             isLooping: false
-          })
+          }
+          const file = video.handle ? await video.handle.getFile() : null
+          if (file) {
+            await markersService.saveMarkersForFile(rootHandle, video.path, nextState, file)
+          } else {
+            await markersService.saveMarkers(rootHandle, video.path, nextState)
+          }
         } catch (error) {
           console.error('Error resetting video markers:', error)
         }
@@ -274,6 +292,59 @@ export default function SettingsPage() {
     }
   }
 
+  const resolveGeneratorRootPath = async (
+    handle: FileSystemDirectoryHandle,
+    videos: VideoFile[]
+  ) => {
+    if (isMemoryDirectoryHandle(handle)) {
+      setRootPath(null)
+      setGeneratorRootStatus('failed')
+      setGeneratorRootMessage('Browser-only folder access cannot be used by the local Whisper process.')
+      return
+    }
+
+    setGeneratorRootStatus('resolving')
+    setGeneratorRootMessage(null)
+    try {
+      const response = await fetch('/api/local-root/resolve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          rootName: handle.name,
+          samplePaths: videos.slice(0, 10).map((video) => video.path)
+        })
+      })
+      const payload = await response.json()
+      if (!response.ok) {
+        throw new Error(payload?.error || 'Unable to resolve local root path.')
+      }
+      setRootPath(payload.rootPath)
+      setGeneratorRootStatus('linked')
+      setGeneratorRootMessage(`Automatic marker generation linked to ${payload.rootPath}`)
+    } catch (error) {
+      setRootPath(null)
+      setGeneratorRootStatus('failed')
+      setGeneratorRootMessage(
+        error instanceof Error ? error.message : 'Unable to resolve local root path.'
+      )
+    }
+  }
+
+  const rememberDirectoryHandle = async (
+    slot: 'videoRoot' | 'audioRoot',
+    handle: FileSystemDirectoryHandle
+  ) => {
+    try {
+      if (isMemoryDirectoryHandle(handle)) {
+        await clearPersistentDirectoryHandle(slot)
+        return
+      }
+      await savePersistentDirectoryHandle(slot, handle)
+    } catch (error) {
+      console.warn('Unable to remember directory handle:', error)
+    }
+  }
+
   return (
     <div className="flex h-screen flex-col">
       <Header />
@@ -292,7 +363,11 @@ export default function SettingsPage() {
                 
                 <div className="flex items-center gap-4">
                   <FolderSelectorButton
-                    onFolderSelect={(_, handle) => setRootHandle(handle)}
+                    onFolderSelect={(videos, handle) => {
+                      setRootHandle(handle)
+                      void rememberDirectoryHandle('videoRoot', handle)
+                      void resolveGeneratorRootPath(handle, videos)
+                    }}
                     onError={(error) => console.error('Error selecting folder:', error)}
                     buttonText={rootHandle ? 'Change Directory' : 'Select Directory'}
                   />
@@ -307,6 +382,31 @@ export default function SettingsPage() {
                     Firefox uses a browser-based folder picker. Your files can be read, but any markers,
                     playlists, or recordings are stored in browser storage (not written back to disk).
                     You will need to re-select this folder each time you open the app.
+                  </div>
+                )}
+
+                {rootHandle && (
+                  <div className="mt-4 rounded-md border bg-muted/20 p-3 text-sm">
+                    <div className="flex items-start gap-2">
+                      {generatorRootStatus === 'resolving' ? (
+                        <RefreshCw className="mt-0.5 h-4 w-4 animate-spin text-muted-foreground" />
+                      ) : generatorRootStatus === 'linked' || rootPath ? (
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 text-green-600" />
+                      ) : (
+                        <AlertTriangle className="mt-0.5 h-4 w-4 text-yellow-600" />
+                      )}
+                      <div className="min-w-0">
+                        <div className="font-medium">Automatic marker generation root</div>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {generatorRootStatus === 'resolving'
+                            ? 'Linking the selected folder to a local disk path for Whisper.'
+                            : generatorRootMessage
+                              || (rootPath
+                                ? `Linked to ${rootPath}`
+                                : 'Select the video root to link it automatically.')}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -447,7 +547,10 @@ export default function SettingsPage() {
                 
                 <div className="flex items-center gap-4">
                   <FolderSelectorButton
-                    onFolderSelect={(_, handle) => setAudioRootHandle(handle)}
+                    onFolderSelect={(_, handle) => {
+                      setAudioRootHandle(handle)
+                      void rememberDirectoryHandle('audioRoot', handle)
+                    }}
                     onError={(error) => console.error('Error selecting folder:', error)}
                     buttonText={audioRootHandle ? 'Change Directory' : 'Select Directory'}
                   />

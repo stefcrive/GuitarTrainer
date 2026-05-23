@@ -1,0 +1,49 @@
+;FFMETADATA1
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=0
+END=9000
+title=Performance or music section
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=7000
+END=37000
+title=Explanation with guitar
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=36000
+END=43000
+title=Performance or music section
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=42000
+END=213000
+title=Explanation with guitar
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=211000
+END=214000
+title=Performance or music section
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=213000
+END=637000
+title=Explanation with guitar
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=636000
+END=642000
+title=Performance or music section
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=640000
+END=681000
+title=Explanation with guitar

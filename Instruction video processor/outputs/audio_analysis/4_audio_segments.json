@@ -1,0 +1,7271 @@
+{
+  "audio_events": [
+    {
+      "window_index": 0,
+      "start_seconds": 0.0,
+      "end_seconds": 3.0,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 1,
+      "start_seconds": 1.5,
+      "end_seconds": 4.5,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 2,
+      "start_seconds": 3.0,
+      "end_seconds": 6.0,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 3,
+      "start_seconds": 4.5,
+      "end_seconds": 7.5,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 4,
+      "start_seconds": 6.0,
+      "end_seconds": 9.0,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 5,
+      "start_seconds": 7.5,
+      "end_seconds": 10.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 6,
+      "start_seconds": 9.0,
+      "end_seconds": 12.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 7,
+      "start_seconds": 10.5,
+      "end_seconds": 13.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 8,
+      "start_seconds": 12.0,
+      "end_seconds": 15.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 9,
+      "start_seconds": 13.5,
+      "end_seconds": 16.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 10,
+      "start_seconds": 15.0,
+      "end_seconds": 18.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 11,
+      "start_seconds": 16.5,
+      "end_seconds": 19.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 12,
+      "start_seconds": 18.0,
+      "end_seconds": 21.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 13,
+      "start_seconds": 19.5,
+      "end_seconds": 22.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 14,
+      "start_seconds": 21.0,
+      "end_seconds": 24.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 15,
+      "start_seconds": 22.5,
+      "end_seconds": 25.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 16,
+      "start_seconds": 24.0,
+      "end_seconds": 27.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 17,
+      "start_seconds": 25.5,
+      "end_seconds": 28.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 18,
+      "start_seconds": 27.0,
+      "end_seconds": 30.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 19,
+      "start_seconds": 28.5,
+      "end_seconds": 31.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 20,
+      "start_seconds": 30.0,
+      "end_seconds": 33.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 21,
+      "start_seconds": 31.5,
+      "end_seconds": 34.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 22,
+      "start_seconds": 33.0,
+      "end_seconds": 36.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 23,
+      "start_seconds": 34.5,
+      "end_seconds": 37.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 24,
+      "start_seconds": 36.0,
+      "end_seconds": 39.0,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 25,
+      "start_seconds": 37.5,
+      "end_seconds": 40.5,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 26,
+      "start_seconds": 39.0,
+      "end_seconds": 42.0,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 27,
+      "start_seconds": 40.5,
+      "end_seconds": 43.5,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 28,
+      "start_seconds": 42.0,
+      "end_seconds": 45.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 29,
+      "start_seconds": 43.5,
+      "end_seconds": 46.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 30,
+      "start_seconds": 45.0,
+      "end_seconds": 48.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 31,
+      "start_seconds": 46.5,
+      "end_seconds": 49.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 32,
+      "start_seconds": 48.0,
+      "end_seconds": 51.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 33,
+      "start_seconds": 49.5,
+      "end_seconds": 52.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 34,
+      "start_seconds": 51.0,
+      "end_seconds": 54.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 35,
+      "start_seconds": 52.5,
+      "end_seconds": 55.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 36,
+      "start_seconds": 54.0,
+      "end_seconds": 57.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 37,
+      "start_seconds": 55.5,
+      "end_seconds": 58.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 38,
+      "start_seconds": 57.0,
+      "end_seconds": 60.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 39,
+      "start_seconds": 58.5,
+      "end_seconds": 61.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 40,
+      "start_seconds": 60.0,
+      "end_seconds": 63.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 41,
+      "start_seconds": 61.5,
+      "end_seconds": 64.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 42,
+      "start_seconds": 63.0,
+      "end_seconds": 66.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 43,
+      "start_seconds": 64.5,
+      "end_seconds": 67.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 44,
+      "start_seconds": 66.0,
+      "end_seconds": 69.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 45,
+      "start_seconds": 67.5,
+      "end_seconds": 70.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 46,
+      "start_seconds": 69.0,
+      "end_seconds": 72.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 47,
+      "start_seconds": 70.5,
+      "end_seconds": 73.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 48,
+      "start_seconds": 72.0,
+      "end_seconds": 75.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 49,
+      "start_seconds": 73.5,
+      "end_seconds": 76.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 50,
+      "start_seconds": 75.0,
+      "end_seconds": 78.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 51,
+      "start_seconds": 76.5,
+      "end_seconds": 79.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 52,
+      "start_seconds": 78.0,
+      "end_seconds": 81.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 53,
+      "start_seconds": 79.5,
+      "end_seconds": 82.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 54,
+      "start_seconds": 81.0,
+      "end_seconds": 84.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 55,
+      "start_seconds": 82.5,
+      "end_seconds": 85.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 56,
+      "start_seconds": 84.0,
+      "end_seconds": 87.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 57,
+      "start_seconds": 85.5,
+      "end_seconds": 88.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 58,
+      "start_seconds": 87.0,
+      "end_seconds": 90.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 59,
+      "start_seconds": 88.5,
+      "end_seconds": 91.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 60,
+      "start_seconds": 90.0,
+      "end_seconds": 93.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 61,
+      "start_seconds": 91.5,
+      "end_seconds": 94.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 62,
+      "start_seconds": 93.0,
+      "end_seconds": 96.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 63,
+      "start_seconds": 94.5,
+      "end_seconds": 97.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 64,
+      "start_seconds": 96.0,
+      "end_seconds": 99.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 65,
+      "start_seconds": 97.5,
+      "end_seconds": 100.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 66,
+      "start_seconds": 99.0,
+      "end_seconds": 102.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 67,
+      "start_seconds": 100.5,
+      "end_seconds": 103.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 68,
+      "start_seconds": 102.0,
+      "end_seconds": 105.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 69,
+      "start_seconds": 103.5,
+      "end_seconds": 106.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 70,
+      "start_seconds": 105.0,
+      "end_seconds": 108.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 71,
+      "start_seconds": 106.5,
+      "end_seconds": 109.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 72,
+      "start_seconds": 108.0,
+      "end_seconds": 111.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 73,
+      "start_seconds": 109.5,
+      "end_seconds": 112.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 74,
+      "start_seconds": 111.0,
+      "end_seconds": 114.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 75,
+      "start_seconds": 112.5,
+      "end_seconds": 115.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 76,
+      "start_seconds": 114.0,
+      "end_seconds": 117.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 77,
+      "start_seconds": 115.5,
+      "end_seconds": 118.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 78,
+      "start_seconds": 117.0,
+      "end_seconds": 120.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 79,
+      "start_seconds": 118.5,
+      "end_seconds": 121.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 80,
+      "start_seconds": 120.0,
+      "end_seconds": 123.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 81,
+      "start_seconds": 121.5,
+      "end_seconds": 124.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 82,
+      "start_seconds": 123.0,
+      "end_seconds": 126.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 83,
+      "start_seconds": 124.5,
+      "end_seconds": 127.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 84,
+      "start_seconds": 126.0,
+      "end_seconds": 129.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 85,
+      "start_seconds": 127.5,
+      "end_seconds": 130.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 86,
+      "start_seconds": 129.0,
+      "end_seconds": 132.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 87,
+      "start_seconds": 130.5,
+      "end_seconds": 133.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 88,
+      "start_seconds": 132.0,
+      "end_seconds": 135.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 89,
+      "start_seconds": 133.5,
+      "end_seconds": 136.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 90,
+      "start_seconds": 135.0,
+      "end_seconds": 138.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 91,
+      "start_seconds": 136.5,
+      "end_seconds": 139.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 92,
+      "start_seconds": 138.0,
+      "end_seconds": 141.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 93,
+      "start_seconds": 139.5,
+      "end_seconds": 142.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 94,
+      "start_seconds": 141.0,
+      "end_seconds": 144.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 95,
+      "start_seconds": 142.5,
+      "end_seconds": 145.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 96,
+      "start_seconds": 144.0,
+      "end_seconds": 147.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 97,
+      "start_seconds": 145.5,
+      "end_seconds": 148.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 98,
+      "start_seconds": 147.0,
+      "end_seconds": 150.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 99,
+      "start_seconds": 148.5,
+      "end_seconds": 151.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 100,
+      "start_seconds": 150.0,
+      "end_seconds": 153.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 101,
+      "start_seconds": 151.5,
+      "end_seconds": 154.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 102,
+      "start_seconds": 153.0,
+      "end_seconds": 156.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 103,
+      "start_seconds": 154.5,
+      "end_seconds": 157.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 104,
+      "start_seconds": 156.0,
+      "end_seconds": 159.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 105,
+      "start_seconds": 157.5,
+      "end_seconds": 160.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 106,
+      "start_seconds": 159.0,
+      "end_seconds": 162.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 107,
+      "start_seconds": 160.5,
+      "end_seconds": 163.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 108,
+      "start_seconds": 162.0,
+      "end_seconds": 165.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 109,
+      "start_seconds": 163.5,
+      "end_seconds": 166.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 110,
+      "start_seconds": 165.0,
+      "end_seconds": 168.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 111,
+      "start_seconds": 166.5,
+      "end_seconds": 169.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 112,
+      "start_seconds": 168.0,
+      "end_seconds": 171.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 113,
+      "start_seconds": 169.5,
+      "end_seconds": 172.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 114,
+      "start_seconds": 171.0,
+      "end_seconds": 174.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 115,
+      "start_seconds": 172.5,
+      "end_seconds": 175.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 116,
+      "start_seconds": 174.0,
+      "end_seconds": 177.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 117,
+      "start_seconds": 175.5,
+      "end_seconds": 178.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 118,
+      "start_seconds": 177.0,
+      "end_seconds": 180.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 119,
+      "start_seconds": 178.5,
+      "end_seconds": 181.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 120,
+      "start_seconds": 180.0,
+      "end_seconds": 183.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 121,
+      "start_seconds": 181.5,
+      "end_seconds": 184.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 122,
+      "start_seconds": 183.0,
+      "end_seconds": 186.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 123,
+      "start_seconds": 184.5,
+      "end_seconds": 187.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 124,
+      "start_seconds": 186.0,
+      "end_seconds": 189.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 125,
+      "start_seconds": 187.5,
+      "end_seconds": 190.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 126,
+      "start_seconds": 189.0,
+      "end_seconds": 192.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 127,
+      "start_seconds": 190.5,
+      "end_seconds": 193.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 128,
+      "start_seconds": 192.0,
+      "end_seconds": 195.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 129,
+      "start_seconds": 193.5,
+      "end_seconds": 196.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 130,
+      "start_seconds": 195.0,
+      "end_seconds": 198.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 131,
+      "start_seconds": 196.5,
+      "end_seconds": 199.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 132,
+      "start_seconds": 198.0,
+      "end_seconds": 201.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 133,
+      "start_seconds": 199.5,
+      "end_seconds": 202.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 134,
+      "start_seconds": 201.0,
+      "end_seconds": 204.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 135,
+      "start_seconds": 202.5,
+      "end_seconds": 205.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 136,
+      "start_seconds": 204.0,
+      "end_seconds": 207.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 137,
+      "start_seconds": 205.5,
+      "end_seconds": 208.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 138,
+      "start_seconds": 207.0,
+      "end_seconds": 210.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 139,
+      "start_seconds": 208.5,
+      "end_seconds": 211.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 140,
+      "start_seconds": 210.0,
+      "end_seconds": 213.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 141,
+      "start_seconds": 211.5,
+      "end_seconds": 214.5,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 142,
+      "start_seconds": 213.0,
+      "end_seconds": 216.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 143,
+      "start_seconds": 214.5,
+      "end_seconds": 217.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 144,
+      "start_seconds": 216.0,
+      "end_seconds": 219.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 145,
+      "start_seconds": 217.5,
+      "end_seconds": 220.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 146,
+      "start_seconds": 219.0,
+      "end_seconds": 222.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 147,
+      "start_seconds": 220.5,
+      "end_seconds": 223.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 148,
+      "start_seconds": 222.0,
+      "end_seconds": 225.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 149,
+      "start_seconds": 223.5,
+      "end_seconds": 226.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 150,
+      "start_seconds": 225.0,
+      "end_seconds": 228.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 151,
+      "start_seconds": 226.5,
+      "end_seconds": 229.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 152,
+      "start_seconds": 228.0,
+      "end_seconds": 231.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 153,
+      "start_seconds": 229.5,
+      "end_seconds": 232.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 154,
+      "start_seconds": 231.0,
+      "end_seconds": 234.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 155,
+      "start_seconds": 232.5,
+      "end_seconds": 235.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 156,
+      "start_seconds": 234.0,
+      "end_seconds": 237.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 157,
+      "start_seconds": 235.5,
+      "end_seconds": 238.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 158,
+      "start_seconds": 237.0,
+      "end_seconds": 240.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 159,
+      "start_seconds": 238.5,
+      "end_seconds": 241.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 160,
+      "start_seconds": 240.0,
+      "end_seconds": 243.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 161,
+      "start_seconds": 241.5,
+      "end_seconds": 244.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 162,
+      "start_seconds": 243.0,
+      "end_seconds": 246.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 163,
+      "start_seconds": 244.5,
+      "end_seconds": 247.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 164,
+      "start_seconds": 246.0,
+      "end_seconds": 249.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 165,
+      "start_seconds": 247.5,
+      "end_seconds": 250.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 166,
+      "start_seconds": 249.0,
+      "end_seconds": 252.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 167,
+      "start_seconds": 250.5,
+      "end_seconds": 253.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 168,
+      "start_seconds": 252.0,
+      "end_seconds": 255.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 169,
+      "start_seconds": 253.5,
+      "end_seconds": 256.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 170,
+      "start_seconds": 255.0,
+      "end_seconds": 258.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 171,
+      "start_seconds": 256.5,
+      "end_seconds": 259.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 172,
+      "start_seconds": 258.0,
+      "end_seconds": 261.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 173,
+      "start_seconds": 259.5,
+      "end_seconds": 262.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 174,
+      "start_seconds": 261.0,
+      "end_seconds": 264.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 175,
+      "start_seconds": 262.5,
+      "end_seconds": 265.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 176,
+      "start_seconds": 264.0,
+      "end_seconds": 267.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 177,
+      "start_seconds": 265.5,
+      "end_seconds": 268.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 178,
+      "start_seconds": 267.0,
+      "end_seconds": 270.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 179,
+      "start_seconds": 268.5,
+      "end_seconds": 271.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 180,
+      "start_seconds": 270.0,
+      "end_seconds": 273.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 181,
+      "start_seconds": 271.5,
+      "end_seconds": 274.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 182,
+      "start_seconds": 273.0,
+      "end_seconds": 276.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 183,
+      "start_seconds": 274.5,
+      "end_seconds": 277.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 184,
+      "start_seconds": 276.0,
+      "end_seconds": 279.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 185,
+      "start_seconds": 277.5,
+      "end_seconds": 280.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 186,
+      "start_seconds": 279.0,
+      "end_seconds": 282.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 187,
+      "start_seconds": 280.5,
+      "end_seconds": 283.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 188,
+      "start_seconds": 282.0,
+      "end_seconds": 285.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 189,
+      "start_seconds": 283.5,
+      "end_seconds": 286.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 190,
+      "start_seconds": 285.0,
+      "end_seconds": 288.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 191,
+      "start_seconds": 286.5,
+      "end_seconds": 289.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 192,
+      "start_seconds": 288.0,
+      "end_seconds": 291.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 193,
+      "start_seconds": 289.5,
+      "end_seconds": 292.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 194,
+      "start_seconds": 291.0,
+      "end_seconds": 294.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 195,
+      "start_seconds": 292.5,
+      "end_seconds": 295.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 196,
+      "start_seconds": 294.0,
+      "end_seconds": 297.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 197,
+      "start_seconds": 295.5,
+      "end_seconds": 298.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 198,
+      "start_seconds": 297.0,
+      "end_seconds": 300.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 199,
+      "start_seconds": 298.5,
+      "end_seconds": 301.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 200,
+      "start_seconds": 300.0,
+      "end_seconds": 303.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 201,
+      "start_seconds": 301.5,
+      "end_seconds": 304.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 202,
+      "start_seconds": 303.0,
+      "end_seconds": 306.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 203,
+      "start_seconds": 304.5,
+      "end_seconds": 307.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 204,
+      "start_seconds": 306.0,
+      "end_seconds": 309.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 205,
+      "start_seconds": 307.5,
+      "end_seconds": 310.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 206,
+      "start_seconds": 309.0,
+      "end_seconds": 312.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 207,
+      "start_seconds": 310.5,
+      "end_seconds": 313.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 208,
+      "start_seconds": 312.0,
+      "end_seconds": 315.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 209,
+      "start_seconds": 313.5,
+      "end_seconds": 316.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 210,
+      "start_seconds": 315.0,
+      "end_seconds": 318.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 211,
+      "start_seconds": 316.5,
+      "end_seconds": 319.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 212,
+      "start_seconds": 318.0,
+      "end_seconds": 321.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 213,
+      "start_seconds": 319.5,
+      "end_seconds": 322.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 214,
+      "start_seconds": 321.0,
+      "end_seconds": 324.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 215,
+      "start_seconds": 322.5,
+      "end_seconds": 325.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 216,
+      "start_seconds": 324.0,
+      "end_seconds": 327.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 217,
+      "start_seconds": 325.5,
+      "end_seconds": 328.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 218,
+      "start_seconds": 327.0,
+      "end_seconds": 330.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 219,
+      "start_seconds": 328.5,
+      "end_seconds": 331.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 220,
+      "start_seconds": 330.0,
+      "end_seconds": 333.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 221,
+      "start_seconds": 331.5,
+      "end_seconds": 334.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 222,
+      "start_seconds": 333.0,
+      "end_seconds": 336.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 223,
+      "start_seconds": 334.5,
+      "end_seconds": 337.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 224,
+      "start_seconds": 336.0,
+      "end_seconds": 339.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 225,
+      "start_seconds": 337.5,
+      "end_seconds": 340.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 226,
+      "start_seconds": 339.0,
+      "end_seconds": 342.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 227,
+      "start_seconds": 340.5,
+      "end_seconds": 343.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 228,
+      "start_seconds": 342.0,
+      "end_seconds": 345.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 229,
+      "start_seconds": 343.5,
+      "end_seconds": 346.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 230,
+      "start_seconds": 345.0,
+      "end_seconds": 348.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 231,
+      "start_seconds": 346.5,
+      "end_seconds": 349.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 232,
+      "start_seconds": 348.0,
+      "end_seconds": 351.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 233,
+      "start_seconds": 349.5,
+      "end_seconds": 352.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 234,
+      "start_seconds": 351.0,
+      "end_seconds": 354.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 235,
+      "start_seconds": 352.5,
+      "end_seconds": 355.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 236,
+      "start_seconds": 354.0,
+      "end_seconds": 357.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 237,
+      "start_seconds": 355.5,
+      "end_seconds": 358.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 238,
+      "start_seconds": 357.0,
+      "end_seconds": 360.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 239,
+      "start_seconds": 358.5,
+      "end_seconds": 361.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 240,
+      "start_seconds": 360.0,
+      "end_seconds": 363.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 241,
+      "start_seconds": 361.5,
+      "end_seconds": 364.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 242,
+      "start_seconds": 363.0,
+      "end_seconds": 366.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 243,
+      "start_seconds": 364.5,
+      "end_seconds": 367.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 244,
+      "start_seconds": 366.0,
+      "end_seconds": 369.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 245,
+      "start_seconds": 367.5,
+      "end_seconds": 370.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 246,
+      "start_seconds": 369.0,
+      "end_seconds": 372.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 247,
+      "start_seconds": 370.5,
+      "end_seconds": 373.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 248,
+      "start_seconds": 372.0,
+      "end_seconds": 375.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 249,
+      "start_seconds": 373.5,
+      "end_seconds": 376.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 250,
+      "start_seconds": 375.0,
+      "end_seconds": 378.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 251,
+      "start_seconds": 376.5,
+      "end_seconds": 379.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 252,
+      "start_seconds": 378.0,
+      "end_seconds": 381.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 253,
+      "start_seconds": 379.5,
+      "end_seconds": 382.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 254,
+      "start_seconds": 381.0,
+      "end_seconds": 384.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 255,
+      "start_seconds": 382.5,
+      "end_seconds": 385.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 256,
+      "start_seconds": 384.0,
+      "end_seconds": 387.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 257,
+      "start_seconds": 385.5,
+      "end_seconds": 388.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 258,
+      "start_seconds": 387.0,
+      "end_seconds": 390.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 259,
+      "start_seconds": 388.5,
+      "end_seconds": 391.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 260,
+      "start_seconds": 390.0,
+      "end_seconds": 393.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 261,
+      "start_seconds": 391.5,
+      "end_seconds": 394.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 262,
+      "start_seconds": 393.0,
+      "end_seconds": 396.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 263,
+      "start_seconds": 394.5,
+      "end_seconds": 397.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 264,
+      "start_seconds": 396.0,
+      "end_seconds": 399.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 265,
+      "start_seconds": 397.5,
+      "end_seconds": 400.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 266,
+      "start_seconds": 399.0,
+      "end_seconds": 402.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 267,
+      "start_seconds": 400.5,
+      "end_seconds": 403.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 268,
+      "start_seconds": 402.0,
+      "end_seconds": 405.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 269,
+      "start_seconds": 403.5,
+      "end_seconds": 406.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 270,
+      "start_seconds": 405.0,
+      "end_seconds": 408.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 271,
+      "start_seconds": 406.5,
+      "end_seconds": 409.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 272,
+      "start_seconds": 408.0,
+      "end_seconds": 411.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 273,
+      "start_seconds": 409.5,
+      "end_seconds": 412.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 274,
+      "start_seconds": 411.0,
+      "end_seconds": 414.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 275,
+      "start_seconds": 412.5,
+      "end_seconds": 415.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 276,
+      "start_seconds": 414.0,
+      "end_seconds": 417.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 277,
+      "start_seconds": 415.5,
+      "end_seconds": 418.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 278,
+      "start_seconds": 417.0,
+      "end_seconds": 420.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 279,
+      "start_seconds": 418.5,
+      "end_seconds": 421.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 280,
+      "start_seconds": 420.0,
+      "end_seconds": 423.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 281,
+      "start_seconds": 421.5,
+      "end_seconds": 424.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 282,
+      "start_seconds": 423.0,
+      "end_seconds": 426.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 283,
+      "start_seconds": 424.5,
+      "end_seconds": 427.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 284,
+      "start_seconds": 426.0,
+      "end_seconds": 429.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 285,
+      "start_seconds": 427.5,
+      "end_seconds": 430.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 286,
+      "start_seconds": 429.0,
+      "end_seconds": 432.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 287,
+      "start_seconds": 430.5,
+      "end_seconds": 433.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 288,
+      "start_seconds": 432.0,
+      "end_seconds": 435.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 289,
+      "start_seconds": 433.5,
+      "end_seconds": 436.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 290,
+      "start_seconds": 435.0,
+      "end_seconds": 438.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 291,
+      "start_seconds": 436.5,
+      "end_seconds": 439.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 292,
+      "start_seconds": 438.0,
+      "end_seconds": 441.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 293,
+      "start_seconds": 439.5,
+      "end_seconds": 442.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 294,
+      "start_seconds": 441.0,
+      "end_seconds": 444.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 295,
+      "start_seconds": 442.5,
+      "end_seconds": 445.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 296,
+      "start_seconds": 444.0,
+      "end_seconds": 447.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 297,
+      "start_seconds": 445.5,
+      "end_seconds": 448.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 298,
+      "start_seconds": 447.0,
+      "end_seconds": 450.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 299,
+      "start_seconds": 448.5,
+      "end_seconds": 451.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 300,
+      "start_seconds": 450.0,
+      "end_seconds": 453.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 301,
+      "start_seconds": 451.5,
+      "end_seconds": 454.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 302,
+      "start_seconds": 453.0,
+      "end_seconds": 456.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 303,
+      "start_seconds": 454.5,
+      "end_seconds": 457.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 304,
+      "start_seconds": 456.0,
+      "end_seconds": 459.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 305,
+      "start_seconds": 457.5,
+      "end_seconds": 460.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 306,
+      "start_seconds": 459.0,
+      "end_seconds": 462.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 307,
+      "start_seconds": 460.5,
+      "end_seconds": 463.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 308,
+      "start_seconds": 462.0,
+      "end_seconds": 465.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 309,
+      "start_seconds": 463.5,
+      "end_seconds": 466.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 310,
+      "start_seconds": 465.0,
+      "end_seconds": 468.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 311,
+      "start_seconds": 466.5,
+      "end_seconds": 469.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 312,
+      "start_seconds": 468.0,
+      "end_seconds": 471.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 313,
+      "start_seconds": 469.5,
+      "end_seconds": 472.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 314,
+      "start_seconds": 471.0,
+      "end_seconds": 474.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 315,
+      "start_seconds": 472.5,
+      "end_seconds": 475.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 316,
+      "start_seconds": 474.0,
+      "end_seconds": 477.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 317,
+      "start_seconds": 475.5,
+      "end_seconds": 478.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 318,
+      "start_seconds": 477.0,
+      "end_seconds": 480.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 319,
+      "start_seconds": 478.5,
+      "end_seconds": 481.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 320,
+      "start_seconds": 480.0,
+      "end_seconds": 483.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 321,
+      "start_seconds": 481.5,
+      "end_seconds": 484.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 322,
+      "start_seconds": 483.0,
+      "end_seconds": 486.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 323,
+      "start_seconds": 484.5,
+      "end_seconds": 487.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 324,
+      "start_seconds": 486.0,
+      "end_seconds": 489.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 325,
+      "start_seconds": 487.5,
+      "end_seconds": 490.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 326,
+      "start_seconds": 489.0,
+      "end_seconds": 492.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 327,
+      "start_seconds": 490.5,
+      "end_seconds": 493.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 328,
+      "start_seconds": 492.0,
+      "end_seconds": 495.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 329,
+      "start_seconds": 493.5,
+      "end_seconds": 496.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 330,
+      "start_seconds": 495.0,
+      "end_seconds": 498.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 331,
+      "start_seconds": 496.5,
+      "end_seconds": 499.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 332,
+      "start_seconds": 498.0,
+      "end_seconds": 501.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 333,
+      "start_seconds": 499.5,
+      "end_seconds": 502.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 334,
+      "start_seconds": 501.0,
+      "end_seconds": 504.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 335,
+      "start_seconds": 502.5,
+      "end_seconds": 505.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 336,
+      "start_seconds": 504.0,
+      "end_seconds": 507.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 337,
+      "start_seconds": 505.5,
+      "end_seconds": 508.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 338,
+      "start_seconds": 507.0,
+      "end_seconds": 510.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 339,
+      "start_seconds": 508.5,
+      "end_seconds": 511.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 340,
+      "start_seconds": 510.0,
+      "end_seconds": 513.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 341,
+      "start_seconds": 511.5,
+      "end_seconds": 514.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 342,
+      "start_seconds": 513.0,
+      "end_seconds": 516.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 343,
+      "start_seconds": 514.5,
+      "end_seconds": 517.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 344,
+      "start_seconds": 516.0,
+      "end_seconds": 519.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 345,
+      "start_seconds": 517.5,
+      "end_seconds": 520.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 346,
+      "start_seconds": 519.0,
+      "end_seconds": 522.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 347,
+      "start_seconds": 520.5,
+      "end_seconds": 523.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 348,
+      "start_seconds": 522.0,
+      "end_seconds": 525.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 349,
+      "start_seconds": 523.5,
+      "end_seconds": 526.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 350,
+      "start_seconds": 525.0,
+      "end_seconds": 528.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 351,
+      "start_seconds": 526.5,
+      "end_seconds": 529.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 352,
+      "start_seconds": 528.0,
+      "end_seconds": 531.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 353,
+      "start_seconds": 529.5,
+      "end_seconds": 532.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 354,
+      "start_seconds": 531.0,
+      "end_seconds": 534.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 355,
+      "start_seconds": 532.5,
+      "end_seconds": 535.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 356,
+      "start_seconds": 534.0,
+      "end_seconds": 537.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 357,
+      "start_seconds": 535.5,
+      "end_seconds": 538.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 358,
+      "start_seconds": 537.0,
+      "end_seconds": 540.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 359,
+      "start_seconds": 538.5,
+      "end_seconds": 541.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 360,
+      "start_seconds": 540.0,
+      "end_seconds": 543.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 361,
+      "start_seconds": 541.5,
+      "end_seconds": 544.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 362,
+      "start_seconds": 543.0,
+      "end_seconds": 546.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 363,
+      "start_seconds": 544.5,
+      "end_seconds": 547.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 364,
+      "start_seconds": 546.0,
+      "end_seconds": 549.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 365,
+      "start_seconds": 547.5,
+      "end_seconds": 550.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 366,
+      "start_seconds": 549.0,
+      "end_seconds": 552.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 367,
+      "start_seconds": 550.5,
+      "end_seconds": 553.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 368,
+      "start_seconds": 552.0,
+      "end_seconds": 555.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 369,
+      "start_seconds": 553.5,
+      "end_seconds": 556.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 370,
+      "start_seconds": 555.0,
+      "end_seconds": 558.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 371,
+      "start_seconds": 556.5,
+      "end_seconds": 559.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 372,
+      "start_seconds": 558.0,
+      "end_seconds": 561.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 373,
+      "start_seconds": 559.5,
+      "end_seconds": 562.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 374,
+      "start_seconds": 561.0,
+      "end_seconds": 564.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 375,
+      "start_seconds": 562.5,
+      "end_seconds": 565.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 376,
+      "start_seconds": 564.0,
+      "end_seconds": 567.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 377,
+      "start_seconds": 565.5,
+      "end_seconds": 568.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 378,
+      "start_seconds": 567.0,
+      "end_seconds": 570.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 379,
+      "start_seconds": 568.5,
+      "end_seconds": 571.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 380,
+      "start_seconds": 570.0,
+      "end_seconds": 573.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 381,
+      "start_seconds": 571.5,
+      "end_seconds": 574.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 382,
+      "start_seconds": 573.0,
+      "end_seconds": 576.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 383,
+      "start_seconds": 574.5,
+      "end_seconds": 577.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 384,
+      "start_seconds": 576.0,
+      "end_seconds": 579.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 385,
+      "start_seconds": 577.5,
+      "end_seconds": 580.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 386,
+      "start_seconds": 579.0,
+      "end_seconds": 582.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 387,
+      "start_seconds": 580.5,
+      "end_seconds": 583.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 388,
+      "start_seconds": 582.0,
+      "end_seconds": 585.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 389,
+      "start_seconds": 583.5,
+      "end_seconds": 586.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 390,
+      "start_seconds": 585.0,
+      "end_seconds": 588.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 391,
+      "start_seconds": 586.5,
+      "end_seconds": 589.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 392,
+      "start_seconds": 588.0,
+      "end_seconds": 591.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 393,
+      "start_seconds": 589.5,
+      "end_seconds": 592.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 394,
+      "start_seconds": 591.0,
+      "end_seconds": 594.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 395,
+      "start_seconds": 592.5,
+      "end_seconds": 595.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 396,
+      "start_seconds": 594.0,
+      "end_seconds": 597.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 397,
+      "start_seconds": 595.5,
+      "end_seconds": 598.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 398,
+      "start_seconds": 597.0,
+      "end_seconds": 600.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 399,
+      "start_seconds": 598.5,
+      "end_seconds": 601.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 400,
+      "start_seconds": 600.0,
+      "end_seconds": 603.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 401,
+      "start_seconds": 601.5,
+      "end_seconds": 604.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 402,
+      "start_seconds": 603.0,
+      "end_seconds": 606.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 403,
+      "start_seconds": 604.5,
+      "end_seconds": 607.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 404,
+      "start_seconds": 606.0,
+      "end_seconds": 609.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 405,
+      "start_seconds": 607.5,
+      "end_seconds": 610.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 406,
+      "start_seconds": 609.0,
+      "end_seconds": 612.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 407,
+      "start_seconds": 610.5,
+      "end_seconds": 613.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 408,
+      "start_seconds": 612.0,
+      "end_seconds": 615.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 409,
+      "start_seconds": 613.5,
+      "end_seconds": 616.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 410,
+      "start_seconds": 615.0,
+      "end_seconds": 618.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 411,
+      "start_seconds": 616.5,
+      "end_seconds": 619.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 412,
+      "start_seconds": 618.0,
+      "end_seconds": 621.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 413,
+      "start_seconds": 619.5,
+      "end_seconds": 622.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 414,
+      "start_seconds": 621.0,
+      "end_seconds": 624.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 415,
+      "start_seconds": 622.5,
+      "end_seconds": 625.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 416,
+      "start_seconds": 624.0,
+      "end_seconds": 627.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 417,
+      "start_seconds": 625.5,
+      "end_seconds": 628.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 418,
+      "start_seconds": 627.0,
+      "end_seconds": 630.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 419,
+      "start_seconds": 628.5,
+      "end_seconds": 631.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 420,
+      "start_seconds": 630.0,
+      "end_seconds": 633.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 421,
+      "start_seconds": 631.5,
+      "end_seconds": 634.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 422,
+      "start_seconds": 633.0,
+      "end_seconds": 636.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 423,
+      "start_seconds": 634.5,
+      "end_seconds": 637.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 424,
+      "start_seconds": 636.0,
+      "end_seconds": 639.0,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 425,
+      "start_seconds": 637.5,
+      "end_seconds": 640.5,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 426,
+      "start_seconds": 639.0,
+      "end_seconds": 642.0,
+      "top_labels": [
+        "possible_music_or_silence"
+      ],
+      "top_scores": [
+        0.35
+      ],
+      "speech_score": 0.05,
+      "music_score": 0.35,
+      "guitar_or_instrument_score": 0.18,
+      "silence_or_noise_score": 0.35
+    },
+    {
+      "window_index": 427,
+      "start_seconds": 640.5,
+      "end_seconds": 643.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 428,
+      "start_seconds": 642.0,
+      "end_seconds": 645.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 429,
+      "start_seconds": 643.5,
+      "end_seconds": 646.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 430,
+      "start_seconds": 645.0,
+      "end_seconds": 648.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 431,
+      "start_seconds": 646.5,
+      "end_seconds": 649.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 432,
+      "start_seconds": 648.0,
+      "end_seconds": 651.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 433,
+      "start_seconds": 649.5,
+      "end_seconds": 652.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 434,
+      "start_seconds": 651.0,
+      "end_seconds": 654.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 435,
+      "start_seconds": 652.5,
+      "end_seconds": 655.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 436,
+      "start_seconds": 654.0,
+      "end_seconds": 657.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 437,
+      "start_seconds": 655.5,
+      "end_seconds": 658.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 438,
+      "start_seconds": 657.0,
+      "end_seconds": 660.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 439,
+      "start_seconds": 658.5,
+      "end_seconds": 661.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 440,
+      "start_seconds": 660.0,
+      "end_seconds": 663.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 441,
+      "start_seconds": 661.5,
+      "end_seconds": 664.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 442,
+      "start_seconds": 663.0,
+      "end_seconds": 666.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 443,
+      "start_seconds": 664.5,
+      "end_seconds": 667.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 444,
+      "start_seconds": 666.0,
+      "end_seconds": 669.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 445,
+      "start_seconds": 667.5,
+      "end_seconds": 670.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 446,
+      "start_seconds": 669.0,
+      "end_seconds": 672.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 447,
+      "start_seconds": 670.5,
+      "end_seconds": 673.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 448,
+      "start_seconds": 672.0,
+      "end_seconds": 675.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 449,
+      "start_seconds": 673.5,
+      "end_seconds": 676.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 450,
+      "start_seconds": 675.0,
+      "end_seconds": 678.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 451,
+      "start_seconds": 676.5,
+      "end_seconds": 679.5,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 452,
+      "start_seconds": 678.0,
+      "end_seconds": 681.0,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 453,
+      "start_seconds": 679.5,
+      "end_seconds": 681.856,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    },
+    {
+      "window_index": 454,
+      "start_seconds": 681.0,
+      "end_seconds": 681.856,
+      "top_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "top_scores": [
+        0.7
+      ],
+      "speech_score": 0.7,
+      "music_score": 0.25,
+      "guitar_or_instrument_score": 0.2,
+      "silence_or_noise_score": 0.05
+    }
+  ]
+}

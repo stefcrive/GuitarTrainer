@@ -1,4 +1,5 @@
 import type { MarkerDiagram } from './guitar'
+import type { MarkerLearningMetadata } from './learning'
 
 export interface FileSystemAudio {
   id: string
@@ -28,6 +29,7 @@ export interface AudioMarker {
   completionDegree?: number // Track completion percentage
   createdAt?: number // timestamp when marker was created
   diagrams?: MarkerDiagram[]
+  learning?: MarkerLearningMetadata
 }
 
 export interface AudioAnnotation {

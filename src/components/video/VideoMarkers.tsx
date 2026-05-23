@@ -12,6 +12,7 @@ import { useDirectoryStore } from '@/stores/directory-store'
 import { VideoAnnotationEditor } from './VideoAnnotationEditor'
 import { MarkerTimeEditor } from './MarkerTimeEditor'
 import { MarkerDiagramList } from '@/components/guitar/NeckDiagramEditor'
+import { LearningDomainSelect } from '@/components/learning/LearningDomainSelect'
 import {
   AlertCircle as AlertIcon,
   ChevronDown as ChevronDownIcon,
@@ -336,27 +337,52 @@ export function VideoMarkers({
     })
   }
 
+  const selectMarker = (marker: TimeMarker) => {
+    setMarkerState({
+      ...markerState,
+      activeMarkerId: marker.id
+    })
+  }
+
   const toggleMarkerDetails = (marker: TimeMarker) => {
-    activateMarker(marker)
+    selectMarker(marker)
     setEditingMarkerId(editingMarkerId === marker.id ? null : marker.id)
   }
 
-  const renderTags = (tags: string[]) => (
+  const renderTags = (tags: string[], collapsed = false) => {
+    const visibleTags = collapsed ? tags.slice(0, 3) : tags
+    const hiddenCount = Math.max(0, tags.length - visibleTags.length)
+
+    return (
     tags.length > 0 ? (
-      <div className="flex flex-wrap gap-1">
-        {tags.map(tag => (
+      <div
+        className={cn(
+          'flex gap-1',
+          collapsed ? 'max-w-64 flex-nowrap overflow-hidden' : 'flex-wrap'
+        )}
+        title={collapsed && tags.length > 0 ? tags.join(', ') : undefined}
+      >
+        {visibleTags.map(tag => (
           <span
             key={tag}
-            className="rounded-md bg-primary/10 px-1.5 py-0.5 text-xs text-primary"
+            className={cn(
+              'rounded-md bg-primary/10 px-1.5 py-0.5 text-xs text-primary',
+              collapsed && 'max-w-28 truncate'
+            )}
           >
             {tag}
           </span>
         ))}
+        {hiddenCount > 0 && (
+          <span className="shrink-0 rounded-md bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">
+            +{hiddenCount}
+          </span>
+        )}
       </div>
     ) : (
       <span className="text-xs text-muted-foreground">None</span>
     )
-  )
+  )}
 
   const renderProgress = (completion = 0, compact = false) => (
     <div className={cn('flex items-center gap-2', compact ? 'min-w-28' : 'w-full')}>
@@ -459,6 +485,22 @@ export function VideoMarkers({
     </Button>
   )
 
+  const renderLoadButton = (marker: TimeMarker) => (
+    <Button
+      variant="outline"
+      size="sm"
+      className="h-8 min-w-16 text-sm"
+      onClick={(e) => {
+        e.stopPropagation()
+        activateMarker(marker)
+      }}
+      title="Load marker in player"
+    >
+      <ClockIcon className="h-3 w-3 mr-1" />
+      Load
+    </Button>
+  )
+
   const renderMarkerDetails = (marker: TimeMarker) => {
     const annotation = getAnnotation(marker.id)
     return (
@@ -476,6 +518,23 @@ export function VideoMarkers({
                   handleMarkerUpdate({ ...marker, title: e.target.value }, false)
                 }}
                 placeholder="Add a title for this marker..."
+              />
+            </section>
+
+            <section className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Learning Domain</label>
+              <LearningDomainSelect
+                value={marker.learning?.domain}
+                className="w-full"
+                onChange={(domain) => {
+                  handleMarkerUpdate({
+                    ...marker,
+                    learning: {
+                      ...(marker.learning ?? {}),
+                      domain
+                    }
+                  }, false)
+                }}
               />
             </section>
 
@@ -580,7 +639,7 @@ export function VideoMarkers({
                   <th className="w-36 px-3 py-2">Timestamp</th>
                   <th className="w-40 px-3 py-2">Progress</th>
                   <th className="px-3 py-2">Tags</th>
-                  <th className="w-44 px-3 py-2 text-right">Actions</th>
+                  <th className="w-56 px-3 py-2 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -596,7 +655,7 @@ export function VideoMarkers({
                           isActive && (contentType === 'youtube' ? 'bg-red-500/10' : 'bg-blue-500/10')
                         )}
                         onClick={() => {
-                          activateMarker(marker, true)
+                          selectMarker(marker)
                           setEditingMarkerId(isExpanded ? null : marker.id)
                         }}
                       >
@@ -625,10 +684,11 @@ export function VideoMarkers({
                           {renderProgress(marker.completionDegree || 0, true)}
                         </td>
                         <td className="px-3 py-3 align-middle">
-                          {renderTags(annotation?.tags || [])}
+                          {renderTags(annotation?.tags || [], true)}
                         </td>
                         <td className="px-3 py-3 align-middle">
                           <div className="flex justify-end gap-1.5">
+                            {renderLoadButton(marker)}
                             {renderLoopButton(marker)}
                             {renderDeleteButton(marker)}
                           </div>
@@ -667,7 +727,8 @@ export function VideoMarkers({
                   )}
                   onClick={(e) => {
                     if (e.target === e.currentTarget || e.target instanceof HTMLElement && !e.target.closest('button, input, textarea, [role="slider"]')) {
-                      activateMarker(marker, true)
+                      selectMarker(marker)
+                      setEditingMarkerId(isExpanded ? null : marker.id)
                     }
                   }}
                 >
@@ -695,6 +756,7 @@ export function VideoMarkers({
 
                       <div className="flex flex-wrap items-center justify-end gap-2">
                         {renderRecordControls(marker)}
+                        {renderLoadButton(marker)}
                         {renderLoopButton(marker)}
                         <Button
                           variant="ghost"

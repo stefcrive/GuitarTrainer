@@ -1,4 +1,5 @@
 import type { MarkerDiagram } from './guitar'
+import type { MarkerLearningMetadata } from './learning'
 
 export interface TimeMarker {
   id: string
@@ -11,6 +12,7 @@ export interface TimeMarker {
   completionDegree?: number // 0-100 percentage of completion
   createdAt?: number // timestamp when marker was created
   diagrams?: MarkerDiagram[]
+  learning?: MarkerLearningMetadata
 }
 
 export interface VideoAnnotation {

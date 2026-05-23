@@ -1,0 +1,951 @@
+{
+  "language": "en",
+  "language_probability": 0.9935395121574402,
+  "segments": [
+    {
+      "segment_index": 0,
+      "start_seconds": 2.86,
+      "end_seconds": 25.5,
+      "text": "So let's start out by breaking down what happens in measures 1 through 13 of the solo.",
+      "confidence": -0.1670520967299785
+    },
+    {
+      "segment_index": 1,
+      "start_seconds": 25.5,
+      "end_seconds": 30.62,
+      "text": "Now there's not a lot technically going on as far as licks and stuff, but what is happening",
+      "confidence": -0.1670520967299785
+    },
+    {
+      "segment_index": 2,
+      "start_seconds": 30.62,
+      "end_seconds": 36.16,
+      "text": "is something that's a running theme with Alan's playing and he's doing it here and he's doing",
+      "confidence": -0.1670520967299785
+    },
+    {
+      "segment_index": 3,
+      "start_seconds": 36.16,
+      "end_seconds": 37.66,
+      "text": "it throughout this whole solo.",
+      "confidence": -0.1670520967299785
+    },
+    {
+      "segment_index": 4,
+      "start_seconds": 37.66,
+      "end_seconds": 41.9,
+      "text": "He's playing extremely dynamically.",
+      "confidence": -0.1670520967299785
+    },
+    {
+      "segment_index": 5,
+      "start_seconds": 41.9,
+      "end_seconds": 47.1,
+      "text": "A lot of people don't take full advantage of the dynamic range that the guitar has",
+      "confidence": -0.1670520967299785
+    },
+    {
+      "segment_index": 6,
+      "start_seconds": 47.1,
+      "end_seconds": 48.1,
+      "text": "to offer.",
+      "confidence": -0.1670520967299785
+    },
+    {
+      "segment_index": 7,
+      "start_seconds": 48.1,
+      "end_seconds": 53.38,
+      "text": "Alan, that's kind of something that separates him from so many players, is he's extremely",
+      "confidence": -0.1715448760625088
+    },
+    {
+      "segment_index": 8,
+      "start_seconds": 53.38,
+      "end_seconds": 55.46,
+      "text": "dynamic with his playing.",
+      "confidence": -0.1715448760625088
+    },
+    {
+      "segment_index": 9,
+      "start_seconds": 55.46,
+      "end_seconds": 60.9,
+      "text": "And what I mean by that is you'll always see him adjusting his volume pot while he's playing",
+      "confidence": -0.1715448760625088
+    },
+    {
+      "segment_index": 10,
+      "start_seconds": 60.9,
+      "end_seconds": 67.58,
+      "text": "to clean up the tone of the guitar, but also to get it a little softer, get it a little",
+      "confidence": -0.1715448760625088
+    },
+    {
+      "segment_index": 11,
+      "start_seconds": 67.58,
+      "end_seconds": 68.94,
+      "text": "louder.",
+      "confidence": -0.1715448760625088
+    },
+    {
+      "segment_index": 12,
+      "start_seconds": 68.94,
+      "end_seconds": 74.62,
+      "text": "He also goes between playing with his pick and his fingers and that offers so many different",
+      "confidence": -0.1715448760625088
+    },
+    {
+      "segment_index": 13,
+      "start_seconds": 74.62,
+      "end_seconds": 81.5,
+      "text": "sounds that you'll just have to experiment with to really understand what we mean by that.",
+      "confidence": -0.14718689024448395
+    },
+    {
+      "segment_index": 14,
+      "start_seconds": 81.5,
+      "end_seconds": 87.98,
+      "text": "Playing with a pick, picks are made out of different materials and a plastic pick sounds",
+      "confidence": -0.14718689024448395
+    },
+    {
+      "segment_index": 15,
+      "start_seconds": 87.98,
+      "end_seconds": 93.38,
+      "text": "different than a Tolex pick and there's a million different variations and people",
+      "confidence": -0.14718689024448395
+    },
+    {
+      "segment_index": 16,
+      "start_seconds": 93.38,
+      "end_seconds": 100.38,
+      "text": "go years trying to find the right pick for them because each one sounds slightly different",
+      "confidence": -0.14718689024448395
+    },
+    {
+      "segment_index": 17,
+      "start_seconds": 100.38,
+      "end_seconds": 104.02,
+      "text": "and your fingers sound completely different than a pick.",
+      "confidence": -0.14718689024448395
+    },
+    {
+      "segment_index": 18,
+      "start_seconds": 104.02,
+      "end_seconds": 110.46,
+      "text": "So Alan switches between those two things and not only that, but a lot of players when",
+      "confidence": -0.139081790625492
+    },
+    {
+      "segment_index": 19,
+      "start_seconds": 110.46,
+      "end_seconds": 114.06,
+      "text": "they use their pick, they'll pick soft or they'll pick hard.",
+      "confidence": -0.139081790625492
+    },
+    {
+      "segment_index": 20,
+      "start_seconds": 114.06,
+      "end_seconds": 119.78,
+      "text": "And there's not a lot in between areas where Alan picks extremely lightly to where you",
+      "confidence": -0.139081790625492
+    },
+    {
+      "segment_index": 21,
+      "start_seconds": 119.78,
+      "end_seconds": 124.14,
+      "text": "almost can't even hear the note and you almost don't hear the pick attack.",
+      "confidence": -0.139081790625492
+    },
+    {
+      "segment_index": 22,
+      "start_seconds": 124.14,
+      "end_seconds": 129.9,
+      "text": "Then he goes all the way up to really pounding on the strings and then in between there's",
+      "confidence": -0.139081790625492
+    },
+    {
+      "segment_index": 23,
+      "start_seconds": 129.9,
+      "end_seconds": 133.1,
+      "text": "so many other levels of attack.",
+      "confidence": -0.139081790625492
+    },
+    {
+      "segment_index": 24,
+      "start_seconds": 133.1,
+      "end_seconds": 138.42,
+      "text": "So that creates a completely unique and huge dynamic range.",
+      "confidence": -0.1254278556283178
+    },
+    {
+      "segment_index": 25,
+      "start_seconds": 138.42,
+      "end_seconds": 142.5,
+      "text": "Then throw in picking with your fingers which the fleshy part of your fingers sound completely",
+      "confidence": -0.1254278556283178
+    },
+    {
+      "segment_index": 26,
+      "start_seconds": 142.5,
+      "end_seconds": 145.66,
+      "text": "different than hitting it with the nail of your fingers.",
+      "confidence": -0.1254278556283178
+    },
+    {
+      "segment_index": 27,
+      "start_seconds": 145.66,
+      "end_seconds": 150.7,
+      "text": "Now again these things might be basic to a lot of people but even knowing these things",
+      "confidence": -0.1254278556283178
+    },
+    {
+      "segment_index": 28,
+      "start_seconds": 150.7,
+      "end_seconds": 155.74,
+      "text": "a lot of times we forget to use them because we're so wrapped up in licks and phrasing",
+      "confidence": -0.1254278556283178
+    },
+    {
+      "segment_index": 29,
+      "start_seconds": 155.74,
+      "end_seconds": 157.02,
+      "text": "and all that.",
+      "confidence": -0.1254278556283178
+    },
+    {
+      "segment_index": 30,
+      "start_seconds": 157.02,
+      "end_seconds": 160.9,
+      "text": "But what he's doing at the beginning of the solo is a really cool thing too because",
+      "confidence": -0.1254278556283178
+    },
+    {
+      "segment_index": 31,
+      "start_seconds": 161.02,
+      "end_seconds": 165.58,
+      "text": "he's drawing the listener in.",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 32,
+      "start_seconds": 165.58,
+      "end_seconds": 169.06,
+      "text": "Again this is the very beginning of the solo so the first thing he does instead of",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 33,
+      "start_seconds": 169.06,
+      "end_seconds": 174.06,
+      "text": "just coming out with a crazy lick or just blazing, he starts out slow and he",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 34,
+      "start_seconds": 174.06,
+      "end_seconds": 176.58,
+      "text": "does a few notes and he just phrases with those notes.",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 35,
+      "start_seconds": 176.58,
+      "end_seconds": 178.14,
+      "text": "And now that brings the listener in.",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 36,
+      "start_seconds": 178.14,
+      "end_seconds": 182.54,
+      "text": "They're like great tone, cool lick, okay I understand that.",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 37,
+      "start_seconds": 182.54,
+      "end_seconds": 186.06,
+      "text": "And then he repeats the phrase and it's like oh okay that's cool but he",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 38,
+      "start_seconds": 186.06,
+      "end_seconds": 188.1,
+      "text": "repeats it slightly differently.",
+      "confidence": -0.1985435168547877
+    },
+    {
+      "segment_index": 39,
+      "start_seconds": 188.14,
+      "end_seconds": 192.78,
+      "text": "And then he goes into throwing in, in this instance he throws in",
+      "confidence": -0.2170613396947629
+    },
+    {
+      "segment_index": 40,
+      "start_seconds": 194.94,
+      "end_seconds": 199.9,
+      "text": "the seventh degree of a chord so it sounds like melodic minor or",
+      "confidence": -0.2170613396947629
+    },
+    {
+      "segment_index": 41,
+      "start_seconds": 199.9,
+      "end_seconds": 203.98,
+      "text": "harmonic minor or something so that kind of tweaks the ear a little bit too.",
+      "confidence": -0.2170613396947629
+    },
+    {
+      "segment_index": 42,
+      "start_seconds": 203.98,
+      "end_seconds": 208.66,
+      "text": "And we'll analyze all this as we go on what exactly he's doing but",
+      "confidence": -0.2170613396947629
+    },
+    {
+      "segment_index": 43,
+      "start_seconds": 208.66,
+      "end_seconds": 210.34,
+      "text": "that's how he's drawing the listener in.",
+      "confidence": -0.2170613396947629
+    },
+    {
+      "segment_index": 44,
+      "start_seconds": 210.34,
+      "end_seconds": 213.26,
+      "text": "He's starting out slow, playing dynamically.",
+      "confidence": -0.2170613396947629
+    },
+    {
+      "segment_index": 45,
+      "start_seconds": 214.5,
+      "end_seconds": 218.06,
+      "text": "And the listener is able to grab onto that real quickly.",
+      "confidence": -0.2170613396947629
+    },
+    {
+      "segment_index": 46,
+      "start_seconds": 218.06,
+      "end_seconds": 222.46,
+      "text": "And then he gets deeper and deeper into it and then after all this phrasing he",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 47,
+      "start_seconds": 222.46,
+      "end_seconds": 226.18,
+      "text": "ends up going into a really cool diminished lick which we'll get into next.",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 48,
+      "start_seconds": 226.18,
+      "end_seconds": 229.78,
+      "text": "And that really peaks the interest because he's doing all this bluesy stuff",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 49,
+      "start_seconds": 229.78,
+      "end_seconds": 233.7,
+      "text": "and then he gets into this one cool phrase but nothing's played really fast",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 50,
+      "start_seconds": 233.7,
+      "end_seconds": 238.7,
+      "text": "so it's not these terrifying licks or runs especially at the beginning of a solo.",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 51,
+      "start_seconds": 238.7,
+      "end_seconds": 240.18,
+      "text": "You want to draw the listener in.",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 52,
+      "start_seconds": 242.02,
+      "end_seconds": 245.06,
+      "text": "So basically what he's doing in the first 13 measures is he's just",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 53,
+      "start_seconds": 245.06,
+      "end_seconds": 247.22,
+      "text": "riffing on D minor pentatonic.",
+      "confidence": -0.15434094967732903
+    },
+    {
+      "segment_index": 54,
+      "start_seconds": 247.22,
+      "end_seconds": 252.3,
+      "text": "Now, he throws in a melodic minor little phrase in there to tweak the listener's",
+      "confidence": -0.15347867749505123
+    },
+    {
+      "segment_index": 55,
+      "start_seconds": 252.3,
+      "end_seconds": 255.66,
+      "text": "ear a little bit but primarily it's all D minor pentatonic.",
+      "confidence": -0.15347867749505123
+    },
+    {
+      "segment_index": 56,
+      "start_seconds": 255.66,
+      "end_seconds": 258.38,
+      "text": "And if you refer to the scale chart that we supplied,",
+      "confidence": -0.15347867749505123
+    },
+    {
+      "segment_index": 57,
+      "start_seconds": 258.38,
+      "end_seconds": 262.74,
+      "text": "you'll see that it's the fifth position D minor pentatonic scale.",
+      "confidence": -0.15347867749505123
+    },
+    {
+      "segment_index": 58,
+      "start_seconds": 262.74,
+      "end_seconds": 267.29,
+      "text": "And I'm sure most of you are very familiar with this scale.",
+      "confidence": -0.15347867749505123
+    },
+    {
+      "segment_index": 59,
+      "start_seconds": 267.29,
+      "end_seconds": 270.61,
+      "text": "So it's basically, if you start on the A string on the D note fifth fret,",
+      "confidence": -0.15347867749505123
+    },
+    {
+      "segment_index": 60,
+      "start_seconds": 270.61,
+      "end_seconds": 283.97,
+      "text": "it's right, very familiar scale.",
+      "confidence": -0.15347867749505123
+    },
+    {
+      "segment_index": 61,
+      "start_seconds": 283.97,
+      "end_seconds": 288.97,
+      "text": "But what he's doing is he is starting out with this double stop.",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 62,
+      "start_seconds": 288.97,
+      "end_seconds": 293.61,
+      "text": "And he's bending up the B string just slightly like a quarter step and",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 63,
+      "start_seconds": 293.61,
+      "end_seconds": 300.9,
+      "text": "he goes right.",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 64,
+      "start_seconds": 300.9,
+      "end_seconds": 304.3,
+      "text": "But if you also notice that the first time he hits the note,",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 65,
+      "start_seconds": 304.3,
+      "end_seconds": 305.42,
+      "text": "there's a rest after it.",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 66,
+      "start_seconds": 305.42,
+      "end_seconds": 306.62,
+      "text": "So he's not letting it ring.",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 67,
+      "start_seconds": 306.62,
+      "end_seconds": 308.54,
+      "text": "It's not just a lazy holding the note.",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 68,
+      "start_seconds": 311.18,
+      "end_seconds": 318.44,
+      "text": "He's going and then he goes into the now that's the phrase",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 69,
+      "start_seconds": 318.44,
+      "end_seconds": 319.56,
+      "text": "that's going to be repeated.",
+      "confidence": -0.18138831004238964
+    },
+    {
+      "segment_index": 70,
+      "start_seconds": 319.56,
+      "end_seconds": 325.78,
+      "text": "It's this little thing because then he does that again.",
+      "confidence": -0.1804215336086774
+    },
+    {
+      "segment_index": 71,
+      "start_seconds": 325.78,
+      "end_seconds": 331.79,
+      "text": "He goes and what I was confused with when I transcribed this at",
+      "confidence": -0.1804215336086774
+    },
+    {
+      "segment_index": 72,
+      "start_seconds": 331.79,
+      "end_seconds": 334.27,
+      "text": "the beginning, again, I couldn't really see his hands in the",
+      "confidence": -0.1804215336086774
+    },
+    {
+      "segment_index": 73,
+      "start_seconds": 334.27,
+      "end_seconds": 340.73,
+      "text": "video so I didn't know if he was actually going like picking",
+      "confidence": -0.1804215336086774
+    },
+    {
+      "segment_index": 74,
+      "start_seconds": 340.73,
+      "end_seconds": 344.77,
+      "text": "it and letting it fall off dynamically.",
+      "confidence": -0.1804215336086774
+    },
+    {
+      "segment_index": 75,
+      "start_seconds": 344.77,
+      "end_seconds": 352.02,
+      "text": "So you had but really what's going on is he has his delay",
+      "confidence": -0.1804215336086774
+    },
+    {
+      "segment_index": 76,
+      "start_seconds": 352.02,
+      "end_seconds": 356.78,
+      "text": "set at a really slow delay time.",
+      "confidence": -0.1804215336086774
+    },
+    {
+      "segment_index": 77,
+      "start_seconds": 356.78,
+      "end_seconds": 361.82,
+      "text": "So he actually only hits the note once.",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 78,
+      "start_seconds": 361.82,
+      "end_seconds": 364.34,
+      "text": "You could hear it come back and repeat a few times.",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 79,
+      "start_seconds": 364.34,
+      "end_seconds": 366.46,
+      "text": "So that's what's actually happening the second time he",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 80,
+      "start_seconds": 366.46,
+      "end_seconds": 367.14,
+      "text": "plays the phrase.",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 81,
+      "start_seconds": 367.14,
+      "end_seconds": 373.47,
+      "text": "He goes then you hear it go dot dot dot dot again.",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 82,
+      "start_seconds": 373.47,
+      "end_seconds": 379.81,
+      "text": "So the beginning phrase is this.",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 83,
+      "start_seconds": 379.81,
+      "end_seconds": 385.46,
+      "text": "Then he goes then the third time he does the phrase,",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 84,
+      "start_seconds": 385.46,
+      "end_seconds": 393.14,
+      "text": "instead of doing right, he goes down to that",
+      "confidence": -0.20956804199765125
+    },
+    {
+      "segment_index": 85,
+      "start_seconds": 393.14,
+      "end_seconds": 396.86,
+      "text": "A note but it's kind of muted so it's not a full A note.",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 86,
+      "start_seconds": 396.86,
+      "end_seconds": 401.06,
+      "text": "It's almost like just hearing that but you sort of get that",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 87,
+      "start_seconds": 401.06,
+      "end_seconds": 401.74,
+      "text": "tone in there.",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 88,
+      "start_seconds": 401.74,
+      "end_seconds": 404.5,
+      "text": "And this is where he starts using the pick.",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 89,
+      "start_seconds": 404.5,
+      "end_seconds": 418.62,
+      "text": "So the very beginning he's using his fingers, I think.",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 90,
+      "start_seconds": 418.62,
+      "end_seconds": 420.46,
+      "text": "Now this is where he gets into that little",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 91,
+      "start_seconds": 420.46,
+      "end_seconds": 422.06,
+      "text": "melodic minor phrase.",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 92,
+      "start_seconds": 422.06,
+      "end_seconds": 432.89,
+      "text": "He goes and then he goes back to minor pentatonic.",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 93,
+      "start_seconds": 432.89,
+      "end_seconds": 435.93,
+      "text": "He pulls off that note from the sixth fret, I'm sorry,",
+      "confidence": -0.19675091805599504
+    },
+    {
+      "segment_index": 94,
+      "start_seconds": 435.93,
+      "end_seconds": 438.53,
+      "text": "the eighth fret to the sixth fret on the B string.",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 95,
+      "start_seconds": 438.53,
+      "end_seconds": 445.7,
+      "text": "And he bends that up so it's a pull off to a slight bend.",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 96,
+      "start_seconds": 445.7,
+      "end_seconds": 448.58,
+      "text": "And it's really quick.",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 97,
+      "start_seconds": 448.58,
+      "end_seconds": 452.06,
+      "text": "It's just a really cool, again, very subtle kind",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 98,
+      "start_seconds": 452.06,
+      "end_seconds": 453.38,
+      "text": "of phrasing thing.",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 99,
+      "start_seconds": 453.38,
+      "end_seconds": 480.14,
+      "text": "So the whole thing in one more time is.",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 100,
+      "start_seconds": 480.14,
+      "end_seconds": 483.9,
+      "text": "OK, so after he pulls off the eighth fret to the sixth",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 101,
+      "start_seconds": 483.9,
+      "end_seconds": 493.77,
+      "text": "fret on the B string, he just walks down pretty much",
+      "confidence": -0.15590994160335797
+    },
+    {
+      "segment_index": 102,
+      "start_seconds": 493.77,
+      "end_seconds": 501.33,
+      "text": "the D minor pentatonic scale with that flat five in there.",
+      "confidence": -0.23589964892904638
+    },
+    {
+      "segment_index": 103,
+      "start_seconds": 501.33,
+      "end_seconds": 508.05,
+      "text": "That would be the scale, but then he throws a sixth in here",
+      "confidence": -0.23589964892904638
+    },
+    {
+      "segment_index": 104,
+      "start_seconds": 508.05,
+      "end_seconds": 509.73,
+      "text": "as he's riffing off of this.",
+      "confidence": -0.23589964892904638
+    },
+    {
+      "segment_index": 105,
+      "start_seconds": 517.14,
+      "end_seconds": 519.74,
+      "text": "He goes down to that sixth instead of the flat seven.",
+      "confidence": -0.23589964892904638
+    },
+    {
+      "segment_index": 106,
+      "start_seconds": 519.74,
+      "end_seconds": 524.9,
+      "text": "And again, he's playing just extremely dynamically.",
+      "confidence": -0.2917532407004258
+    },
+    {
+      "segment_index": 107,
+      "start_seconds": 524.9,
+      "end_seconds": 527.3,
+      "text": "So when you practice this, just literally sit there",
+      "confidence": -0.2917532407004258
+    },
+    {
+      "segment_index": 108,
+      "start_seconds": 527.3,
+      "end_seconds": 532.26,
+      "text": "and just really experiment with the dynamics.",
+      "confidence": -0.2917532407004258
+    },
+    {
+      "segment_index": 109,
+      "start_seconds": 532.26,
+      "end_seconds": 543.98,
+      "text": "You don't have to get it exactly the way he played it,",
+      "confidence": -0.2917532407004258
+    },
+    {
+      "segment_index": 110,
+      "start_seconds": 543.98,
+      "end_seconds": 549.22,
+      "text": "but you want to really take away from this playing softer",
+      "confidence": -0.2917532407004258
+    },
+    {
+      "segment_index": 111,
+      "start_seconds": 549.22,
+      "end_seconds": 550.18,
+      "text": "than you're used to.",
+      "confidence": -0.2917532407004258
+    },
+    {
+      "segment_index": 112,
+      "start_seconds": 550.18,
+      "end_seconds": 554.86,
+      "text": "Because when I first transcribed all this, I wasn't",
+      "confidence": -0.2917532407004258
+    },
+    {
+      "segment_index": 113,
+      "start_seconds": 554.9,
+      "end_seconds": 559.26,
+      "text": "used to playing that light with the pick and almost barely",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 114,
+      "start_seconds": 559.26,
+      "end_seconds": 559.98,
+      "text": "hearing a note.",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 115,
+      "start_seconds": 559.98,
+      "end_seconds": 562.42,
+      "text": "It's OK not to hear the note completely.",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 116,
+      "start_seconds": 562.42,
+      "end_seconds": 564.62,
+      "text": "You don't have to distinctively play every note",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 117,
+      "start_seconds": 564.62,
+      "end_seconds": 566.06,
+      "text": "so everybody can hear it.",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 118,
+      "start_seconds": 566.06,
+      "end_seconds": 569.42,
+      "text": "Those hidden notes are very tasty.",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 119,
+      "start_seconds": 569.42,
+      "end_seconds": 571.74,
+      "text": "The ones that kind of die off.",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 120,
+      "start_seconds": 571.74,
+      "end_seconds": 573.18,
+      "text": "You almost don't hear.",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 121,
+      "start_seconds": 573.18,
+      "end_seconds": 575.18,
+      "text": "It's just a really cool thing.",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 122,
+      "start_seconds": 575.18,
+      "end_seconds": 578.02,
+      "text": "And also pay attention to when he's walking down,",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 123,
+      "start_seconds": 578.02,
+      "end_seconds": 581.82,
+      "text": "there is a part in the notation, the dot above the note,",
+      "confidence": -0.27687738122058514
+    },
+    {
+      "segment_index": 124,
+      "start_seconds": 581.82,
+      "end_seconds": 583.58,
+      "text": "means that it's a staccato note.",
+      "confidence": -0.33594117800394696
+    },
+    {
+      "segment_index": 125,
+      "start_seconds": 583.58,
+      "end_seconds": 591.74,
+      "text": "So instead of playing where all those notes ring together",
+      "confidence": -0.33594117800394696
+    },
+    {
+      "segment_index": 126,
+      "start_seconds": 591.74,
+      "end_seconds": 599.18,
+      "text": "into the next, it's you pick the note and then you stop it.",
+      "confidence": -0.33594117800394696
+    },
+    {
+      "segment_index": 127,
+      "start_seconds": 599.18,
+      "end_seconds": 601.62,
+      "text": "So there's that element too, which again,",
+      "confidence": -0.33594117800394696
+    },
+    {
+      "segment_index": 128,
+      "start_seconds": 601.62,
+      "end_seconds": 607.59,
+      "text": "makes it just very dynamic because every note",
+      "confidence": -0.33594117800394696
+    },
+    {
+      "segment_index": 129,
+      "start_seconds": 607.59,
+      "end_seconds": 608.87,
+      "text": "has a different flavor to it.",
+      "confidence": -0.33594117800394696
+    },
+    {
+      "segment_index": 130,
+      "start_seconds": 608.87,
+      "end_seconds": 620.66,
+      "text": "So and then that last note, he kind of bends that up a little bit.",
+      "confidence": -0.3341472332294171
+    },
+    {
+      "segment_index": 131,
+      "start_seconds": 620.66,
+      "end_seconds": 623.8,
+      "text": "And also pay attention to the notation",
+      "confidence": -0.3341472332294171
+    },
+    {
+      "segment_index": 132,
+      "start_seconds": 623.8,
+      "end_seconds": 626.0,
+      "text": "where there are little quarter bends",
+      "confidence": -0.3341472332294171
+    },
+    {
+      "segment_index": 133,
+      "start_seconds": 626.0,
+      "end_seconds": 629.0,
+      "text": "because you don't have to do it all the time.",
+      "confidence": -0.3341472332294171
+    },
+    {
+      "segment_index": 134,
+      "start_seconds": 629.0,
+      "end_seconds": 631.96,
+      "text": "But those little bends make the note breathe a little bit.",
+      "confidence": -0.3341472332294171
+    }
+  ]
+}

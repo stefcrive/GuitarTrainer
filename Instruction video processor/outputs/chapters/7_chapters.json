@@ -1,0 +1,264 @@
+{
+  "chapters": [
+    {
+      "start_seconds": 0,
+      "end_seconds": 511.0,
+      "title": "Explanation with guitar",
+      "summary": "Automatically generated from transcript and audio evidence.",
+      "confidence": 0.55,
+      "tags": [
+        "bending",
+        "harmonic minor",
+        "melodic minor",
+        "pentatonic",
+        "tone",
+        "performance-preparation",
+        "performance-and-playing-with-others"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Performance & Playing With Others",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Performance Preparation",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone",
+          "performance-preparation",
+          "performance-and-playing-with-others"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 510.0,
+      "end_seconds": 516.0,
+      "title": "Performance or music section",
+      "summary": "Automatically generated from transcript and audio evidence.",
+      "confidence": 0.35,
+      "tags": [
+        "bending",
+        "harmonic minor",
+        "melodic minor",
+        "pentatonic",
+        "tone",
+        "performance-preparation",
+        "performance-and-playing-with-others"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Performance & Playing With Others",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Performance Preparation",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone",
+          "performance-preparation",
+          "performance-and-playing-with-others"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 514.0,
+      "end_seconds": 634.0,
+      "title": "Explanation with guitar",
+      "summary": "Automatically generated from transcript and audio evidence.",
+      "confidence": 0.55,
+      "tags": [
+        "bending",
+        "harmonic minor",
+        "melodic minor",
+        "pentatonic",
+        "tone",
+        "performance-preparation",
+        "performance-and-playing-with-others"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Performance & Playing With Others",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Performance Preparation",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone",
+          "performance-preparation",
+          "performance-and-playing-with-others"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 633.0,
+      "end_seconds": 636.0,
+      "title": "Performance or music section",
+      "summary": "Automatically generated from transcript and audio evidence.",
+      "confidence": 0.35,
+      "tags": [
+        "bending",
+        "harmonic minor",
+        "melodic minor",
+        "pentatonic",
+        "tone",
+        "performance-preparation",
+        "performance-and-playing-with-others"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Performance & Playing With Others",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Performance Preparation",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "bending",
+          "harmonic minor",
+          "melodic minor",
+          "pentatonic",
+          "tone",
+          "performance-preparation",
+          "performance-and-playing-with-others"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    }
+  ]
+}

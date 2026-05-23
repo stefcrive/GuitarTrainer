@@ -18,7 +18,7 @@ class AppConfig(BaseModel):
     whisper_num_workers: int = 1
     language: str = "auto"
     llm_provider: str = "openai"
-    llm_model: str = "gpt-4o-mini"
+    llm_model: str = "gpt-4o"
     max_videos_per_run: int | None = None
     skip_existing: bool = True
     force_reprocess: bool = False
@@ -27,7 +27,10 @@ class AppConfig(BaseModel):
     audio_analysis_hop_seconds: float = 1.5
     audio_classifier: str = "yamnet"
     chapter_min_count: int = 5
-    chapter_max_count: int = 20
+    chapter_max_count: int = 14
+    chapter_boundary_pause_seconds: float = 2.5
+    chapter_min_duration_seconds: float = 45.0
+    chapter_target_seconds: float = 420.0
     tag_max_count: int = 20
     embedding_enabled: bool = False
     keep_audio_cache: bool = False

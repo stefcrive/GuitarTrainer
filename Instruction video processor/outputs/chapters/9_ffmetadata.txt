@@ -1,0 +1,301 @@
+;FFMETADATA1
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3000
+END=91000
+title=Hello guys and welcome to brand new
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=91000
+END=171000
+title=It's lots and lots of things amalgamation
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=171000
+END=284000
+title=Finger attack color
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=284000
+END=365000
+title=Minor pentatonic phrase
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=365000
+END=469000
+title=That's system I'm going to show you
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=469000
+END=558000
+title=That's just tuning Okay if we start
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=558000
+END=601000
+title=You're just thinking key But problem it
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=601000
+END=741000
+title=Explanation guitar Very hard to break out
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=741000
+END=935000
+title=Things for faster based playing it's very
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=935000
+END=1021000
+title=It's great system But again what problems
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1021000
+END=1142000
+title=I want to give you more detail
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1142000
+END=1274000
+title=We're only thinking one octave at time
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1274000
+END=1370000
+title=That's too basic if you like for
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1370000
+END=1458000
+title=Or playing scenario Let's say we're going
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1458000
+END=1565000
+title=If I find I can't see root
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1565000
+END=1656000
+title=Here's chord Now flat three interval Okay
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1656000
+END=1771000
+title=I'm not thinking scale I'm not thinking
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1771000
+END=1848000
+title=It's important to map out next part
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1848000
+END=1959000
+title=When we play over two chords if
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=1959000
+END=2085000
+title=Don't worry thinking what note name Just
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2085000
+END=2149000
+title=I don't need to do I don't
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2149000
+END=2269000
+title=Explanation guitar Important what I doing there
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2269000
+END=2307000
+title=Explanation guitar Okay so I can look
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2307000
+END=2337000
+title=Explanation guitar And again I'm just cataloging
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2337000
+END=2368000
+title=Explanation guitar And again what I would
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2373000
+END=2478000
+title=On and so forth so you're Taking
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2478000
+END=2601000
+title=Minor pentatonic phrase
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2601000
+END=2716000
+title=For me it's same shape Maybe you
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2716000
+END=2837000
+title=Slow practice pass
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2837000
+END=2893000
+title=Hopefully you can see how system Okay
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2893000
+END=2997000
+title=Am I thinking big arpeggio shape Am
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=2997000
+END=3096000
+title=That's first way Okay
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3096000
+END=3141000
+title=Explanation guitar Just shows again how fast
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3141000
+END=3181000
+title=Explanation guitar Again between B and G
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3181000
+END=3276000
+title=Minor pentatonic phrase
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3364000
+END=3381000
+title=Seventh fret of D string seventh fret
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3381000
+END=3525000
+title=Explanation guitar And then sorry I'm doing
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3525000
+END=3619000
+title=Minor pentatonic phrase
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=3912000
+END=4518000
+title=Bend articulation
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=4518000
+END=4587000
+title=Explanation guitar now we'll start on here
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=4587000
+END=4639000
+title=Explanation guitar just moving around between different
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=4639000
+END=4710000
+title=Explanation guitar would look like by way
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=4710000
+END=4792000
+title=Explanation guitar just moving around all A's
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=4792000
+END=4948000
+title=Explanation guitar again just modify as required
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=4948000
+END=5079000
+title=Explanation guitar okay so again if I
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=5079000
+END=5370000
+title=Minor pentatonic phrase
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=5370000
+END=5704000
+title=Minor pentatonic phrase
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=5722000
+END=5842000
+title=Explanation guitar sorry natural 7 played 6
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=5842000
+END=5940000
+title=Melodic minor color note
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=5974000
+END=6195000
+title=Explanation guitar now I can see any

@@ -14,7 +14,7 @@ This repository is a Next.js 14 (App Router) app for managing guitar courses and
 - Start: `npm run start`
 - Lint: `npm run lint`
 
-`start.bat` runs install + dev server on Windows.
+`start.bat` runs install + dev server on Windows. It automatically chooses the next available port from `START_PORT` to `END_PORT` (defaults: `3000` to `3099`).
 
 ## Project layout
 - `src/app`: Next.js App Router pages, layouts, and route handlers.
@@ -38,6 +38,7 @@ Typical keys:
 - `YOUTUBE_OAUTH_REDIRECT_URI`: Optional override for OAuth redirect (defaults to `/api/youtube/callback`).
 - `NEXT_PUBLIC_SPOTIFY_CLIENT_ID`: Spotify client ID.
 - `SPOTIFY_CLIENT_SECRET`: Spotify secret (server-only).
+- `SPOTIFY_OAUTH_REDIRECT_URI`: Optional override for Spotify OAuth redirect. `start.bat` sets this for the chosen local port.
 
 Do not commit new secrets. Use `.env.local` for personal keys.
 
@@ -51,6 +52,9 @@ Do not commit new secrets. Use `.env.local` for personal keys.
 
 ## Spotify integration notes
 - OAuth/secret use should stay server-side. Avoid exposing `SPOTIFY_CLIENT_SECRET` to client code.
+- Spotify redirect URIs must match exactly. For local development with `start.bat`, add the printed callback URL (for example `http://localhost:3008/api/spotify/callback`) to the Spotify app dashboard.
+- Spotify does not support wildcard localhost ports. For predictable OAuth, set `START_PORT` and `END_PORT` to the same registered port before running `start.bat`, or register every callback port you expect to use.
+- If using `127.0.0.1`, a LAN IP, or a deployed URL, add that exact `/api/spotify/callback` URL in Spotify and update `SPOTIFY_OAUTH_REDIRECT_URI`.
 
 ## Coding conventions
 - TypeScript, functional React components.

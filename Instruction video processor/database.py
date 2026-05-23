@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS chapters (
   title TEXT NOT NULL,
   summary TEXT,
   confidence REAL,
+  learning_metadata TEXT,
   FOREIGN KEY(video_id) REFERENCES videos(video_id) ON DELETE CASCADE
 );
 
@@ -160,7 +161,16 @@ class ProcessorDB:
 
     def init_schema(self) -> None:
         self.conn.executescript(SCHEMA)
+        self._ensure_schema_migrations()
         self.conn.commit()
+
+    def _ensure_schema_migrations(self) -> None:
+        chapter_columns = {
+            row["name"]
+            for row in self.conn.execute("PRAGMA table_info(chapters)").fetchall()
+        }
+        if "learning_metadata" not in chapter_columns:
+            self.conn.execute("ALTER TABLE chapters ADD COLUMN learning_metadata TEXT")
 
     def log(self, level: str, message: str, video_id: int | None = None) -> None:
         self.conn.execute(
@@ -346,8 +356,8 @@ class ProcessorDB:
         self.conn.executemany(
             """
             INSERT INTO chapters
-            (video_id, chapter_index, start_seconds, end_seconds, title, summary, confidence)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            (video_id, chapter_index, start_seconds, end_seconds, title, summary, confidence, learning_metadata)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             [
                 (
@@ -358,6 +368,7 @@ class ProcessorDB:
                     chapter.get("title") or f"Chapter {idx + 1}",
                     chapter.get("summary", ""),
                     chapter.get("confidence"),
+                    json_dumps(chapter.get("learning_metadata", {})),
                 )
                 for idx, chapter in enumerate(chapters)
             ],

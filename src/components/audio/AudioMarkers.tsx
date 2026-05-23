@@ -11,6 +11,7 @@ import { VideoAnnotationEditor } from '../video/VideoAnnotationEditor'
 import { MarkerTimeEditor } from './MarkerTimeEditor'
 import { cn } from '@/lib/utils'
 import { MarkerDiagramList } from '@/components/guitar/NeckDiagramEditor'
+import { LearningDomainSelect } from '@/components/learning/LearningDomainSelect'
 import {
   ChevronDown as ChevronDownIcon,
   ChevronRight as ChevronRightIcon,
@@ -408,6 +409,23 @@ export function AudioMarkers({
               />
             </section>
 
+            <section className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">Learning Domain</label>
+              <LearningDomainSelect
+                value={marker.learning?.domain}
+                className="w-full"
+                onChange={(domain) => {
+                  handleMarkerUpdate({
+                    ...marker,
+                    learning: {
+                      ...(marker.learning ?? {}),
+                      domain
+                    }
+                  }, false)
+                }}
+              />
+            </section>
+
             <section className="space-y-3">
               <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                 <ClockIcon className="h-4 w-4" />
@@ -512,12 +530,12 @@ export function AudioMarkers({
       ) : viewMode === 'table' ? (
         <div className="overflow-hidden rounded-md border bg-background">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-sm">
+            <table className="w-full min-w-[840px] text-sm">
               <thead className="border-b bg-muted/45 text-left text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <th className="w-14 px-3 py-2">#</th>
                   <th className="px-3 py-2">Title</th>
-                  <th className="w-36 px-3 py-2">Timestamp</th>
+                  <th className="w-52 px-3 py-2">Timestamp</th>
                   <th className="w-40 px-3 py-2">Progress</th>
                   <th className="px-3 py-2">Tags</th>
                   <th className="w-44 px-3 py-2 text-right">Actions</th>
@@ -684,11 +702,14 @@ export function AudioMarkers({
   )
 }
 
-// Helper function to format time in MM:SS
+// Helper function to format time in MM:SS.mmm
 function formatTime(seconds: number): string {
-  const mins = Math.floor(seconds / 60)
-  const secs = Math.floor(seconds % 60)
-  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  const totalMilliseconds = Math.round(seconds * 1000)
+  const mins = Math.floor(totalMilliseconds / 60000)
+  const secs = Math.floor((totalMilliseconds % 60000) / 1000)
+  const millis = totalMilliseconds % 1000
+
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${millis.toString().padStart(3, '0')}`
 }
 
 // Icon components

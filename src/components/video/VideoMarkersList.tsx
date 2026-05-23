@@ -165,6 +165,33 @@ function getMarkerTitleText(
   return marker.title?.trim() || annotation?.text?.trim() || `Marker ${index + 1}`
 }
 
+function CompactTags({ tags }: { tags: string[] }): React.ReactElement {
+  if (tags.length === 0) {
+    return <span className="text-[11px] text-muted-foreground">None</span>
+  }
+
+  const visibleTags = tags.slice(0, 3)
+  const hiddenCount = tags.length - visibleTags.length
+
+  return (
+    <div className="flex max-w-40 flex-nowrap gap-1 overflow-hidden" title={tags.join(', ')}>
+      {visibleTags.map(tag => (
+        <span
+          key={tag}
+          className="max-w-20 truncate rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] text-primary"
+        >
+          {tag}
+        </span>
+      ))}
+      {hiddenCount > 0 && (
+        <span className="shrink-0 rounded-md bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+          +{hiddenCount}
+        </span>
+      )}
+    </div>
+  )
+}
+
 export default function VideoSurfList(): React.ReactElement {
   const [markers, setMarkers] = useState<MarkerWithContent[]>([])
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set(
@@ -661,7 +688,10 @@ export default function VideoSurfList(): React.ReactElement {
         // Load local video markers
         const videos = await fileSystemService.scanForVideos(rootHandle)
         for (const video of videos) {
-          const markerState = await markersService.loadMarkers(rootHandle, video.path)
+          const file = video.handle ? await video.handle.getFile() : null
+          const markerState = file
+            ? await markersService.loadMarkersForFile(rootHandle, video.path, file)
+            : await markersService.loadMarkers(rootHandle, video.path)
           if (markerState && markerState.markers.length > 0) {
             allMarkers.push({
               ...markerState,
@@ -1163,20 +1193,7 @@ export default function VideoSurfList(): React.ReactElement {
                                           </span>
                                         </td>
                                         <td className="px-3 py-2 align-middle">
-                                          {annotation?.tags && annotation.tags.length > 0 ? (
-                                            <div className="flex flex-wrap gap-1">
-                                              {annotation.tags.map(tag => (
-                                                <span
-                                                  key={tag}
-                                                  className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] text-primary"
-                                                >
-                                                  {tag}
-                                                </span>
-                                              ))}
-                                            </div>
-                                          ) : (
-                                            <span className="text-[11px] text-muted-foreground">None</span>
-                                          )}
+                                          <CompactTags tags={annotation?.tags ?? []} />
                                         </td>
                                       </tr>
                                     )

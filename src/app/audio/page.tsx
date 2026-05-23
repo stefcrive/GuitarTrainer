@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Header } from '@/components/layout/Header'
 import { AudioFolderList } from '@/components/audio/AudioFolderList'
 import Link from 'next/link'
@@ -14,38 +14,10 @@ import { WorkspaceLayout } from '@/components/layout/WorkspaceLayout'
 import { useDirectoryStore } from '@/stores/directory-store'
 import { useMediaStore } from '@/stores/media-store'
 import { AudioFile } from '@/types/audio'
+import { fileSystemService } from '@/services/file-system'
 import { getAllAudioMetadata, AUDIO_METADATA_UPDATED_EVENT } from '@/services/audio-metadata'
 import { favoritesService, FAVORITES_UPDATED_EVENT } from '@/services/favorites'
 import { Bookmark, List, Music } from 'lucide-react'
-
-async function scanDirectory(dirHandle: FileSystemDirectoryHandle, root = ''): Promise<AudioFile[]> {
-  const audioFiles: AudioFile[] = []
-  
-  for await (const entry of dirHandle.values()) {
-    const path = root ? `${root}/${entry.name}` : entry.name
-
-    if (entry.kind === 'file') {
-      const fileHandle = entry as FileSystemFileHandle
-      const extension = entry.name.split('.').pop()?.toLowerCase()
-      if (['mp3', 'wav', 'aiff'].includes(extension || '')) {
-        audioFiles.push({
-          id: path,
-          name: entry.name,
-          path,
-          handle: fileHandle,
-          type: 'file',
-          fileType: extension as 'mp3' | 'wav' | 'aiff'
-        })
-      }
-    } else if (entry.kind === 'directory') {
-      const dirEntry = entry as FileSystemDirectoryHandle
-      const subDirFiles = await scanDirectory(dirEntry, path)
-      audioFiles.push(...subDirFiles)
-    }
-  }
-
-  return audioFiles
-}
 
 export default function AudioPage() {
   type ListFilter = 'all' | 'markers' | 'favorites'
@@ -56,6 +28,15 @@ export default function AudioPage() {
   const [favoriteAudioPaths, setFavoriteAudioPaths] = useState<Set<string>>(new Set())
   const [filterRevision, setFilterRevision] = useState(0)
   const [loading, setLoading] = useState(true)
+  const lastLoadedRootsRef = useRef<{
+    audioRootHandle: FileSystemDirectoryHandle | null
+    rootHandle: FileSystemDirectoryHandle | null
+    scanVideoFolderForAudio: boolean
+  }>({
+    audioRootHandle: null,
+    rootHandle: null,
+    scanVideoFolderForAudio: false
+  })
   
   // Use global media store instead of local state
   const {
@@ -69,15 +50,29 @@ export default function AudioPage() {
       setLoading(true)
       try {
         const files: AudioFile[] = []
+        const previousRoots = lastLoadedRootsRef.current
 
         if (audioRootHandle) {
-          const audioFiles = await scanDirectory(audioRootHandle)
+          const audioRootChanged = previousRoots.audioRootHandle !== audioRootHandle
+          const audioFiles = audioRootChanged
+            ? fileSystemService.getCachedAudioFiles(audioRootHandle) ?? await fileSystemService.scanForAudioFiles(audioRootHandle)
+            : await fileSystemService.scanForAudioFiles(audioRootHandle)
           files.push(...audioFiles)
         }
 
         if (scanVideoFolderForAudio && rootHandle) {
-          const videoFolderAudioFiles = await scanDirectory(rootHandle)
+          const videoRootChanged = previousRoots.rootHandle !== rootHandle
+            || previousRoots.scanVideoFolderForAudio !== scanVideoFolderForAudio
+          const videoFolderAudioFiles = videoRootChanged
+            ? fileSystemService.getCachedAudioFiles(rootHandle) ?? await fileSystemService.scanForAudioFiles(rootHandle)
+            : await fileSystemService.scanForAudioFiles(rootHandle)
           files.push(...videoFolderAudioFiles)
+        }
+
+        lastLoadedRootsRef.current = {
+          audioRootHandle,
+          rootHandle,
+          scanVideoFolderForAudio
         }
 
         const sortedFiles = files.sort((a, b) => a.path.localeCompare(b.path))

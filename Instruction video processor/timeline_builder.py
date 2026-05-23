@@ -32,7 +32,12 @@ def build_timeline(
     groups = _merge_audio_windows(audio_events)
     timeline: list[dict[str, Any]] = []
     for group in groups:
-        transcript_text = _collect_transcript(group["start_seconds"], group["end_seconds"], transcript_segments)
+        overlapping_transcript = _collect_transcript_segments(
+            group["start_seconds"],
+            group["end_seconds"],
+            transcript_segments,
+        )
+        transcript_text = " ".join(segment["text"] for segment in overlapping_transcript)
         segment_type = _infer_segment_type(group, bool(transcript_text))
         title = _title_for(segment_type, filename)
         timeline.append(
@@ -45,6 +50,7 @@ def build_timeline(
                 "confidence": group["confidence"],
                 "source_evidence": f"Audio labels: {', '.join(group['audio_labels'])}; transcript present: {bool(transcript_text)}",
                 "transcript_text": transcript_text,
+                "transcript_segments": overlapping_transcript,
                 "audio_labels": group["audio_labels"],
                 "tags": [],
                 "filename": filename,
@@ -82,6 +88,13 @@ def _timeline_from_transcript(segment: dict[str, Any], idx: int) -> dict[str, An
         "confidence": 0.65,
         "source_evidence": "Whisper transcript segment.",
         "transcript_text": segment.get("text", ""),
+        "transcript_segments": [
+            {
+                "start_seconds": float(segment.get("start_seconds", 0)),
+                "end_seconds": float(segment.get("end_seconds", 0)),
+                "text": segment.get("text", ""),
+            }
+        ],
         "audio_labels": ["speech"],
         "tags": [],
     }
@@ -142,6 +155,10 @@ def _merge_labels(a: list[str], b: list[str]) -> list[str]:
 
 
 def _collect_transcript(start: float, end: float, segments: list[dict[str, Any]]) -> str:
+    return " ".join(segment["text"] for segment in _collect_transcript_segments(start, end, segments))
+
+
+def _collect_transcript_segments(start: float, end: float, segments: list[dict[str, Any]]) -> list[dict[str, Any]]:
     parts = []
     for segment in segments:
         seg_start = float(segment.get("start_seconds", 0))
@@ -149,8 +166,14 @@ def _collect_transcript(start: float, end: float, segments: list[dict[str, Any]]
         if seg_start < end and seg_end > start:
             text = segment.get("text", "").strip()
             if text:
-                parts.append(text)
-    return " ".join(parts)
+                parts.append(
+                    {
+                        "start_seconds": seg_start,
+                        "end_seconds": seg_end,
+                        "text": text,
+                    }
+                )
+    return parts
 
 
 def _infer_segment_type(group: dict[str, Any], has_transcript: bool) -> str:

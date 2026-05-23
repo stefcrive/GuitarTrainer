@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useState, useEffect, useMemo } from 'react'
+import { Suspense, useState, useEffect, useMemo, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { VideoPlayer } from '@/components/video/VideoPlayer'
 import { VideoFolderList } from '@/components/video/VideoFolderList'
@@ -81,6 +81,7 @@ function VideosPageContent() {
   const [filterRevision, setFilterRevision] = useState(0)
   const { rootHandle, lastUpdate, expandToPath } = useDirectoryStore()
   const [error, setError] = useState<string | null>(null)
+  const lastLoadedRootRef = useRef<FileSystemDirectoryHandle | null>(null)
   
   // Use global media store instead of local state
   const {
@@ -91,16 +92,14 @@ function VideosPageContent() {
     setVideoLoadError
   } = useMediaStore()
 
-  const { markerState, setMarkerState } = useVideoMarkers(
-    selectedVideo ? `${selectedVideo.name}-${selectedVideo.path}` : ''
-  )
+  const { markerState } = useVideoMarkers(selectedVideo?.path ?? '', videoFile)
   const [videoControls, setVideoControls] = useState<VideoPlayerControls | null>(null)
 
   // Load video from URL parameters
   useEffect(() => {
     if (rootHandle && videoPath) {
       // Find the video in the list that matches the path
-      fileSystemService.getVideosFromDirectory(rootHandle)
+      Promise.resolve(fileSystemService.getCachedVideos(rootHandle) ?? fileSystemService.scanForVideos(rootHandle))
         .then(videos => {
           const video = videos.find(v => v.path === videoPath)
           if (video) {
@@ -122,14 +121,28 @@ function VideosPageContent() {
 
   useEffect(() => {
     if (rootHandle) {
-      fileSystemService.getVideosFromDirectory(rootHandle)
+      const rootChanged = lastLoadedRootRef.current !== rootHandle
+      lastLoadedRootRef.current = rootHandle
+
+      const cachedVideos = rootChanged ? fileSystemService.getCachedVideos(rootHandle) : null
+      if (cachedVideos) {
+        setVideos(cachedVideos)
+        setError(null)
+        return
+      }
+
+      fileSystemService.scanForVideos(rootHandle)
         .then(videos => {
           setVideos(videos)
+          setError(null)
         })
         .catch((error: Error) => {
           console.error('Error loading videos:', error)
           setError('Error loading videos from directory')
         })
+    } else {
+      lastLoadedRootRef.current = null
+      setVideos([])
     }
   }, [rootHandle, lastUpdate])
 

@@ -1,0 +1,2675 @@
+{
+  "chapters": [
+    {
+      "start_seconds": 3.0,
+      "end_seconds": 91.0,
+      "title": "Hello guys and welcome to brand new",
+      "summary": "Hello guys and welcome to this brand new tutorial of mine.",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "all fourths"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "all fourths"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "all fourths"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 91.0,
+      "end_seconds": 171.0,
+      "title": "It's lots and lots of things amalgamation",
+      "summary": "It's about lots and lots of things an amalgamation of all your experience on the instrument From literally day one up until now and however long you've been playing for whether that's you know a few months or years and y",
+      "confidence": 0.55,
+      "tags": [
+        "all fourths",
+        "tone",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading"
+        ],
+        "topics": [
+          "all fourths",
+          "tone",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "all fourths",
+          "tone",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 171.0,
+      "end_seconds": 284.0,
+      "title": "Finger attack color",
+      "summary": "Okay, that gives me all fourths all the way down If you don't know what that means don't worry too much Basically what I'm going to say is this makes the fretboard very symmetrical and works very nicely for fretboard vis",
+      "confidence": 0.55,
+      "tags": [
+        "all fourths",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "all fourths",
+          "tuning"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Early Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "all fourths",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 284.0,
+      "end_seconds": 365.0,
+      "title": "Minor pentatonic phrase",
+      "summary": "However, let's have a look at the three-in-out post string system to start Now the three-in-out post string system relies on as it suggests a certain number of notes per string So three in this case.",
+      "confidence": 0.55,
+      "tags": [
+        "major scale",
+        "modes",
+        "pentatonic",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "major scale",
+          "modes",
+          "pentatonic",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "major scale",
+          "modes",
+          "pentatonic",
+          "tuning"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 365.0,
+      "end_seconds": 469.0,
+      "title": "That's system I'm going to show you",
+      "summary": "That's actually you know this this system I'm going to show you actually does allow you to do that so Let me explain further with three note press string if I have a major scale Let's say we start with a major up at the",
+      "confidence": 0.55,
+      "tags": [
+        "major scale",
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "major scale",
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "major scale",
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 469.0,
+      "end_seconds": 558.0,
+      "title": "That's just tuning Okay if we start",
+      "summary": "That's just the tuning Okay, if we start on the B instead of the a so the next note in the scale his a at the fifth fret Okay, make sure you can see my nuts so you can see where I am So there's the fifth fret and there's",
+      "confidence": 0.55,
+      "tags": [
+        "arrangement",
+        "major scale",
+        "pentatonic",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "musical-device",
+        "primary_domain": "Composition & Arrangement",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arrangement",
+          "major scale",
+          "pentatonic",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Arrangement Assignment",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Create a short written or arranged passage and record a draft.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 5,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arrangement",
+          "major scale",
+          "pentatonic",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 558.0,
+      "end_seconds": 601.0,
+      "title": "You're just thinking key But problem it",
+      "summary": "You're just thinking a key But the problem with it is twofold The problem is that when you learn a scale like this a big shape that comes all six strings You've got one two three four five six seven eight nine ten eleven",
+      "confidence": 0.55,
+      "tags": [
+        "tone",
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading"
+        ],
+        "topics": [
+          "tone",
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "tone",
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 601.0,
+      "end_seconds": 741.0,
+      "title": "Explanation guitar Very hard to break out",
+      "summary": "Very hard to break out of that kind of Thought process of here's a shape now.",
+      "confidence": 0.55,
+      "tags": [
+        "improvisation",
+        "legato",
+        "tone"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "improvisation",
+          "legato",
+          "tone"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "improvisation",
+          "legato",
+          "tone"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 741.0,
+      "end_seconds": 935.0,
+      "title": "Things for faster based playing it's very",
+      "summary": "Those kind of things for the faster based playing it's very useful to have the 3D outpost string system in your mind And the cage system which we're going to go through next.",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "tone",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "tone",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "tone",
+          "tuning"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 935.0,
+      "end_seconds": 1021.0,
+      "title": "It's great system But again what problems",
+      "summary": "So it's a great system But again, what are the problems with it is that it relies on shapes that cover six or five strings It's a lot of information and you're using big scale shapes to think about How you're going to vi",
+      "confidence": 0.55,
+      "tags": [
+        "improvisation",
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading"
+        ],
+        "topics": [
+          "improvisation",
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "improvisation",
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1021.0,
+      "end_seconds": 1142.0,
+      "title": "I want to give you more detail",
+      "summary": "I want to give you more detail And allow you to make more conscious choices within your improvisation more quickly Okay, you make more better musical decisions based on which notes you want to play as opposed to always t",
+      "confidence": 0.55,
+      "tags": [
+        "improvisation",
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "musical-device",
+        "primary_domain": "Improvisation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "improvisation",
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Improvisation Constraint",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "improvisation",
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1142.0,
+      "end_seconds": 1274.0,
+      "title": "We're only thinking one octave at time",
+      "summary": "We're only really thinking about one octave at a time and within that octave It becomes very easy to think about where all the chord tones are and any Extensions that you want to put on some nights 11th and 13th So you c",
+      "confidence": 0.55,
+      "tags": [
+        "exercise",
+        "improvisation",
+        "tone"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [],
+        "topics": [
+          "exercise",
+          "improvisation",
+          "tone"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "exercise",
+          "improvisation",
+          "tone"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 1274.0,
+      "end_seconds": 1370.0,
+      "title": "That's too basic if you like for",
+      "summary": "That's too basic if you like for want of a better term But let me really reiterate it's massively important that you know what notes on the fretboard are and I'll explain why in a second Now you need to know if I pointed",
+      "confidence": 0.55,
+      "tags": [
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Early Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1370.0,
+      "end_seconds": 1458.0,
+      "title": "Or playing scenario Let's say we're going",
+      "summary": "Okay, or a kind of playing scenario Let's say we're going to play over an a-7 chord.",
+      "confidence": 0.55,
+      "tags": [
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1458.0,
+      "end_seconds": 1565.0,
+      "title": "If I find I can't see root",
+      "summary": "Now if I find that I can't see those root notes quickly enough Anywhere on the fretboard again given that some of us will have some gray areas I need to work on that.",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "all fourths"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "all fourths"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "all fourths"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1565.0,
+      "end_seconds": 1656.0,
+      "title": "Here's chord Now flat three interval Okay",
+      "summary": "Okay, so here's the chord Now that flat three interval Without referring to any scales without referring to any arpeggio shapes We can visualize that as a standalone thing on the guitar by looking at what the shape of a",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 3,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1656.0,
+      "end_seconds": 1771.0,
+      "title": "I'm not thinking scale I'm not thinking",
+      "summary": "I'm not thinking about a scale I'm not thinking about an arpeggio I'm just thinking about a root note And I know the chord that I'm playing over contains a flat three or a flatten or a minor third interval So I'm gonna p",
+      "confidence": 0.55,
+      "tags": [
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 3,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1771.0,
+      "end_seconds": 1848.0,
+      "title": "It's important to map out next part",
+      "summary": "It's really important to map out the next part of the process Now the thing is Before we start mapping out any other flat third intervals I want to make it very clear that the only note name that I'm thinking about when",
+      "confidence": 0.55,
+      "tags": [
+        "all fourths",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Fretboard Navigation"
+        ],
+        "topics": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 5,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "all fourths",
+          "arpeggios"
+        ],
+        "priority_score": 3,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1848.0,
+      "end_seconds": 1959.0,
+      "title": "When we play over two chords if",
+      "summary": "When we play over those two chords if we just think about the root notes and the flat threes If we think about where the root notes are we go from a to C Okay, the root note changes, but the flat three part doesn't chang",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 1959.0,
+      "end_seconds": 2085.0,
+      "title": "Don't worry thinking what note name Just",
+      "summary": "Don't worry about thinking what the note name is Just look for the root.",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2085.0,
+      "end_seconds": 2149.0,
+      "title": "I don't need to do I don't",
+      "summary": "I don't need to do that.",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2149.0,
+      "end_seconds": 2269.0,
+      "title": "Explanation guitar Important what I doing there",
+      "summary": "Important what I was doing there is I was making music based on Those two interval shapes and at this point we've made some music We've just got a root and a flat three and we've created something with it something music",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2269.0,
+      "end_seconds": 2307.0,
+      "title": "Explanation guitar Okay so I can look",
+      "summary": "Okay, so I can look for those a's Play that same interval shape.",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2307.0,
+      "end_seconds": 2337.0,
+      "title": "Explanation guitar And again I'm just cataloging",
+      "summary": "And again, I'm just cataloging these four different shapes now for a flat 3 interval.",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2337.0,
+      "end_seconds": 2368.0,
+      "title": "Explanation guitar And again what I would",
+      "summary": "And again, what I would do at this point is once you've learned where these intervals are you've learned the shape of them I would identify them from every single a on the fretboard.",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Fretboard Navigation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 3,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2373.0,
+      "end_seconds": 2478.0,
+      "title": "On and so forth so you're Taking",
+      "summary": "So on and so forth so that you're really Taking into your minds exactly where all of those a's are and where all of those flat 3's are but not at this point Relating it to a scale at all and the key here is you are impro",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2478.0,
+      "end_seconds": 2601.0,
+      "title": "Minor pentatonic phrase",
+      "summary": "We've got a minor pentatonic scale But the beauty of this is we'll be able to play that minor pentatonic scale But we won't be thinking any positions or patterns at all We'll just be thinking in terms of where's the root",
+      "confidence": 0.55,
+      "tags": [
+        "pentatonic",
+        "tone"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "pentatonic",
+          "tone"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "pentatonic",
+          "tone"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2601.0,
+      "end_seconds": 2716.0,
+      "title": "For me it's same shape Maybe you",
+      "summary": "Okay, for me, it's the same shape Maybe you guys just like to see some of the advantages if you didn't already know a force tuning Making a time more symmetrical Then we take the A at the 10th fret of the B string and we",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2716.0,
+      "end_seconds": 2837.0,
+      "title": "Slow practice pass",
+      "summary": "I need to move up a fret Okay For me, it's the same because of the tuning Okay, so that's our fifth ascending now.",
+      "confidence": 0.55,
+      "tags": [
+        "slow practice",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Performance & Playing With Others",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "slow practice",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Performance Preparation",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "slow practice",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2837.0,
+      "end_seconds": 2893.0,
+      "title": "Hopefully you can see how system Okay",
+      "summary": "Okay, so hopefully you can see how this system starting to build now So if I take this a here, I Can see roots flat three I can see roots flat three I can see roots five I can see root five I can see roots flat three fiv",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2893.0,
+      "end_seconds": 2997.0,
+      "title": "Am I thinking big arpeggio shape Am",
+      "summary": "Am I thinking a big arpeggio shape?",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 2997.0,
+      "end_seconds": 3096.0,
+      "title": "That's first way Okay",
+      "summary": "Okay?",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Early Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 3096.0,
+      "end_seconds": 3141.0,
+      "title": "Explanation guitar Just shows again how fast",
+      "summary": "Just shows again how fast you have to be able to find these A's on the fretboard of these root notes.",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Fretboard Navigation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Connects interval/function thinking to concrete fretboard locations.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 3,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 3141.0,
+      "end_seconds": 3181.0,
+      "title": "Explanation guitar Again between B and G",
+      "summary": "Again, between the B and the G string, we just need to modify this slightly so that effectively we get this shape.",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 3181.0,
+      "end_seconds": 3276.0,
+      "title": "Minor pentatonic phrase",
+      "summary": "So now we've mapped out, well you're going to have to learn them obviously and really spend some time with these.",
+      "confidence": 0.55,
+      "tags": [
+        "pentatonic",
+        "arpeggios"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading"
+        ],
+        "topics": [
+          "pentatonic",
+          "arpeggios"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "pentatonic",
+          "arpeggios"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 3364.0,
+      "end_seconds": 3381.0,
+      "title": "Seventh fret of D string seventh fret",
+      "summary": "This is the seventh fret of the D string.",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 3381.0,
+      "end_seconds": 3525.0,
+      "title": "Explanation guitar And then sorry I'm doing",
+      "summary": "And then, sorry, I'm doing it in flat three there.",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "pentatonic"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "pentatonic"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 3525.0,
+      "end_seconds": 3619.0,
+      "title": "Minor pentatonic phrase",
+      "summary": "So that's playing around that minor seven arpeggio sound without ever having to learn a big arpeggio shape.",
+      "confidence": 0.55,
+      "tags": [
+        "improvisation",
+        "pentatonic",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading"
+        ],
+        "topics": [
+          "improvisation",
+          "pentatonic",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "improvisation",
+          "pentatonic",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 3912.0,
+      "end_seconds": 4518.0,
+      "title": "Bend articulation",
+      "summary": "very very useful so what I'm going to do now is I'm going to improvise over a backing track I've created for you guys and just trust me that I'm thinking in this manner and this is basically going to be me improvising in",
+      "confidence": 0.55,
+      "tags": [
+        "backing track",
+        "improvisation",
+        "pentatonic",
+        "tone"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading"
+        ],
+        "topics": [
+          "backing track",
+          "improvisation",
+          "pentatonic",
+          "tone"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Early Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "backing track",
+          "improvisation",
+          "pentatonic",
+          "tone"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 4518.0,
+      "end_seconds": 4587.0,
+      "title": "Explanation guitar now we'll start on here",
+      "summary": "now we'll start on this A here at the 7th fret of the D string and we can of course also do a descending flat 2 which would look like this or flat 9 don't worry about what these intervals sound like just yet we're going",
+      "confidence": 0.55,
+      "tags": [
+        "tone",
+        "backing track",
+        "improvisation"
+      ],
+      "learning_metadata": {
+        "domain": "musical-device",
+        "primary_domain": "Improvisation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tone",
+          "backing track",
+          "improvisation"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Improvisation Constraint",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tone",
+          "backing track",
+          "improvisation"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 4587.0,
+      "end_seconds": 4639.0,
+      "title": "Explanation guitar just moving around between different",
+      "summary": "just moving around between different A's there and another way we can play it basically fifth fret on the E string going to the second fret on the A string so that's shape there again catalogue of these shapes and again",
+      "confidence": 0.55,
+      "tags": [
+        "backing track",
+        "improvisation"
+      ],
+      "learning_metadata": {
+        "domain": "musical-device",
+        "primary_domain": "Improvisation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "backing track",
+          "improvisation"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Improvisation Constraint",
+        "difficulty_level": "Early Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "backing track",
+          "improvisation"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 4639.0,
+      "end_seconds": 4710.0,
+      "title": "Explanation guitar would look like by way",
+      "summary": "would look like that by the way again we didn't do a descending natural 2 for the same reason we didn't do a descending we didn't really consider the descending flat 2 particularly because it's so easy to visualize from",
+      "confidence": 0.55,
+      "tags": [
+        "backing track",
+        "improvisation"
+      ],
+      "learning_metadata": {
+        "domain": "musical-device",
+        "primary_domain": "Improvisation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "backing track",
+          "improvisation"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Improvisation Constraint",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "backing track",
+          "improvisation"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 4710.0,
+      "end_seconds": 4792.0,
+      "title": "Explanation guitar just moving around all A's",
+      "summary": "just moving those around from all the A's on the fretboard ok then we can do a descending version so again there's two ways of doing this if we take this A just here at the 7th fret of the D string we can descend to the",
+      "confidence": 0.55,
+      "tags": [
+        "backing track",
+        "improvisation"
+      ],
+      "learning_metadata": {
+        "domain": "musical-device",
+        "primary_domain": "Improvisation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "backing track",
+          "improvisation"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Improvisation Constraint",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 3,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "backing track",
+          "improvisation"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 4792.0,
+      "end_seconds": 4948.0,
+      "title": "Explanation guitar again just modify as required",
+      "summary": "again just modify that as required for the B string and D string relationship and then also for the E string to G string relationship and you'll see those written out again so I'm going through this pretty quickly becaus",
+      "confidence": 0.55,
+      "tags": [
+        "tone",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "tone",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 1,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "tone",
+          "tuning"
+        ],
+        "priority_score": 1,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 4948.0,
+      "end_seconds": 5079.0,
+      "title": "Explanation guitar okay so again if I",
+      "summary": "okay so again if I have an A here the 10th fret of the B string okay I would go down so here the 8th fret again we see these written out guys in standard and fourth tuning okay for me it's this again I take this A here a",
+      "confidence": 0.55,
+      "tags": [
+        "tuning",
+        "backing track",
+        "improvisation"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Repertoire",
+        "secondary_domains": [],
+        "topics": [
+          "tuning",
+          "backing track",
+          "improvisation"
+        ],
+        "musical_function": "Develops a concrete piece of music into playable repertoire.",
+        "practice_use_case": "Use this to make a tune, study, or performance excerpt more playable and recordable.",
+        "weekly_practice_role": "Repertoire Support",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "slow tempo reference",
+          "form awareness",
+          "basic chord tones"
+        ],
+        "suggested_output": "Record one chorus or section with clear time, melody, and harmony.",
+        "repertoire_relevance": 5,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "melody always audible",
+          "one section only",
+          "record one take"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice one short section slowly, connect melody to harmony, then record a check take.",
+        "related_marker_links": [],
+        "tags": [
+          "tuning",
+          "backing track",
+          "improvisation"
+        ],
+        "priority_score": 3,
+        "notes_for_weekly_planner": "Use as the weekly anchor and attach one device, one technique item, and one recording deliverable."
+      }
+    },
+    {
+      "start_seconds": 5079.0,
+      "end_seconds": 5370.0,
+      "title": "Minor pentatonic phrase",
+      "summary": "okay so the natural 6 we'll start on this A again 5th fret of the E string okay the natural 6 or natural 13 we're going to stretch up and we're going to play the 9th fret of the A string okay that's our interval again mo",
+      "confidence": 0.55,
+      "tags": [
+        "backing track",
+        "improvisation",
+        "pentatonic",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Technique & Exercises",
+        "secondary_domains": [
+          "Fretboard Navigation"
+        ],
+        "topics": [
+          "backing track",
+          "improvisation",
+          "pentatonic",
+          "tuning"
+        ],
+        "musical_function": "Solves a physical execution problem that should be applied back to music.",
+        "practice_use_case": "Use this as a technical bottleneck exercise before applying the same movement to repertoire.",
+        "weekly_practice_role": "Technique Maintenance",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "relaxed hands",
+          "slow metronome practice"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "slow tempo",
+          "relaxed motion",
+          "apply to one musical phrase"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "backing track",
+          "improvisation",
+          "pentatonic",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Use only when it supports the week's repertoire or musical device."
+      }
+    },
+    {
+      "start_seconds": 5370.0,
+      "end_seconds": 5704.0,
+      "title": "Minor pentatonic phrase",
+      "summary": "so we can descend it that way as well now that will be going from the 7th fret on the D string down to the 9th fret on the A string lots of ways of doing the 6th there again lap out though using the PDF file for standard",
+      "confidence": 0.55,
+      "tags": [
+        "major scale",
+        "pentatonic",
+        "tone",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "repertoire",
+        "primary_domain": "Repertoire",
+        "secondary_domains": [],
+        "topics": [
+          "major scale",
+          "pentatonic",
+          "tone",
+          "tuning"
+        ],
+        "musical_function": "Develops a concrete piece of music into playable repertoire.",
+        "practice_use_case": "Use this to make a tune, study, or performance excerpt more playable and recordable.",
+        "weekly_practice_role": "Repertoire Support",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "slow tempo reference",
+          "form awareness",
+          "basic chord tones"
+        ],
+        "suggested_output": "Record one chorus or section with clear time, melody, and harmony.",
+        "repertoire_relevance": 5,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 4,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 3,
+        "suggested_constraints": [
+          "melody always audible",
+          "one section only",
+          "record one take"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice one short section slowly, connect melody to harmony, then record a check take.",
+        "related_marker_links": [],
+        "tags": [
+          "major scale",
+          "pentatonic",
+          "tone",
+          "tuning"
+        ],
+        "priority_score": 3,
+        "notes_for_weekly_planner": "Use as the weekly anchor and attach one device, one technique item, and one recording deliverable."
+      }
+    },
+    {
+      "start_seconds": 5722.0,
+      "end_seconds": 5842.0,
+      "title": "Explanation guitar sorry natural 7 played 6",
+      "summary": "sorry natural 7 played 6 there ok so from every A root note I'm mapping out those intervals that relates to the major scale 1, 2, 3, 4, 5, 6 and 7 ok now that gives me the ability when I'm improvising and again remember",
+      "confidence": 0.55,
+      "tags": [
+        "major scale",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": "training",
+        "primary_domain": "Ear Training & Audiation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Fretboard Navigation"
+        ],
+        "topics": [
+          "major scale",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this to connect the sound of intervals or functions to all-fourths fretboard locations.",
+        "weekly_practice_role": "Ear/Fretboard Integration",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Sing, map, and play the material in two positions.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "sing before playing",
+          "use all-fourths interval names",
+          "one position first"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Sing the target sound, map it in all-fourths tuning, then play it in two positions.",
+        "related_marker_links": [],
+        "tags": [
+          "major scale",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 5842.0,
+      "end_seconds": 5940.0,
+      "title": "Melodic minor color note",
+      "summary": "means I'm much more free I can basically play D which interval I'm on if you stopped me at any point when I was on and why I'm playing I think that's important I'm selecting certain intervals because of the way they soun",
+      "confidence": 0.55,
+      "tags": [
+        "improvisation",
+        "major scale",
+        "melodic minor",
+        "minor scale"
+      ],
+      "learning_metadata": {
+        "domain": "musical-device",
+        "primary_domain": "Improvisation",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "improvisation",
+          "major scale",
+          "melodic minor",
+          "minor scale"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Improvisation Constraint",
+        "difficulty_level": "Advanced",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "improvisation",
+          "major scale",
+          "melodic minor",
+          "minor scale"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    },
+    {
+      "start_seconds": 5974.0,
+      "end_seconds": 6195.0,
+      "title": "Explanation guitar now I can see any",
+      "summary": "now I can see from any given A where all of the intervals are it could be any root note to be fair it doesn't need to be A it could be F sharp or G or G sharp any given root note so if I start here let's say the A at 7th",
+      "confidence": 0.55,
+      "tags": [
+        "arpeggios",
+        "tuning"
+      ],
+      "learning_metadata": {
+        "domain": null,
+        "primary_domain": "Theory Reference",
+        "secondary_domains": [
+          "Technique & Exercises",
+          "Harmony & Voice Leading",
+          "Ear Training & Audiation"
+        ],
+        "topics": [
+          "arpeggios",
+          "tuning"
+        ],
+        "musical_function": "Turns the concept into a constrained musical practice task.",
+        "practice_use_case": "Use this as a constrained practice item with a concrete output.",
+        "weekly_practice_role": "Theory Reference Only",
+        "difficulty_level": "Intermediate",
+        "required_prerequisites": [
+          "interval names",
+          "basic fretboard mapping"
+        ],
+        "suggested_output": "Record one focused take with a strict constraint.",
+        "repertoire_relevance": 1,
+        "composition_relevance": 2,
+        "playing_with_others_relevance": 2,
+        "all_fourths_relevance": 1,
+        "interval_function_relevance": 5,
+        "suggested_constraints": [
+          "one constraint only",
+          "small output",
+          "write one review note"
+        ],
+        "extraction_prompt": "Extract the smallest reusable idea and describe where it can solve a musical problem.",
+        "practice_prompt": "Practice the marker with one strict constraint, then write one sentence about what changed.",
+        "related_marker_links": [],
+        "tags": [
+          "arpeggios",
+          "tuning"
+        ],
+        "priority_score": 2,
+        "notes_for_weekly_planner": "Schedule after the main repertoire item and keep the output small."
+      }
+    }
+  ]
+}

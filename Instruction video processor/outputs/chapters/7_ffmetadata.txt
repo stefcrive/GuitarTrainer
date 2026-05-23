@@ -1,0 +1,25 @@
+;FFMETADATA1
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=0
+END=511000
+title=Explanation with guitar
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=510000
+END=516000
+title=Performance or music section
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=514000
+END=634000
+title=Explanation with guitar
+
+[CHAPTER]
+TIMEBASE=1/1000
+START=633000
+END=636000
+title=Performance or music section

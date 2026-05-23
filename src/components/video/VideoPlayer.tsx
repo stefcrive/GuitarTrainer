@@ -10,6 +10,7 @@ import { useVideoMarkers } from '@/hooks/useVideoMarkers'
 import { recentlyViewedService } from '@/services/recently-viewed'
 import { markersService } from '@/services/markers'
 import { reloadDatabaseContext } from '@/services/local-sql-db'
+import { useDirectoryStore } from '@/stores/directory-store'
 import { useFloatingPlayer } from '@/contexts/floating-player-context'
 import { Button } from '@/components/ui/button'
 import { StatusBanner } from '@/components/ui/status-banner'
@@ -67,8 +68,9 @@ export function VideoPlayer({
   const hasTrackedView = useRef(false)
   const completedMarkerJobIds = useRef<Set<string>>(new Set())
 
-  const { markerState, setMarkerState, isLoaded } = useVideoMarkers(video?.path || '')
+  const { markerState, setMarkerState, isLoaded } = useVideoMarkers(video?.path || '', videoFile)
   const { openPlayer } = useFloatingPlayer()
+  const rootPath = useDirectoryStore((state) => state.rootPath)
 
   const videoControls: VideoPlayerControls = useMemo(() => ({
     play: () => videoRef.current?.play(),
@@ -120,7 +122,11 @@ export function VideoPlayer({
       const response = await fetch('/api/automatic-marker-generation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ videoPath: video.path })
+        body: JSON.stringify({
+          videoPath: video.path,
+          rootFolder: rootPath ?? undefined,
+          rootName: directoryHandle.name
+        })
       })
       const payload = await response.json()
       if (!response.ok) {
@@ -170,7 +176,9 @@ export function VideoPlayer({
           if (!completedMarkerJobIds.current.has(nextJob.id)) {
             completedMarkerJobIds.current.add(nextJob.id)
             await reloadDatabaseContext(directoryHandle)
-            const importedState = await markersService.loadMarkers(directoryHandle, video.path)
+            const importedState = videoFile
+              ? await markersService.loadMarkersForFile(directoryHandle, video.path, videoFile)
+              : await markersService.loadMarkers(directoryHandle, video.path)
             if (isCancelled) return
 
             if (importedState) {
@@ -483,11 +491,6 @@ export function VideoPlayer({
                   style={{ width: `${markerGenerationProgress}%` }}
                 />
               </div>
-              {isGeneratingMarkers && (
-                <p className="text-xs text-muted-foreground">
-                  Long lessons can take a while. Processing is limited to a small CPU budget to keep the system responsive.
-                </p>
-              )}
             </div>
           )}
 

@@ -10,15 +10,17 @@ interface JSONObject {
 
 class FileSystemService {
   private videoExtensions = new Set(['.mp4', '.webm', '.ogg', '.mov'])
-  private audioExtensions = new Set(['.mp3', '.wav', '.m4a', '.ogg', '.aac'])
+  private audioExtensions = new Set(['.mp3', '.wav', '.m4a', '.ogg', '.aac', '.aiff'])
 
   async scanForAudioFiles(directoryHandle: FileSystemDirectoryHandle): Promise<FileSystemAudio[]> {
-    return this.getAudioFilesFromDirectory(directoryHandle)
+    const audioFiles = await this.getAudioFilesFromDirectory(directoryHandle)
+    this.saveCachedAudioFiles(directoryHandle, audioFiles)
+    return audioFiles
   }
 
   async requestDirectoryAccess(): Promise<FileSystemDirectoryHandle> {
     if ('showDirectoryPicker' in window) {
-      return window.showDirectoryPicker()
+      return window.showDirectoryPicker({ mode: 'readwrite' })
     }
     const files = await this.requestDirectoryAccessWithInput()
     return createMemoryDirectoryHandleFromFiles(files)
@@ -66,7 +68,71 @@ class FileSystemService {
   }
 
   async scanForVideos(directoryHandle: FileSystemDirectoryHandle): Promise<FileSystemVideo[]> {
-    return this.getVideosFromDirectory(directoryHandle)
+    const videos = await this.getVideosFromDirectory(directoryHandle)
+    this.saveCachedVideos(directoryHandle, videos)
+    return videos
+  }
+
+  getCachedVideos(directoryHandle: FileSystemDirectoryHandle): FileSystemVideo[] | null {
+    return this.readScanCache<FileSystemVideo>(directoryHandle, 'videos')
+  }
+
+  getCachedAudioFiles(directoryHandle: FileSystemDirectoryHandle): FileSystemAudio[] | null {
+    return this.readScanCache<FileSystemAudio>(directoryHandle, 'audio')
+  }
+
+  private saveCachedVideos(directoryHandle: FileSystemDirectoryHandle, videos: FileSystemVideo[]) {
+    this.writeScanCache(directoryHandle, 'videos', videos.map(({ id, type, name, path }) => ({
+      id,
+      type,
+      name,
+      path
+    })))
+  }
+
+  private saveCachedAudioFiles(directoryHandle: FileSystemDirectoryHandle, audioFiles: FileSystemAudio[]) {
+    this.writeScanCache(directoryHandle, 'audio', audioFiles.map(({ id, type, name, path, fileType }) => ({
+      id,
+      type,
+      name,
+      path,
+      fileType
+    })))
+  }
+
+  private readScanCache<T>(directoryHandle: FileSystemDirectoryHandle, kind: 'videos' | 'audio'): T[] | null {
+    if (typeof window === 'undefined') return null
+
+    try {
+      const raw = window.localStorage.getItem(this.getScanCacheKey(directoryHandle, kind))
+      if (!raw) return null
+      const parsed = JSON.parse(raw) as { version?: number; items?: T[] }
+      return parsed.version === 1 && Array.isArray(parsed.items) ? parsed.items : null
+    } catch (error) {
+      console.warn('Unable to read scan cache:', error)
+      return null
+    }
+  }
+
+  private writeScanCache<T extends { id: string; name: string; path: string; type: string }>(
+    directoryHandle: FileSystemDirectoryHandle,
+    kind: 'videos' | 'audio',
+    items: T[]
+  ) {
+    if (typeof window === 'undefined') return
+
+    try {
+      window.localStorage.setItem(
+        this.getScanCacheKey(directoryHandle, kind),
+        JSON.stringify({ version: 1, updatedAt: Date.now(), items })
+      )
+    } catch (error) {
+      console.warn('Unable to write scan cache:', error)
+    }
+  }
+
+  private getScanCacheKey(directoryHandle: FileSystemDirectoryHandle, kind: 'videos' | 'audio') {
+    return `guitar-trainer:${kind}:scan-cache:${directoryHandle.name}`
   }
 
   async isVideoFile(fileHandle: FileSystemFileHandle): Promise<boolean> {

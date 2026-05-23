@@ -1,0 +1,1093 @@
+{
+  "timeline": [
+    {
+      "start_seconds": 0.0,
+      "end_seconds": 4.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3.0,
+      "end_seconds": 598.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Hello guys and welcome to this brand new tutorial of mine. This is basically fretboard visualization and playing over changes and The goal of this tutorial is really to give you the tools required to be able to see any Harmonic device on the fretboard be it scales chords or arpeggios Any of those things basically on the fretboard in a very concise Manipulable very important manipulable way using basically small chunks of information Now a lot of the times when we visualize the fretboard the traditional ways it's taught. It's taught in big chunks big position-based Ideas on the fretboard and we're gonna have a look at a couple of those just to start with just a basic introduction to them So that if you're not familiar with them you at least know where we're coming from in terms of the standard ways That people would visualize the fretboard however I'm not going to teach them in a really big way and the two of those will be the cage system and also three note Posturing which any rockers out there. Well, I'm sure we'll be very familiar with now What we're going to do is I'm going to introduce those to you so that you're familiar with them I'm just going to say what the downsides of them can be as far as playing other changes now Really important to mention two things at this stage before we even get started The first is those two systems are fantastic and anything I say and any information I give you here is designed to be bolted on top of those systems that you may already know fretboard visualization is not about one system of Looking at the fretboard. It's about lots and lots of things an amalgamation of all your experience on the instrument From literally day one up until now and however long you've been playing for whether that's you know a few months or years and years like me It's an amalgamation of all those things. That's really important Don't think the one giving you here is the be the be all and end all of kind of fretboard visualization Although it is a very useful system You don't abandon the stuff you already know it's really important We're going to bolt this information on top this way of looking at the fretboard Which I'm going to teach you in this tutorial is very useful for playing over changes Which is obviously very interesting for a lot of guitar players these days It's quite fashionable and people are really into it and it's a very cool thing to be able to do Now with that said the second thing that's really important before we even get started is the tuning I'm using and the reason I'm going to mention this is because I want you to understand that it's completely irrelevant to the tutorial Some people get worried about this the tuning I use is a tuning called fourths tuning or all fourths tuning now the way it works is I'm exactly the same as standard tuning for the lowest four strings So I have an e and a a d and a g but my B string is tuned up a semi-tone or up one fret to C And my E string is tuned up a semi-tone to f. Okay, that gives me all fourths all the way down If you don't know what that means don't worry too much Basically what I'm going to say is this makes the fretboard very symmetrical and works very nicely for fretboard visualization But even though I'm in this tuning now. We've got close-ups of the fretboard and stuff in this particular tutorial I've got another camera set up over there. It's got a close-up of the fretboard I'll just show you that now so you can see obviously here we go with the Close-up of the fretboard here so you can see what my fingers are doing back to the main cam now when we look at The close-ups the fact that we're in forced tuning or I'm in forced tuning makes no difference It's all to the visualization process I'll explain how you can adapt the ideas to fit for standard tuning and I will show you all the shapes for standard tuning as well And then in the accompanying PDF files Everything is in both standard tuning for you guys in standard tuning and then because it gets requested a lot I've got a few players or few students who buy my stuff to Tune in fourth, so I'm going to give you the fourth tune version as well. Okay, so with that said let's start now by looking at these two standard kind of fretboard visualization systems and look at how they can be Useful and some of the disadvantages of them for playing over chord changes. So we'll do that now So two of the most common ways for visualizing the fretboard are the three-in-out post string system and the cage system And again, we're not going to go through them in masses of detail here because we just don't have time on this tutorial I want to actually go through the system that I use to visualize the fretboard or the main system I use again remember fretboard visualization is an amalgam or amalgamation of all of the different things that you learn as you go through the guitar and everybody is unique in a way in the way they see the fretboard because of the Combination of your experiences. However, let's have a look at the three-in-out post string system to start Now the three-in-out post string system relies on as it suggests a certain number of notes per string So three in this case. Okay, and it's a position-based system as is the case system majority of Things you know the ways we visualize the fretboard at least when we first start learning the guitar based on position Based playing so playing on a certain part of the guitar or a certain position Okay, so for instance if you think about your minor pentatonic scale you learn it in five different positions So you've got position one Which will look slightly different in my tuning, but obviously you guys have should be familiar with the different pentatonic positions position number two So on and so forth so there's different positions Now the same thing applies for all of our scales that are seven note scales So the pentatonic scale is a five note scale now the system that we use for learning seven note scales like the major scale and its Modes don't worry if you don't know the modes. That's absolutely fine I'm not going to teach you the modes in this tutorial as such But the you can learn them from this tutorial you could use this tutorial to actually learn your modes And you'll see why later on you could actually learn any scale or any harmonic device once you've covered this tutorial very very easily and very Quickly and that's not hyperbole. That's actually you know this this system I'm going to show you actually does allow you to do that so Let me explain further with three note press string if I have a major scale Let's say we start with a major up at the fifth fret of the E string So first thing we're on this fifth fret here the way the three-note press string system works out is that we arrange the scale So we have three notes on each string. Okay, so that would be in the case of a major We would have a B C sharp on the low E string which would be five seven nine And then on the next string we again arrange so you've got three notes on that string So we have D E F sharp which would be five seven nine on the a string And we keep going basically arrange the notes again three-note press ring So on the next string we would have G sharp and there's an octave a and then we've got B again So on and so forth and we continue up the guitar Okay, so that takes us all the way up to this D here now that's the 10th fret of the E string for you guys again Don't worry too much about this shape I just want to teach you the principle of three-note press string or remind you if you if you're not familiar with it So don't worry too much if the actual shape of the scale is not familiar We're going to deal with how you can visualize all of these scales later on okay So again just one more time you can see we've got three notes on each string Now what a lot of guitar players do especially if they come from a rock background is they will learn The next position of that a major scale starting on the note B And again, so that was the a at the fifth fret of the E string And we can play the scale from a all the way up Rising three notes first ring each time until we hit this D at the 10th fret of the high E string or in my case The ninth fret again don't worry too much about that. That's just the tuning Okay, if we start on the B instead of the a so the next note in the scale his a at the fifth fret Okay, make sure you can see my nuts so you can see where I am So there's the fifth fret and there's the be the next note in the scale again We can arrange the scale so we've got three notes on every single string Oops Okay, now that particular arrangement of Three notes per string allows us to learn the scale in seven different positions Starting from each of the notes within the scale so we can start from a We can start from B We can start from C sharp So on and so forth we could go all the way up the guitar and we could learn all seven positions of that particular scale Now in doing that what we've done is we've covered the entire guitar With seven positions of an a major scale and we've learned the scale live of the fretboard Okay, we can do that with any scale apart from five note scales pentatonic scales Because they only have two notes per string in the standard way that we play them But again, we can learn them in a position-based Method this is the same idea as we use for pentatonics We start on the first note learn a pattern we start on the second of the scale learn a pattern We start on the third note of the scale learn a pattern and we build up seven note seven patterns for a seven note scale and five Patterns for a five note scale now this system is useful Especially if you're playing on a single chord vamp Or if you're playing in a single key and you don't like to think over each chord individually So you aren't really thinking changes. You're just thinking a key But the problem with it is twofold The problem is that when you learn a scale like this a big shape that comes all six strings You've got one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen notes in each position You end up when you start to improvise doing two things first of all playing in a position, which is very limiting Okay, we all talk about playing in the box. We're all you know, how do I break outside the box? It's a such a common thing that students say how do I break out the box? That's the first thing and the second thing is you end up playing very scaleically You're not thinking in terms of chord tones or in terms of intervals. You're thinking in terms of a scale shape",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 597.0,
+      "end_seconds": 603.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 601.5,
+      "end_seconds": 741.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Very hard to break out of that kind of Thought process of here's a shape now. I'm gonna play a shape and even when you do kind of manage to play more melodically It's very difficult to break outside of thinking about the scale shape as opposed to in a more detailed way about the chord tones Okay So through a pedestrian systems great for fairly quickly learning a scale in bulk across the neck The other place where it becomes very difficult to use is when we play over changes and playing over changes Means that we're playing over a chord progression or each new chord requires a new scale Okay, so for instance if I was playing over a major 7 And don't worry about the chord shape. It's that shape for you guys just with the sound of it Then I might use my 7 a major boxes my seven different positions to play about a major the Wi-Fi they went to f sharp major 7 Suddenly these big shapes that I'm thinking of don't move around so well. I've got to kind of think about alright So if I'm in this position Where's f sharp major and I've got to go through my different positions and find where f sharp major is in this particular part of the neck Visualizing from the lowest e and a strings It's kind of difficult to actually visualize well when you're always thinking about six strings And you're thinking about seven different boxes. It's very difficult to play through the changes successfully It can be done But generally there are better ways to do this and I'm going to show you that a better way of doing it Which is very very useful Based on intervals and that's the main system that we're going to use for this tutorial So the 3D outpost string system is great And if you already know it that's a huge bonus for you because you're going to have a great foundation for building upon When you're developing your improvisation, you're developing your fretboard knowledge if you don't know it It's certainly something that's worth studying. Okay when I'm playing now because I learned 3D outpost string system initially I still do use the 3D outpost string system in my mind from time to time when I'm improvising Especially if I'm playing faster lines, but I was going to improvise around a major or the key of a major When I was actually going to play really fast kind of legato lines I'll often my brain sort of is using part of that 3D outpost string system in order to play those faster lines Okay, so I was going to go",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 739.5,
+      "end_seconds": 742.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 741.0,
+      "end_seconds": 1455.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Those kind of things for the faster based playing it's very useful to have the 3D outpost string system in your mind And the cage system which we're going to go through next. So that's the 3D outpost string system let's now have a look at the cage system very quickly and It that again will help you guys to see the benefits of that system and why you should learn it and also some of the slight Disadvantages with it the case system in my mind is a better system for playing other changes And we'll see why in the next deception. Okay, so the cage system basically caged Stands for five different chord shapes that you learn when you're first picking up a guitar C basic C shape a your basic a shape G Okay, and then e and D which spells caged obviously Now the cage system Basically teaches you to learn scales and arpeggios based around chord shapes moved around the guitar Now as compared to the three note post string system the huge benefit of the cage system is let's say you learn a chord So we've got here a C major chord. It's based around a G major shape So the same shape you would use for G here I'm not going to play it because the tuning I use this force tune is going to make it sound really horrible like this So we're not going to do that But if we take that shape up and place it at the eighth fret we now have this C chord Okay, it's a G that's been moved up So G G sharp a a sharp B C and I'm barring across to replace the nut That was down at the the zero fret if you want to call it that or the open strings Okay, so now we've got this C chord and if I learn the scale based around that chord That means that I know where the chord tones are at least some of those chord tones I know where they are I can see a C here, which is the root I can see the third I can see the fifth then I can see the root Then I can see the third song and so forth like I can see the fifth up here as well So sorry the root up here I should say so that system of using chord shapes to learn scales or using chord shapes to base your scales upon if you like It's very useful compared to clean up your string because it teaches you to visualize chord tones as well and Court tones coming very very useful when you're thinking about selling out the chord changes That makes sense if you're thinking about the scale or the arpeggio based around the chord shape that you already know And they're all basic chord shapes that we use Just your basic major and you can do the same thing with mine as if you so desire But most people just use the major the major shapes the cage systems a C a Gd if you're thinking around those chord shapes It's much easier to think about where the chord tones are and therefore you'll target those in your solos And your solo will sound more like the chords Okay, the slight downside of this system and it is a slight downside because there are some Unbelievable players like Sean Baxter for instance one of the greatest guitar players I've ever heard As far as I'm aware exclusively uses the cage system not exclusively but uses the cage system in the majority of his Visualization systems I could be wrong, but I'm pretty sure that's correct And there's loads of great great guitar players who use the cage system as their primary source of Visualization information if you like when they're improvising. So it's a great system But again, what are the problems with it is that it relies on shapes that cover six or five strings It's a lot of information and you're using big scale shapes to think about How you're going to visualize the fretboard? So you're usually thinking about six or five strings and the other issue is you can often be visualizing from the lowest two strings Exclusively a little bit like when you think about your bar chords when you place a bar chord You're generally placing it with the root note or you're thinking about or visualizing the root note on the e or the a string But often with the cage system the same thing happens not always but often so Actually visualizing where those root notes are and visualizing More information than you necessarily need to at the same time can be a hindrance However, let me say I do like the cage system. I think it's a really good system and it's definitely worth learning I think it's a fantastic system for playing over changes What I want to present to you now is a system based on intervals pure intervals. That's really going to help you to System systematically visualize the fretboard in a way that you can manipulate The information in an improvisational manner and what I mean by that is it's a very wordy way of saying that you get very good Creating lines and being in control of your note choice as opposed to thinking of a scale shape all the time Okay, and then picking and choosing notes from the scale shape. I want to give you more detail And allow you to make more conscious choices within your improvisation more quickly Okay, you make more better musical decisions based on which notes you want to play as opposed to always thinking of a scale shape And then just kind of like picking and choosing notes based in the scale shape I'm not really knowing why okay, so that's the cage system and the three-in-out posturing system again Just remember this tutorial is not to teach you either of those systems I just wanted to highlight what they are and that you should definitely learn them But there are disadvantages to them and advantages of course as well So research those more as you so desire you don't need to necessarily but I'd recommend that you do now Let's move on to the system of visualization that we're going to use for the rest of this tutorial I really think it's going to help you out a great deal with your harmonic and fretboard based knowledge So let's do that now Okay, so the system that we're going to use to visualize the fretboard is based on Purely thinking about intervals. Okay, not necessarily thinking about scale shapes in particular Although they will form in your mind And if you know your three-in-out posturing in case system must still be there but thinking about two things a root note Where is that root note on the fretboard and against that particular root note? Where are all the other intervals in the scale and here's the really important piece of information We're only ever going to be thinking about one octave When you think about the three-note posturing system or the cage system They are fantastic systems for visualizing the fretboard But you tend to think about two maybe two and a half sometimes full three octaves Sorry, not three octaves two and a half octaves in some cases you tend to be thinking about a lot of notes You know like we found out with the three-in-out posturing system at times you can have up to 18 notes in a particular pattern Well in our system the system we're going to use based on Visualizing intervals. We're only really thinking about one octave at a time and within that octave It becomes very easy to think about where all the chord tones are and any Extensions that you want to put on some nights 11th and 13th So you can be very very clear and very conscious with your note choice And be able to see where all of those intervals are anywhere on the fretboard But before we can do this this intervalical formula will come on to what formula means later if you're not sure This this interval based system of improvisation We need to be very very clear with note names on the fretboard We need to know where all the notes are on the fretboard now. This is very different to visualizing scales It's a very different exercise Because when you visualize scales you visualize a root note and then you think about whether your other intervals are against that root note And you form a particular shape or series of shapes on the instrument Knowing where notes are on the fretboard is fundamental to any system of visualization The problem that guitar players often have is they usually rely on systems of visualization at least at first Until they start getting more advanced where they only have to know what the notes are on say this the first five frets Usually people are very familiar with and then the lowest two strings at least up to the 12th or 15th frets Now what I'm saying is you need to know where all the notes are on the fretboard Now this seems like a monumental task But it's like anything else if you spend a little bit of time every day Learning where the notes are on the fretboard soon enough it will all come together for you And of course there's lots of ways you can do this You can learn what the dots are on each string and then the other notes in between will fall into place I'm not actually going to teach you what the notes on the fretboard are today I'm assuming that you know that or if you don't know it you're going to go away and learn it It's not a difficult thing to do You need a little bit of music theory in terms of what the musical alphabet is or the chromatic scale if you like So basically knowing where your sharps and flats occur and then you just apply that to the instrument Okay, that's not the purpose of this tutorial. That's too basic if you like for want of a better term But let me really reiterate it's massively important that you know what notes on the fretboard are and I'll explain why in a second Now you need to know if I pointed to the 10th fret on the B string Immediately that that's an A if I point to the 4th fret on the G string That's a B by point to the 7th fret. That's right the 9th fret on the on the D string That's a B second fret on the D string. That's an E so on and so forth. That has this that information has to be there Now the reason that has to be there is the system that we're going to use for visualizing intervals is based on root notes And if you can't see the root note Immediately the rest of the visualization process falls on its you know falls on its face It's not going to work anymore So it's massively important that you understand and can find root notes anywhere on the fretboard very quickly Now obviously all guitar players have kind of gray zones or weaker spots Certainly for me, you know this kind of area is less comfortable than anywhere else on the fretboard Although I do know where those notes are but then the amount of time I spend improvising up the you know There's the 19th or 20th frets of the A string is very minimal indeed because there's notes A don't sound that great up there and B are much easier to play elsewhere So, you know, it's okay if you're not that familiar here But certainly up to the 15th fret on every single string that recommend you learn or not recommend Guarantee if you recommend it's going to make you a much better player Okay, so with that said let's set up a harmonic scenario. Okay, or a kind of playing scenario Let's say we're going to play over an a-7 chord. Okay, so I'm minus seven chord. We've got this kind of a sound Where you guys can play that you can basically bar across the fifth fret of all six strings And they put your third finger on the seventh fret of the A string that gives you an a-7. Okay, I'm gonna play like this Now some of you guys might immediately be thinking of a scale that you can play over this I'm gonna stop you right there and say don't do that yet If you know how to do that if you can think of you know a few different scales You can play over that chord Fantastic if you can find them in a position where you can find a shape for them Great, but don't worry about that just yet. We're gonna think about that later down the line again Remember our system is going to work on octaves. Okay, rather than thinking big six string shapes or five string shapes Okay, so let's start by just identifying where all of the A's are on the fretboard and again I'm not going to do this so I teach you where they all are That's up to you. I'm going to teach you all the other interval shapes that we're gonna learn But I'm not going to teach you early the root notes are for every single, you know note on the fretboard That would just take forever. That's another tutorial unto itself. Okay, but let's start this fifth fret of the age of the Okay, so again make sure you can see my nuts, you know, okay now all I'm gonna do is I'm gonna spend some time identifying where all the A's are",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 1453.5,
+      "end_seconds": 1459.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 1458.0,
+      "end_seconds": 1848.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Now if I find that I can't see those root notes quickly enough Anywhere on the fretboard again given that some of us will have some gray areas I need to work on that. I need to be able to see them really really quickly Okay, now we get into changes playing later on this becomes even more important because the root note It's going to be the fundamental position that we're going to look for not position But the fundamental note that we're going to look for to visualize all of our other intervals from But let's say we've gone through that process and now we know where all of those A's are Now before we think about any scales or any arpeggios Let's think about the chord construction for that particular chord. Okay now again This is not a theory lesson. So if you don't know the chord construction I recommend you do some basic music theory into how chords are constructed how scales are constructed So on and so forth. That's just fundamental information that if you don't know this system of visualization is going to be a nightmare for you Okay, as is any other visualization system. You really should know that basic music theory. Okay, so if you don't it's not a lecture Just go away and learn it really important. So for those that do know a Minus seven chord has a root note a flattened third a Perfect fifth or a natural fifth and a flattened seventh. Okay, let's figure all of that information except just for the root and the flattened third Okay, so that root and flattened third we can find the root anywhere on the guitar We know we can do that so we can find A's in this case anywhere on the guitar If it was a different root note if it was an F sharp minus seven or a B minus seven We'd do the same thing but we'll be looking for F sharps or B's okay But in this case we're looking for a's a minus seven. Okay, so here's the chord Now that flat three interval Without referring to any scales without referring to any arpeggio shapes We can visualize that as a standalone thing on the guitar by looking at what the shape of a root and Flat three in relation to one another looks like well The first way of doing it is on the same string now all of these intervals that we're going to go through Mapped out in a PDF file for you as part of the tutorial so if you don't know this and you need to learn them We're going to go through all the different intervals Within an octave and then I'm going to show you the different ways or some of the different ways that you can play them on the Guitar and then I'll all be mapped out in standard tuning and in force tuning And then there'll be a little supplemental bit at the end of this I need to show you how to figure these out in standard tuning when you move between the G and the B string the G and the E string because that changes things up slightly because of the tuning Okay, so let's start before you get any any further. Let's have a look at this route to flat three relationship Okay, so on the same string on one string we can go from the fifth fret to the eighth fret That's shape One two three four or if you count this as being zero one two three frets higher so five going to eight It's the shape of a flat three interval Now wherever I place my first finger on an A The same shape is gonna work if I get to the 12th fret of the A string This is an A do the same shape I get a flat three interval. I'm not thinking about a scale I'm not thinking about an arpeggio I'm just thinking about a root note And I know the chord that I'm playing over contains a flat three or a flatten or a minor third interval So I'm gonna play that shape Again here at the 14th fret of the G string. That's an A Same shape works for you guys the 10th fret of the B string for me the ninth fret the C string So be there guys that'll be 10 to 13 Okay, down here at the second fret. Okay, let me just make sure you can see the nuts Okay, then at the for you guys the fifth fret of the The E string going up to the 8th fret for me. It's the 4th going to the 7th All of these are a's everywhere I place my first finger there is an A. Okay, and then Not everywhere, but everywhere I place put my first finger on an A I should say that same shape is gonna work for a flat three interval now the key to this is at no point here When I thinking a scale shape, I'm not thinking a particular pattern on the guitar I'm thinking a very small piece of information and your brain is very good at manipulating Small pieces of information. It's not so good and manipulating large pieces of information big six string shapes It's not so good about it's much better at manipulating small pieces of information Okay, so with that said in the next section what we're gonna do is we'll look at how we can take this flat three interval and Expand this idea and play this all over the guitar using lots of different shapes for this flat three interval But again only within the space of one octave and this will allow you to play this interval anywhere on the guitar with E so let's do that now Okay, so now we've mapped out this basic flat third interval using this one shape and we know we can play it anywhere on the guitar starting on an A and We know where all the a's are again a few kind of assumptions here, but make sure you learn where all these group notes are It's very all the notes are on the guitar. It's really important to map out the next part of the process Now the thing is Before we start mapping out any other flat third intervals I want to make it very clear that the only note name that I'm thinking about when I'm improvising is the root notes Of course, I know what the other notes are on the guitar because I've gone through the process of learning them But the thing is we want generic pieces of information to think about We don't always want to be thinking as guitar players Especially about what all the note names that we're playing are of course you can and you should be able to tell Anybody at any point what note you're playing That's very important, especially if you're a reader or so on you know any of the the kind of core musical skills of being musician Not just a guitar player However, for the sake of getting to the information quickly and making good note choices We only need to know that this is an A The only other piece of information that's relevant here is that this is a flat three interval The fact that it's a C is kind of secondary information It's not so important and the reason I say that is because again if we were playing over chord changes Let's say we're going from a minus seven up to C minus seven And there was like two bars on each chord. So we had",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 1846.5,
+      "end_seconds": 1849.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 1848.0,
+      "end_seconds": 2137.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "When we play over those two chords if we just think about the root notes and the flat threes If we think about where the root notes are we go from a to C Okay, the root note changes, but the flat three part doesn't change The note name would change if we think about the note name we go from a to C That's root to flat three for a But for C we'd go from C to E flat But if you look at the shape that I'm playing It's identical So in terms of thinking about the note name of the flat three it becomes superfluous or extraneous information We don't necessarily need to think about it again. I'm not saying you shouldn't know what it is It's very useful to know what it is But if you referred to let's say you're talking to a sax player or piano player and you said oh I was gonna play let's play over a minus seven so play the a then the flat three They would know exactly what you were talking about so you can communicate that way. That's the first thing But the second thing is it's much more You know so much more sort of What's the word? It's a much more kind of a faster process or Yeah faster process basically or a streamline that was the way I was looking for a more streamlined process to actually think about There's the root. There's the flat three. There's the root. There's the flat three There's the root. There's the flat three. There's the root. There's the flat three So that any minus seven chord you're playing over it's a generic system You look for the root and you see the flat three. Don't worry about thinking what the note name is Just look for the root. There's the flat three. Okay, so now I've said that Let's have a look at some other flat three shapes that we can play just based around an octave Okay, we're not gonna go any higher than an octave. Okay, so there's our first flat three interval And we can also play a flat three game Let's show you can see my nut from the fifth fret The age of the e-string for the third fret of the a string Okay, same notes But again, I'm not thinking a to c I'm just thinking root notes a to flat three and I'll learn the shape So five on the e-string three on the a string Now again anywhere I place my third finger on an a I get the same shape happening The only problem you have with this it's not really a problem because you've been doing it your entire guitar playing life If you play in standard tuning is anytime you get an interval between the g and the b string or the g and the e string The high e you need to change the shape by moving the higher note up and up a semi ton or up a fret So let me give you an example if I take this a on the 14th fret the g string, okay? Well the shape is no longer this in standard tuning We need to move this first finger up a fret and that's because of the way the guitar is tuned The guitar is tuned so it's perfect fourths all the way Except between the g and the b string where we have a major third and we need to compensate for that By any time that we have an interval let's say the root note is on the g string And we've got another note on the b or the e We need to move that note on the b or the e string up a semi ton or up a fret really really important now in my Tuning and force tuning. I don't need to do that. It's the same There's my a and my flat through But for you guys in standard tuning that will be 14th fret on the g to the 13th fret on the b Okay, so really important to understand that again catalog that shape This is what we're doing. We're cataloging very small pieces of information here Okay, go to any a make sure you can visualize both types of flat through both shapes of flat through Go to this a Okay for you guys remember it's going to be at the first fret of the b string here because we have to move up a fret So g2 going to b1 for me. It's the open string Okay, go to this a here at the 12th fret of the a string Okay, go to this a let's say at the For you guys, it's going to be the 15th fret so sorry the 17th fret. I do apologize of the beach of the high e string It's the fret below Okay, so now we've got two ways of visualizing a flat three interval",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2136.0,
+      "end_seconds": 2151.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2149.5,
+      "end_seconds": 2269.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Important what I was doing there is I was making music based on Those two interval shapes and at this point we've made some music We've just got a root and a flat three and we've created something with it something musical. So if my pulse is here Make music with those intervals and that's really important because we've not thought of a scale shape We've not thought of an arpeggio shape. We're not grounding this in a particular big box We're just thinking about those two things root flat three root flat three root flat three, okay So that's two ways of thinking about that root note ascending. We've got this version On the same string and this version on an adjacent string We can also descend. Okay, think about descending intervals and we should so here's an a the The seventh fret of the D string sorry brain failure there guys the seventh fret of the D string Well, we can play our flat three interval like this Okay, so that's seventh fret of the D string going down to the third fret of the a string Okay, so that's another way of visualizing that Okay, now when we do that on the between the B and the G string again Remember, it's gonna be a wider shape. So it's gonna be this it's gonna be there's the a at the 10th fret the B string again This is written out for you in the PDF files. Okay, we're gonna be at the fifth fret of the B string Okay, so for me, it's the same shape You guys it's 10 to 5 10 on the B 5 on the G and remember the reason for that is any time we have a Interval between the G and the B string we have to move them out on the B string upper frets Okay, or in this case we have to move down on the G string",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2268.0,
+      "end_seconds": 2271.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2269.5,
+      "end_seconds": 2307.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Okay, so I can look for those a's Play that same interval shape. Okay files to play it The 16th fret for me or the 17th fret for you guys of the B of the high E string The same thing works The same shape Okay, so that's another way the final way we're gonna do the the interval is if we put the first finger on this a At the 7th fret of the D string we can play flat 3 at the 8th fret of the low e Again descending flat and third interval",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2305.5,
+      "end_seconds": 2308.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2307.0,
+      "end_seconds": 2337.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "And again, I'm just cataloging these four different shapes now for a flat 3 interval. So here's one Here's the second one Both descending here's the third one this one descends And here's the fourth one And again, I will write those out in various parts of the guitar So if you are in standard tuning you can see where they're supposed to go When you're between the G and the B or the G in the E string because that's a little bit more confusing",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2335.5,
+      "end_seconds": 2338.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2337.0,
+      "end_seconds": 2367.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "And again, what I would do at this point is once you've learned where these intervals are you've learned the shape of them I would identify them from every single a on the fretboard. Okay, sometimes you can't descend if you're on this a here Obviously, you can't descend you run out of strings Okay, but within reason wherever you can descend and they send I would play the intervals so find every single a on the fretboard So",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2365.5,
+      "end_seconds": 2368.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2367.0,
+      "end_seconds": 2373.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Don't play G like I just did",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2371.5,
+      "end_seconds": 2374.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2373.0,
+      "end_seconds": 2893.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "So on and so forth so that you're really Taking into your minds exactly where all of those a's are and where all of those flat 3's are but not at this point Relating it to a scale at all and the key here is you are improvising with very conscious note choices You find in the root note you find the flat 3 and you're making a decision which note to play and you're always aware of which interval You're playing if you try to do this with big scale shapes or three note per string system say for instance This will be much much harder. Okay, so having said that now Let's move on to some other intervals and we'll have a look at how we can map those out on the fretboard as well I want to talk a little bit more about how you can visualize scales and arpeggios as well Okay, let's do that now Okay, so for now Let's stick with our a minus seven sound and the reason this is useful is because first of all the a minus seven It's got four intervals in it So if we map out those four intervals and actually three extra intervals because the root note Well, we don't need to really to map those out if you know where they are So we've got the flat 3 the 5 and the flat 7 if we map those out within each octave So we know how to play them at least two or three different ways then in theory We should be able to play Full arpeggio anywhere we like on the fretboard and visualize it in tons of different ways So we'll have a look at that We're gonna map out the fifth and the flat 7 next and once we've done that if we then add the fourth interval in so that natural 4 Against the root note. We've got a minor pentatonic scale But the beauty of this is we'll be able to play that minor pentatonic scale But we won't be thinking any positions or patterns at all We'll just be thinking in terms of where's the root note? Where's the flat 3? Where's the 4? Where's the flat 7? Where's the 5 so on and so forth? So we'll be able to play completely freely Making up our own shapes and our own ways of playing the through the scale thinking about intervals Rather than thinking about a predetermined scale shape Now, of course the beauty of this is that if you already know some predetermined shapes Those are just going to help you out even more But the beauty of this system is that it's going to allow you to stop thinking in terms of boxes and shapes and start Thinking in smaller pieces of information that are much much easier to manipulate and much much easier to see on the fretboard And then later when we get into changes based playing you'll find it much easier to play over changes and target chord tones So having said that let's now have a look at fifths. Okay, so this is the root note his RA again We've mapped those out all over the fretboard. Let's now have a look for fifths. So our fifth looks like this It looks like a power chord basically. That's the root note fifth fret of the E string and then we're going to play the seventh fret of the A string Okay, so that's what our fifth looks like Again, now what we've got to do is take that shape and place our first finger on A's all over the fretboard And start thinking about that shape and try to fit it from every A On the fretboard remember when you get to the any time that you're going from the G to the B or the G to the E string we need to move up a fret So instead of being here's our A at the second fret of the G string instead of being the same shape We now move up a fret. Okay, for me, it's the same shape Maybe you guys just like to see some of the advantages if you didn't already know a force tuning Making a time more symmetrical Then we take the A at the 10th fret of the B string and we get the same shape Okay, we go from the 10th fret to the 12th fret for me It's the ninth going up to the 11th because of the tuning But you can hear it's the same you guys play 10 on the B to 12 on the E. You'll hear it's the same So again Just going through mapping out from every single A root note that interval making sure I can play it Okay, if you try to play the A at the fifth fret of the E string obviously you couldn't play that interval It wouldn't work anymore. So just to be aware of that, you know, it's Just being sort of sensible with where you visualize the interval. Okay another way of visualizing the fifth Okay, it's to go from the fifth fret on the E string and then going Onto the second fret of the D string That's another way of visualizing that fifth So five on the E to two on the D And again, I can do the same thing if I take this A here at the fifth fret of the D string now because I'm going to the B String I have to go up a fret Okay, so this also occurs if I go from the D string to the B string I have to do the same thing again because of the tuning Okay, because I'm incorporating this Interval between the G and the B string or the D and the B string and now have to move up a fret So instead of this shape going seven on the D to four on the B I go seven on the D to five on the B For me, it's the same If you guys go to the fifth fret you'll hear it sounds correct Go to this A at the 12th fret of the A string Okay, this one here Again because I'm going from G to the E string. I need to move up a fret Okay For me, it's the same because of the tuning Okay, so that's our fifth ascending now. Let's have a look at some fifths descending So in terms of fifths descending we're actually going to use one shape So if we've got say for instance There's no point visualizing a fifth descending from this low A because we can't go any lower But if we visualize this A at the seventh fret of the D string we can visualize the fifth Descending down onto the next string but the same fret so D7 going to A7 and again catalog that shape in your mind Okay, really important that you catalog all of these shapes as you're going This is not meant to be a fast process by the way It's obviously recovering these fairly quick for the purpose of the tutorial, but it's not a fast process You need to do this slowly and work on them slowly Okay, so that's our shape going down is the A Descending down to the fifth and again, I know what note this is it's an E, but I'm not worried about that I'm just worried about this is the roots. What does the fifth descending look like? And again now I can place my A anywhere. I like on the fretboard Well anyway, I've got to play now you but I can place the A in different parts of the fretboard We get the same shape place it here Place it here Again for you guys that's going to look slightly different because of the tuning Okay, place it here And all of those are mapped all of these intervals out again remember in the PDF file so you can learn all of these different shapes So now we know how to play a root That was a given we're now to play a flat three We're now to play a fifth in various different ways of sending and descending Well now we should be able to map out a minor arpeggio or a minor chord Because we've basically got root flat three and five. Okay, so hopefully you can see how this system starting to build now So if I take this a here, I Can see roots flat three I can see roots flat three I can see roots five I can see root five I can see roots flat three five roots flat three Five Here's another route Here's a flat three descending Here's a flat three ascending Here's the same route is the fifth Here's the same route is the fifth Here's the same route is the fifth You get the idea. So now we've got roots flat three five five roots flat three roots five three roots five roots five roots flat three roots Send descending to flat three roots descending to flat three roots ascending flat three roots descending flat three and then fifth roots and then flat three That means I can play this particular arpeggio, if you want to call it that, or particular set of intervals, anywhere I like on the fretboard.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2892.0,
+      "end_seconds": 2895.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 2893.5,
+      "end_seconds": 3096.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Am I thinking a big arpeggio shape? I'm not thinking... I'm not learning that as a big, constructed, six-string shape. And then I have to play within that. What tends to happen if people learn arpeggios that way, or learn chords that, or scales that way, is they end up playing that shape. Now, when you ask them to improvise, you get things like this. You don't get a more kind of constructed or thought-out process, in terms of not more constructed, but a more thought-out process. And they don't tend to think so much about which intervals they're playing at any given time. This allows you to visualize much smaller pieces of information. Root, flat three. Root, five. Flat three. Root. Root. Flat three. Now, this root. This root. Sorry, five. Flat three. So on and so forth. So you're much more in control of your note choice, and much more in control of your visualization process. Okay? So now we need to look at the flat seven. Okay? There's two ways we can do this. One ascending, and one descending. Flat seven. Here's the A here. Well, flat seven is two strings higher. So two strings towards the floor on the same fret. So A five, sorry, E five is A, and then we go to D five on the fifth fret on the D string. That gives us our flat seven interval. Okay? So that's our ascending version of flat seven. Okay? All these intervals are within one octave. We're only thinking from a root note and then an octave above or below. Okay? That's the first way. Again, place your first finger on an A, or any finger, in fact, on an A, and then you can make the same shape. Again, in standard tuning, it's slightly different. We have to go up a fret on the B string. For me, it's the same. Again, these are all written out, so don't worry if you're a little bit confused. Check out the PDF if you get confused about this standard tuning issue. Okay? This A here at the 12th fret of the A string. This A at the 14th fret of the G string. Remember, again, because I'm going between the G and the E string, I need to move up a fret. Okay? Really important. So it would be 14 on the G going to 15 on the high E. Okay? Again, this is... You can see how important it is to know these note names now. Got to find all these A's really quickly. Same thing happens down here at the second fret of the G string. Except again, you have to move up a fret. For me, it's the same. Okay? So you can see that's our flat seven interval ascending. Okay? Our flat seven interval descending is really easy. It's on the same string, and we can go back two frets. Okay? There's a third way we're going to do this as well. So I'll make sure this third way is written out as well. Okay? So that's on the same string. Here's our A. Back two frets is the flat seven. Here's another A. Back two frets. Here's another A. Back two frets. Keep going.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3094.5,
+      "end_seconds": 3097.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3096.0,
+      "end_seconds": 3139.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Just shows again how fast you have to be able to find these A's on the fretboard of these root notes. Okay? Another way we can do this, the final way, is here's our A with the first finger. There's another descending interval. And we're going to go to this next string down. So in this case, the A string. And we're going to go to the tenth fret. So now we've got this, that shape, and then this as well. So in this case, seven on the A, on the D, sorry, going to ten on the A. And again, wherever we place our first finger on an A, A.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3138.0,
+      "end_seconds": 3142.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3141.0,
+      "end_seconds": 3181.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "Again, between the B and the G string, we just need to modify this slightly so that effectively we get this shape. Okay? Again, it's not this, it's this, because of the tuning. Okay? Again, you'll see that written out in the PDF file. Okay? So we've got the tenth fret on the B string and the twelfth fret, not the thirteenth fret, but the twelfth fret on the G string. For me, it's the same shape. Take this A here at the sixteenth fret. Same shape works, okay? And then again, here at the fourth fret of the E string. The fifth fret and eighth fret for you guys.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3180.0,
+      "end_seconds": 3183.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3181.5,
+      "end_seconds": 3381.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "So now we've mapped out, well you're going to have to learn them obviously and really spend some time with these. Take as long as it takes. Don't try and jump around too much. Get your flat three sorted first. Or get your root note sorted first. Then get your flat three sorted. The fifths then do your flat sevens, okay? Now you've mapped out the minor seven sound. The harmonic formula, the formula being that the intervals contained within, sorry, within the arpeggio of a minor seven chord and an A minor seven in this case. Although it could be any minor seven because the interval shapes were learning a generic. They're not unique to A minor seven. The only thing that's unique to A minor seven is the A in this case. If it was G sharp minor seven, all the same shape supply, they're generic. We just changed the root note to a G sharp and that's the beauty of this system, the beauty of the guitar actually because the guitar allows us to transpose like this very nicely indeed. But because we did them with very small pieces of information, just an interval at a time, it's very easy to see this stuff on the fretboard. Very easy to manipulate it, okay? So in the next section, we're going to basically just very quickly make some music with this minor seven arpeggio sound. Add in the fourth and then just basically finish with a minor pentatonic scale. And then we're going to move on from there, basically I'm going to show you how you can learn all of the other intervals and then apply it to any harmonic situation you like. Okay, so let's do that now. So we've reached the point now where in quite a powerful position, we've learned basically flat three, the five and the flat seven interval. Now before you go any further, let me just give you an idea of how powerful this is. Think about those three intervals. The Dorian scale, the Eolian scale, the Phrygian scale. Two of them occur in the Locrian scale, they occur in the Melodic Minor scale or two of them do. The Harmonic Minor scale, two of them occur in the Minor Pentatonic scale they occur in. They occur in a couple of other Melodic Minor modes as well. Very, very useful now because they apply to lots of different scales. We're not just learning these three intervals and then using them on one scale or one arpeggio. They apply to all sorts of harmonic scenarios, okay? And that's one of the other reasons why this system is so powerful because it enables us to use small pieces of information in a very, very kind of efficient manner. We can use them in lots of different places. So, let's now apply a harmonic situation, this A minor seven sound. I've got a backing track for you guys that you can practice this over as well. Okay, there's our A minor seven sound. Let's take any given A and this is how you're going to practice this. You're going to take any given A on the fret board and you're going to identify within an octave where each of those intervals are. So, let's take this A here. This is the seventh fret of the D string. Let's play the flat three. It's descending. Let's do the fifth. Descending. Again, just watch that one in standard tuning. You need to be a fret higher at the fifth fret. Descending. And then the flat seven. Again, for you guys, that's a fret higher.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3379.5,
+      "end_seconds": 3382.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3381.0,
+      "end_seconds": 3525.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "And then, sorry, I'm doing it in flat three there. So, now I've mapped those intervals out. I can play the arpeggio in many different ways. So, root, flat three, five, flat seven. Or I could go root, flat three, five, flat seven. I could go root and then flat seven, five, flat three, root, flat three, and then five, root, flat seven, five, root, flat three, five, flat three, root, flat seven, root, five, flat seven, five, flat seven. In each case, when I'm visualizing, I'm always moving to the nearest and most efficient A to visualize from. I'm not seeing all the As at the same time. I don't need to. I only visualize the A nearest to where I am at any given time. So, if I'm in this part of the neck, on the D string, I'm visualizing from this A. I'll move over here. I'm visualizing from this A now. My ninth fret, for you guys, is my 10th fret of the B string. Maybe back to this A now. Now, maybe I'll move to this A and visualize from here. I'm not visualizing these other two As anymore. I don't need to. I'm not in that part of the neck. So, root five, root flat three. I don't need to play the root even. I can just use it to visualize from. I don't necessarily need to play that root in order to visualize the other intervals. I don't even need to put my finger on it. I just need to know where it is. From this A here, whether I play it or not, I can see where the fifth is. I can see where the flat three is. I can see where that flat seven is. I can see where the fifth is, so on and so forth. From this A here, it's not so much position-based playing. It's just playing within a small area of the neck that allows you to visualize very small pieces of information, basically. But trying to do it in the most efficient manner. So, from this A, there's the flat three. Or I could have visualized this flat three from this A as an ascending interval. I don't have to play either A. I can just visualize where the flat three is and only play that.",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3523.5,
+      "end_seconds": 3526.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3525.0,
+      "end_seconds": 3912.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "So that's playing around that minor seven arpeggio sound without ever having to learn a big arpeggio shape. Not that you shouldn't learn them. Learn them, absolutely. It's just that they're not as useful for improvisation. They're useful in terms of ear training and in terms of knowing these bigger shapes are good if you just want to play through an arpeggio. But if you really want to be good at identifying where all the intervals are and improvise with these and create interesting rhythmic sounds and making good note choices, this is a very useful system. So, just really quickly, let's add the four things. So we've got a full minor pentatonic scale that I'm going to improvise because it works in practice. So the fourth is going to be here's our A and by the way the reason we're adding the fourth in is because then that gives us a full minor pentatonic scale. A minor pentatonic scale is a root flat three, five, flat seven like the arpeggio, the A minor seven arpeggio but with the fourth added in or the eleventh same note as well. So here's the A. Well the fourth is located on the same fret upper string on the A string in this case so moving towards the floor. So that's our fourth interval. Now again, place your first finger or any finger on any A and just get used to that shape. Again, get used to moving it so it fits for standard tuning. For you guys that would be second fret on the G to third fret on the D. For me they're all the same. They're all the same. So that's our ascending version of the fourth. If we want to play a descending version of the fourth we play let's take our A here with the third finger at the seventh fret of the D string and then we go down to the A string at the fifth fret. Again, catalogue that shape. It's like going down a power chord. You can hear it's the same thing just reversed. Again, look at that shape. That gives us our fourth interval. Again, place your A on various parts of the fret board. For you guys, your A is going to be here at the tenth fret of the B string and again look, the shape is slightly different by a fret going back. Again, you'll get used to this the more you do it. For me it's the same. We can also play that fourth if we go from A here at the seventh fret. Again, these are written out I'm going through them fairly quickly but take your time with them using the PDF file just cataloging each of these intervals. Here's the A again at the seventh fret of the D we can also play our fourth at the E string at the tenth fret and again, catalogue that shape. You'll notice it looks like the fifth interval that we learned but it's reversed, it's going down this time because a fifth inverted or going the other way is a fourth perfect fourth. Again, basic music theory top up on that if you're not familiar with it. So, there's our root note A going down to the fourth again place that first finger on an A same shape still works again place your first finger on an A at the tenth fret again it's not this it's this because of the tuning so we're going back a fret with the interval that we want to actually learn so for me it's the same shape again refer to the PDF if you get confused more of these you do the easier it becomes same thing here here's the fifth fret of the E string that's an A and it's not this it's this, that's your fourth interval descending maybe it's the same so now you've catalogue those now we've got an entire minor pentatonic scale now you need to get each of these intervals to the point where you know them really clearly and fast and subconsciously so if you've got to this point of the tutorial having never done this before I don't know how long we've been going for maybe just over an hour now or around an hour and you feel like okay I'm a bit overwhelmed how am I supposed to remember all of these interval shapes where you're going too fast you can watch the whole tutorial but bear in mind you might need to spend a week or two weeks on one interval getting it down but remember once you've done that flat three interval it might seem like man two weeks to learn one interval really thoroughly all over the neck but that interval occurs in all sorts of chords and scales and arpeggios now flat three interval or if it was the fifth you'd learn on a flat seven they occur in all sorts of scales and chords if you think about the fifth that occurs in the major scale it occurs in the Dorian scale it occurs in the Phrygian scale it occurs in the Mixolydian scale it occurs in the Lydian scale it occurs in all sorts of information all sorts of harmonic scenarios so it's not just that you're learning it once and you can only use it once it's in all sorts of things just to know how to play these intervals from a root note within an octave so now we've basically got an entire minor pentatonic scale mapped out with intervals without ever having thought about a box pattern or a box shape something giving you an example this A here I know what intervals are in that scale I know it's got a root which I'm fine with I know that's A so we don't need to think about that we just need to know where the As are flat 3, I know the scale's got a 4 I know it's got a 5 and a flat 7 again if you don't know that you need to work on your basic music theory however I have written out all the formulas for every single scale within reason I've not written out weird kind of modes of weird pentatonic scales but all the usual useful scales I've written all the formulas out so all the intervals that contain them within the PDF file of this tutorial will scale that way so if I've got one is my root notes otherwise known as one I can also find the flat 3 I can find the 4 I can find the 4 descending if I wanted to if it was possible the flat 3 descending but in this case I can't so I've got flat 3 4, 5 or 5 flat 7 so now I can start mapping these out in different ways so",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3910.5,
+      "end_seconds": 3913.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 3912.0,
+      "end_seconds": 4518.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "very very useful so what I'm going to do now is I'm going to improvise over a backing track I've created for you guys and just trust me that I'm thinking in this manner and this is basically going to be me improvising in an intervalic sense as opposed to improvising using scale boxes although I can't switch those off in my mind I do know them but I'm really thinking intervals and chord tones so let's do that now one thing to be aware of of course is that you can't get inside of my head and see what I'm thinking that would be impossible but take my word for it for the majority of that improvisation process I was thinking in terms of root notes and intervals based through an octave basically and then updating as I go which A I'm visualising from in order to be as efficient as possible so you can practice this in isolation I'm going to show you how so we're going to start with A just here at the low E string and we're going to try and find different pathways through the scale updating where our visualisation or which root note we're visualising from as we go to be as efficient as possible so if we only visualise from this A here by the time we get up around this area it's starting to get pretty hazy because we've not learnt the intervals going that far away from this root note so we need to update which root note we're visualising from as we move around the fret board okay so from this A here let's take our pentatonic box pattern first just so you really get to grips with this straight away so our first pentatonic box that we all know looks slightly different in my tuning because of the C and the F strings but you know 5 to 8 on the B and the E for you guys now this I'm going to make sure all of these lines that I play here and all of these ideas are written out for you so you can see exactly where I'm going these will be transcribed for you so 5th fret on the E string pentatonic box I can see from this 5th fret here visualising from here I can see the flat 3 4 and the 5 and the flat 7 okay but when I get to the next A I start visualising from this A now okay so now I've got A to flat 3 A to 4 A to 5 which is like that for me A to flat 7 which looks like that for you guys and then I've got the A again 5th fret on the E string for you 4th fret on the F string for me and I've got roots of flat 3 so what I was doing there is I was updating my root notes that I'm visualising from my reference point if you like to fit with the scale in the most efficient manner so in this position down on the low E string everything's visualised from here now I'm visualising from here now from here okay so when I've improvised with that particular box pattern if I ever do I'm thinking about where those As are and thinking about the intervals that I'm playing now the practice that you guys are going to do is rather than use those box patterns which again if you know them great, don't forget them don't feel it's bad to use them it's all part of the process you're going to look for different pathways through that particular scale so if I started on this A I could go roots, flat 3 4 again visualising from this A 5 now I could go flat 7 here now I could go to this A I'm going to visualise from here now and that means that I can see this flat 3 or this one I can see this 4 this 5 okay I can see this flat 7 which is there for you guys then I can see this A see this flat 3 now this 4 now this 5 now I'm going to visualise from this A and slide up to the flat 7 which would be the 15th fret for you guys now I can see this A for you guys the 17th fret for me the 16th there's the flat 3 now if I visualise from this A here for you guys it's the 20th fret for me it's the 19th I can see the flat 3 now I can see the 4 and if I wanted to I can bend up because if you've got 24 for actually be able to do this as well you can be able to actually play it but I can bend up to the 5th okay so that was one pathway through that particular scale I could have done a different pathway I could have started on this A I could have visualised the flat 3 then gone to this A visually I'm not playing it I'm just visualising it okay 7th fret of the D slide up to the 4th slide up to the 5th then see this flat 7 slide up to the root again see this flat 3, 4, 5 again these will be written out in standard tuning all of these ways of playing the scale then visualise from this A slide up to the flat 7 so on and so forth so you get the idea basically I'm looking for different pathways through this particular scale in this way subconsciously so that when it comes to improvising I can make conscious note choices and visualise from the most efficient root note not always from this low E string or from the A string really really important to develop that scale and that's going to come in massively useful when we deal with changes playing later on okay so next what we're going to do is we're going to have a look at all the other intervals we've got 11 intervals that we can play we've got the root note and because there's 12 notes in music there must be 11 intervals that we can play and we've already covered 4 of them so we're now going to cover the rest I'm going to do these fairly quickly because they're all written out in the PDF file now you've got standard tuning PDF and a fourth PDF file so whichever tuning you're in make sure you're up in the appropriate one and you'll see the intervals written out learn them and catalogue them it's going to take a long time it's not a shortcut process this but once you've catalogue them you can then look at the formula for each of the scales and you can then apply your knowledge to that particular scale or formula and you can learn the scale in this kind of way and think very very kind of like you know melodically as you're improvising pick chord tones, pick extensions okay so let's look at those other intervals now so let's start to go through these intervals now we're going to start basically in the most logical manner so we're going to have A as our root note for the entirety of this section but of course the root note is almost irrelevant in that it could be any root note on the fretboard but the shapes between the root note and the intervals will stay the same so we're going to start with a flat 2 or a flat 9 just for the sake of completeness for those who aren't sure and again if you're not sure about this I recommend you do investigate basic music theory before you even continue really a 2 is the same thing as a 9 a 4 is the same as an 11 and a 6 is the same as a 13th and I'm going to refer to both things I'll refer to them both ways as we go through so remember 2 9 4 11 6 13 I'm not explaining that now you need to go and check out your basic music theory if you're not sure what that means if you're not sure what that means you're just going to struggle with the rest of this tutorial so definitely worth checking that out so having said that let's do our flat 2 now flat 2 if we take this A just here can be played in two different ways we can either go between the 5th and the 6th frets on the same string so that was a different A or I can take this A again doesn't matter where I place it as long as I have my first finger or any finger on an A on the same string on the next frets that gives me a flat 2 interval another way I can play that interval is I can play 5 on the E string and then I can go to 1 on the A string now because that's an interval on an adjacent string again if we play A for instance 14th fret of the G string we need to move on the B string up a fret as usual for me it's the same you'll find that written out in standard tuning as well as fourths for the PDFR",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4516.5,
+      "end_seconds": 4519.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4518.0,
+      "end_seconds": 4581.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "now we'll start on this A here at the 7th fret of the D string and we can of course also do a descending flat 2 which would look like this or flat 9 don't worry about what these intervals sound like just yet we're going to apply them to formulas I'm just going to do a topic later on on how you can apply these to formulas for scales or the interval make it proper scale it's that little shape there that's that flat 2 so the A going down to its flat 2 I would imagine most of you guys will find it much easier with a flat 2 because it's just a semi-tone above a root note to just visualize it as an assembly interval so if I was going to visualize this flat 2 I would visualize it from this A here ok so that's your flat 2 so your natural 2 or natural 9 is a semi-tone higher than that so we get this shape here's the A again fifth fret of the E string and we go two frets higher",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4579.5,
+      "end_seconds": 4588.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4587.0,
+      "end_seconds": 4639.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "just moving around between different A's there and another way we can play it basically fifth fret on the E string going to the second fret on the A string so that's shape there again catalogue of these shapes and again if you're going to move that between the G and the B strings you'll find the shape changes by one fret so again worth checking that out again you'll find it in the PDF but for me it's the same oops sorry guys so on and so forth flat 3 we've already done let's do major 3rd or natural 3 now so on the same string a natural 3",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4638.0,
+      "end_seconds": 4641.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4639.5,
+      "end_seconds": 4710.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "would look like that by the way again we didn't do a descending natural 2 for the same reason we didn't do a descending we didn't really consider the descending flat 2 particularly because it's so easy to visualize from a root note ascending ok so the natural 3 or major 3rd fifth fret on the E string that's our A and then we've got this shape we've got the ninth fret on the E string ok our major 3rd I recommend singing these as well just so you get used to the sound of them but obviously this is not an ear training tutorial so we don't go too far into that and again that shape put that anywhere on the guitar ok another way we can play that is to play the fifth fret on the low E and the fourth fret on the A and of course that's going to change between the G and the B you're going to get say the A at the 14th fret the G string you're going to get the 14th fret the B as well same for me",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4708.5,
+      "end_seconds": 4711.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4710.0,
+      "end_seconds": 4792.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "just moving those around from all the A's on the fretboard ok then we can do a descending version so again there's two ways of doing this if we take this A just here at the 7th fret of the D string we can descend to the major 3rd or 4th fret of the A string and again catalogue the shape as in that G's a little ending that's often put onto all sorts of tunes so that's 7 on the D to 4 on the A ok and again any place we place our little finger in this case on an A and of course that's going to slightly differ between the B and the G strings you're going to get this shape 10th fret on the B and then 6th fret on the G this is A and this is the 3rd so it's just a fret back basically from where you were before again you'll find these all written out for me it's the same and then finally we can do his A again at the 7th fret of the D and we can do our major 3rd here at the 9th fret of the D of the E string sorry so 2 ascending intervals and 2 descending",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4791.0,
+      "end_seconds": 4794.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4792.5,
+      "end_seconds": 4948.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "again just modify that as required for the B string and D string relationship and then also for the E string to G string relationship and you'll see those written out again so I'm going through this pretty quickly because if we did them really in depth they'd take an entire tutorial for themselves and you guys can just use the PDF file to learn these and catalogue them as part of your practice just catalogue the intervals okay the 4th we've done the flat 5 we can play and this occurs in like minus 7 flat 5 or in some altered dominant chords you know or you could think of a sharp 4 if you're thinking of Lydian same thing flat 5 sharp 4 so we've got A 5th fret of the E string and we're going to play the 6th fret of the A string sounds like the Simpsons okay so that little interval shape there now between the G and the B string it looks like that so that's the interval you're going to get this being E flat so A going to E flat or A going to flat 5 for me it's the same so what we can do is like this bit of a stretch this actually and again I'm slightly off camera there in fact I'm going to do it from this A here so you can really see it this 12th fret another ascending flat 5 we can play 12th fret on the A string and then we can play the 8th fret on the G string again that sounds the same as the previous shape that we learned again look at these in the PDF file wherever we place an A again between the D and the B string you're going to have to modify it by going up a fret but it's the same for me check that out in the PDF file slightly off camera there sorry guys okay again again that would modify for the standard tuning because you're on the E string between the G and the E so you need to be this shape 14 on the G on the E that's our flat 5 ascending so two shapes okay if you're going to do it descending you can do here's our A here the 7th fret of the D string we just go down you can see where that flat 5 is again it's the same shape but going backwards this interval is also known as a tritone",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4947.0,
+      "end_seconds": 4950.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 4948.5,
+      "end_seconds": 5079.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "okay so again if I have an A here the 10th fret of the B string okay I would go down so here the 8th fret again we see these written out guys in standard and fourth tuning okay for me it's this again I take this A here at the 2nd fret of the G string again make sure I'm on camera I need the 1st fret on the D I take this A 12th fret of the A string okay so you get the idea okay so we can also do if we've got let's say we take we'll take this A just here we could do it in all sorts of different places I was going to show you something else but I should have decided not to that's enough to be getting on with okay so one descending two ascending versions now we'll do the 5th we've done let's do the flat 6 so a flat 6 or a flat 13 quite uncommon to find a flat 6 or a flat 13 maybe a sharp 5 you could name it as well okay so again basic music theory knowing your own harmonic intervals is very important and again that's not what this tutorial is about but knowing a flat 6 or a flat 13 and a sharp 5 are the same thing okay so this interval we'll call it a sharp 5 for now we can play here's the A and again I realize it's a fast guys but you want to sort of pause after each of these intervals and learn the more as fast as I'm going through okay there's the A and our flat 13 or flat 6 or sharp 5 is at the 8th fret of the A string okay again modify for the tuning that you're in you'll see them modified okay and then another way that you can play that is basically between the A here and the 5th fret of the E string and the 3rd fret of the D string and again modify for which tuning you're in so you would get this shape between 7 on the D and 6 on the B",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5077.5,
+      "end_seconds": 5080.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5079.0,
+      "end_seconds": 5370.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "okay so the natural 6 we'll start on this A again 5th fret of the E string okay the natural 6 or natural 13 we're going to stretch up and we're going to play the 9th fret of the A string okay that's our interval again move that around the guitar as part of your practice now when you get to this point on the guitar it might be a little bit too big a stretch because of the tuning the note that you want is an F sharp here it's located all the way up at the 7th fret it's a bit too big a stretch so you have to do this within reason in my tuning it's perfectly applicable but in standard it's going to be like that so you might want to abandon that at least in this part of the guitar okay so now we've gotten to a slightly stretch your interval that's something that's well worth bearing in mind okay however from this A here at the 7th fret of the D string you can use that same shape no problem you can use it from here at the 12th fret of the A string 15th fret here sorry 17th fret okay so that all works you can play this interval ascending it's to go from the 5th fret of the E string to the 4th fret of the D string now this negates now the problem that we had here between the 2nd fret of the G string this A and then the 7th fret here because we can now play instead of this shape which is the 2nd fret on the G string and the 1st fret on the high E so 2nd fret on the G, 1st fret on the high E this shape moved to there obviously we need to move this note up a fret because of the tuning so we get 2 on the G and 2 on the high E and that's much easier to play than that you can still use that as a visualization reference okay but you might want to visualize this note from this A and the more of this you do the more you get used to it the more you get more efficient remember we talked about practicing that pentatonic scale that minor pentatonic scale using different pathways through the scale when we start looking at particular scales you'll find this becomes much more intuitive because at the moment you're looking at intervals in isolated events you're looking at each interval on its own we're not applying these to any harmonic situations at the moment but your job to do at the moment is to catalogue all of these intervals and learn the shapes but you can be learning scales and of course this information so here's our 6th or 13th don't worry some of you might be thinking if you're classical theory guys hang on a 13th is only called a 13th it's in the next octave above so it's like a compound interval well for jazz and fusion we don't worry so much about stuff like that we can call this a 6th or a 13th it's absolutely fine either is applicable to our improvisation so what you call it is fine as long as you know that this is the 6th or 13th so if we're going to descend now from a root note to our 6th or 13th I think we've got this A here at the 7th fret of the D string we can come down to this F sharp here at the 4th fret so that's root 13 or 6 descending same string we don't have any tuning issues obviously we can't do it here because we've run out of notes but we can I use this in my funk playing all the time so if I'm playing like a funk bass line based around A minor I might do a little bass line that goes root to flat 3 to then 6th or 13th then the flat 7 flat 3, 6th flat 7 and I found those intervals by not thinking about scales or scale shapes or chord shapes, it's more just about the intervals very, very useful skill to have to be able to identify those intervals that was from Dorian by the way in case you weren't sure, A Dorian cool kind of funk sound and all that will work over your A minor backing track that you've got as well so that's the 6th descending that way we can also descend the 6th like this sorry not like that I've got a drone for it",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5368.5,
+      "end_seconds": 5371.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5370.0,
+      "end_seconds": 5701.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "so we can descend it that way as well now that will be going from the 7th fret on the D string down to the 9th fret on the A string lots of ways of doing the 6th there again lap out though using the PDF file for standard tuning if you're in standard tuning if you're in 4th you only need to learn it once ok flat 7 we've done so the only thing we've got to do now is the natural 7 then we've covered all 11 intervals on top of the root note or on top of any given root note so here's our A ok our natural 7 or major 7th we can play at the 6th fret of the D string sounds very dissonant on its own but in the context of playing over a certain type of chord like a major 7 chord or a minor major 7 this is a particularly useful interval to know so that shape there again we can move it around to any given A again you'll have to modify for standard tuning so instead of this between the 2nd fret on the G string the 3rd fret on the E we'd have to go to the 4th fret standard tuning for me it's the same ok that's kind of cool and again just modify as you require hopefully by now you're getting used to this idea of modifying these intervals for standard tuning ok so that's the ascending version you can do this as well but I wouldn't imagine that's that useful for most people it's a big stretch and it's kind of awkward across 4 strings so this is better the other way of visualising it is the descending version where we just literally go back a semitone ok so this is the root A and back a semitone back a semitone is it's 7th natural 7th ok so on and so forth so that's all 11 intervals mapped on top of a root note and then ascending and descending so that in and of itself could take you quite a few months to learn and that's absolutely fine take the time to learn that and get it really solid within your playing don't just do that of course do other things as well but it's a very good goal to have all of those down and it's going to help you in the next section of this tutorial I'm going to go through every scale but just show you how you can apply this to scales which will allow you to kind of improvise more freely and learn scales much more quickly ok so let's do that now so when we're looking at learning scales using this system we can think of every single scale as being built from a particular formula and a lot of you already know that we use the major scales of blueprint from which to describe all the other scales that we learn so our basic major scale contains the intervals 1, 2, 3, 4, 5, 6 and 7 and they're all natural intervals there's no flats or sharps so if I was to pick again a root note let's stick with A because that's the theme of what we've been doing so far regardless of whether I knew my major scale as a shape or not and you probably do be unusual if you bought this tutorial for you to not at least know the major scale and maybe the minor pentatonic scale but you probably know them as a shape like this kind of cage system shape so on and so forth but you might know it as a 3 note per string shape ok you might know it a different way there's tons of different ways you can visualize on the guitar however let's say you didn't know this scale and for a lot of you guys I'm sure there's loads of scales you don't know there's probably scales I don't know especially some of the weird kind of like the kumwai scale or some of those that I'll probably never use but let's say you don't know the major scale ok well you can work it out but using your interval knowledge fairly quickly on the guitar because you know what the intervals are or the formula make up of the scale so it's like it's genetic code basically so if we take A we know it's got a natural 2 and we know that we can play that like this or like this from this A we know that we can play that we can do or we can descend ok well let's take the 3 or a major 3rd we can do the descending version from another A now again remember we're looking at this scale now but we're not thinking of a massive scale shape we're just looking at the intervals that are contained within it ok now if you get very quick at this you can start to make your own or not make your own but see the scale in different ways this is where the fretboard opens up for you a great deal and again I'm not implying that you shouldn't learn you should learn as much information as you can about the fretboard but this is a very good way of being able to develop scales that you've never played before very very quickly and of course the more of this you do the quicker you get at it so then we've got the 4th so we know it's got a natural 4 ok so already I'm mapping out the scale quite successfully now I've got the 5th natural 5",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5700.0,
+      "end_seconds": 5704.5,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5703.0,
+      "end_seconds": 5721.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "ok then then I've got the natural 6 I'm just mapping these out from A's ok then I've got the natural 7",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5719.5,
+      "end_seconds": 5724.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5722.5,
+      "end_seconds": 5841.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "sorry natural 7 played 6 there ok so from every A root note I'm mapping out those intervals that relates to the major scale 1, 2, 3, 4, 5, 6 and 7 ok now that gives me the ability when I'm improvising and again remember this is sort of separate from this kind of that requires a different skill you just have to, well it's not a different skill playing really fast like that requires a different mindset ok you can still use the information in the same way I'm talking about improvising melodies and improvising more kind of considerably than more by muscle memory ok so now the benefit of this is I can look at my major scale maybe I see this A and I can see 7 I can see 2 3, 5, 7 6 here's one again another A I can see 7 4, 3, 5 1, 2, 3 now visualizing from here 4, 5 6 now visualizing from this A ok the 12th fret 7 going down to the 3 4, 5 now here's another A here which is the 10th fret for you guys again I'll make sure this is written out in standard tuning ok so I've got A and then 2 3, 5 1 going down to the 5th now visualizing from this A the 7th fret of the D string 4, 5, 1, 6 now this A 4, 5 3, 7, 1 which means that I can see basically when I'm improvising I have an ability to manipulate that information much more diversely than if I just saw this",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5839.5,
+      "end_seconds": 5844.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5842.5,
+      "end_seconds": 5938.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "means I'm much more free I can basically play D which interval I'm on if you stopped me at any point when I was on and why I'm playing I think that's important I'm selecting certain intervals because of the way they sound or the way that I know I want to play the 7th fret or the 9th so on and so forth as opposed to just playing a shape I'm playing with much smaller pieces of information now if we were to translate this into another scale so let's take Dorian for instance now again all of your scales your basic scales that you're going to use in the majority 99.9% of improvisation you measure scale on all its modes you melodic minor scale on all its modes and then your diminished scale your whole tone scale and your pentatonic scales you measure in your minor are written out in the PDF file with their formulas and you won't see any of the intervals in the ones you've covered there's only 11 intervals plus a root note so if I was to take Dorian Dorian's formula is 1, 2, flat 3 4, 5, 6, flat 7 and then back to 1 so if I already know the 1 well that's the root the 2 is the same as the major scale and we've got a flat 3 well we've done that already in this tutorial",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5937.0,
+      "end_seconds": 5940.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5938.5,
+      "end_seconds": 5946.0,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "the ascending versions there I could play the descending versions",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5944.5,
+      "end_seconds": 5949.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5947.5,
+      "end_seconds": 5962.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "okay we've got a 4 well we did that with a major scale we've got a 5 we did that with a major scale we've got a 6",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5961.0,
+      "end_seconds": 5964.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5962.5,
+      "end_seconds": 5968.5,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "and a flat 7 this time",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5967.0,
+      "end_seconds": 5976.0,
+      "segment_type": "guitar_performance",
+      "title": "Performance or music section",
+      "summary": "",
+      "confidence": 0.35,
+      "source_evidence": "Audio labels: possible_music_or_silence; transcript present: False",
+      "transcript_text": "",
+      "audio_labels": [
+        "possible_music_or_silence"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    },
+    {
+      "start_seconds": 5974.5,
+      "end_seconds": 6195.392,
+      "segment_type": "mixed_speech_and_guitar",
+      "title": "Explanation with guitar",
+      "summary": "",
+      "confidence": 0.7,
+      "source_evidence": "Audio labels: speech, possible_music_or_guitar; transcript present: True",
+      "transcript_text": "now I can see from any given A where all of the intervals are it could be any root note to be fair it doesn't need to be A it could be F sharp or G or G sharp any given root note so if I start here let's say the A at 7th fret to D string I can play 4, 5 visualising from this A flat 3 visualise here now this A, 5 and you'll see this written out in standard tuning 4, flat 3 1, 5 6 and then flat 3 visualising from this A and the root note flat 7 flat 6 4, 5 flat 7 flat 3 4, 5 6 would look like that for you guys okay then flat 7 and then root going down to the flat 3 and then 9 or 2 1 you get the idea now if you did that with any given scale and you knew those intervals really really well very succinctly very well and you were fluent with them you could learn any scale just by being given the formula of that scale okay now again on top of that you should learn 3 nut per string versions I know my 3 nut per string version of an orient scale I can start at any point within that scale and play it as 3 nut per string because I've done that work as well however that's not as I say there are a lot of variations to this and when we get to changes playing at the end of this tutorial which we're very close to now the changes playing aside of things you see the benefits massively for this so the deal is take formulas in terms of your practice and I'm setting assignments to your notes as we go I'm sort of talking at the end of each chapter there's an assignment that you can sort of practice in terms of your practice regime in this assignment you're going to basically take each of those scales and you're going to work through them just by learning the intervals first take a scale of Dorian learn its interval formula and then practice finding those intervals from given root notes anywhere on the fretboard you'd have to do it in all 12 keys once you've done it in 6 different keys you'll be so fluent at it you'll be able to do it from any given root notes just make sure you're practicing where your root notes are so hopefully that makes sense so what we're going to do now is basically making the assumption that you guys are okay with that and you can apply it to various different things you can of course apply it to arpeggios you can of course apply it to chord shapes for instance you can figure out certain inversions of chords so you can make, you know, within a Dorian scale you can pick to play I don't know the 2, the 4 and the 6 okay within the actual scale so if I did that here's my A like I said the 2 is here the 4 and the 6 you can pick to play any intervals you want as a chord basically so that's a nice side product of this or a benefit of this as well okay so now let's get into changes based playing explain how this is useful in changes based playing but obviously treat this as just an opener for what we're about to do so you need to do all the work with your scales before you really start getting into changes based playing really work with these intervals work with visualising all 11 intervals from a given root note and then once you've done that the next section becomes much much easier if you jump too far ahead too quickly it's going to be a nightmare for you so that's my word of advice get working on your scales guys",
+      "audio_labels": [
+        "speech",
+        "possible_music_or_guitar"
+      ],
+      "tags": [],
+      "filename": "Visualising the Fretboard Pt 1.mp4",
+      "relative_path": "Tom Quayle - Visualizing The Fretboard/Visualisation Lesson Pt1/Visualisation Lesson/Visualising the Fretboard Pt 1.mp4"
+    }
+  ]
+}

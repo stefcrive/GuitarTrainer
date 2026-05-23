@@ -25,9 +25,51 @@ interface AudioPlayerProps {
 }
 
 const PLAYBACK_SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+const MIN_LOOP_SECONDS = 0.05
+
+type PlaybackState = {
+  startedAt: number
+  offset: number
+  rate: number
+  isPlaying: boolean
+}
+
+type LoopBounds = {
+  start: number
+  end: number
+}
+
+async function getAudioFileHandle(rootHandle: FileSystemDirectoryHandle, path: string) {
+  const segments = path.split('/').filter(Boolean)
+  let currentHandle = rootHandle
+
+  for (let i = 0; i < segments.length - 1; i++) {
+    currentHandle = await currentHandle.getDirectoryHandle(segments[i])
+  }
+
+  return currentHandle.getFileHandle(segments[segments.length - 1])
+}
 
 export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMarkerSelect, inFloatingWindow = false, syncCurrentTime, syncIsPlaying }: AudioPlayerProps) {
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const audioContextRef = useRef<AudioContext | null>(null)
+  const gainNodeRef = useRef<GainNode | null>(null)
+  const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null)
+  const audioBufferRef = useRef<AudioBuffer | null>(null)
+  const playbackStateRef = useRef<PlaybackState>({
+    startedAt: 0,
+    offset: 0,
+    rate: 1,
+    isPlaying: false
+  })
+  const loopRegionRef = useRef<AudioLoopRegion>({
+    start: 0,
+    end: 0,
+    enabled: false
+  })
+  const markersRef = useRef<AudioMarker[]>([])
+  const currentTimeRef = useRef(0)
+  const durationRef = useRef(0)
+  const playbackRateRef = useRef(1)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -47,46 +89,217 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
   // Use floating player context
   const { openPlayer } = useFloatingPlayer()
 
+  const roundToMilliseconds = (time: number) => Math.round(time * 1000) / 1000
+
+  const clampTime = (time: number) => {
+    const maxDuration = durationRef.current || duration || 0
+    if (!Number.isFinite(time)) return 0
+    return Math.min(Math.max(time, 0), maxDuration)
+  }
+
+  const getAudioContext = () => {
+    if (!audioContextRef.current) {
+      const AudioContextCtor = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+      const context = new AudioContextCtor()
+      const gainNode = context.createGain()
+      gainNode.gain.value = volume
+      gainNode.connect(context.destination)
+      audioContextRef.current = context
+      gainNodeRef.current = gainNode
+    }
+
+    return audioContextRef.current
+  }
+
+  const getActiveLoopBounds = (bufferDuration = durationRef.current): LoopBounds | null => {
+    const loopingMarker = markersRef.current.find(
+      marker => marker.isLooping && marker.endTime - marker.startTime >= MIN_LOOP_SECONDS
+    )
+
+    if (loopingMarker) {
+      return {
+        start: clampTime(loopingMarker.startTime),
+        end: clampTime(loopingMarker.endTime)
+      }
+    }
+
+    const activeLoopRegion = loopRegionRef.current
+    if (!activeLoopRegion.enabled) return null
+
+    const loopStart = clampTime(activeLoopRegion.start)
+    const loopEnd = clampTime(activeLoopRegion.end || bufferDuration)
+    if (loopEnd - loopStart < MIN_LOOP_SECONDS) return null
+
+    return {
+      start: loopStart,
+      end: loopEnd
+    }
+  }
+
+  const wrapTimeForLoop = (time: number, bounds: LoopBounds | null) => {
+    if (!bounds || time < bounds.end) return clampTime(time)
+
+    const loopLength = bounds.end - bounds.start
+    if (loopLength < MIN_LOOP_SECONDS) return bounds.start
+
+    return bounds.start + ((time - bounds.start) % loopLength)
+  }
+
+  const getRawPlaybackTime = () => {
+    const state = playbackStateRef.current
+    if (!state.isPlaying || !audioContextRef.current) {
+      return currentTimeRef.current
+    }
+
+    const elapsed = (audioContextRef.current.currentTime - state.startedAt) * state.rate
+    return state.offset + elapsed
+  }
+
+  const getPlaybackTime = () => {
+    return wrapTimeForLoop(getRawPlaybackTime(), getActiveLoopBounds())
+  }
+
+  const setPlaybackPositionState = (time: number) => {
+    const nextTime = roundToMilliseconds(clampTime(time))
+    currentTimeRef.current = nextTime
+    setCurrentTime(nextTime)
+  }
+
+  const stopSourceNode = () => {
+    const source = sourceNodeRef.current
+    sourceNodeRef.current = null
+    if (!source) return
+
+    source.onended = null
+    try {
+      source.stop()
+    } catch {
+      // The source may already have ended.
+    }
+    source.disconnect()
+  }
+
+  const configureSourceLoop = (source: AudioBufferSourceNode) => {
+    const bounds = getActiveLoopBounds()
+    source.loop = Boolean(bounds)
+    if (bounds) {
+      source.loopStart = bounds.start
+      source.loopEnd = bounds.end
+    }
+  }
+
+  const startSourceNode = (offset: number) => {
+    const context = getAudioContext()
+    const buffer = audioBufferRef.current
+    if (!buffer || !gainNodeRef.current) return
+
+    const bounds = getActiveLoopBounds(buffer.duration)
+    const startOffset = wrapTimeForLoop(offset >= buffer.duration ? 0 : offset, bounds)
+    const source = context.createBufferSource()
+    source.buffer = buffer
+    source.playbackRate.value = playbackRateRef.current
+    configureSourceLoop(source)
+    source.connect(gainNodeRef.current)
+    source.onended = () => {
+      if (sourceNodeRef.current !== source) return
+      sourceNodeRef.current = null
+      playbackStateRef.current = {
+        ...playbackStateRef.current,
+        offset: buffer.duration,
+        isPlaying: false
+      }
+      setPlaybackPositionState(buffer.duration)
+      setIsPlaying(false)
+    }
+
+    playbackStateRef.current = {
+      startedAt: context.currentTime,
+      offset: startOffset,
+      rate: playbackRateRef.current,
+      isPlaying: true
+    }
+    sourceNodeRef.current = source
+    setPlaybackPositionState(startOffset)
+    source.start(0, startOffset)
+  }
+
+  const playAudio = async () => {
+    if (!audioBufferRef.current) return
+
+    const context = getAudioContext()
+    await context.resume()
+    stopSourceNode()
+    startSourceNode(currentTimeRef.current)
+    setIsPlaying(true)
+  }
+
+  const pauseAudio = () => {
+    const pausedAt = getPlaybackTime()
+    stopSourceNode()
+    playbackStateRef.current = {
+      ...playbackStateRef.current,
+      offset: pausedAt,
+      isPlaying: false
+    }
+    setPlaybackPositionState(pausedAt)
+    setIsPlaying(false)
+  }
+
+  const seekAudio = (time: number) => {
+    const wasPlaying = playbackStateRef.current.isPlaying
+    const nextTime = clampTime(time)
+    stopSourceNode()
+    playbackStateRef.current = {
+      ...playbackStateRef.current,
+      offset: nextTime,
+      isPlaying: false
+    }
+    setPlaybackPositionState(nextTime)
+
+    if (wasPlaying) {
+      startSourceNode(nextTime)
+      setIsPlaying(true)
+    }
+  }
+
+  const seekAudioBy = (delta: number) => {
+    seekAudio(getPlaybackTime() + delta)
+  }
+
+  const updateCurrentSourceLoop = () => {
+    const source = sourceNodeRef.current
+    if (!source) return
+
+    configureSourceLoop(source)
+    const bounds = getActiveLoopBounds()
+    const rawPlaybackTime = getRawPlaybackTime()
+    if (bounds && rawPlaybackTime >= bounds.end) {
+      seekAudio(wrapTimeForLoop(rawPlaybackTime, bounds))
+    }
+  }
+
   useEffect(() => {
-    const audio = audioRef.current
-    let objectUrl: string | null = null
     let isCancelled = false
 
     const loadAudio = async () => {
-      if (!audio) return
-      
       try {
-        audio.pause()
-        audio.removeAttribute('src')
-        audio.load()
+        stopSourceNode()
+        audioBufferRef.current = null
+        playbackStateRef.current = {
+          startedAt: 0,
+          offset: 0,
+          rate: playbackRateRef.current,
+          isPlaying: false
+        }
         setIsPlaying(false)
         setCurrentTime(0)
+        currentTimeRef.current = 0
         setDuration(0)
+        durationRef.current = 0
 
-        // Load audio file
-        if (!audioFile.handle) {
-          throw new Error("No file handle available")
-        }
-        const file = await audioFile.handle.getFile()
+        const fileHandle = audioFile.handle ?? await getAudioFileHandle(directoryHandle, audioFile.path)
+        const file = await fileHandle.getFile()
         if (isCancelled) return
-
-        objectUrl = URL.createObjectURL(file)
-        audio.src = objectUrl
-        audio.load()
-
-        // Auto-play when loaded
-        const playPromise = audio.play()
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            if (!isCancelled) {
-              setIsPlaying(true)
-            }
-          }).catch(error => {
-            if (!isCancelled) {
-              console.error("Auto-play failed:", error)
-            }
-          })
-        }
 
         // Load metadata
         const metadata = await getAudioMetadata(audioFile, directoryHandle)
@@ -98,6 +311,45 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
         setLoopRegion(metadata.loopRegion)
         setMarkers(metadata.markers || [])
         setAnnotations(metadata.annotations || [])
+
+        loopRegionRef.current = metadata.loopRegion
+        markersRef.current = metadata.markers || []
+        playbackRateRef.current = metadata.playbackRate
+        playbackStateRef.current.rate = metadata.playbackRate
+
+        const context = getAudioContext()
+        const audioBuffer = await context.decodeAudioData(await file.arrayBuffer())
+        if (isCancelled) return
+
+        audioBufferRef.current = audioBuffer
+        durationRef.current = audioBuffer.duration
+        setDuration(audioBuffer.duration)
+        setLoopRegion(prev => {
+          const nextRegion = {
+            ...prev,
+            end: prev.end || audioBuffer.duration
+          }
+          loopRegionRef.current = nextRegion
+          return nextRegion
+        })
+
+        if (gainNodeRef.current) {
+          gainNodeRef.current.gain.value = metadata.volume ?? 1
+        }
+
+        if (inFloatingWindow && syncCurrentTime !== undefined) {
+          setPlaybackPositionState(syncCurrentTime)
+          if (syncIsPlaying) {
+            playAudio().catch(error => {
+              console.error('AudioPlayer: Auto-play failed:', error)
+            })
+          }
+          return
+        }
+
+        playAudio().catch(error => {
+          console.error('Auto-play failed:', error)
+        })
       } catch (error) {
         if (!isCancelled) {
           console.error('Error loading audio file:', error)
@@ -109,95 +361,72 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
 
     return () => {
       isCancelled = true
-      audio?.pause()
-      if (audio) {
-        audio.removeAttribute('src')
-        audio.load()
-      }
-      if (objectUrl) {
-        URL.revokeObjectURL(objectUrl)
-      }
+      stopSourceNode()
     }
   }, [audioFile, directoryHandle])
 
   useEffect(() => {
-    if (!audioRef.current) return
+    const intervalId = window.setInterval(() => {
+      if (!playbackStateRef.current.isPlaying) return
+      setPlaybackPositionState(getPlaybackTime())
+    }, 20)
 
-    const audio = audioRef.current
-    const handleTimeUpdate = () => {
-      setCurrentTime(audio.currentTime)
+    return () => window.clearInterval(intervalId)
+  }, [])
 
-      // Handle loop region
-      if (loopRegion.enabled && audio.currentTime >= loopRegion.end) {
-        audio.currentTime = loopRegion.start
-      }
+  useEffect(() => {
+    loopRegionRef.current = loopRegion
+    updateCurrentSourceLoop()
+  }, [loopRegion])
 
-      // Handle marker looping
-      const loopingMarker = markers.find(m => m.isLooping)
-      if (loopingMarker && audio.currentTime >= loopingMarker.endTime) {
-        audio.currentTime = loopingMarker.startTime
-      }
+  useEffect(() => {
+    markersRef.current = markers
+    updateCurrentSourceLoop()
+  }, [markers])
+
+  useEffect(() => {
+    playbackRateRef.current = playbackRate
+    const state = playbackStateRef.current
+    const currentPlaybackTime = getPlaybackTime()
+    playbackStateRef.current = {
+      startedAt: audioContextRef.current?.currentTime ?? 0,
+      offset: currentPlaybackTime,
+      rate: playbackRate,
+      isPlaying: state.isPlaying
     }
-
-    const handleLoadedMetadata = async () => {
-      setDuration(audio.duration)
-      setLoopRegion(prev => ({
-        ...prev,
-        end: prev.end || audio.duration
-      }))
-      audio.volume = volume
-
-      // Handle synchronization when in floating window
-      if (inFloatingWindow && syncCurrentTime !== undefined) {
-        console.log('AudioPlayer: Synchronizing playback', { syncCurrentTime, syncIsPlaying })
-        audio.currentTime = syncCurrentTime
-        
-        if (syncIsPlaying) {
-          try {
-            await audio.play()
-            setIsPlaying(true)
-          } catch (err) {
-            console.error('AudioPlayer: Auto-play failed:', err)
-          }
-        }
-      }
-
-      // Once audio is loaded, expose controls
-      if (onControlsReady) {
-        const controls: VideoPlayerControls = {
-          getCurrentTime: () => audio.currentTime,
-          getDuration: () => audio.duration,
-          seek: (time: number) => { audio.currentTime = time },
-          play: () => audio.play(),
-          pause: () => audio.pause(),
-          seekForward: () => { audio.currentTime += 10 },
-          seekBackward: () => { audio.currentTime -= 10 },
-          setPlaybackRate: (rate: number) => { audio.playbackRate = rate },
-          getPlaybackRate: () => audio.playbackRate,
-          getVideoElement: () => null
-        }
-        onControlsReady(controls)
-      }
+    if (sourceNodeRef.current && audioContextRef.current) {
+      sourceNodeRef.current.playbackRate.setValueAtTime(playbackRate, audioContextRef.current.currentTime)
     }
+  }, [playbackRate])
 
-    const handleEnded = () => {
-      setIsPlaying(false)
-      if (loopRegion.enabled) {
-        audio.currentTime = loopRegion.start
-        audio.play()
-      }
+  useEffect(() => {
+    if (gainNodeRef.current && audioContextRef.current) {
+      gainNodeRef.current.gain.setValueAtTime(volume, audioContextRef.current.currentTime)
     }
+  }, [volume])
 
-    audio.addEventListener('timeupdate', handleTimeUpdate)
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata)
-    audio.addEventListener('ended', handleEnded)
+  useEffect(() => {
+    if (!onControlsReady) return
 
-    return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate)
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
-      audio.removeEventListener('ended', handleEnded)
+    const controls: VideoPlayerControls = {
+      getCurrentTime: getPlaybackTime,
+      getDuration: () => durationRef.current,
+      seek: seekAudio,
+      play: () => {
+        void playAudio()
+      },
+      pause: pauseAudio,
+      seekForward: () => seekAudioBy(10),
+      seekBackward: () => seekAudioBy(-10),
+      setPlaybackRate: (rate: number) => {
+        playbackRateRef.current = rate
+        setPlaybackRate(rate)
+      },
+      getPlaybackRate: () => playbackRateRef.current,
+      getVideoElement: () => null
     }
-  }, [loopRegion, markers, inFloatingWindow, syncCurrentTime, syncIsPlaying])
+    onControlsReady(controls)
+  }, [onControlsReady])
 
   const saveMetadata = async (updates: Partial<AudioMetadata>) => {
     try {
@@ -208,45 +437,39 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
   }
 
   const togglePlay = () => {
-    if (!audioRef.current) return
-
     if (isPlaying) {
-      audioRef.current.pause()
+      pauseAudio()
     } else {
-      audioRef.current.play()
+      playAudio().catch(error => {
+        console.error('AudioPlayer: Play failed:', error)
+        setIsPlaying(false)
+      })
     }
-    setIsPlaying(!isPlaying)
   }
 
   const handleTimeChange = (newTime: number[]) => {
-    if (!audioRef.current) return
-    audioRef.current.currentTime = newTime[0]
-    setCurrentTime(newTime[0])
+    seekAudio(newTime[0])
   }
 
   const handlePlaybackRateChange = async (newRate: string) => {
-    if (!audioRef.current) return
     const rate = parseFloat(newRate)
-    audioRef.current.playbackRate = rate
+    playbackRateRef.current = rate
     setPlaybackRate(rate)
     await saveMetadata({ playbackRate: rate })
   }
 
   const handleSyncLoopTime = (isStart: boolean) => {
-    if (!audioRef.current) return
     const newRegion = {
       ...loopRegion,
-      [isStart ? 'start' : 'end']: audioRef.current.currentTime
+      [isStart ? 'start' : 'end']: roundToMilliseconds(getPlaybackTime())
     }
     setLoopRegion(newRegion)
     saveMetadata({ loopRegion: newRegion })
   }
 
   const handleLoopTimeChange = (isStart: boolean, timeStr: string) => {
-    const [minutes, seconds] = timeStr.split(':').map(Number)
-    if (isNaN(minutes) || isNaN(seconds)) return
-    
-    const timeInSeconds = minutes * 60 + seconds
+    const timeInSeconds = parseTimeInput(timeStr)
+    if (timeInSeconds === null) return
     if (timeInSeconds < 0 || timeInSeconds > duration) return
 
     const newRegion = {
@@ -268,16 +491,26 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
     await saveMetadata({ tags: newTags })
   }
 
+  const parseTimeInput = (value: string): number | null => {
+    const [minutesText, secondsText] = value.trim().split(':')
+    const minutes = Number(minutesText)
+    const seconds = Number(secondsText)
+
+    if (!Number.isFinite(minutes) || !Number.isFinite(seconds)) return null
+    return roundToMilliseconds(minutes * 60 + seconds)
+  }
+
   const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60)
-    const seconds = Math.floor(time % 60)
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`
+    const totalMilliseconds = Math.round(time * 1000)
+    const minutes = Math.floor(totalMilliseconds / 60000)
+    const seconds = Math.floor((totalMilliseconds % 60000) / 1000)
+    const milliseconds = totalMilliseconds % 1000
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`
   }
 
   return (
     <div className="p-4 space-y-4">
-      <audio ref={audioRef} />
-      
       {/* Display audio title at the top */}
       <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -312,9 +545,8 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
                 isPlaying
               }, () => {
                 // Pause main player when opening floating window
-                if (audioRef.current && !audioRef.current.paused) {
-                  audioRef.current.pause()
-                  setIsPlaying(false)
+                if (playbackStateRef.current.isPlaying) {
+                  pauseAudio()
                 }
               })
             }}
@@ -342,9 +574,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => {
-                  if (audioRef.current) audioRef.current.currentTime = 0
-                }}
+                onClick={() => seekAudio(0)}
               >
                 <RotateCcw className="h-4 w-4" />
               </Button>
@@ -352,9 +582,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => {
-                  if (audioRef.current) audioRef.current.currentTime -= 5
-                }}
+                onClick={() => seekAudioBy(-5)}
               >
                 <SkipBack className="h-4 w-4" />
               </Button>
@@ -362,9 +590,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => {
-                  if (audioRef.current) audioRef.current.currentTime += 5
-                }}
+                onClick={() => seekAudioBy(5)}
               >
                 <SkipForward className="h-4 w-4" />
               </Button>
@@ -395,9 +621,6 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
                   step={1}
                   onValueChange={(value) => {
                     const newVolume = value[0] / 100
-                    if (audioRef.current) {
-                      audioRef.current.volume = newVolume
-                    }
                     setVolume(newVolume)
                     saveMetadata({ volume: newVolume })
                   }}
@@ -414,7 +637,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
                 value={[currentTime]}
                 min={0}
                 max={duration}
-                step={0.1}
+                step={0.001}
                 onValueChange={handleTimeChange}
               />
             </div>
@@ -436,9 +659,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
           <Button
             variant="outline"
             size="icon"
-            onClick={() => {
-              if (audioRef.current) audioRef.current.currentTime = 0
-            }}
+            onClick={() => seekAudio(0)}
           >
             <RotateCcw className="h-4 w-4" />
           </Button>
@@ -446,9 +667,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
           <Button
             variant="outline"
             size="icon"
-            onClick={() => {
-              if (audioRef.current) audioRef.current.currentTime -= 5
-            }}
+            onClick={() => seekAudioBy(-5)}
           >
             <SkipBack className="h-4 w-4" />
           </Button>
@@ -456,9 +675,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
           <Button
             variant="outline"
             size="icon"
-            onClick={() => {
-              if (audioRef.current) audioRef.current.currentTime += 5
-            }}
+            onClick={() => seekAudioBy(5)}
           >
             <SkipForward className="h-4 w-4" />
           </Button>
@@ -468,7 +685,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
               value={[currentTime]}
               min={0}
               max={duration}
-              step={0.1}
+              step={0.001}
               onValueChange={handleTimeChange}
             />
           </div>
@@ -497,9 +714,6 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
               step={1}
               onValueChange={(value) => {
                 const newVolume = value[0] / 100
-                if (audioRef.current) {
-                  audioRef.current.volume = newVolume
-                }
                 setVolume(newVolume)
                 saveMetadata({ volume: newVolume })
               }}
@@ -507,7 +721,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
             />
           </div>
 
-          <span className="text-sm text-muted-foreground w-24 text-right">
+          <span className="w-36 text-right text-sm text-muted-foreground">
             {formatTime(currentTime)} / {formatTime(duration)}
           </span>
         </div>
@@ -531,8 +745,8 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
                 type="text"
                 value={formatTime(loopRegion.start)}
                 onChange={(e) => handleLoopTimeChange(true, e.target.value)}
-                className="w-16 rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-2 py-1 text-sm shadow-sm transition-[border-color,box-shadow] hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40"
-                placeholder="00:00"
+                className="w-24 rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-2 py-1 text-sm shadow-sm transition-[border-color,box-shadow] hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40"
+                placeholder="00:00.000"
               />
               <Button
                 variant="outline"
@@ -549,8 +763,8 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
                 type="text"
                 value={formatTime(loopRegion.end)}
                 onChange={(e) => handleLoopTimeChange(false, e.target.value)}
-                className="w-16 rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-2 py-1 text-sm shadow-sm transition-[border-color,box-shadow] hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40"
-                placeholder="00:00"
+                className="w-24 rounded-md border border-input/80 bg-gradient-to-b from-white to-muted/20 px-2 py-1 text-sm shadow-sm transition-[border-color,box-shadow] hover:border-border/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 dark:from-input/80 dark:to-input/40"
+                placeholder="00:00.000"
               />
               <Button
                 variant="outline"
@@ -566,12 +780,12 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
 
       <AudioMarkers
         audioControls={{
-          getCurrentTime: () => audioRef.current?.currentTime || 0,
-          getDuration: () => audioRef.current?.duration || 0,
-          seek: (time: number) => {
-            if (audioRef.current) audioRef.current.currentTime = time
-          },
-          play: () => audioRef.current?.play()
+          getCurrentTime: getPlaybackTime,
+          getDuration: () => durationRef.current,
+          seek: seekAudio,
+          play: () => {
+            void playAudio()
+          }
         }}
         markers={markers}
         annotations={annotations}

@@ -1,0 +1,1119 @@
+{
+  "language": "en",
+  "language_probability": 0.971001923084259,
+  "segments": [
+    {
+      "segment_index": 0,
+      "start_seconds": 9.74,
+      "end_seconds": 25.74,
+      "text": "Well, the song that this YouTube clip is from is a song called Elegant Decovince, which is a book that I read about New Orleans, which is kind of explaining the whole decay of New Orleans, but yet the elegance that it had at one time, well, it still has, even with the decay and the patinas.",
+      "confidence": -0.246650397280852
+    },
+    {
+      "segment_index": 1,
+      "start_seconds": 25.74,
+      "end_seconds": 35.74,
+      "text": "But the groove was kind of based on a New Orleans groove, which was in the key of D, and I think it was like a...more like D blues, pretty much, you know, is it?",
+      "confidence": -0.246650397280852
+    },
+    {
+      "segment_index": 2,
+      "start_seconds": 43.58,
+      "end_seconds": 48.58,
+      "text": "That's kind of the lick with some open strings ringing that if you have it, let me clean it up a little bit.",
+      "confidence": -0.2024945056084359
+    },
+    {
+      "segment_index": 3,
+      "start_seconds": 48.58,
+      "end_seconds": 64.23,
+      "text": "Here, you can kind of flail away with the right hand, which is probably a flashback to some early Led Zeppelin and Jimmy Page stuff.",
+      "confidence": -0.2024945056084359
+    },
+    {
+      "segment_index": 4,
+      "start_seconds": 64.23,
+      "end_seconds": 72.23,
+      "text": "And I like...it goes through changes with the other melodies in the other sections, but most of the solo sections are all in pretty much just D blues, I think.",
+      "confidence": -0.2024945056084359
+    },
+    {
+      "segment_index": 5,
+      "start_seconds": 72.23,
+      "end_seconds": 82.23,
+      "text": "And the way we're using...I mean, you know, a lot of my songs are the same way where I kind of use the songs as vehicles just to get the band into these kind of creative zones of improvising.",
+      "confidence": -0.09733595821107256
+    },
+    {
+      "segment_index": 6,
+      "start_seconds": 82.23,
+      "end_seconds": 90.23,
+      "text": "You know, it's not really about notey playing over a lot of cerebral chord changes, it's more about seeing what you can make up with one chord and make it interesting.",
+      "confidence": -0.09733595821107256
+    },
+    {
+      "segment_index": 7,
+      "start_seconds": 90.23,
+      "end_seconds": 96.23,
+      "text": "So we're always trying to, you know, channel our Jeff Beck within us to try to get something really creative happening.",
+      "confidence": -0.09733595821107256
+    },
+    {
+      "segment_index": 8,
+      "start_seconds": 96.23,
+      "end_seconds": 104.23,
+      "text": "That's basically what the groove is about. It's just kind of a New Orleans-esque type of groove over D blues, pretty much.",
+      "confidence": -0.13128290052215258
+    },
+    {
+      "segment_index": 9,
+      "start_seconds": 104.23,
+      "end_seconds": 121.99,
+      "text": "Yeah, probably at the very beginning of that...I mean, usually I like to set up solos with, like, as simple as possible, but sometimes I just take it out because the band...",
+      "confidence": -0.13128290052215258
+    },
+    {
+      "segment_index": 10,
+      "start_seconds": 121.99,
+      "end_seconds": 126.99,
+      "text": "Usually the keyboard player is laying out, so your harmonic boundaries are wide open, you know.",
+      "confidence": -0.13128290052215258
+    },
+    {
+      "segment_index": 11,
+      "start_seconds": 126.99,
+      "end_seconds": 132.99,
+      "text": "So probably what I was thinking in that early phrase when you hear the major 7, I would guess...",
+      "confidence": -0.13128290052215258
+    },
+    {
+      "segment_index": 12,
+      "start_seconds": 132.99,
+      "end_seconds": 135.99,
+      "text": "I'm just guessing now because who knows what I was actually thinking that night.",
+      "confidence": -0.19269550851348674
+    },
+    {
+      "segment_index": 13,
+      "start_seconds": 135.99,
+      "end_seconds": 142.99,
+      "text": "But I probably was thinking the 5 chord. I do that sometimes. I'll just superimpose a 5 chord where there's not one being played.",
+      "confidence": -0.19269550851348674
+    },
+    {
+      "segment_index": 14,
+      "start_seconds": 142.99,
+      "end_seconds": 150.99,
+      "text": "So it sounds like I'm playing a major 7 of the chord, but really what I'm doing is kind of outlining the 5 chord, which, of course, is just going to lead you back to the 1 chord.",
+      "confidence": -0.19269550851348674
+    },
+    {
+      "segment_index": 15,
+      "start_seconds": 150.99,
+      "end_seconds": 159.75,
+      "text": "So if it's, like, an E in D minor...",
+      "confidence": -0.19269550851348674
+    },
+    {
+      "segment_index": 16,
+      "start_seconds": 159.75,
+      "end_seconds": 165.18,
+      "text": "So all I did was play some A-altres and stuff.",
+      "confidence": -0.19269550851348674
+    },
+    {
+      "segment_index": 17,
+      "start_seconds": 165.18,
+      "end_seconds": 175.18,
+      "text": "The starting mode is like, you know, I don't want to get too much into theory or anything, but the one mode in melodic minor that's really super useful is the 7th mode from melodic minor, which is the altered scale.",
+      "confidence": -0.12960917021141571
+    },
+    {
+      "segment_index": 18,
+      "start_seconds": 175.18,
+      "end_seconds": 183.18,
+      "text": "Because thinking 5-1-5-1 happens in everything from Beatles to weather report to playing traditional jazz.",
+      "confidence": -0.12960917021141571
+    },
+    {
+      "segment_index": 19,
+      "start_seconds": 183.18,
+      "end_seconds": 188.18,
+      "text": "So I do that a lot. I mean, there's a lot of ways to go. A lot of guys go up a half step, down a half step.",
+      "confidence": -0.12960917021141571
+    },
+    {
+      "segment_index": 20,
+      "start_seconds": 188.18,
+      "end_seconds": 194.18,
+      "text": "Sometimes they go to, like, the 4 minor and play melodic minor from the 4 chord that I'm at. That's kind of interesting.",
+      "confidence": -0.12960917021141571
+    },
+    {
+      "segment_index": 21,
+      "start_seconds": 194.18,
+      "end_seconds": 201.18,
+      "text": "A lot of times it's just geometric shapes that I find, and I just kind of repeat them as motifs and make them connect to the scale I know.",
+      "confidence": -0.10128298916510846
+    },
+    {
+      "segment_index": 22,
+      "start_seconds": 201.18,
+      "end_seconds": 211.18,
+      "text": "It's a lot of multitasking going on, because a lot of times I'm kind of thinking something else, but I'm still kind of seeing the D blues scale, so I always can get hop-back on track depending on the moment.",
+      "confidence": -0.10128298916510846
+    },
+    {
+      "segment_index": 23,
+      "start_seconds": 215.26,
+      "end_seconds": 232.15,
+      "text": "But you'll find a lot of times that, like, on the downbeat I'll usually resolve back.",
+      "confidence": -0.10128298916510846
+    },
+    {
+      "segment_index": 24,
+      "start_seconds": 232.15,
+      "end_seconds": 239.15,
+      "text": "People ask me all the time what I'm thinking about when I play outside, and a lot of times I think what I'm probably doing in my head is I'm kind of targeting",
+      "confidence": -0.10128298916510846
+    },
+    {
+      "segment_index": 25,
+      "start_seconds": 239.15,
+      "end_seconds": 248.15,
+      "text": "the notes I really want on the strong beats of the measure. So I'm targeting it on the downbeat of the measure, maybe beats 2 or 4 or whatever I feel,",
+      "confidence": -0.2031652781216404
+    },
+    {
+      "segment_index": 26,
+      "start_seconds": 248.15,
+      "end_seconds": 252.15,
+      "text": "but I'm always kind of going, I can't just go randomly off into another key or it's just going to sound horrible, you know?",
+      "confidence": -0.2031652781216404
+    },
+    {
+      "segment_index": 27,
+      "start_seconds": 252.15,
+      "end_seconds": 259.15,
+      "text": "But a lot of times when I transcribe, when I hear anything interesting, I'll transcribe it, whether it's an Alan Holder's lick or a Michael Brecker lick,",
+      "confidence": -0.2031652781216404
+    },
+    {
+      "segment_index": 28,
+      "start_seconds": 259.15,
+      "end_seconds": 261.15,
+      "text": "you know, like, I...",
+      "confidence": -0.2031652781216404
+    },
+    {
+      "segment_index": 29,
+      "start_seconds": 261.15,
+      "end_seconds": 270.13,
+      "text": "Now that is just a, I stole, it's just like one little bit of a motif and why not even, I'm sure it wasn't even a whole thing.",
+      "confidence": -0.2031652781216404
+    },
+    {
+      "segment_index": 30,
+      "start_seconds": 270.13,
+      "end_seconds": 273.13,
+      "text": "But all I heard in my head was...",
+      "confidence": -0.22395783459019458
+    },
+    {
+      "segment_index": 31,
+      "start_seconds": 273.13,
+      "end_seconds": 278.13,
+      "text": "And then I just kind of put it wherever it fits symmetrically on the fretboard within the scales.",
+      "confidence": -0.22395783459019458
+    },
+    {
+      "segment_index": 32,
+      "start_seconds": 278.13,
+      "end_seconds": 284.54,
+      "text": "And, you know, sometimes you luck up, but you can...",
+      "confidence": -0.22395783459019458
+    },
+    {
+      "segment_index": 33,
+      "start_seconds": 284.54,
+      "end_seconds": 289.54,
+      "text": "And I always bring it back to blues, because, you know, blues, you know, blues everybody can relate to.",
+      "confidence": -0.22395783459019458
+    },
+    {
+      "segment_index": 34,
+      "start_seconds": 289.54,
+      "end_seconds": 296.54,
+      "text": "I mean, my mother, if I just play a bunch of out stuff, you know, my mother would be going, what is wrong with my son, you know?",
+      "confidence": -0.22395783459019458
+    },
+    {
+      "segment_index": 35,
+      "start_seconds": 296.54,
+      "end_seconds": 302.54,
+      "text": "Here we go, wrong. But if I resolve it to a blues lick, you know, she's going to stand up and yell with the rest of the people, you know?",
+      "confidence": -0.13347234416891027
+    },
+    {
+      "segment_index": 36,
+      "start_seconds": 302.54,
+      "end_seconds": 310.54,
+      "text": "So a lot of times when I practice these outlicks, I don't only learn the motif, which I see it as a motif or a geometric shape,",
+      "confidence": -0.13347234416891027
+    },
+    {
+      "segment_index": 37,
+      "start_seconds": 310.54,
+      "end_seconds": 315.54,
+      "text": "I really practice getting back to a bluesy lick that everybody can relate to, that I can relate to, you know?",
+      "confidence": -0.13347234416891027
+    },
+    {
+      "segment_index": 38,
+      "start_seconds": 315.54,
+      "end_seconds": 318.54,
+      "text": "That's the big thing. So if I learn a lick like...",
+      "confidence": -0.13347234416891027
+    },
+    {
+      "segment_index": 39,
+      "start_seconds": 318.54,
+      "end_seconds": 324.62,
+      "text": "I'll bring it back home with something like that, you know?",
+      "confidence": -0.13347234416891027
+    },
+    {
+      "segment_index": 40,
+      "start_seconds": 324.62,
+      "end_seconds": 344.74,
+      "text": "I don't mean to drop any names or anything, but when I was at school at MI, one of my...",
+      "confidence": -0.1289336640826043
+    },
+    {
+      "segment_index": 41,
+      "start_seconds": 344.74,
+      "end_seconds": 348.74,
+      "text": "We weren't really friends or mortals or acquaintances, it was Jeff Buckley, who was a great Jeff Buckley,",
+      "confidence": -0.1289336640826043
+    },
+    {
+      "segment_index": 42,
+      "start_seconds": 348.74,
+      "end_seconds": 351.74,
+      "text": "who was not many people know, but he was really a great jazz player.",
+      "confidence": -0.1289336640826043
+    },
+    {
+      "segment_index": 43,
+      "start_seconds": 351.74,
+      "end_seconds": 354.74,
+      "text": "I mean, he, like all of us at MI, were working over chord changes a lot.",
+      "confidence": -0.1289336640826043
+    },
+    {
+      "segment_index": 44,
+      "start_seconds": 354.74,
+      "end_seconds": 358.74,
+      "text": "And one thing I noticed about him, even back then, and before he went on his...",
+      "confidence": -0.1289336640826043
+    },
+    {
+      "segment_index": 45,
+      "start_seconds": 358.74,
+      "end_seconds": 362.74,
+      "text": "What he really made him famous, you know, his songwriting and stuff ability,",
+      "confidence": -0.1289336640826043
+    },
+    {
+      "segment_index": 46,
+      "start_seconds": 362.74,
+      "end_seconds": 366.74,
+      "text": "was that he had... His personality was such that he would...",
+      "confidence": -0.1493867015838623
+    },
+    {
+      "segment_index": 47,
+      "start_seconds": 366.74,
+      "end_seconds": 370.74,
+      "text": "If you wanted to make a point, instead of blasting it out of you as loud as he could,",
+      "confidence": -0.1493867015838623
+    },
+    {
+      "segment_index": 48,
+      "start_seconds": 370.74,
+      "end_seconds": 375.74,
+      "text": "he would talk very softly and very deliberately and very precisely,",
+      "confidence": -0.1493867015838623
+    },
+    {
+      "segment_index": 49,
+      "start_seconds": 375.74,
+      "end_seconds": 379.74,
+      "text": "very whatsoever you're looking for, very deliberately for everything you know he said.",
+      "confidence": -0.1493867015838623
+    },
+    {
+      "segment_index": 50,
+      "start_seconds": 379.74,
+      "end_seconds": 382.74,
+      "text": "And I found a lot of times it's the same way with guitar.",
+      "confidence": -0.1493867015838623
+    },
+    {
+      "segment_index": 51,
+      "start_seconds": 382.74,
+      "end_seconds": 388.74,
+      "text": "I mean, I often like to start myself as at least with less instead of more.",
+      "confidence": -0.1493867015838623
+    },
+    {
+      "segment_index": 52,
+      "start_seconds": 388.74,
+      "end_seconds": 390.74,
+      "text": "And I do that in a lot of... A few different ways.",
+      "confidence": -0.1493867015838623
+    },
+    {
+      "segment_index": 53,
+      "start_seconds": 390.74,
+      "end_seconds": 393.74,
+      "text": "I mean, dynamically, I do a lot of legato picking,",
+      "confidence": -0.16230357794074324
+    },
+    {
+      "segment_index": 54,
+      "start_seconds": 393.74,
+      "end_seconds": 399.74,
+      "text": "so my right hand changes a lot from picking heavy for bluesy, robin 40 type stuff,",
+      "confidence": -0.16230357794074324
+    },
+    {
+      "segment_index": 55,
+      "start_seconds": 399.74,
+      "end_seconds": 403.74,
+      "text": "to where I tuck it away and I actually just kind of rush with my right hand like this,",
+      "confidence": -0.16230357794074324
+    },
+    {
+      "segment_index": 56,
+      "start_seconds": 403.74,
+      "end_seconds": 407.74,
+      "text": "as opposed to if I were picking everything that sounded like that,",
+      "confidence": -0.16230357794074324
+    },
+    {
+      "segment_index": 57,
+      "start_seconds": 407.74,
+      "end_seconds": 410.74,
+      "text": "and I had my action so low it probably buzzed like crazy.",
+      "confidence": -0.16230357794074324
+    },
+    {
+      "segment_index": 58,
+      "start_seconds": 410.74,
+      "end_seconds": 416.74,
+      "text": "But when you brush, you can get anywhere from really like soft like that,",
+      "confidence": -0.16230357794074324
+    },
+    {
+      "segment_index": 59,
+      "start_seconds": 416.74,
+      "end_seconds": 421.74,
+      "text": "almost like hardly any volume at all, just snapping it.",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 60,
+      "start_seconds": 421.74,
+      "end_seconds": 422.74,
+      "text": "I do that a lot.",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 61,
+      "start_seconds": 422.74,
+      "end_seconds": 424.74,
+      "text": "And that's years of, you know, listening to...",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 62,
+      "start_seconds": 424.74,
+      "end_seconds": 426.74,
+      "text": "I grew up listening to Dwayne Aumann,",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 63,
+      "start_seconds": 426.74,
+      "end_seconds": 428.74,
+      "text": "and he played a lot of slide guitar and used his fingers mostly,",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 64,
+      "start_seconds": 428.74,
+      "end_seconds": 429.74,
+      "text": "and that's what I got.",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 65,
+      "start_seconds": 429.74,
+      "end_seconds": 430.74,
+      "text": "And you can harmonically...",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 66,
+      "start_seconds": 430.74,
+      "end_seconds": 433.74,
+      "text": "So many things jump out when you use the flesh on the fingers,",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 67,
+      "start_seconds": 433.74,
+      "end_seconds": 436.74,
+      "text": "you know, in different places over the top of the pickups.",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 68,
+      "start_seconds": 436.74,
+      "end_seconds": 438.74,
+      "text": "So that just became really natural to me.",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 69,
+      "start_seconds": 438.74,
+      "end_seconds": 443.74,
+      "text": "And also, say, if the string of the guitar were strung between me and you,",
+      "confidence": -0.18467113435668434
+    },
+    {
+      "segment_index": 70,
+      "start_seconds": 443.74,
+      "end_seconds": 446.74,
+      "text": "I kind of stroke, you know, like this.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 71,
+      "start_seconds": 446.74,
+      "end_seconds": 447.74,
+      "text": "This is really the way.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 72,
+      "start_seconds": 447.74,
+      "end_seconds": 449.74,
+      "text": "I never really pick like most conventional guys do.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 73,
+      "start_seconds": 449.74,
+      "end_seconds": 452.74,
+      "text": "I kind of stroke it on the side, and they use three fingers for a pick.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 74,
+      "start_seconds": 452.74,
+      "end_seconds": 453.74,
+      "text": "I mean, I don't know.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 75,
+      "start_seconds": 453.74,
+      "end_seconds": 454.74,
+      "text": "It's just the way I did it.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 76,
+      "start_seconds": 454.74,
+      "end_seconds": 458.74,
+      "text": "It wasn't any kind of, you know, kind of deliberate thing.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 77,
+      "start_seconds": 458.74,
+      "end_seconds": 461.74,
+      "text": "When I first started off, it just kind of mutated into that style.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 78,
+      "start_seconds": 461.74,
+      "end_seconds": 462.74,
+      "text": "But it works for me.",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 79,
+      "start_seconds": 462.74,
+      "end_seconds": 466.74,
+      "text": "And so what you hear in there on the beginning of the tape,",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 80,
+      "start_seconds": 466.74,
+      "end_seconds": 469.74,
+      "text": "I usually back down my volume with distortion full on,",
+      "confidence": -0.1562655005301978
+    },
+    {
+      "segment_index": 81,
+      "start_seconds": 469.74,
+      "end_seconds": 473.74,
+      "text": "I'll just back down the volume on my Les Paul to about seven or eight",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 82,
+      "start_seconds": 473.74,
+      "end_seconds": 474.74,
+      "text": "where it cleans it up.",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 83,
+      "start_seconds": 474.74,
+      "end_seconds": 482.27,
+      "text": "Where it still gets a very vocal.",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 84,
+      "start_seconds": 482.27,
+      "end_seconds": 487.92,
+      "text": "You can get all sorts of really cool...",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 85,
+      "start_seconds": 487.92,
+      "end_seconds": 492.3,
+      "text": "And then if you want to just crank up the volume a little bit on your guitar,",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 86,
+      "start_seconds": 495.3,
+      "end_seconds": 499.61,
+      "text": "or the Robin Ford thing, if you want to go full blown,",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 87,
+      "start_seconds": 499.61,
+      "end_seconds": 501.61,
+      "text": "you go full blown on that stuff.",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 88,
+      "start_seconds": 501.61,
+      "end_seconds": 503.61,
+      "text": "So it gives you a kind of wide range.",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 89,
+      "start_seconds": 503.61,
+      "end_seconds": 506.61,
+      "text": "I mean, in a way, I'm really limited in that I use predominantly always",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 90,
+      "start_seconds": 506.61,
+      "end_seconds": 509.61,
+      "text": "my bridge pickup when I solo.",
+      "confidence": -0.20950186053911846
+    },
+    {
+      "segment_index": 91,
+      "start_seconds": 509.61,
+      "end_seconds": 512.61,
+      "text": "And, you know, I never do like the...",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 92,
+      "start_seconds": 512.61,
+      "end_seconds": 515.61,
+      "text": "It all sounds like a Carlos Santana vibe,",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 93,
+      "start_seconds": 515.61,
+      "end_seconds": 517.61,
+      "text": "which I was never personally into so much.",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 94,
+      "start_seconds": 517.61,
+      "end_seconds": 521.61,
+      "text": "But I obviously feel the harmonics are so rich back then.",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 95,
+      "start_seconds": 521.61,
+      "end_seconds": 524.61,
+      "text": "I just kind of play with the tone a little bit in the volume a lot",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 96,
+      "start_seconds": 524.61,
+      "end_seconds": 527.61,
+      "text": "when I'm playing.",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 97,
+      "start_seconds": 527.61,
+      "end_seconds": 529.61,
+      "text": "And this goes to my equipment, too,",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 98,
+      "start_seconds": 529.61,
+      "end_seconds": 530.61,
+      "text": "which we can talk about more later.",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 99,
+      "start_seconds": 530.61,
+      "end_seconds": 534.61,
+      "text": "Because that all plays a really important role in my sound.",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 100,
+      "start_seconds": 534.61,
+      "end_seconds": 537.61,
+      "text": "But mostly at the beginning of that video,",
+      "confidence": -0.19043044818024482
+    },
+    {
+      "segment_index": 101,
+      "start_seconds": 537.61,
+      "end_seconds": 539.61,
+      "text": "here is me kind of screwing around in D minor.",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 102,
+      "start_seconds": 539.61,
+      "end_seconds": 542.61,
+      "text": "But backing down the volume in the band's low",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 103,
+      "start_seconds": 542.61,
+      "end_seconds": 545.61,
+      "text": "so you get the guitar...",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 104,
+      "start_seconds": 545.61,
+      "end_seconds": 547.61,
+      "text": "This is a really nice guitar, by the way,",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 105,
+      "start_seconds": 547.61,
+      "end_seconds": 549.61,
+      "text": "it's like an old 54 Les Paul,",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 106,
+      "start_seconds": 549.61,
+      "end_seconds": 552.61,
+      "text": "which has a different sound of any of the Les Paul I've ever heard.",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 107,
+      "start_seconds": 552.61,
+      "end_seconds": 553.61,
+      "text": "It's really dynamic.",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 108,
+      "start_seconds": 553.61,
+      "end_seconds": 554.61,
+      "text": "It picks up everything.",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 109,
+      "start_seconds": 554.61,
+      "end_seconds": 555.61,
+      "text": "It's very vocal.",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 110,
+      "start_seconds": 555.61,
+      "end_seconds": 558.61,
+      "text": "And even at low volumes,",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 111,
+      "start_seconds": 558.61,
+      "end_seconds": 560.61,
+      "text": "it's very sweet and very juicy",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 112,
+      "start_seconds": 560.61,
+      "end_seconds": 573.37,
+      "text": "without having to be really overdone.",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 113,
+      "start_seconds": 573.37,
+      "end_seconds": 576.37,
+      "text": "Well, people ask me sometimes if I'm singing along with what I'm playing",
+      "confidence": -0.1592479214693109
+    },
+    {
+      "segment_index": 114,
+      "start_seconds": 576.37,
+      "end_seconds": 579.37,
+      "text": "because, well, I mean, I've just been told that",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 115,
+      "start_seconds": 579.37,
+      "end_seconds": 581.37,
+      "text": "that you can kind of see me thinking",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 116,
+      "start_seconds": 581.37,
+      "end_seconds": 583.37,
+      "text": "whatever that means when I'm doing stuff.",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 117,
+      "start_seconds": 583.37,
+      "end_seconds": 584.37,
+      "text": "I guess that's flattering.",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 118,
+      "start_seconds": 584.37,
+      "end_seconds": 586.37,
+      "text": "A lot of times when I tell my students",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 119,
+      "start_seconds": 586.37,
+      "end_seconds": 588.37,
+      "text": "when they're first trying to figure out",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 120,
+      "start_seconds": 588.37,
+      "end_seconds": 589.37,
+      "text": "how to make a melodic solo,",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 121,
+      "start_seconds": 589.37,
+      "end_seconds": 591.37,
+      "text": "I tell them to sing along with their playing.",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 122,
+      "start_seconds": 591.37,
+      "end_seconds": 593.37,
+      "text": "And not because I want to hear them do any",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 123,
+      "start_seconds": 593.37,
+      "end_seconds": 595.37,
+      "text": "Keith Jarrett noises behind their singing",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 124,
+      "start_seconds": 595.37,
+      "end_seconds": 597.37,
+      "text": "and I'm not a really big fan of it.",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 125,
+      "start_seconds": 597.37,
+      "end_seconds": 599.37,
+      "text": "That kind of stuff.",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 126,
+      "start_seconds": 599.37,
+      "end_seconds": 601.37,
+      "text": "But it connects you,",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 127,
+      "start_seconds": 601.37,
+      "end_seconds": 603.37,
+      "text": "it connects your playing with what's inside.",
+      "confidence": -0.10646567468506259
+    },
+    {
+      "segment_index": 128,
+      "start_seconds": 603.37,
+      "end_seconds": 606.37,
+      "text": "And that's ideally where the music should come from anyway.",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 129,
+      "start_seconds": 606.37,
+      "end_seconds": 608.37,
+      "text": "So I always encourage them to sing along",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 130,
+      "start_seconds": 608.37,
+      "end_seconds": 610.37,
+      "text": "because if you can do that, then, you know,",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 131,
+      "start_seconds": 610.37,
+      "end_seconds": 612.37,
+      "text": "number one, if you're dancing at all",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 132,
+      "start_seconds": 612.37,
+      "end_seconds": 614.37,
+      "text": "and you're keeping time with your playing,",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 133,
+      "start_seconds": 614.37,
+      "end_seconds": 616.37,
+      "text": "which I have, you know, as students,",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 134,
+      "start_seconds": 616.37,
+      "end_seconds": 618.37,
+      "text": "guitar players especially tend to rush like crazy",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 135,
+      "start_seconds": 618.37,
+      "end_seconds": 620.37,
+      "text": "and I always get them to get some kind of metronome",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 136,
+      "start_seconds": 620.37,
+      "end_seconds": 622.37,
+      "text": "going on their body like this.",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 137,
+      "start_seconds": 622.37,
+      "end_seconds": 624.37,
+      "text": "And if they're kind of dancing at times,",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 138,
+      "start_seconds": 624.37,
+      "end_seconds": 626.37,
+      "text": "it's going to be harder for them to play at a time.",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 139,
+      "start_seconds": 626.37,
+      "end_seconds": 628.37,
+      "text": "And I say, well, sing along with what you play",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 140,
+      "start_seconds": 628.37,
+      "end_seconds": 630.37,
+      "text": "because, you know, most likely they're not going to sing",
+      "confidence": -0.11345017173073509
+    },
+    {
+      "segment_index": 141,
+      "start_seconds": 630.37,
+      "end_seconds": 633.37,
+      "text": "like that.",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 142,
+      "start_seconds": 633.37,
+      "end_seconds": 635.37,
+      "text": "But they are going to sing.",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 143,
+      "start_seconds": 642.26,
+      "end_seconds": 644.26,
+      "text": "You know, that's, you know, they can get into doing that",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 144,
+      "start_seconds": 644.26,
+      "end_seconds": 646.26,
+      "text": "but it just kind of connects everything together.",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 145,
+      "start_seconds": 646.26,
+      "end_seconds": 648.26,
+      "text": "So if it looks like I'm kind of singing along",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 146,
+      "start_seconds": 648.26,
+      "end_seconds": 651.26,
+      "text": "or miming or doing a ventriloquist act,",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 147,
+      "start_seconds": 651.26,
+      "end_seconds": 653.26,
+      "text": "it's maybe because I am kind of internalizing",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 148,
+      "start_seconds": 653.26,
+      "end_seconds": 655.26,
+      "text": "everything when I play stuff.",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 149,
+      "start_seconds": 655.26,
+      "end_seconds": 657.26,
+      "text": "And I don't notice it and that's why",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 150,
+      "start_seconds": 657.26,
+      "end_seconds": 659.26,
+      "text": "one reason I hate looking at videos of myself playing",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 151,
+      "start_seconds": 659.26,
+      "end_seconds": 662.26,
+      "text": "because it looks like I'm chewing some tobacco or something.",
+      "confidence": -0.15810662771646794
+    },
+    {
+      "segment_index": 152,
+      "start_seconds": 662.26,
+      "end_seconds": 665.26,
+      "text": "But yeah, I mean, I can definitely sing everything I play",
+      "confidence": -0.1534879209196314
+    },
+    {
+      "segment_index": 153,
+      "start_seconds": 665.26,
+      "end_seconds": 667.26,
+      "text": "and I recommend that for everybody who's learning,",
+      "confidence": -0.1534879209196314
+    },
+    {
+      "segment_index": 154,
+      "start_seconds": 667.26,
+      "end_seconds": 669.26,
+      "text": "you know, at the very beginning",
+      "confidence": -0.1534879209196314
+    },
+    {
+      "segment_index": 155,
+      "start_seconds": 669.26,
+      "end_seconds": 672.26,
+      "text": "to make sure that what they're learning means anything, you know.",
+      "confidence": -0.1534879209196314
+    },
+    {
+      "segment_index": 156,
+      "start_seconds": 672.26,
+      "end_seconds": 676.79,
+      "text": "Everything should come from a singing point",
+      "confidence": -0.1534879209196314
+    },
+    {
+      "segment_index": 157,
+      "start_seconds": 676.79,
+      "end_seconds": 678.79,
+      "text": "and that's where I try to get,",
+      "confidence": -0.1534879209196314
+    },
+    {
+      "segment_index": 158,
+      "start_seconds": 678.79,
+      "end_seconds": 681.79,
+      "text": "that's where I'm trying to go, you know, with my soloing for sure.",
+      "confidence": -0.1534879209196314
+    }
+  ]
+}

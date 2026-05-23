@@ -8,7 +8,7 @@ whisper_cpu_threads: 2
 whisper_num_workers: 1
 language: auto
 llm_provider: openai
-llm_model: gpt-4o-mini
+llm_model: gpt-4o
 max_videos_per_run: null
 skip_existing: true
 force_reprocess: false
@@ -17,7 +17,10 @@ audio_analysis_window_seconds: 3
 audio_analysis_hop_seconds: 1.5
 audio_classifier: yamnet
 chapter_min_count: 5
-chapter_max_count: 20
+chapter_max_count: 14
+chapter_boundary_pause_seconds: 2.5
+chapter_min_duration_seconds: 45
+chapter_target_seconds: 420
 tag_max_count: 20
 embedding_enabled: false
 keep_audio_cache: false

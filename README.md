@@ -43,6 +43,8 @@ npm run dev
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
+If port `3000` is already used by another app, either use the port shown by Next.js in the terminal or run the included `start.bat`, which automatically chooses the next available port from `3000` to `3099`.
+
 ## Project Structure
 
 - `/src/app` - Next.js app router pages and layouts
@@ -64,6 +66,24 @@ npm run dev
 - `npm run build` - Build production application
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+
+### Spotify OAuth
+
+For local Spotify login, set these values in `.env` or `.env.local`:
+
+```env
+NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_client_id
+SPOTIFY_CLIENT_SECRET=your_client_secret
+SPOTIFY_OAUTH_REDIRECT_URI=http://localhost:3008/api/spotify/callback
+```
+
+When using `start.bat`, it prints the exact Spotify redirect URI selected for the current run. Add that same redirect URI in the Spotify Developer Dashboard, for example:
+
+```text
+http://localhost:3008/api/spotify/callback
+```
+
+Spotify requires an exact match, including protocol, host, port, and path. It does not support wildcard localhost ports. If you want OAuth to use one predictable port, set `START_PORT` and `END_PORT` to the same registered port before running `start.bat`.
 
 ## License
 

@@ -19,6 +19,7 @@ interface DirectoryState {
   setScanVideoFolderForAudio: (scan: boolean) => void
   refreshVideoList: () => void
   refreshAudioList: () => void
+  setRootPath: (path: string | null) => void
   expandFolder: (path: string) => void
   collapseFolder: (path: string) => void
   setExpandedFolders: (paths: string[]) => void
@@ -37,9 +38,19 @@ export const useDirectoryStore = create<DirectoryState>()(
       lastUpdate: Date.now(),
 
       setRootHandle: (handle, path) =>
-        set({ rootHandle: handle, rootPath: path ?? null, lastUpdate: Date.now() }),
+        set((state) => ({
+          rootHandle: handle,
+          rootPath: handle ? path ?? state.rootPath : null,
+          lastUpdate: Date.now()
+        })),
       setAudioRootHandle: (handle, path) =>
-        set({ audioRootHandle: handle, audioRootPath: path ?? null, lastUpdate: Date.now() }),
+        set((state) => ({
+          audioRootHandle: handle,
+          audioRootPath: handle ? path ?? state.audioRootPath : null,
+          lastUpdate: Date.now()
+        })),
+      setRootPath: (path) =>
+        set({ rootPath: path, lastUpdate: Date.now() }),
       setScanVideoFolderForAudio: (scan) =>
         set({ scanVideoFolderForAudio: scan, lastUpdate: Date.now() }),
       refreshVideoList: () => set(() => ({ lastUpdate: Date.now() })),

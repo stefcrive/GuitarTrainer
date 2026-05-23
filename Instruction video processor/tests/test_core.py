@@ -120,13 +120,29 @@ def test_chapter_payload_validation_repairs_ends() -> None:
             }
         ],
         "chapters": [
-            {"start": "00:00:00", "title": "Intro", "summary": "Start.", "confidence": 0.8, "tags": ["lesson"]},
-            {"start": "00:00:10", "title": "Exercise", "summary": "Practice.", "confidence": 0.8, "tags": ["exercise"]},
+            {
+                "start": "00:00:00",
+                "end": "00:00:12",
+                "title": "Explanation with guitar",
+                "summary": "Practice the double stop bend.",
+                "confidence": 0.8,
+                "tags": ["lesson", "bending", "performance preparation", "performance-preparation"],
+            },
+            {
+                "start": "00:00:10",
+                "title": "Exercise",
+                "summary": "Practice.",
+                "confidence": 0.8,
+                "tags": ["exercise"],
+            },
         ],
     }
     result = validate_chapter_payload(payload, 20, AppConfig())
     assert result["global_tags"] == ["alternate picking"]
     assert result["chapters"][0]["end_seconds"] == 10
+    assert result["chapters"][0]["end_seconds"] <= result["chapters"][1]["start_seconds"]
+    assert result["chapters"][0]["title"] == "Double-stop bend phrase"
+    assert len(result["chapters"][0]["tags"]) <= 5
 
 
 def test_guitar_trainer_export_and_merge_preserves_existing(tmp_path: Path) -> None:
@@ -157,8 +173,30 @@ def test_guitar_trainer_export_and_merge_preserves_existing(tmp_path: Path) -> N
     )
     db.insert_chapters_and_tags(
         video_id,
-        [{"start_seconds": 0, "end_seconds": 10, "title": "Intro", "summary": "Start.", "confidence": 0.8, "tags": ["exercise"]}],
-        ["alternate picking"],
+        [
+            {
+                "start_seconds": 0,
+                "end_seconds": 12,
+                "title": "Intro",
+                "summary": "Start.",
+                "confidence": 0.8,
+                "tags": ["exercise", "performance-preparation"],
+                "learning_metadata": {
+                    "topics": ["alternate picking", "exercise"],
+                    "primary_domain": "Technique & Exercises",
+                    "weekly_practice_role": "Performance Preparation",
+                },
+            },
+            {
+                "start_seconds": 10,
+                "end_seconds": 15,
+                "title": "Picking detail",
+                "summary": "Continue.",
+                "confidence": 0.8,
+                "tags": ["alternate picking"],
+            },
+        ],
+        ["alternate picking", "performance and playing with others"],
     )
     gt_db = tmp_path / "guitar-trainer.sqlite"
     conn = sqlite3.connect(gt_db)
@@ -179,6 +217,12 @@ def test_guitar_trainer_export_and_merge_preserves_existing(tmp_path: Path) -> N
     state = json.loads(row[0])
     assert any(marker["id"] == "user" for marker in state["markers"])
     assert any(marker["id"].startswith("gtm:abc:chapter:") for marker in state["markers"])
+    generated = [marker for marker in state["markers"] if marker["id"].startswith("gtm:abc:chapter:")]
+    assert generated[0]["endTime"] <= generated[1]["startTime"]
+    first_annotation = next(annotation for annotation in state["annotations"] if annotation["markerId"] == generated[0]["id"])
+    assert len(first_annotation["tags"]) <= 5
+    assert "performance-preparation" not in first_annotation["tags"]
+    assert "performance and playing with others" not in first_annotation["tags"]
     conn.close()
     db.close()
 

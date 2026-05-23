@@ -178,6 +178,12 @@ def process(
             stats["gt_markers"] = result["report"]["marker_count"]
             stats["gt_db_written"] = result["report"]["db_written"]
         _print_process_summary(stats, config)
+        if video_path and stats["failed"] > 0:
+            console.print("[red]Requested video failed during processing. See the error above or outputs/logs/processing.log.[/red]")
+            raise typer.Exit(1)
+        if video_path and config.guitar_trainer_export_enabled and stats["gt_markers"] == 0:
+            console.print("[red]Requested video produced no Guitar Trainer markers.[/red]")
+            raise typer.Exit(1)
     finally:
         db.close()
 

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from database import ProcessorDB
+from tagger import clean_llm_tags
 from utils import (
     GUITAR_TRAINER_VISIBLE_EXTENSIONS,
     clamp,
@@ -175,15 +176,18 @@ def _marker_state_for_video(
     markers = []
     annotations = []
     global_tags = db.fetch_video_tags(video["video_id"])
+    rows = _non_overlapping_marker_rows(rows, duration)
     for idx, row in enumerate(rows):
         start = clamp(float(row["start_seconds"] or 0), 0, duration)
-        raw_end = row["end_seconds"] if "end_seconds" in row.keys() else None
+        raw_end = _row_get(row, "end_seconds")
         end = clamp(float(raw_end if raw_end is not None else duration), 0, duration)
         if end - start < 1.0:
             continue
         marker_id = f"gtm:{video['hash']}:{source_kind}:{idx}"
         annotation_id = f"gta:{video['hash']}:{source_kind}:{idx}"
         title = row["title"] or f"{source_kind.title()} {idx + 1}"
+        tags = _annotation_tags(db, video["video_id"], row, global_tags, source)
+        learning = _marker_learning_metadata(row, tags)
         marker = {
             "id": marker_id,
             "startTime": round(start, 3),
@@ -193,12 +197,12 @@ def _marker_state_for_video(
             "completionDegree": 0,
             "createdAt": updated_at,
             "diagrams": [],
+            "learning": learning,
         }
-        tags = _annotation_tags(db, video["video_id"], row, global_tags, source)
         annotation = {
             "id": annotation_id,
             "markerId": marker_id,
-            "text": _annotation_text(row, source),
+            "text": _annotation_text(row, source, learning),
             "tags": tags,
             "timestamp": updated_at,
         }
@@ -263,6 +267,32 @@ def _chapters_from_extracted_markdown(video: Any) -> list[dict[str, Any]]:
     return chapter_rows
 
 
+def _non_overlapping_marker_rows(rows: list[Any], duration: float) -> list[dict[str, Any]]:
+    sorted_rows = sorted(rows, key=lambda row: float(_row_get(row, "start_seconds", 0) or 0))
+    repaired: list[dict[str, Any]] = []
+    for index, row in enumerate(sorted_rows):
+        item = dict(row)
+        start = clamp(float(_row_get(row, "start_seconds", 0) or 0), 0, duration)
+        raw_end = _row_get(row, "end_seconds")
+        end = clamp(float(raw_end if raw_end is not None else duration), 0, duration)
+        if index + 1 < len(sorted_rows):
+            next_start = clamp(float(_row_get(sorted_rows[index + 1], "start_seconds", duration) or duration), 0, duration)
+            if next_start > start:
+                end = min(end, next_start)
+        if repaired and start < repaired[-1]["end_seconds"]:
+            previous = repaired[-1]
+            if start - previous["start_seconds"] >= 1.0:
+                previous["end_seconds"] = start
+            else:
+                start = previous["end_seconds"]
+        if end - start < 1.0:
+            continue
+        item["start_seconds"] = start
+        item["end_seconds"] = end
+        repaired.append(item)
+    return repaired
+
+
 def _find_extracted_markdown(video: Any) -> Path | None:
     exports_dir = Path("outputs") / "exports"
     candidates = list(exports_dir.glob("*_extracted.md"))
@@ -309,10 +339,132 @@ def _annotation_tags(db: ProcessorDB, video_id: int, row: Any, global_tags: list
     else:
         row_tags = json_loads(row["tags"], [])
         semantic = [row["segment_type"]] if row["segment_type"] else []
-    return normalize_tags([*row_tags, *global_tags, *semantic], max_count=20)
+    learning = json_loads(_row_get(row, "learning_metadata"), {})
+    learning_topics = []
+    if isinstance(learning, dict):
+        learning_topics = learning.get("topics", [])
+    primary_domain = learning.get("primary_domain") if isinstance(learning, dict) else None
+    return _compact_visible_tags([*row_tags, *semantic, *learning_topics, *global_tags], primary_domain)
 
 
-def _annotation_text(row: Any, source: SourceType) -> str:
+def _compact_visible_tags(tags: list[str], primary_domain: str | None = None) -> list[str]:
+    compacted: list[str] = []
+    seen_keys: set[str] = set()
+    blocked = {
+        "performance and playing with others",
+        "performance preparation",
+        "technique and exercises",
+        "harmony and voice leading",
+        "ear training and audiation",
+        "workflow practice method",
+        "main repertoire object",
+        "technical bottleneck solver",
+        "practice workflow support",
+        "theory reference only",
+    }
+    for tag in clean_llm_tags(tags, max_count=20):
+        key = _tag_similarity_key(tag)
+        if not key or key in blocked or key in seen_keys:
+            continue
+        compacted.append(tag)
+        seen_keys.add(key)
+        if len(compacted) >= 4:
+            break
+    if len(compacted) < 2:
+        for tag in _domain_support_tags(primary_domain):
+            key = _tag_similarity_key(tag)
+            if key and key not in seen_keys:
+                compacted.append(tag)
+                seen_keys.add(key)
+            if len(compacted) >= 2:
+                break
+    return compacted
+
+
+def _domain_support_tags(primary_domain: str | None) -> list[str]:
+    mapping = {
+        "Repertoire": ["performance"],
+        "Musical Devices": ["composition"],
+        "Technique & Exercises": ["exercise"],
+        "Harmony & Voice Leading": ["voice leading"],
+        "Ear Training & Audiation": ["interval recognition"],
+        "Improvisation": ["improvisation"],
+        "Composition & Arrangement": ["arrangement"],
+        "Rhythm, Time & Groove": ["timing"],
+        "Fretboard Navigation": ["fretboard navigation"],
+        "Performance & Playing With Others": ["performance"],
+        "Theory Reference": ["functional harmony"],
+        "Workflow / Practice Method": ["slow practice"],
+    }
+    return mapping.get(str(primary_domain), [])
+
+
+def _tag_similarity_key(tag: str) -> str:
+    key = tag.lower().replace("&", " and ")
+    key = re.sub(r"[-_/]+", " ", key)
+    key = re.sub(r"\s+", " ", key).strip()
+    if key.endswith("s") and len(key) > 4:
+        key = key[:-1]
+    return key
+
+
+def _marker_learning_metadata(row: Any, tags: list[str]) -> dict[str, Any]:
+    raw = json_loads(_row_get(row, "learning_metadata"), {})
+    if not isinstance(raw, dict):
+        raw = {}
+    primary = raw.get("primary_domain")
+    weekly_role = raw.get("weekly_practice_role")
+    domain = raw.get("domain") or _domain_bucket(primary)
+    return {
+        "domain": domain,
+        "primaryDomain": primary,
+        "secondaryDomains": raw.get("secondary_domains", []),
+        "topics": raw.get("topics", tags[:8]),
+        "musicalFunction": raw.get("musical_function", ""),
+        "practiceUseCase": raw.get("practice_use_case", ""),
+        "weeklyPracticeRole": weekly_role,
+        "difficultyLevel": raw.get("difficulty_level"),
+        "requiredPrerequisites": raw.get("required_prerequisites", []),
+        "suggestedOutput": raw.get("suggested_output", ""),
+        "repertoireRelevance": raw.get("repertoire_relevance", 0),
+        "compositionRelevance": raw.get("composition_relevance", 0),
+        "playingWithOthersRelevance": raw.get("playing_with_others_relevance", 0),
+        "allFourthsRelevance": raw.get("all_fourths_relevance", 0),
+        "intervalFunctionRelevance": raw.get("interval_function_relevance", 0),
+        "suggestedConstraints": raw.get("suggested_constraints", []),
+        "extractionPrompt": raw.get("extraction_prompt", ""),
+        "practicePrompt": raw.get("practice_prompt", ""),
+        "relatedMarkerLinks": raw.get("related_marker_links", []),
+        "priorityScore": raw.get("priority_score", 0),
+        "notesForWeeklyPlanner": raw.get("notes_for_weekly_planner", ""),
+    }
+
+
+def _domain_bucket(primary_domain: str | None) -> str:
+    if primary_domain in {"Repertoire", "Performance & Playing With Others"}:
+        return "repertoire"
+    if primary_domain in {
+        "Musical Devices",
+        "Harmony & Voice Leading",
+        "Improvisation",
+        "Composition & Arrangement",
+    }:
+        return "musical-device"
+    return "training"
+
+
+def _row_get(row: Any, key: str, default: Any = None) -> Any:
+    if isinstance(row, dict):
+        return row.get(key, default)
+    try:
+        if key in row.keys():
+            return row[key]
+    except Exception:
+        return default
+    return default
+
+
+def _annotation_text(row: Any, source: SourceType, learning: dict[str, Any] | None = None) -> str:
     summary = row["summary"] or "No summary available."
     confidence = row["confidence"] if row["confidence"] is not None else "unknown"
     if source == "chapters":
@@ -325,6 +477,17 @@ def _annotation_text(row: Any, source: SourceType) -> str:
         ]
         if row["source_evidence"]:
             parts.append(f"Evidence: {row['source_evidence']}")
+    if learning:
+        if learning.get("primaryDomain"):
+            parts.append(f"Domain: {learning['primaryDomain']}")
+        if learning.get("weeklyPracticeRole"):
+            parts.append(f"Weekly role: {learning['weeklyPracticeRole']}")
+        if learning.get("practiceUseCase"):
+            parts.append(f"Use case: {learning['practiceUseCase']}")
+        if learning.get("suggestedOutput"):
+            parts.append(f"Output: {learning['suggestedOutput']}")
+        if learning.get("practicePrompt"):
+            parts.append(f"Practice prompt: {learning['practicePrompt']}")
     return "\n".join(parts)
 
 

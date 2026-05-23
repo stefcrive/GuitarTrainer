@@ -18,6 +18,9 @@ export type MarkerRecord = {
   markerState: VideoMarkerState
 }
 
+const CONTENT_IDENTITY_VERSION = 'v1'
+const IDENTITY_SAMPLE_BYTES = 1024 * 1024
+
 function getLegacyMarkersFileName(videoPath: string): string {
   return videoPath
     .split('/')
@@ -44,6 +47,35 @@ function normalizeMarkerState(state: Partial<VideoMarkerState> | null): VideoMar
     activeMarkerId: state.activeMarkerId ?? null,
     isLooping: state.isLooping ?? false
   }
+}
+
+async function getContentIdentityForFile(file: File): Promise<string> {
+  const chunks: Blob[] = []
+  const size = file.size
+  chunks.push(file.slice(0, Math.min(size, IDENTITY_SAMPLE_BYTES)))
+  if (size > IDENTITY_SAMPLE_BYTES * 2) {
+    const middleStart = Math.max(0, Math.floor(size / 2) - Math.floor(IDENTITY_SAMPLE_BYTES / 2))
+    chunks.push(file.slice(middleStart, Math.min(size, middleStart + IDENTITY_SAMPLE_BYTES)))
+  }
+  if (size > IDENTITY_SAMPLE_BYTES) {
+    chunks.push(file.slice(Math.max(0, size - IDENTITY_SAMPLE_BYTES), size))
+  }
+
+  const buffers = await Promise.all(chunks.map(async (chunk) => new Uint8Array(await chunk.arrayBuffer())))
+  const header = new TextEncoder().encode(`${CONTENT_IDENTITY_VERSION}:${file.size}:`)
+  const totalLength = header.byteLength + buffers.reduce((sum, buffer) => sum + buffer.byteLength, 0)
+  const merged = new Uint8Array(totalLength)
+  merged.set(header, 0)
+  let offset = header.byteLength
+  for (const buffer of buffers) {
+    merged.set(buffer, offset)
+    offset += buffer.byteLength
+  }
+
+  const digest = await crypto.subtle.digest('SHA-256', merged)
+  return `${CONTENT_IDENTITY_VERSION}:${Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('')}`
 }
 
 function loadLegacyYoutubeMarkerState(videoPath: string): VideoMarkerState | null {
@@ -119,6 +151,16 @@ async function loadLegacyLocalMarkerState(
 }
 
 class MarkersService {
+  async saveMarkersForFile(
+    directoryHandle: FileSystemDirectoryHandle,
+    videoPath: string,
+    markerState: Partial<VideoMarkerState>,
+    file: File
+  ): Promise<void> {
+    await this.saveMarkers(directoryHandle, videoPath, markerState)
+    await this.saveContentIdentity(directoryHandle, videoPath, getContentType(videoPath), file)
+  }
+
   async saveMarkers(
     directoryHandle: FileSystemDirectoryHandle,
     videoPath: string,
@@ -154,6 +196,52 @@ class MarkersService {
     } catch (err) {
       console.error('Error saving markers:', err)
       throw new Error(`Unable to save markers for video: ${videoPath}`)
+    }
+  }
+
+  async loadMarkersForFile(
+    directoryHandle: FileSystemDirectoryHandle,
+    videoPath: string,
+    file: File
+  ): Promise<VideoMarkerState | null> {
+    const stateByPath = await this.loadMarkers(directoryHandle, videoPath)
+    if (stateByPath) {
+      await this.saveContentIdentity(directoryHandle, videoPath, getContentType(videoPath), file).catch((error) => {
+        console.error('Error saving content identity:', error)
+      })
+      return stateByPath
+    }
+
+    try {
+      const identityKey = await getContentIdentityForFile(file)
+      const context = await getDatabaseContext(directoryHandle)
+      const identityRow = queryOne<{ content_path: string }>(
+        context.db,
+        'SELECT content_path FROM marker_content_identities WHERE identity_key = ?',
+        [identityKey]
+      )
+      if (!identityRow?.content_path || identityRow.content_path === videoPath) {
+        return null
+      }
+
+      const movedRow = queryOne<{ marker_state: string }>(
+        context.db,
+        'SELECT marker_state FROM marker_states WHERE content_path = ?',
+        [identityRow.content_path]
+      )
+      if (!movedRow?.marker_state) {
+        return null
+      }
+
+      const movedState = normalizeMarkerState(JSON.parse(movedRow.marker_state) as VideoMarkerState)
+      if (!movedState) return null
+
+      await this.saveMarkers(directoryHandle, videoPath, movedState)
+      await this.saveContentIdentity(directoryHandle, videoPath, getContentType(videoPath), file)
+      return movedState
+    } catch (error) {
+      console.error('Error loading markers by content identity:', error)
+      return null
     }
   }
 
@@ -230,6 +318,28 @@ class MarkersService {
     }
 
     return records
+  }
+
+  private async saveContentIdentity(
+    directoryHandle: FileSystemDirectoryHandle,
+    videoPath: string,
+    contentType: string,
+    file: File
+  ): Promise<void> {
+    if (videoPath.startsWith('youtube:') || videoPath.startsWith('spotify:')) return
+    const identityKey = await getContentIdentityForFile(file)
+    const context = await getDatabaseContext(directoryHandle)
+    runStatement(
+      context.db,
+      `INSERT INTO marker_content_identities (identity_key, content_path, content_type, updated_at)
+       VALUES (?, ?, ?, ?)
+       ON CONFLICT(identity_key) DO UPDATE SET
+         content_path = excluded.content_path,
+         content_type = excluded.content_type,
+         updated_at = excluded.updated_at`,
+      [identityKey, videoPath, contentType, Date.now()]
+    )
+    await saveDatabase(context)
   }
 }
 
