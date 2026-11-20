@@ -1,0 +1,50 @@
+const { test } = require('node:test')
+const assert = require('node:assert/strict')
+const fs = require('node:fs')
+const path = require('node:path')
+const os = require('node:os')
+const crypto = require('node:crypto')
+const { spawnSync } = require('node:child_process')
+
+test('organization preserves collisions and bytes, migrates references, refuses stale undo, and restores originals', async () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'guitar-organization-test-'))
+  const root = path.join(temp, 'material'), audit = path.join(temp, 'audit')
+  fs.mkdirSync(root)
+  const course = '03 - Technique and Practice/Course'
+  function write(relative, contents) {
+    const target = path.join(root, relative)
+    fs.mkdirSync(path.dirname(target), { recursive: true }); fs.writeFileSync(target, contents)
+  }
+  const source = `Guitar Books/${course}/Book.pdf`
+  write(`${course}/Book.pdf`, 'existing copy')
+  write(source, 'different book bytes')
+  write(`Guitar Books/${course}/Track.mp3`, 'audio bytes')
+  const SQL = await require('sql.js')(), db = new SQL.Database()
+  db.run('CREATE TABLE marker_states (content_path TEXT, marker_state TEXT)')
+  db.run('INSERT INTO marker_states VALUES (?, ?)', [source, JSON.stringify({ link: source + '::marker1' })])
+  const originalDb = Buffer.from(db.export()); db.close(); write('guitar-trainer.sqlite', originalDb)
+  const digest = value => crypto.createHash('sha256').update(value).digest('hex')
+  const state = JSON.stringify({ version: 1, page: 1, markers: [] })
+  write(`.guitar-documents/${digest(source)}.json`, state)
+  function run(mode) { return spawnSync(process.execPath, [path.join(__dirname, 'organize-practice-material.cjs'), root, audit, mode], { encoding: 'utf8' }) }
+  assert.equal(run('plan').status, 0)
+  const plan = JSON.parse(fs.readFileSync(path.join(audit, 'plan.json'), 'utf8'))
+  const movedBook = plan.moves.find(move => move.path === source).destination
+  assert.equal(movedBook, `${course}/Book - Copy 02.pdf`)
+  const apply = run('apply'); assert.equal(apply.status, 0, apply.stderr)
+  assert.equal(fs.readFileSync(path.join(root, movedBook), 'utf8'), 'different book bytes')
+  assert.equal(fs.readFileSync(path.join(root, `${course}/Book.pdf`), 'utf8'), 'existing copy')
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root, `.guitar-documents/${digest(movedBook)}.json`), 'utf8')), JSON.parse(state))
+  const updated = new SQL.Database(fs.readFileSync(path.join(root, 'guitar-trainer.sqlite')))
+  assert.equal(updated.exec('SELECT content_path FROM marker_states')[0].values[0][0], movedBook)
+  assert.equal(JSON.parse(updated.exec('SELECT marker_state FROM marker_states')[0].values[0][0]).link, movedBook + '::marker1')
+  updated.close()
+  write(movedBook, 'user edited this later')
+  assert.notEqual(run('undo').status, 0)
+  write(movedBook, 'different book bytes')
+  const undo = run('undo'); assert.equal(undo.status, 0, undo.stderr)
+  assert.equal(fs.readFileSync(path.join(root, source), 'utf8'), 'different book bytes')
+  assert.deepEqual(fs.readFileSync(path.join(root, 'guitar-trainer.sqlite')), originalDb)
+  assert.equal(fs.readFileSync(path.join(root, `.guitar-documents/${digest(source)}.json`), 'utf8'), state)
+  // The isolated test directory is intentionally retained for inspecting failures.
+})

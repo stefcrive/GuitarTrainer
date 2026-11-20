@@ -50,7 +50,9 @@ export const useDirectoryStore = create<DirectoryState>()(
           lastUpdate: Date.now()
         })),
       setRootPath: (path) =>
-        set({ rootPath: path, lastUpdate: Date.now() }),
+        // Resolving the server's path does not change the selected directory.
+        // In particular, opening Settings must not invalidate every library.
+        set({ rootPath: path }),
       setScanVideoFolderForAudio: (scan) =>
         set({ scanVideoFolderForAudio: scan, lastUpdate: Date.now() }),
       refreshVideoList: () => set(() => ({ lastUpdate: Date.now() })),

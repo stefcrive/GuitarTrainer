@@ -12,7 +12,7 @@ from rich.table import Table
 
 from audio_classifier import classify_audio_windows
 from audio_extractor import extract_audio
-from chapterer import generate_chapters
+from teaching_units import check_configuration, generate_teaching_units
 from config import AppConfig, apply_runtime_overrides, load_config
 from database import ProcessorDB
 from embedder import embed_chapters_copy
@@ -23,6 +23,7 @@ from search import build_results_table, search_metadata
 from timeline_builder import build_timeline
 from transcriber import save_transcript_outputs, transcribe_audio
 from utils import ensure_dir, write_json
+from persistent_cache import archive_transcript, restore_transcript, read_json
 
 
 app = typer.Typer(help="Bulk-process guitar instructional videos into searchable metadata and Guitar Trainer markers.")
@@ -92,6 +93,7 @@ def process(
         help="Process only one video by relative path from the root folder.",
     ),
     force: bool = typer.Option(False, "--force", help="Reprocess videos even if already processed."),
+    regenerate: bool = typer.Option(False, "--regenerate", help="Regenerate teaching units, reusing unchanged transcripts."),
     safe_mode: bool = typer.Option(
         False,
         "--safe-mode",
@@ -100,6 +102,7 @@ def process(
     whisper_model: Optional[str] = typer.Option(None, "--whisper-model", help="Override faster-whisper model."),
     whisper_cpu_threads: Optional[int] = typer.Option(None, "--whisper-cpu-threads", help="CPU threads for faster-whisper."),
     audio_classifier: Optional[str] = typer.Option(None, "--audio-classifier", help="yamnet or fallback."),
+    skip_audio_analysis: bool = typer.Option(False, "--skip-audio-analysis", help="Skip audio labels unused by teaching-unit markers."),
     full_hash: bool = typer.Option(False, "--full-hash", help="Hash complete files instead of partial fingerprints."),
     config_path: str = typer.Option("config.yaml", "--config", help="Config file path."),
 ) -> None:
@@ -115,8 +118,11 @@ def process(
         whisper_num_workers=1 if safe_mode else None,
         audio_classifier=audio_classifier if audio_classifier is not None else ("fallback" if safe_mode else None),
     )
+    if skip_audio_analysis:
+        config = config.model_copy(update={"audio_analysis_enabled": False})
     _setup_logging(config)
     ensure_output_tree(config.output_folder)
+    check_configuration(config)
     db = _db(config)
     stats = {
         "found": 0,
@@ -128,7 +134,7 @@ def process(
         "gt_db_written": False,
     }
     try:
-        videos = scan_videos(root, full_hash=full_hash, include_media=True)
+        videos = scan_videos(root, full_hash=full_hash, include_media=True, video_path=video_path)
         if video_path:
             normalized_video_path = video_path.replace("\\", "/").strip("/")
             videos = [item for item in videos if item["relative_path"] == normalized_video_path]
@@ -137,9 +143,11 @@ def process(
         stats["found"] = len(videos)
         selected = []
         for item in videos:
+            cached = db.get_video_by_path(item["absolute_path"])
+            item["reuse_transcript"] = bool(cached and cached["transcript_source_hash"] == item["hash"] and not force)
             video_id = db.upsert_video(item)
             existing = db.get_video(video_id)
-            if existing and existing["status"] == "processed" and config.skip_existing and not force:
+            if existing and existing["status"] == "processed" and item["reuse_transcript"] and config.skip_existing and not force and not regenerate:
                 stats["already_processed"] += 1
                 continue
             if item.get("metadata_error"):
@@ -164,7 +172,7 @@ def process(
                 finally:
                     progress.advance(task)
 
-        if config.guitar_trainer_export_enabled:
+        if config.guitar_trainer_export_enabled and not (video_path and stats["failed"]):
             result = export_guitar_trainer(
                 db,
                 root,
@@ -189,41 +197,68 @@ def process(
 
 
 def _process_one(db: ProcessorDB, config: AppConfig, video_id: int, item: dict) -> None:
-    db.clear_processing_outputs(video_id)
     db.set_video_status(video_id, "processing")
-    audio_path = Path(config.output_folder) / "audio_cache" / f"{video_id}.mp3"
+    audio_path = Path(config.output_folder) / "audio_cache" / f"{video_id}.wav"
     transcript_segments = []
     transcript_paths = {}
-    if item.get("audio_codec"):
+    previous = db.get_video(video_id)
+    previous_segments = [dict(row) for row in db.fetch_transcripts(video_id)]
+    if previous_segments and previous and previous["transcript_source_hash"]:
+        archive_transcript(previous["transcript_source_hash"], {"segments": previous_segments})
+    cached_transcript = previous_segments if item.get("reuse_transcript") else []
+    if not cached_transcript and not config.force_reprocess:
+        saved = restore_transcript(item["hash"])
+        if not saved:
+            legacy = read_json(Path(config.output_folder) / "transcripts" / f"{video_id}.json")
+            if isinstance(legacy, dict) and (legacy.get("source_hash") == item["hash"] or item.get("reuse_transcript")):
+                saved = legacy
+        cached_transcript = saved.get("segments", []) if saved else []
+    if cached_transcript:
+        print("MARKER_PHASE: Reusing saved transcript", flush=True)
+        transcript_segments = cached_transcript
+        archive_transcript(item["hash"], {"segments": transcript_segments})
+        transcript_paths = save_transcript_outputs(video_id, {"segments": transcript_segments, "source_hash": item["hash"]}, config.output_folder)
+        with db.conn:
+            db.conn.execute("DELETE FROM transcripts WHERE video_id = ?", (video_id,))
+            db.conn.execute("UPDATE videos SET transcript_source_hash = ? WHERE video_id = ?", (item["hash"], video_id))
+            db.insert_transcripts(video_id, transcript_segments, commit=False)
+        audio_events = []
+    elif item.get("audio_codec"):
+        print("MARKER_PHASE: Transcribing audio with Whisper", flush=True)
         audio_path = extract_audio(item["absolute_path"], audio_path)
         transcript = transcribe_audio(audio_path, config)
         transcript_segments = transcript.get("segments", [])
+        transcript["source_hash"] = item["hash"]
+        archive_transcript(item["hash"], transcript)
         transcript_paths = save_transcript_outputs(video_id, transcript, config.output_folder)
-        db.insert_transcripts(video_id, transcript_segments)
-        audio_events = classify_audio_windows(audio_path, config, transcript_segments)
+        with db.conn:
+            db.conn.execute("DELETE FROM transcripts WHERE video_id = ?", (video_id,))
+            db.conn.execute("UPDATE videos SET transcript_source_hash = ? WHERE video_id = ?", (item["hash"], video_id))
+            db.insert_transcripts(video_id, transcript_segments, commit=False)
+        # UI generation skips legacy audio diagnostics; CLI callers can still request them.
+        audio_events = classify_audio_windows(audio_path, config, transcript_segments) if config.audio_analysis_enabled else []
         if not config.keep_audio_cache and audio_path.exists():
             audio_path.unlink(missing_ok=True)
     else:
         audio_events = []
-    db.insert_audio_events(video_id, audio_events)
-    write_json(
-        Path(config.output_folder) / "audio_analysis" / f"{video_id}_audio_segments.json",
-        {"audio_events": audio_events},
-    )
-    timeline = build_timeline(
-        transcript_segments,
-        audio_events,
-        duration_seconds=item.get("duration_seconds"),
-        filename=item["filename"],
-        relative_path=item["relative_path"],
-    )
-    write_json(Path(config.output_folder) / "timelines" / f"{video_id}_timeline.json", {"timeline": timeline})
-    db.insert_timeline_segments(video_id, timeline, "timeline_segments")
-    chapter_payload = generate_chapters(item, timeline, config)
+    if not cached_transcript:
+        db.conn.execute("DELETE FROM audio_events WHERE video_id = ?", (video_id,))
+        db.insert_audio_events(video_id, audio_events)
+        write_json(
+            Path(config.output_folder) / "audio_analysis" / f"{video_id}_audio_segments.json",
+            {"audio_events": audio_events},
+        )
+        timeline = build_timeline(
+            transcript_segments, audio_events, duration_seconds=item.get("duration_seconds"),
+            filename=item["filename"], relative_path=item["relative_path"],
+        )
+        write_json(Path(config.output_folder) / "timelines" / f"{video_id}_timeline.json", {"timeline": timeline})
+        db.conn.execute("DELETE FROM timeline_segments WHERE video_id = ?", (video_id,))
+        db.insert_timeline_segments(video_id, timeline, "timeline_segments")
+    chapter_payload = generate_teaching_units(item, transcript_segments, config)
     chapters = chapter_payload["chapters"]
-    semantic_segments = chapter_payload["timeline_segments"]
-    db.insert_timeline_segments(video_id, semantic_segments, "segments")
-    db.insert_chapters_and_tags(video_id, chapters, chapter_payload["global_tags"])
+    write_json(Path(config.output_folder) / "decisions" / f"{video_id}_decisions.json", chapter_payload["decision_trace"])
+    db.replace_chapter_outputs(video_id, chapter_payload)
     chapter_paths = save_chapter_files(video_id, chapters, config.output_folder)
     db.set_video_status(
         video_id,
@@ -235,6 +270,39 @@ def _process_one(db: ProcessorDB, config: AppConfig, video_id: int, item: dict) 
             "ffmetadata_path": str(chapter_paths["ffmetadata"]),
         },
     )
+
+
+@app.command("rechapter")
+def rechapter(
+    video_id: int = typer.Option(..., "--video-id", help="Video with an existing saved transcript."),
+    provider: str = typer.Option("llm", "--provider", help="llm or jev."),
+    apply: bool = typer.Option(False, "--apply", help="Replace processor chapters after successful generation."),
+    config_path: str = typer.Option("config.yaml", "--config"),
+) -> None:
+    """Compare decision providers without retranscribing or changing live markers."""
+    if provider not in {"llm", "jev"}:
+        raise typer.BadParameter("Provider must be llm or jev.")
+    config = load_config(config_path)
+    config.marker_decision_provider = provider
+    check_configuration(config)
+    db = _db(config)
+    try:
+        video = db.get_video(video_id)
+        if not video:
+            raise typer.BadParameter("Video was not found in the processor database.")
+        transcript = [dict(row) for row in db.fetch_transcripts(video_id)]
+        payload = generate_teaching_units(dict(video), transcript, config)
+        from datetime import datetime, timezone
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        output = Path(config.output_folder) / "experiments" / f"{video_id}-{provider}-{stamp}.json"
+        write_json(output, payload)
+        if apply:
+            db.replace_chapter_outputs(video_id, payload)
+            save_chapter_files(video_id, payload["chapters"], config.output_folder)
+        console.print(f"Saved {len(payload['chapters'])} teaching units: {output}")
+        console.print("Processor chapters updated." if apply else "Preview only. Existing chapters and Guitar Trainer markers unchanged.")
+    finally:
+        db.close()
 
 
 @app.command("search")

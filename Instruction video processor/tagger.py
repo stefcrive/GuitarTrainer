@@ -5,6 +5,34 @@ import re
 from utils import normalize_tags
 
 
+# Deliberately shared across every generated lesson, not rediscovered per video.
+# Specific keys, songs, artists, positions, and variations belong in searchable prose.
+MARKER_TAG_VOCABULARY = (
+    "alternate picking", "economy picking", "sweep picking", "fingerstyle", "hybrid picking",
+    "legato", "bending", "vibrato", "slides", "string muting", "tapping",
+    "chord voicings", "triads", "arpeggios", "chord tones", "voice leading", "harmony", "reharmonization",
+    "scales", "modes", "pentatonic", "fretboard navigation",
+    "rhythm", "groove", "syncopation", "phrasing", "improvisation", "composition", "arrangement",
+    "ear training", "transcription", "sight reading", "repertoire", "practice method", "tone", "tuning",
+    "blues", "jazz", "rock", "classical",
+)
+
+
+def clean_marker_tags(tags: list[str]) -> list[str]:
+    """Bound generated filter vocabulary and count; never invent filler tags."""
+    canonical = {_similarity_key(tag): tag for tag in MARKER_TAG_VOCABULARY}
+    result = []
+    for tag in tags:
+        if not isinstance(tag, str):
+            continue
+        match = canonical.get(_similarity_key(tag))
+        if match and match not in result:
+            result.append(match)
+        if len(result) == 3:
+            break
+    return result
+
+
 PRACTICAL_GUITAR_TAGS = {
     "alternate picking",
     "all-fourths",

@@ -103,7 +103,7 @@ export async function PUT(request: NextRequest) {
     body = {}
   }
 
-  const { trackUri, deviceId, positionMs } = body
+  const { trackUri, deviceId, positionMs, resume } = body
 
   if (!trackUri) {
     return NextResponse.json({ error: 'trackUri is required to start playback.' }, { status: 400 })
@@ -121,7 +121,7 @@ export async function PUT(request: NextRequest) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      uris: [trackUri],
+      ...(resume === true ? {} : { uris: [trackUri] }),
       ...(typeof positionMs === 'number' ? { position_ms: positionMs } : {})
     })
   })

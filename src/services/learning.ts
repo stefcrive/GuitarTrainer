@@ -7,7 +7,6 @@ import type {
   LearningRoutine,
   LearningRoutineItem,
   LearningStats,
-  WeeklyPracticeBlock,
   WeeklyPracticeDay,
   WeeklyPracticeRole
 } from '@/types/learning'
@@ -75,6 +74,7 @@ interface ScoredCandidate {
 }
 
 export interface RecordPracticeProgressInput {
+  eventId?: string
   sessionId?: string
   durationMs: number
   progressBefore: number
@@ -83,6 +83,16 @@ export interface RecordPracticeProgressInput {
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000
+
+export async function loadMarkerPracticeHistory(directoryHandle: FileSystemDirectoryHandle, markerKey: string) {
+  const { db } = await getDatabaseContext(directoryHandle)
+  return queryAll<{ id: string; occurred_at: number; duration_ms: number; progress_after: number; notes: string | null }>(
+    db,
+    `SELECT id, occurred_at, duration_ms, progress_after, notes FROM learning_events
+     WHERE marker_key = ? ORDER BY occurred_at DESC LIMIT 5`,
+    [markerKey]
+  )
+}
 
 export async function loadLearningStateMap(
   directoryHandle: FileSystemDirectoryHandle
@@ -141,9 +151,10 @@ export function generateWeeklyRoutine(
   targetMinutes: number
 ): LearningRoutine {
   const now = Date.now()
-  const clampedTarget = Math.max(15, Math.min(180, Math.round(targetMinutes || 45)))
+  const clampedTarget = Math.max(15, Math.min(180, Math.round(Number.isFinite(targetMinutes) && targetMinutes > 0 ? targetMinutes : 45)))
   const candidates = observeCandidates(catalog, stateMap, now)
-  const picked = draftRoutineCandidates(candidates)
+  // Every selected item needs at least five minutes; never draft more than fit.
+  const picked = draftRoutineCandidates(candidates).slice(0, Math.floor(clampedTarget / 5))
   const repaired = repairRoutineDuration(picked, clampedTarget)
   const items = repaired.map((candidate, index) => ({
     id: crypto.randomUUID(),
@@ -251,6 +262,9 @@ export async function recordPracticeProgress(
   input: RecordPracticeProgressInput
 ): Promise<LearningMarkerState> {
   const context = await getDatabaseContext(directoryHandle)
+  const eventId = input.eventId ?? crypto.randomUUID()
+  // Retrying a failed disk write must not count the same session twice in memory.
+  const recorded = queryOne<{ id: string }>(context.db, 'SELECT id FROM learning_events WHERE id = ?', [eventId])
   const now = Date.now()
   const rating = progressToRating(input.progressBefore, input.progressAfter)
   const existing = queryOne<LearningStateRow>(
@@ -261,6 +275,10 @@ export async function recordPracticeProgress(
      WHERE marker_key = ?`,
     [item.markerKey]
   )
+  if (recorded && existing) {
+    await saveDatabase(context)
+    return mapLearningState(existing)
+  }
   const next = nextLearningState(existing ? mapLearningState(existing) : null, item, {
     now,
     rating,
@@ -308,7 +326,7 @@ export async function recordPracticeProgress(
        progress_before, progress_after, rating, notes)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
-      crypto.randomUUID(),
+      eventId,
       item.markerKey,
       input.sessionId ?? null,
       input.progressBefore === input.progressAfter ? 'time' : 'progress',
@@ -465,10 +483,11 @@ function draftRoutineCandidates(candidates: ScoredCandidate[]): ScoredCandidate[
     if (candidate) picked.push(candidate)
   }
 
-  pick((candidate) => candidate.role === 'Main Repertoire Object')
+  // Bucket membership is authoritative, including manual corrections to AI metadata.
+  // Reserve a place for each practice purpose before adding supporting material.
   pick((candidate) => candidate.domain === 'repertoire')
-  pick((candidate) => candidate.role === 'Device Extraction' || candidate.domain === 'musical-device')
-  pick((candidate) => candidate.role === 'Technical Bottleneck Solver' || candidate.role === 'Technique Maintenance')
+  pick((candidate) => candidate.domain === 'musical-device')
+  pick((candidate) => candidate.domain === 'training')
   pick((candidate) => candidate.role === 'Ear/Fretboard Integration')
   pick((candidate) => candidate.role === 'Composition Assignment' || candidate.role === 'Arrangement Assignment')
 
@@ -512,22 +531,11 @@ function buildDailySchedule(
   targetMinutes: number
 ): WeeklyPracticeDay[] {
   const catalogByKey = new Map(catalog.map((item) => [item.markerKey, item]))
-  const findItem = (predicate: (item: LearningRoutineItem) => boolean) => routineItems.find(predicate)
-  const technique = findItem((item) => item.domain === 'training')
-  const repertoire = findItem((item) => item.domain === 'repertoire') ?? routineItems[0]
-  const device = findItem((item) => item.domain === 'musical-device')
-  const application = findItem((item) =>
-    item.role === 'Composition Assignment' || item.role === 'Arrangement Assignment'
-  ) ?? device ?? repertoire
-
-  const template = [
-    { label: 'Technique maintenance', minutes: 10, markerKey: technique?.markerKey },
-    { label: 'Ear/fretboard integration', minutes: 20, markerKey: technique?.markerKey ?? device?.markerKey },
-    { label: 'Repertoire', minutes: 30, markerKey: repertoire?.markerKey },
-    { label: 'Application', minutes: 20, markerKey: application?.markerKey },
-    { label: 'Recording/review', minutes: 10, markerKey: repertoire?.markerKey ?? application?.markerKey }
-  ]
-  const scaled = scaleBlocks(template, targetMinutes)
+  const blocks = routineItems.map((item) => ({
+    label: `${getLearningDomainLabel(item.domain)}: ${catalogByKey.get(item.markerKey)?.markerTitle ?? 'Selected marker'}`,
+    minutes: item.plannedMinutes,
+    markerKey: item.markerKey
+  }))
   const focusLabels = [
     'Map the material',
     'Slow accuracy',
@@ -543,33 +551,8 @@ function buildDailySchedule(
     label: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index],
     focus,
     minutes: targetMinutes,
-    blocks: scaled.map((block) => ({
-      ...block,
-      label: block.markerKey
-        ? `${block.label}: ${catalogByKey.get(block.markerKey)?.markerTitle ?? 'Selected marker'}`
-        : block.label
-    }))
+    blocks: blocks.map((block) => ({ ...block }))
   }))
-}
-
-function scaleBlocks(blocks: WeeklyPracticeBlock[], targetMinutes: number): WeeklyPracticeBlock[] {
-  const total = blocks.reduce((sum, block) => sum + block.minutes, 0)
-  const scale = targetMinutes / total
-  let scaled = blocks.map((block) => ({
-    ...block,
-    minutes: Math.max(3, Math.round(block.minutes * scale))
-  }))
-  let difference = targetMinutes - scaled.reduce((sum, block) => sum + block.minutes, 0)
-  let index = 0
-  while (difference !== 0 && scaled.length > 0) {
-    const direction = difference > 0 ? 1 : -1
-    if (scaled[index].minutes + direction >= 3) {
-      scaled[index].minutes += direction
-      difference -= direction
-    }
-    index = (index + 1) % scaled.length
-  }
-  return scaled
 }
 
 function nextLearningState(
@@ -731,6 +714,7 @@ function baseMinutesForCandidate(candidate: ScoredCandidate): number {
 function hasHighValueTopic(item: MarkerCatalogItem): boolean {
   const text = [
     ...item.tags,
+    ...(item.marker.learning?.topics ?? []),
     item.marker.learning?.musicalFunction,
     item.marker.learning?.practiceUseCase
   ].join(' ').toLowerCase()
@@ -740,7 +724,8 @@ function hasHighValueTopic(item: MarkerCatalogItem): boolean {
 }
 
 function formatDate(timestamp: number): string {
-  return new Date(timestamp).toISOString().slice(0, 10)
+  const date = new Date(timestamp)
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
 }
 
 function clamp(value: number, min: number, max: number): number {

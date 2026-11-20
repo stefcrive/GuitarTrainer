@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
+  BookOpen,
   Clock,
   FolderHeart,
   Guitar,
@@ -28,6 +29,7 @@ import {
 export const navigation = [
   { name: "Videos", href: "/videos", icon: Video, group: "Practice" },
   { name: "Audio", href: "/audio", icon: Music, group: "Practice" },
+  { name: "Books", href: "/documents", icon: BookOpen, group: "Practice" },
   { name: "YouTube", href: "/youtube", icon: Youtube, group: "Practice" },
   { name: "Spotify", href: "/spotify", icon: ListMusic, group: "Practice" },
   { name: "Markers", href: "/markers", icon: SlidersHorizontal, group: "Library" },

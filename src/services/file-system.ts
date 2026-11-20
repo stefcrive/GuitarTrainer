@@ -3,13 +3,14 @@
 import { FileSystemVideo } from '@/types/video'
 import { FileSystemAudio } from '@/types/audio'
 import { createMemoryDirectoryHandleFromFiles } from '@/services/memory-file-system'
+import { skipMaterialEntry } from '@/lib/practice-material'
 
 interface JSONObject {
   [key: string]: any
 }
 
 class FileSystemService {
-  private videoExtensions = new Set(['.mp4', '.webm', '.ogg', '.mov'])
+  private videoExtensions = new Set(['.mp4', '.webm', '.mov'])
   private audioExtensions = new Set(['.mp3', '.wav', '.m4a', '.ogg', '.aac', '.aiff'])
 
   async scanForAudioFiles(directoryHandle: FileSystemDirectoryHandle): Promise<FileSystemAudio[]> {
@@ -38,6 +39,8 @@ class FileSystemService {
       input.style.top = '-1000px'
 
       const cleanup = () => {
+        input.removeEventListener('change', handleChange)
+        input.removeEventListener('cancel', handleCancel)
         input.remove()
       }
 
@@ -51,16 +54,13 @@ class FileSystemService {
         resolve(files)
       }
 
-      const handleFocus = () => {
-        setTimeout(() => {
-          if (input.files && input.files.length > 0) return
-          cleanup()
-          reject(new Error('Folder selection canceled'))
-        }, 0)
+      const handleCancel = () => {
+        cleanup()
+        reject(new DOMException('Folder selection canceled', 'AbortError'))
       }
 
       input.addEventListener('change', handleChange, { once: true })
-      window.addEventListener('focus', handleFocus, { once: true })
+      input.addEventListener('cancel', handleCancel, { once: true })
 
       document.body.appendChild(input)
       input.click()
@@ -107,7 +107,7 @@ class FileSystemService {
       const raw = window.localStorage.getItem(this.getScanCacheKey(directoryHandle, kind))
       if (!raw) return null
       const parsed = JSON.parse(raw) as { version?: number; items?: T[] }
-      return parsed.version === 1 && Array.isArray(parsed.items) ? parsed.items : null
+      return parsed.version === 2 && Array.isArray(parsed.items) ? parsed.items : null
     } catch (error) {
       console.warn('Unable to read scan cache:', error)
       return null
@@ -124,7 +124,7 @@ class FileSystemService {
     try {
       window.localStorage.setItem(
         this.getScanCacheKey(directoryHandle, kind),
-        JSON.stringify({ version: 1, updatedAt: Date.now(), items })
+        JSON.stringify({ version: 2, updatedAt: Date.now(), items })
       )
     } catch (error) {
       console.warn('Unable to write scan cache:', error)
@@ -155,6 +155,7 @@ class FileSystemService {
     const processEntry = async (handle: FileSystemDirectoryHandle, path: string = ''): Promise<void> => {
       try {
         for await (const entry of handle.values()) {
+          if (skipMaterialEntry(entry.name)) continue
           const entryPath = path ? `${path}/${entry.name}` : entry.name
           
           if (entry.kind === 'directory') {
@@ -198,6 +199,7 @@ class FileSystemService {
     const processEntry = async (handle: FileSystemDirectoryHandle, path: string = ''): Promise<void> => {
       try {
         for await (const entry of handle.values()) {
+          if (skipMaterialEntry(entry.name)) continue
           const entryPath = path ? `${path}/${entry.name}` : entry.name
           
           if (entry.kind === 'directory') {

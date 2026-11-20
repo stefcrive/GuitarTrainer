@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import {
   getSpotifyOAuthConfig,
+  getSpotifyRedirectUri,
   getBaseUrl,
   getCookieOptions,
   sanitizeRedirect,
@@ -11,16 +12,6 @@ import {
 
 export const runtime = 'nodejs'
 
-function getOrigin(value: string | null): string | null {
-  if (!value) return null
-
-  try {
-    return new URL(value).origin
-  } catch {
-    return null
-  }
-}
-
 export async function GET(request: NextRequest) {
   const { clientId, configured, redirectUri } = getSpotifyOAuthConfig()
 
@@ -29,7 +20,16 @@ export async function GET(request: NextRequest) {
   }
 
   const baseUrl = getBaseUrl(request)
-  const configuredRedirectOrigin = getOrigin(redirectUri)
+  let resolvedRedirectUri: string
+  try {
+    resolvedRedirectUri = getSpotifyRedirectUri(request, redirectUri)
+  } catch {
+    return NextResponse.json(
+      { error: 'SPOTIFY_OAUTH_REDIRECT_URI must be an absolute callback URL.' },
+      { status: 500 }
+    )
+  }
+  const configuredRedirectOrigin = new URL(resolvedRedirectUri).origin
 
   // If auth starts on a different host than the configured callback host
   // (for example localhost vs 127.0.0.1), hand off to the callback host first
@@ -42,7 +42,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(handoffUrl.toString())
   }
 
-  const resolvedRedirectUri = redirectUri ?? `${baseUrl}/api/spotify/callback`
   const state = crypto.randomUUID()
 
   const redirectParam = request.nextUrl.searchParams.get('redirect')

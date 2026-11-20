@@ -5,8 +5,10 @@ import type { MarkerLearningMetadata } from '@/types/learning'
 import type { TimeMarker, VideoAnnotation, VideoMarkerState } from '@/types/video'
 import { getAllAudioMetadata, getAudioMetadata, saveAudioMetadata } from '@/services/audio-metadata'
 import { markersService } from '@/services/markers'
+import { loadDocumentLibrary, loadDocumentState, saveDocumentState } from '@/services/documents'
+import type { DocumentMarker, LibraryDocument } from '@/types/document'
 
-export type MarkerCatalogContentType = 'local' | 'youtube' | 'audio' | 'spotify'
+export type MarkerCatalogContentType = 'local' | 'youtube' | 'audio' | 'spotify' | 'book'
 
 type MarkerStateStorage = {
   kind: 'marker-state'
@@ -18,7 +20,7 @@ type AudioMetadataStorage = {
   handle: FileSystemDirectoryHandle
 }
 
-export type MarkerCatalogStorage = MarkerStateStorage | AudioMetadataStorage
+export type MarkerCatalogStorage = MarkerStateStorage | AudioMetadataStorage | { kind: 'document'; handle: FileSystemDirectoryHandle }
 
 export type CatalogMarker = TimeMarker | AudioMarker
 export type CatalogAnnotation = VideoAnnotation | AudioAnnotation
@@ -33,12 +35,15 @@ export interface MarkerCatalogItem {
   annotation?: CatalogAnnotation
   tags: string[]
   storage: MarkerCatalogStorage
+  document?: LibraryDocument
+  documentMarker?: DocumentMarker
 }
 
 export interface LoadMarkerCatalogOptions {
   rootHandle?: FileSystemDirectoryHandle | null
   audioRootHandle?: FileSystemDirectoryHandle | null
   includeAudioFromVideoRoot?: boolean
+  includeDocuments?: boolean
 }
 
 export function getMarkerKey(contentPath: string, markerId: string): string {
@@ -55,7 +60,8 @@ export function getContentTitleFromPath(path: string): string {
 export async function loadMarkerCatalog({
   rootHandle,
   audioRootHandle,
-  includeAudioFromVideoRoot = false
+  includeAudioFromVideoRoot = false,
+  includeDocuments = true
 }: LoadMarkerCatalogOptions): Promise<MarkerCatalogItem[]> {
   const items: MarkerCatalogItem[] = []
   const seen = new Set<string>()
@@ -98,12 +104,14 @@ export async function loadMarkerCatalog({
     }
   }
 
+  if (includeDocuments && markerStateHandle) items.push(...await loadBookMarkerCatalog(markerStateHandle))
+
   return items.sort((a, b) => {
     const domainCompare = (a.marker.learning?.domain ?? '').localeCompare(b.marker.learning?.domain ?? '')
     if (domainCompare !== 0) return domainCompare
     const sourceCompare = a.sourceTitle.localeCompare(b.sourceTitle)
     if (sourceCompare !== 0) return sourceCompare
-    return a.marker.startTime - b.marker.startTime
+    return (a.documentMarker?.page ?? a.marker.startTime) - (b.documentMarker?.page ?? b.marker.startTime)
   })
 }
 
@@ -111,6 +119,16 @@ export async function updateCatalogMarker(
   item: MarkerCatalogItem,
   updater: (marker: CatalogMarker) => CatalogMarker
 ): Promise<void> {
+  if (item.storage.kind === 'document') {
+    const state = await loadDocumentState(item.storage.handle, item.contentPath)
+    const current = state?.markers.find(marker => marker.id === item.marker.id)
+    if (!state || !current) throw new Error('This book marker no longer exists. Refresh the library.')
+    const updated = updater({ ...item.marker, learning: current.learning, completionDegree: current.completionDegree })
+    await saveDocumentState(item.storage.handle, item.contentPath, { ...state, markers: state.markers.map(marker =>
+      marker.id === item.marker.id ? { ...marker, learning: updated.learning, completionDegree: updated.completionDegree ?? 0 } : marker
+    ) })
+    return
+  }
   if (item.storage.kind === 'marker-state') {
     const state = await markersService.loadMarkers(item.storage.handle, item.contentPath)
     if (!state) return
@@ -140,6 +158,20 @@ export async function updateCatalogMarker(
     },
     item.storage.handle
   )
+}
+
+// Keep page positions on the document marker; time fields are only a catalog adapter.
+export function bookCatalogItem(entry: LibraryDocument, marker: DocumentMarker, root: FileSystemDirectoryHandle): MarkerCatalogItem {
+  const annotation = { id: marker.id, markerId: marker.id, text: marker.notes, tags: marker.tags, timestamp: 0 }
+  const adapted: TimeMarker = { id: marker.id, title: marker.title, startTime: 0, endTime: 0, completionDegree: marker.completionDegree, learning: marker.learning }
+  return { markerKey: getMarkerKey(entry.path, marker.id), contentPath: entry.path, contentType: 'book', sourceTitle: entry.name,
+    markerTitle: marker.title, marker: adapted, annotation, tags: collectTags(annotation),
+    storage: { kind: 'document', handle: root }, document: entry, documentMarker: marker }
+}
+
+export async function loadBookMarkerCatalog(root: FileSystemDirectoryHandle): Promise<MarkerCatalogItem[]> {
+  const records = await loadDocumentLibrary(root)
+  return records.flatMap(({ entry, state }) => (state?.markers ?? []).map(marker => bookCatalogItem(entry, marker, root)))
 }
 
 export async function updateCatalogMarkerLearning(
@@ -186,7 +218,7 @@ function addMarkerStateItems(
       markerTitle: getMarkerTitle(marker, annotation, index),
       marker,
       annotation,
-      tags: collectTags(marker, annotation),
+      tags: collectTags(annotation),
       storage: params.storage
     })
   }
@@ -215,7 +247,7 @@ function addAudioMetadataItems(
       markerTitle: getMarkerTitle(marker, annotation, index),
       marker,
       annotation,
-      tags: collectTags(marker, annotation),
+      tags: collectTags(annotation),
       storage: params.storage
     })
   }
@@ -229,13 +261,10 @@ function getMarkerTitle(
   return marker.title?.trim() || annotation?.text?.split('\n')[0]?.replace(/^Summary:\s*/i, '').trim() || `Marker ${index + 1}`
 }
 
-function collectTags(marker: CatalogMarker, annotation?: CatalogAnnotation): string[] {
-  return Array.from(new Set([
-    ...(annotation?.tags ?? []),
-    ...(marker.learning?.topics ?? []),
-    ...(marker.learning?.weeklyPracticeRole ? [marker.learning.weeklyPracticeRole] : []),
-    ...(marker.learning?.primaryDomain ? [marker.learning.primaryDomain] : [])
-  ].map((tag) => tag.trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b))
+function collectTags(annotation?: CatalogAnnotation): string[] {
+  // Learning topics remain descriptive metadata, not extra library filter tags.
+  return Array.from(new Set((annotation?.tags ?? [])
+    .map((tag) => tag.trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b))
 }
 
 function normalizeCatalogContentType(contentType: string, contentPath: string): MarkerCatalogContentType {

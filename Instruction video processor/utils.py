@@ -106,6 +106,9 @@ def run_command(args: list[str], timeout: int | None = None) -> subprocess.Compl
     return subprocess.run(
         args,
         text=True,
+        # FFmpeg emits UTF-8 metadata; Windows' default cp1252 cannot decode it.
+        encoding="utf-8",
+        errors="replace",
         capture_output=True,
         check=False,
         timeout=timeout,

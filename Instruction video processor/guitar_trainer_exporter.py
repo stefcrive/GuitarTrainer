@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from database import ProcessorDB
-from tagger import clean_llm_tags
+from tagger import clean_marker_tags
 from utils import (
     GUITAR_TRAINER_VISIBLE_EXTENSIONS,
     clamp,
@@ -335,77 +335,11 @@ def _annotation_tags(db: ProcessorDB, video_id: int, row: Any, global_tags: list
             row_tags = row["_tags"]
         else:
             row_tags = db.fetch_chapter_tags(video_id, row["chapter_index"])
-        semantic = []
     else:
         row_tags = json_loads(row["tags"], [])
-        semantic = [row["segment_type"]] if row["segment_type"] else []
-    learning = json_loads(_row_get(row, "learning_metadata"), {})
-    learning_topics = []
-    if isinstance(learning, dict):
-        learning_topics = learning.get("topics", [])
-    primary_domain = learning.get("primary_domain") if isinstance(learning, dict) else None
-    return _compact_visible_tags([*row_tags, *semantic, *learning_topics, *global_tags], primary_domain)
-
-
-def _compact_visible_tags(tags: list[str], primary_domain: str | None = None) -> list[str]:
-    compacted: list[str] = []
-    seen_keys: set[str] = set()
-    blocked = {
-        "performance and playing with others",
-        "performance preparation",
-        "technique and exercises",
-        "harmony and voice leading",
-        "ear training and audiation",
-        "workflow practice method",
-        "main repertoire object",
-        "technical bottleneck solver",
-        "practice workflow support",
-        "theory reference only",
-    }
-    for tag in clean_llm_tags(tags, max_count=20):
-        key = _tag_similarity_key(tag)
-        if not key or key in blocked or key in seen_keys:
-            continue
-        compacted.append(tag)
-        seen_keys.add(key)
-        if len(compacted) >= 4:
-            break
-    if len(compacted) < 2:
-        for tag in _domain_support_tags(primary_domain):
-            key = _tag_similarity_key(tag)
-            if key and key not in seen_keys:
-                compacted.append(tag)
-                seen_keys.add(key)
-            if len(compacted) >= 2:
-                break
-    return compacted
-
-
-def _domain_support_tags(primary_domain: str | None) -> list[str]:
-    mapping = {
-        "Repertoire": ["performance"],
-        "Musical Devices": ["composition"],
-        "Technique & Exercises": ["exercise"],
-        "Harmony & Voice Leading": ["voice leading"],
-        "Ear Training & Audiation": ["interval recognition"],
-        "Improvisation": ["improvisation"],
-        "Composition & Arrangement": ["arrangement"],
-        "Rhythm, Time & Groove": ["timing"],
-        "Fretboard Navigation": ["fretboard navigation"],
-        "Performance & Playing With Others": ["performance"],
-        "Theory Reference": ["functional harmony"],
-        "Workflow / Practice Method": ["slow practice"],
-    }
-    return mapping.get(str(primary_domain), [])
-
-
-def _tag_similarity_key(tag: str) -> str:
-    key = tag.lower().replace("&", " and ")
-    key = re.sub(r"[-_/]+", " ", key)
-    key = re.sub(r"\s+", " ", key).strip()
-    if key.endswith("s") and len(key) > 4:
-        key = key[:-1]
-    return key
+    # Only the unit's explicitly selected tags are filters. Topics, domains, and
+    # video-wide tags can add unrelated concepts and unbounded label variants.
+    return clean_marker_tags(row_tags)
 
 
 def _marker_learning_metadata(row: Any, tags: list[str]) -> dict[str, Any]:

@@ -7,6 +7,7 @@ export interface FileSystemAudio {
   name: string
   path: string
   handle?: FileSystemFileHandle
+  sourceRootName?: string
   fileType?: 'mp3' | 'wav' | 'aiff'
 }
 

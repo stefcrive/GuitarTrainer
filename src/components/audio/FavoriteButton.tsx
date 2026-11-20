@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { AudioFile, AudioMetadata } from "@/types/audio"
-import { favoritesService } from "@/services/favorites"
+import { favoritesService, FAVORITES_UPDATED_EVENT } from "@/services/favorites"
 import { Star } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -15,8 +15,11 @@ export function FavoriteButton({ audio, metadata, directoryHandle, onFavoriteCha
   const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
-    // Check if audio is in favorites
-    favoritesService.isAudioFavorite(audio).then(setIsFavorite)
+    let disposed = false
+    const refresh = () => { void favoritesService.isAudioFavorite(audio).then(value => { if (!disposed) setIsFavorite(value) }) }
+    refresh()
+    window.addEventListener(FAVORITES_UPDATED_EVENT, refresh)
+    return () => { disposed = true; window.removeEventListener(FAVORITES_UPDATED_EVENT, refresh) }
   }, [audio])
 
   const toggleFavorite = async () => {
@@ -44,6 +47,8 @@ export function FavoriteButton({ audio, metadata, directoryHandle, onFavoriteCha
       }}
       className={`h-8 w-8 ${isFavorite ? 'text-yellow-500' : 'text-muted-foreground'}`}
       title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+      aria-label={`${isFavorite ? 'Unstar' : 'Star'} ${audio.name}`}
+      aria-pressed={isFavorite}
     >
       <Star className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
     </Button>

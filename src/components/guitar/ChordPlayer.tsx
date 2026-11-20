@@ -1,6 +1,9 @@
 "use client"
 
-import { forwardRef, useRef, useState, useImperativeHandle, useEffect } from "react"
+import { forwardRef, useRef, useState, useImperativeHandle, useEffect, useCallback } from "react"
+import { prepareInstrument } from '@/lib/instrument-audio'
+import { useWorkspaceActive } from '@/hooks/useWorkspaceNavigation'
+import { SoundSelector } from '@/components/audio/SoundSelector'
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Play, Square } from "lucide-react"
@@ -63,6 +66,7 @@ export const ChordPlayer = forwardRef<
   },
   ChordPlayerProps
 >(function ChordPlayer({ rootNote, customIntervals, onPlayingChange, octaveOffset, setOctaveOffset }, ref) {
+  const workspaceActive = useWorkspaceActive()
   const [isPlaying, setIsPlaying] = useState(false)
   
   const {
@@ -89,11 +93,44 @@ export const ChordPlayer = forwardRef<
   }, [volume, setStoreVolume])
   
   const audioContextRef = useRef<AudioContext | null>(null)
-  const oscillatorsRef = useRef<OscillatorNode[]>([])
+  const oscillatorsRef = useRef<AudioScheduledSourceNode[]>([])
+  const onPlayingChangeRef = useRef(onPlayingChange)
+  onPlayingChangeRef.current = onPlayingChange
+  const requestRef = useRef(0)
+  const endTimerRef = useRef<ReturnType<typeof setTimeout>>()
+  const [soundError, setSoundError] = useState('')
+  const [loading, setLoading] = useState(false)
   const gainNodesRef = useRef<GainNode[]>([])
   const convolverRef = useRef<ConvolverNode | null>(null)
   const dryGainRef = useRef<GainNode | null>(null)
   const wetGainRef = useRef<GainNode | null>(null)
+
+  const stopChord = useCallback(() => {
+    requestRef.current++
+    clearTimeout(endTimerRef.current)
+    setLoading(false)
+    oscillatorsRef.current.forEach(osc => {
+      try {
+        osc.stop()
+        osc.disconnect()
+      } catch (e) {
+        // Ignore errors from already stopped oscillators
+      }
+    })
+    
+    gainNodesRef.current.forEach(gain => {
+      try {
+        gain.disconnect()
+      } catch (e) {
+        // Ignore errors from already disconnected gains
+      }
+    })
+    
+    oscillatorsRef.current = []
+    gainNodesRef.current = []
+    setIsPlaying(false)
+    onPlayingChangeRef.current?.(false)
+  }, [])
 
   const createImpulseResponse = (audioContext: AudioContext, duration: number = 2.5) => {
     const sampleRate = audioContext.sampleRate
@@ -139,7 +176,7 @@ export const ChordPlayer = forwardRef<
       convolverRef.current?.disconnect()
       audioContextRef.current?.close()
     }
-  }, [])
+  }, [stopChord])
 
   useEffect(() => {
     if (wetGainRef.current) {
@@ -152,6 +189,9 @@ export const ChordPlayer = forwardRef<
       restartChord()
     }
   }, [customIntervals])
+
+  useEffect(() => { stopChord() }, [storeInstrument, stopChord])
+  useEffect(() => { if (!workspaceActive) stopChord() }, [workspaceActive, stopChord])
 
   // Frequencies for note names at octave 0 (C0 = 16.35 Hz)
   const NOTE_FREQS_OCT0: { [key: string]: number } = {
@@ -188,43 +228,7 @@ export const ChordPlayer = forwardRef<
     return openFreq * Math.pow(2, fretNumber / 12)
   }
 
-  const createOscillator = (frequency: number, interval: number, audioContext: AudioContext, totalNotes: number) => {
-    const oscillator = audioContext.createOscillator()
-    const gainNode = audioContext.createGain()
-    
-    oscillator.type = storeInstrument
-    
-    let adjustedFrequency = frequency
-    if (storeOctaveSplit) {
-      if (interval === 0) {
-        // For root note, shift down one octave
-        adjustedFrequency /= 2
-      } else {
-        // For non-root notes in chord, shift up octaves based on interval
-        const octaveShift = Math.floor(interval / 12)
-        adjustedFrequency *= Math.pow(2, octaveShift)
-      }
-    }
-    
-    oscillator.frequency.setValueAtTime(adjustedFrequency, audioContext.currentTime)
-    
-    const baseGain = volume[0] * (1 / Math.max(Math.sqrt(totalNotes), 1))
-    gainNode.gain.setValueAtTime(baseGain, audioContext.currentTime)
-    
-    oscillator.connect(gainNode)
-
-    if (dryGainRef.current && wetGainRef.current) {
-      gainNode.connect(dryGainRef.current)
-      gainNode.connect(wetGainRef.current)
-    } else {
-      gainNode.connect(audioContext.destination)
-    }
-    
-    gainNodesRef.current.push(gainNode)
-    return oscillator
-  }
-
-  const playNote = (
+  const playNote = async (
     frequency: number,
     stringName?: string,
     stringIndex?: number,
@@ -239,11 +243,6 @@ export const ChordPlayer = forwardRef<
     const audioContext = audioContextRef.current
     if (!audioContext) return
 
-    const oscillator = audioContext.createOscillator()
-    const gainNode = audioContext.createGain()
-    
-    oscillator.type = storeInstrument
-
     let adjustedFrequency = frequency
     if (stringIndex !== undefined && fretNumber !== undefined) {
       // Always use the open string frequency and semitone steps for each fret
@@ -254,104 +253,56 @@ export const ChordPlayer = forwardRef<
       adjustedFrequency = frequency * Math.pow(2, octaveOffset)
     }
 
-    oscillator.frequency.setValueAtTime(adjustedFrequency, audioContext.currentTime)
-    
-    const noteVolume = typeof noteVolumeOverride === 'number'
-      ? Math.min(Math.max(noteVolumeOverride, 0), 1)
-      : storeNoteVolume
-    gainNode.gain.setValueAtTime(noteVolume, audioContext.currentTime)
-    
-    gainNode.gain.exponentialRampToValueAtTime(
-      0.001,
-      audioContext.currentTime + storeDecayLength
-    )
-    
-    oscillator.connect(gainNode)
-    if (dryGainRef.current && wetGainRef.current) {
-      gainNode.connect(dryGainRef.current)
-      gainNode.connect(wetGainRef.current)
-    } else {
-      gainNode.connect(audioContext.destination)
-    }
-    
-    oscillator.start()
-    oscillator.stop(audioContext.currentTime + storeDecayLength)
-    
-    setTimeout(() => {
-      oscillator.disconnect()
-      gainNode.disconnect()
-    }, storeDecayLength * 1000)
+    const noteVolume = typeof noteVolumeOverride === 'number' ? Math.min(Math.max(noteVolumeOverride, 0), 1) : storeNoteVolume
+    const request = requestRef.current
+    try {
+      await audioContext.resume()
+      const midi = 69 + 12 * Math.log2(adjustedFrequency / 440)
+      const play = await prepareInstrument(audioContext, storeInstrument, [midi])
+      if (audioContext.state === 'closed' || request !== requestRef.current) return
+      const voice = play(midi, audioContext.currentTime, storeDecayLength, noteVolume * 0.5, dryGainRef.current && wetGainRef.current ? [dryGainRef.current, wetGainRef.current] : undefined)
+      oscillatorsRef.current.push(voice.source)
+      const cleanup = voice.source.onended
+      voice.source.onended = event => { cleanup?.call(voice.source, event); oscillatorsRef.current = oscillatorsRef.current.filter(source => source !== voice.source) }
+      setSoundError('')
+    } catch (error) { if (audioContext.state !== 'closed') setSoundError(error instanceof Error ? error.message : 'Sound could not load.') }
   }
 
   const updateVolume = (newVolume: number[]) => {
     setVolume(newVolume)
     const totalNotes = oscillatorsRef.current.length || 1
     gainNodesRef.current.forEach(gainNode => {
-      const baseGain = newVolume[0] * (1 / Math.max(Math.sqrt(totalNotes), 1))
+      const baseGain = newVolume[0] * 0.5 / Math.max(Math.sqrt(totalNotes), 1)
       gainNode.gain.setValueAtTime(baseGain, audioContextRef.current?.currentTime || 0)
     })
   }
 
-  const startChord = () => {
+  const startChord = async () => {
     if (!rootNote || !customIntervals.length) return
-
     initializeAudioContext()
-    
-    const audioContext = audioContextRef.current
-    if (!audioContext) return
-    
-    // Calculate root frequency directly from note without string reference
-    const rootFreq = calculateNoteFrequency(rootNote)
-    const totalNotes = customIntervals.length + 1
-
-    const oscillators = [
-      createOscillator(rootFreq, 0, audioContext, totalNotes),
-      ...customIntervals.map(interval => {
-        // Calculate frequency with octave shifts from intervals
-        const freq = rootFreq * Math.pow(2, interval / 12)
-        return createOscillator(freq, interval, audioContext, totalNotes)
-      })
-    ]
-
-    oscillators.forEach(osc => osc.start())
-    oscillatorsRef.current = oscillators
-    setIsPlaying(true)
-    onPlayingChange?.(true)
-  }
-
-  const stopChord = () => {
-    oscillatorsRef.current.forEach(osc => {
-      try {
-        osc.stop()
-        osc.disconnect()
-      } catch (e) {
-        // Ignore errors from already stopped oscillators
-      }
-    })
-    
-    gainNodesRef.current.forEach(gain => {
-      try {
-        gain.disconnect()
-      } catch (e) {
-        // Ignore errors from already disconnected gains
-      }
-    })
-    
-    oscillatorsRef.current = []
-    gainNodesRef.current = []
-    setIsPlaying(false)
-    onPlayingChange?.(false)
+    const audio = audioContextRef.current!
+    const request = ++requestRef.current
+    setLoading(true); setSoundError('')
+    const root = 69 + 12 * Math.log2(calculateNoteFrequency(rootNote) / 440)
+    const pitches = [...new Set([0, ...customIntervals])].map(interval => root + interval + (storeOctaveSplit ? interval === 0 ? -12 : Math.floor(interval / 12) * 12 : 0))
+    try {
+      await audio.resume()
+      const play = await prepareInstrument(audio, storeInstrument, pitches)
+      if (request !== requestRef.current || audio.state === 'closed') return
+      const voices = pitches.map(midi => play(midi, audio.currentTime + 0.01, storeDecayLength, volume[0] * 0.5 / Math.sqrt(pitches.length), dryGainRef.current && wetGainRef.current ? [dryGainRef.current, wetGainRef.current] : undefined))
+      oscillatorsRef.current.push(...voices.map(voice => voice.source)); gainNodesRef.current.push(...voices.map(voice => voice.gain))
+      setLoading(false); setIsPlaying(true); onPlayingChange?.(true)
+      endTimerRef.current = setTimeout(() => { if (request === requestRef.current) stopChord() }, (storeDecayLength + 0.1) * 1000)
+    } catch (error) { if (request === requestRef.current) { setLoading(false); setSoundError(error instanceof Error ? error.message : 'Sound could not load.') } }
   }
 
   const restartChord = () => {
     stopChord()
-    setTimeout(() => {
-      startChord()
-    }, 50)
+    void startChord()
   }
 
   const togglePlay = () => {
-    if (isPlaying) {
+    if (isPlaying || loading) {
       stopChord()
     } else {
       startChord()
@@ -368,39 +319,25 @@ export const ChordPlayer = forwardRef<
   }))
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-3">
+      {soundError && <div role="alert" className="text-xs text-destructive">{soundError}</div>}
       {/* Controls Row - Play, Wave, Octave Split, Volumes, Reverb, Decay, Octave */}
       <div className="flex flex-wrap items-center gap-4">
         <Button
           variant="outline"
           size="icon"
+          aria-label={loading ? 'Cancel loading sound' : isPlaying ? 'Stop chord' : 'Play chord'}
           onClick={togglePlay}
           disabled={!rootNote || !customIntervals.length}
         >
-          {isPlaying ? (
+          {isPlaying || loading ? (
             <Square className="h-4 w-4" />
           ) : (
             <Play className="h-4 w-4" />
           )}
         </Button>
 
-        <Select
-          value={storeInstrument}
-          onValueChange={(value: OscillatorType) => {
-            setStoreInstrument(value)
-            if (isPlaying) restartChord()
-          }}
-        >
-          <SelectTrigger className="w-[130px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="sine">Harmonic Sine</SelectItem>
-            <SelectItem value="triangle">Triangle Wave</SelectItem>
-            <SelectItem value="square">Square Wave</SelectItem>
-            <SelectItem value="sawtooth">Sawtooth Wave</SelectItem>
-          </SelectContent>
-        </Select>
+        <SoundSelector label="Sound" value={storeInstrument} onChange={value => { stopChord(); setStoreInstrument(value) }} />
 
         <Button
           variant={storeOctaveSplit ? "default" : "outline"}

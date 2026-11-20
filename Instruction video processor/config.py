@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import os
 from typing import Literal
 
 import yaml
@@ -14,11 +15,16 @@ class AppConfig(BaseModel):
     whisper_model: str = "small"
     whisper_device: str = "cpu"
     whisper_compute_type: str = "int8"
-    whisper_cpu_threads: int = 2
+    whisper_cpu_threads: int = Field(default_factory=lambda: min(8, max(1, (os.cpu_count() or 2) // 2)))
     whisper_num_workers: int = 1
     language: str = "auto"
     llm_provider: str = "openai"
     llm_model: str = "gpt-4o"
+    marker_decision_provider: Literal["llm", "jev"] = "llm"
+    jev_model: str = "jev-latest"
+    marker_preset: Literal["lessons", "repertoire", "devices"] = "lessons"
+    marker_prompt: str = Field(default="", max_length=4000)
+    transcription_mode: Literal["fast", "standard"] = "fast"
     max_videos_per_run: int | None = None
     skip_existing: bool = True
     force_reprocess: bool = False
@@ -48,9 +54,16 @@ class AppConfig(BaseModel):
 
 def load_config(config_path: str | Path = "config.yaml") -> AppConfig:
     path = Path(config_path)
-    if not path.exists():
-        return AppConfig()
-    data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    data = (yaml.safe_load(path.read_text(encoding="utf-8")) or {}) if path.exists() else {}
+    if os.getenv("MARKER_DECISION_PROVIDER"):
+        data["marker_decision_provider"] = os.environ["MARKER_DECISION_PROVIDER"]
+    if os.getenv("MARKER_LLM_MODEL"):
+        data["llm_model"] = os.environ["MARKER_LLM_MODEL"]
+    if os.getenv("JEV_MODEL"):
+        data["jev_model"] = os.environ["JEV_MODEL"]
+    for key in ("marker_preset", "marker_prompt", "transcription_mode"):
+        if key.upper() in os.environ:
+            data[key] = os.environ[key.upper()]
     return AppConfig(**data)
 
 

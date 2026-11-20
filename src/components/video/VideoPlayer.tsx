@@ -16,6 +16,9 @@ import { Button } from '@/components/ui/button'
 import { StatusBanner } from '@/components/ui/status-banner'
 import { ExternalLink, RefreshCw, Sparkles } from 'lucide-react'
 import { FavoriteButton } from './FavoriteButton'
+import { usePersistentPlayback } from '@/hooks/usePersistentPlayback'
+import { MarkerGenerationDialog } from './MarkerGenerationDialog'
+import type { MarkerGenerationOptions } from '@/lib/marker-generation-options'
 
 interface VideoPlayerProps {
   videoFile: File | null
@@ -61,6 +64,7 @@ export function VideoPlayer({
   const [currentTime, setCurrentTime] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isGeneratingMarkers, setIsGeneratingMarkers] = useState(false)
+  const [generationDialogOpen, setGenerationDialogOpen] = useState(false)
   const [markerGenerationJob, setMarkerGenerationJob] = useState<MarkerGenerationJob | null>(null)
   const [markerGenerationStatus, setMarkerGenerationStatus] = useState<string | null>(null)
   const [markerGenerationError, setMarkerGenerationError] = useState<string | null>(null)
@@ -107,7 +111,17 @@ export function VideoPlayer({
     getVideoElement: () => videoRef.current
   }), [])
 
-  const generateAutomaticMarkers = async () => {
+  usePersistentPlayback({
+    title: video?.name ?? videoFile?.name ?? 'Video',
+    isPlaying,
+    getCurrentTime: videoControls.getCurrentTime,
+    getDuration: videoControls.getDuration,
+    play: () => videoRef.current?.play(),
+    pause: videoControls.pause,
+    seek: videoControls.seek
+  })
+
+  const generateAutomaticMarkers = async (options: MarkerGenerationOptions) => {
     if (!video || !directoryHandle) {
       setMarkerGenerationError('Load a local video before generating markers.')
       return
@@ -125,7 +139,8 @@ export function VideoPlayer({
         body: JSON.stringify({
           videoPath: video.path,
           rootFolder: rootPath ?? undefined,
-          rootName: directoryHandle.name
+          rootName: directoryHandle.name,
+          options
         })
       })
       const payload = await response.json()
@@ -219,25 +234,6 @@ export function VideoPlayer({
   useEffect(() => {
     onControlsReady?.(videoControls)
   }, [videoControls, onControlsReady])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    const handleTimeUpdate = () => setCurrentTime(video.currentTime)
-    const handlePlay = () => setIsPlaying(true)
-    const handlePause = () => setIsPlaying(false)
-
-    video.addEventListener('timeupdate', handleTimeUpdate)
-    video.addEventListener('play', handlePlay)
-    video.addEventListener('pause', handlePause)
-
-    return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate)
-      video.removeEventListener('play', handlePlay)
-      video.removeEventListener('pause', handlePause)
-    }
-  }, [])
 
   useEffect(() => {
     let url: string | null = null
@@ -399,6 +395,10 @@ export function VideoPlayer({
         <div className="aspect-video overflow-hidden rounded bg-black">
           <video
             ref={videoRef}
+            onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onEnded={() => setIsPlaying(false)}
             className="h-full w-full object-contain"
             controls
             autoPlay={false}
@@ -420,6 +420,7 @@ export function VideoPlayer({
 
         <VideoControls
           controls={videoControls}
+          isPlaying={isPlaying}
           onPrevVideo={onPrevVideo}
           onNextVideo={onNextVideo}
           onAddMarker={() => {
@@ -445,17 +446,11 @@ export function VideoPlayer({
 
         <div className="rounded-md border bg-background p-3">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h3 className="text-sm font-medium">Automatic marker generation</h3>
-              <p className="text-xs text-muted-foreground">
-                Process this video with Whisper, then create coherent titled and tagged lesson markers.
-              </p>
-            </div>
             <Button
               type="button"
               variant="outline"
               size="sm"
-              onClick={generateAutomaticMarkers}
+              onClick={() => setGenerationDialogOpen(true)}
               disabled={isGeneratingMarkers || !video || !directoryHandle}
               className="gap-2 sm:shrink-0"
             >
@@ -467,7 +462,8 @@ export function VideoPlayer({
               {isGeneratingMarkers ? 'Generating...' : 'Automatic marker generation'}
             </Button>
           </div>
-
+          <MarkerGenerationDialog open={generationDialogOpen} onClose={() => setGenerationDialogOpen(false)}
+            onGenerate={options => void generateAutomaticMarkers(options)} />
           {markerGenerationJob && (
             <div className="mt-3 space-y-2">
               <div className="flex items-center justify-between gap-3 text-xs">

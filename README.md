@@ -12,6 +12,7 @@ A Next.js application for managing guitar courses and practice sessions. Built w
 - 📁 Local file system integration for managing your music files
 - 🎼 Recent views tracking
 - 🔍 Search functionality
+- Books and documents with PDF viewing, OCR markers, and reviewed notation/TAB practice ([setup and usage](docs/documents.md))
 
 ## Tech Stack
 
@@ -74,16 +75,18 @@ For local Spotify login, set these values in `.env` or `.env.local`:
 ```env
 NEXT_PUBLIC_SPOTIFY_CLIENT_ID=your_client_id
 SPOTIFY_CLIENT_SECRET=your_client_secret
-SPOTIFY_OAUTH_REDIRECT_URI=http://localhost:3008/api/spotify/callback
+SPOTIFY_OAUTH_REDIRECT_URI=http://127.0.0.1:3000/api/spotify/callback
 ```
 
 When using `start.bat`, it prints the exact Spotify redirect URI selected for the current run. Add that same redirect URI in the Spotify Developer Dashboard, for example:
 
 ```text
-http://localhost:3008/api/spotify/callback
+http://127.0.0.1:3000/api/spotify/callback
 ```
 
-Spotify requires an exact match, including protocol, host, port, and path. It does not support wildcard localhost ports. If you want OAuth to use one predictable port, set `START_PORT` and `END_PORT` to the same registered port before running `start.bat`.
+Spotify does not allow `localhost` redirect URIs. Use a loopback IP such as `127.0.0.1`. The callback must match the URI registered in the Spotify Developer Dashboard. For dynamically selected ports, Spotify also supports registering `http://127.0.0.1/api/spotify/callback` without a port. See [Spotify's redirect URI requirements](https://developer.spotify.com/documentation/web-api/concepts/redirect_uri).
+
+`start.bat` sets the callback to `127.0.0.1` on the selected port. Sign-in started on `localhost` first switches to that address so the OAuth state cookie and callback use the same host.
 
 ## License
 

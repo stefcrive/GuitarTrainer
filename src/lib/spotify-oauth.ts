@@ -45,6 +45,19 @@ export function getBaseUrl(request: NextRequest): string {
   return request.nextUrl.origin
 }
 
+export function getSpotifyRedirectUri(request: NextRequest, configuredUri: string | null): string {
+  const redirectUri = configuredUri || `${getBaseUrl(request)}/api/spotify/callback`
+  const url = new URL(redirectUri)
+
+  // Spotify requires a loopback IP literal; localhost callbacks are rejected.
+  if (url.hostname === 'localhost') {
+    url.hostname = '127.0.0.1'
+    return url.toString()
+  }
+
+  return redirectUri
+}
+
 export function sanitizeRedirect(request: NextRequest, redirect: string | null): string | null {
   if (!redirect) return null
 

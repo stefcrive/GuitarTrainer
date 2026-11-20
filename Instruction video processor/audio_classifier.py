@@ -4,12 +4,12 @@ import csv
 import io
 import math
 import json
-import subprocess
 import wave
 from pathlib import Path
 from typing import Any
 
 from config import AppConfig
+from utils import run_command
 
 
 SPEECH_LABELS = {"speech", "narration", "conversation", "male speech", "female speech"}
@@ -210,7 +210,7 @@ def _fallback_classify_from_transcript_gaps(
 
 
 def _probe_duration(audio_path: str | Path) -> float:
-    result = subprocess.run(
+    result = run_command(
         [
             "ffprobe",
             "-v",
@@ -221,9 +221,7 @@ def _probe_duration(audio_path: str | Path) -> float:
             "json",
             str(audio_path),
         ],
-        text=True,
-        capture_output=True,
-        check=False,
+        timeout=120,
     )
     if result.returncode != 0:
         return 0.0

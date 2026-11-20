@@ -27,10 +27,14 @@ import {
 import type { AudioAnnotation, AudioMarker } from '@/types/audio'
 import { Search, ArrowUp, ArrowDown, Video as VideoIcon, Shuffle, Music2, ExternalLink, RefreshCw, Play, Pause } from 'lucide-react'
 import { useTagStore } from '@/stores/tag-store'
+import { DocumentWorkspace } from '@/components/documents/DocumentWorkspace'
+import { loadBookMarkerCatalog, bookCatalogItem } from '@/services/marker-catalog'
+import { DOCUMENTS_UPDATED_EVENT, resolveDocument } from '@/services/documents'
+import type { LibraryDocument, DocumentMarker, DocumentState } from '@/types/document'
 import { cn } from '@/lib/utils'
 
 
-type ContentType = 'local' | 'youtube' | 'audio' | 'spotify'
+type ContentType = 'local' | 'youtube' | 'audio' | 'spotify' | 'book'
 type CompletionRange = typeof COMPLETION_RANGES[number]['value']
 type SortOrder = 'date' | 'name' | 'completion'
 
@@ -47,6 +51,8 @@ interface MarkerContent {
   path: string
   title: string
   file?: VideoFile | AudioFile
+  document?: LibraryDocument
+  documentMarkers?: DocumentMarker[]
   youtubeId?: string
 }
 
@@ -119,6 +125,7 @@ function getCompletionWeight(completion: number): number {
 }
 
 function getContentTypeLabel(type: ContentType): string {
+  if (type === 'book') return 'Books'
   if (type === 'youtube') return 'YouTube'
   if (type === 'audio') return 'Audio'
   if (type === 'spotify') return 'Spotify'
@@ -194,6 +201,7 @@ function CompactTags({ tags }: { tags: string[] }): React.ReactElement {
 
 export default function VideoSurfList(): React.ReactElement {
   const [markers, setMarkers] = useState<MarkerWithContent[]>([])
+  const [bookError, setBookError] = useState('')
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set(
     markers.map(marker => marker.content.path)
   ))
@@ -231,7 +239,7 @@ export default function VideoSurfList(): React.ReactElement {
       selectedContentPath, 
       selectedFile: persistedFile,
       selectedTags = [],
-      selectedTypes = ['local', 'youtube', 'audio', 'spotify'],
+      selectedTypes = ['local', 'youtube', 'audio', 'spotify', 'book'],
       completionFilter = 'all',
       sortOrder = 'date',
       sortDirection = 'desc'
@@ -270,7 +278,7 @@ export default function VideoSurfList(): React.ReactElement {
 
   // Effect to handle seeking when video controls become available or marker changes
   useEffect(() => {
-    if (selectedContent?.type === 'spotify') return
+    if (selectedContent?.type === 'spotify' || selectedContent?.type === 'book') return
     if (videoControls && selectedMarkerId && selectedMarkerState) {
       const marker = selectedMarkerState.markers.find(m => m.id === selectedMarkerId)
       if (marker) {
@@ -458,6 +466,7 @@ export default function VideoSurfList(): React.ReactElement {
       case 'local':
       case 'audio':
         return content.file?.name || 'Untitled'
+      case 'book':
       case 'spotify':
         return content.title || 'Spotify Track'
       case 'youtube':
@@ -481,7 +490,7 @@ export default function VideoSurfList(): React.ReactElement {
       return textMatch || tagMatch
     })
 
-    return titleMatch || annotationMatch
+    return titleMatch || annotationMatch || markerState.markers.some(marker => marker.title?.toLowerCase().includes(query))
   }, [searchQuery])
 
   const filteredMarkerStates = useMemo(() => {
@@ -560,7 +569,7 @@ export default function VideoSurfList(): React.ReactElement {
     })
 
     // If same content and video controls available, seek immediately
-    if (isSameContent && videoControls) {
+    if (isSameContent && videoControls && markerState.content.type !== 'book') {
       videoControls.seek(marker.startTime)
     }
 
@@ -678,6 +687,7 @@ export default function VideoSurfList(): React.ReactElement {
 
   // Load all markers from all content types
   useEffect(() => {
+    let cancelled = false
     async function loadAllMarkers() {
       const rootHandle = directoryStore.rootHandle ?? directoryStore.audioRootHandle
       if (!rootHandle) return
@@ -828,13 +838,47 @@ export default function VideoSurfList(): React.ReactElement {
           }
         }
 
-        setMarkers(allMarkers)
+        if (!cancelled) setMarkers(previous => [...allMarkers, ...previous.filter(item => item.content.type === 'book')])
       } catch (error) {
         console.error('Error loading markers:', error)
       }
     }
 
-    loadAllMarkers()
+    void loadAllMarkers()
+    return () => { cancelled = true }
+  }, [storageHandle, directoryStore.rootHandle, directoryStore.audioRootHandle])
+
+  useEffect(() => {
+    if (!storageHandle) return
+    let cancelled = false
+    void loadBookMarkerCatalog(storageHandle).then(items => {
+      if (cancelled) return
+      const grouped = new Map<string, MarkerWithContent>()
+      for (const item of items) {
+        let group = grouped.get(item.contentPath)
+        if (!group) { group = { markers: [], annotations: [], activeMarkerId: null, isLooping: false, content: { type: 'book', path: item.contentPath, title: item.sourceTitle, document: item.document, documentMarkers: [] } }; grouped.set(item.contentPath, group) }
+        group.markers.push(item.marker)
+        if (item.annotation) group.annotations.push(item.annotation)
+        group.content.documentMarkers!.push(item.documentMarker!)
+      }
+      setMarkers(previous => [...previous.filter(item => item.content.type !== 'book'), ...grouped.values()])
+    }).catch(error => { if (!cancelled) setBookError('Cannot load book markers: ' + error.message) })
+    return () => { cancelled = true }
+  }, [storageHandle])
+
+  useEffect(() => {
+    const update = (event: Event) => {
+      const { root, path, state } = (event as CustomEvent<{ root: FileSystemDirectoryHandle; path: string; state: DocumentState }>).detail
+      if (root !== storageHandle) return
+      void resolveDocument(root, path).then(document => {
+        const items = state.markers.map(marker => bookCatalogItem(document, marker, root))
+        const group: MarkerWithContent = { markers: items.map(item => item.marker), annotations: items.flatMap(item => item.annotation ? [item.annotation] : []), activeMarkerId: null, isLooping: false,
+          content: { type: 'book', path, title: document.name, document, documentMarkers: state.markers } }
+        setMarkers(previous => [...previous.filter(item => item.content.type !== 'book' || item.content.path !== path), ...(items.length ? [group] : [])])
+      }).catch(error => console.error('Unable to refresh book markers:', error))
+    }
+    window.addEventListener(DOCUMENTS_UPDATED_EVENT, update)
+    return () => window.removeEventListener(DOCUMENTS_UPDATED_EVENT, update)
   }, [storageHandle])
 
   // Restore selected content when page loads
@@ -872,7 +916,7 @@ export default function VideoSurfList(): React.ReactElement {
         }
       }
     }
-  }, [selectedContentPath, markers, selectedContent, directoryStore.rootHandle])
+  }, [selectedContentPath, markers, selectedContent, directoryStore.rootHandle, setMarkersSelectedFile])
 
   const spotifyOpenUrl = selectedContent?.type === 'spotify'
     ? getSpotifyOpenUrl(selectedContent.path)
@@ -997,13 +1041,15 @@ export default function VideoSurfList(): React.ReactElement {
                       </SelectContent>
                     </Select>
 
+                    {bookError && <div role="alert" className="text-xs text-destructive">{bookError}</div>}
                     {/* Type filters */}
-                    <div className="flex gap-1.5">
+                    <div className="flex flex-wrap gap-1.5">
                       {[
                         { type: 'local', label: 'Video' },
                         { type: 'youtube', label: 'YouTube' },
                         { type: 'audio', label: 'Audio' },
-                        { type: 'spotify', label: 'Spotify' }
+                        { type: 'spotify', label: 'Spotify' },
+                        { type: 'book', label: 'Books' }
                       ].map(({ type, label }) => (
                         <button
                           key={type}
@@ -1025,7 +1071,8 @@ export default function VideoSurfList(): React.ReactElement {
                     </div>
 
                     {/* Tag filters */}
-                    <div className="flex flex-wrap gap-1">
+                    <details className="rounded-md border"><summary className="cursor-pointer px-2 py-1.5 text-xs font-medium">Tags ({allTags.length}){selectedTags.length > 0 ? ` - ${selectedTags.length} selected` : ''}</summary>
+                    <div className="flex max-h-44 flex-wrap gap-1 overflow-y-auto border-t p-2">
                       {allTags.map(tag => (
                         <button
                           key={tag}
@@ -1041,6 +1088,7 @@ export default function VideoSurfList(): React.ReactElement {
                       ))}
                     </div>
 
+                    </details>
                     {/* Selected tags */}
                     {selectedTags.length > 0 && (
                       <div className="flex items-center gap-2">
@@ -1137,7 +1185,7 @@ export default function VideoSurfList(): React.ReactElement {
                               <thead className="border-b bg-muted/35 text-left text-[10px] uppercase tracking-wide text-muted-foreground">
                                 <tr>
                                   <th className="w-12 px-3 py-2">#</th>
-                                  <th className="w-32 px-3 py-2">Time</th>
+                                  <th className="w-32 px-3 py-2">{contentType === 'book' ? 'Page' : 'Time'}</th>
                                   <th className="px-3 py-2">Title</th>
                                   <th className="w-24 px-3 py-2 text-right">Progress</th>
                                   <th className="w-40 px-3 py-2">Tags</th>
@@ -1176,7 +1224,7 @@ export default function VideoSurfList(): React.ReactElement {
                                         <td className="px-3 py-2 align-middle">
                                           <span className="inline-flex h-6 items-center gap-1.5 rounded-md bg-muted px-2 font-medium tabular-nums text-foreground">
                                             <ClockIcon className="h-3.5 w-3.5 text-muted-foreground" />
-                                            {getMarkerTimeLabel(marker)}
+                                            {contentType === 'book' ? (() => { const book = markerState.content.documentMarkers?.find(item => item.id === marker.id); return book ? (book.endPage > book.page ? `${book.page}-${book.endPage}` : book.page) : '-' })() : getMarkerTimeLabel(marker)}
                                           </span>
                                         </td>
                                         <td className="px-3 py-2 align-middle">
@@ -1217,6 +1265,7 @@ export default function VideoSurfList(): React.ReactElement {
           <div className="h-full min-h-0 overflow-y-auto custom-scrollbar p-6">
             {selectedContent && selectedMarkerState && (
               <div className="space-y-4">
+                {selectedContent.type === 'book' && selectedContent.document && storageHandle && <div className="h-[75vh] min-h-96"><DocumentWorkspace key={`${selectedContent.path}:${selectedMarkerId}`} entry={selectedContent.document} root={storageHandle} initialMarkerId={selectedMarkerId ?? undefined} /></div>}
                 {selectedContent.type === 'local' && selectedFile && (
                   <VideoPlayer
                     videoFile={selectedFile}

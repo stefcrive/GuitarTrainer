@@ -30,7 +30,7 @@ if not defined PORT (
   exit /b 1
 )
 
-set "SPOTIFY_OAUTH_REDIRECT_URI=http://localhost:%PORT%/api/spotify/callback"
+set "SPOTIFY_OAUTH_REDIRECT_URI=http://127.0.0.1:%PORT%/api/spotify/callback"
 
 echo Using port %PORT%.
 echo Spotify redirect URI: %SPOTIFY_OAUTH_REDIRECT_URI%

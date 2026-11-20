@@ -52,9 +52,9 @@ Do not commit new secrets. Use `.env.local` for personal keys.
 
 ## Spotify integration notes
 - OAuth/secret use should stay server-side. Avoid exposing `SPOTIFY_CLIENT_SECRET` to client code.
-- Spotify redirect URIs must match exactly. For local development with `start.bat`, add the printed callback URL (for example `http://localhost:3008/api/spotify/callback`) to the Spotify app dashboard.
-- Spotify does not support wildcard localhost ports. For predictable OAuth, set `START_PORT` and `END_PORT` to the same registered port before running `start.bat`, or register every callback port you expect to use.
-- If using `127.0.0.1`, a LAN IP, or a deployed URL, add that exact `/api/spotify/callback` URL in Spotify and update `SPOTIFY_OAUTH_REDIRECT_URI`.
+- Spotify rejects `localhost` redirect URIs. For local development with `start.bat`, add the printed callback URL (for example `http://127.0.0.1:3000/api/spotify/callback`) to the Spotify app dashboard.
+- Spotify permits dynamic ports for loopback IP literals when registered without a port: `http://127.0.0.1/api/spotify/callback`. Otherwise, register the exact callback URL used by the app.
+- Non-loopback callbacks require HTTPS. Register the exact `/api/spotify/callback` URL in Spotify and update `SPOTIFY_OAUTH_REDIRECT_URI`.
 
 ## Coding conventions
 - TypeScript, functional React components.

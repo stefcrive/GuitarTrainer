@@ -1,9 +1,12 @@
 "use client"
 
-import { useEffect, useState, type ReactNode } from "react"
+import { useContext, useEffect, useRef, useState, type ReactNode } from "react"
+import { usePathname } from "next/navigation"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
 import { SegmentedControl } from "@/components/ui/segmented-control"
 import { cn } from "@/lib/utils"
+import { PracticeRouteContext } from "@/hooks/usePersistentPlayback"
+import { usePlaybackStore } from "@/stores/playback-store"
 
 interface WorkspaceLayoutProps {
   sidebar: ReactNode
@@ -27,7 +30,10 @@ export function WorkspaceLayout({
   onMobileViewChange
 }: WorkspaceLayoutProps) {
   const [uncontrolledMobileView, setUncontrolledMobileView] = useState<"library" | "practice">("library")
-  const [isDesktop, setIsDesktop] = useState<boolean | null>(null)
+  const pathname = usePathname()
+  const practiceRoute = useContext(PracticeRouteContext)
+  const activeHref = usePlaybackStore((state) => state.active?.href)
+  const previousActiveHref = useRef(activeHref)
   const mobileView = controlledMobileView ?? uncontrolledMobileView
 
   const setMobileView = (view: "library" | "practice") => {
@@ -36,51 +42,38 @@ export function WorkspaceLayout({
   }
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)")
-    const updateViewport = () => setIsDesktop(mediaQuery.matches)
-
-    updateViewport()
-    mediaQuery.addEventListener("change", updateViewport)
-    return () => mediaQuery.removeEventListener("change", updateViewport)
-  }, [])
-
-  if (isDesktop === null) {
-    return null
-  }
+    const playbackChanged = previousActiveHref.current !== activeHref
+    previousActiveHref.current = activeHref
+    if (!playbackChanged) return
+    if (activeHref && activeHref === pathname && activeHref === practiceRoute) {
+      setUncontrolledMobileView('practice')
+      onMobileViewChange?.('practice')
+    }
+  }, [activeHref, pathname, practiceRoute, onMobileViewChange])
 
   return (
-    <div className={cn("h-full min-h-0", className)}>
-      {!isDesktop ? (
-      <div className="flex h-full min-h-0 flex-col">
-        <div className="border-b bg-background p-2">
-          <SegmentedControl
-            className="w-full"
-            value={mobileView}
-            onValueChange={setMobileView}
-            options={[
-              { value: "library", label: sidebarLabel },
-              { value: "practice", label: contentLabel }
-            ]}
-          />
-        </div>
-        <div className={cn("min-h-0 flex-1", mobileView === "library" ? "block" : "hidden")}>
-          {sidebar}
-        </div>
-        <div className={cn("min-h-0 flex-1", mobileView === "practice" ? "block" : "hidden")}>
-          {children}
-        </div>
+    <div className={cn("flex h-full min-h-0 flex-col", className)}>
+      <div className="border-b bg-background p-2 md:hidden">
+        <SegmentedControl
+          className="w-full"
+          value={mobileView}
+          onValueChange={setMobileView}
+          options={[
+            { value: "library", label: sidebarLabel },
+            { value: "practice", label: contentLabel }
+          ]}
+        />
       </div>
-      ) : (
+      {/* Keep one tree at every breakpoint so resizing cannot destroy playback. */}
       <ResizablePanelGroup direction="horizontal" className="h-full min-h-0">
-          <ResizablePanel defaultSize={defaultSidebarSize} minSize={20} maxSize={48}>
-            {sidebar}
-          </ResizablePanel>
-          <ResizableHandle />
-          <ResizablePanel defaultSize={100 - defaultSidebarSize}>
-            {children}
-          </ResizablePanel>
-        </ResizablePanelGroup>
-      )}
+        <ResizablePanel className={cn("md:block", mobileView !== "library" && "hidden")} defaultSize={defaultSidebarSize} minSize={20} maxSize={48}>
+          {sidebar}
+        </ResizablePanel>
+        <ResizableHandle className="hidden md:flex" />
+        <ResizablePanel className={cn("md:block", mobileView !== "practice" && "hidden")} defaultSize={100 - defaultSidebarSize}>
+          {children}
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   )
 }

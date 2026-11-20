@@ -171,6 +171,10 @@ class ProcessorDB:
         }
         if "learning_metadata" not in chapter_columns:
             self.conn.execute("ALTER TABLE chapters ADD COLUMN learning_metadata TEXT")
+        video_columns = {row["name"] for row in self.conn.execute("PRAGMA table_info(videos)")}
+        if "transcript_source_hash" not in video_columns:
+            self.conn.execute("ALTER TABLE videos ADD COLUMN transcript_source_hash TEXT")
+            self.conn.execute("UPDATE videos SET transcript_source_hash = hash WHERE status = 'processed'")
 
     def log(self, level: str, message: str, video_id: int | None = None) -> None:
         self.conn.execute(
@@ -260,7 +264,6 @@ class ProcessorDB:
 
     def clear_processing_outputs(self, video_id: int) -> None:
         for table in [
-            "transcripts",
             "segments",
             "audio_events",
             "timeline_segments",
@@ -271,7 +274,7 @@ class ProcessorDB:
             self.conn.execute(f"DELETE FROM {table} WHERE video_id = ?", (video_id,))
         self.conn.commit()
 
-    def insert_transcripts(self, video_id: int, segments: list[dict[str, Any]]) -> None:
+    def insert_transcripts(self, video_id: int, segments: list[dict[str, Any]], *, commit: bool = True) -> None:
         self.conn.executemany(
             """
             INSERT INTO transcripts (video_id, segment_index, start_seconds, end_seconds, text, confidence)
@@ -289,7 +292,8 @@ class ProcessorDB:
                 for idx, segment in enumerate(segments)
             ],
         )
-        self.conn.commit()
+        if commit:
+            self.conn.commit()
 
     def insert_audio_events(self, video_id: int, events: list[dict[str, Any]]) -> None:
         self.conn.executemany(
@@ -317,7 +321,7 @@ class ProcessorDB:
         )
         self.conn.commit()
 
-    def insert_timeline_segments(self, video_id: int, segments: list[dict[str, Any]], table: str) -> None:
+    def insert_timeline_segments(self, video_id: int, segments: list[dict[str, Any]], table: str, *, commit: bool = True) -> None:
         if table not in {"timeline_segments", "segments"}:
             raise ValueError(f"Unsupported timeline table: {table}")
         self.conn.executemany(
@@ -345,13 +349,16 @@ class ProcessorDB:
                 for idx, segment in enumerate(segments)
             ],
         )
-        self.conn.commit()
+        if commit:
+            self.conn.commit()
 
     def insert_chapters_and_tags(
         self,
         video_id: int,
         chapters: list[dict[str, Any]],
         video_tags: list[str],
+        *,
+        commit: bool = True,
     ) -> None:
         self.conn.executemany(
             """
@@ -385,7 +392,16 @@ class ProcessorDB:
             "INSERT OR IGNORE INTO chapter_tags (video_id, chapter_index, tag) VALUES (?, ?, ?)",
             chapter_tag_rows,
         )
-        self.conn.commit()
+        if commit:
+            self.conn.commit()
+
+    def replace_chapter_outputs(self, video_id: int, payload: dict[str, Any]) -> None:
+        # Commit only a fully generated result. Failed requests never erase previous chapters.
+        with self.conn:
+            for table in ["chapters", "chapter_tags", "video_tags", "segments"]:
+                self.conn.execute(f"DELETE FROM {table} WHERE video_id = ?", (video_id,))
+            self.insert_timeline_segments(video_id, payload["timeline_segments"], "segments", commit=False)
+            self.insert_chapters_and_tags(video_id, payload["chapters"], payload["global_tags"], commit=False)
 
     def fetch_transcripts(self, video_id: int) -> list[sqlite3.Row]:
         return list(

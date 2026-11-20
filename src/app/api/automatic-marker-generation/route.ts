@@ -1,10 +1,14 @@
 import { spawn } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 import { existsSync, readdirSync, type Dirent } from 'node:fs'
-import { access } from 'node:fs/promises'
+import { access, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { NextRequest, NextResponse } from 'next/server'
+import { availableParallelism } from 'node:os'
+import { parseMarkerOptions, youtubeProcessorArgs } from '@/lib/marker-generation-options'
 import { resolveLocalRootPath } from '@/lib/server-root-registry'
+import { getMarkerGenerationEnv, getMarkerGenerationSettings } from '@/lib/marker-generation-settings'
+import { markerJobs as jobs, markerJobResultPath, readMarkerJob, saveMarkerJob, type MarkerGenerationJob } from '@/lib/marker-job-store'
 
 export const runtime = 'nodejs'
 
@@ -13,33 +17,18 @@ type MarkerGenerationRequest = {
   rootName?: string
   videoPath?: string
   force?: boolean
-}
-
-type MarkerGenerationJob = {
-  id: string
-  status: 'queued' | 'running' | 'completed' | 'failed'
-  phase: string
-  progress: number
-  videoPath: string
-  rootFolder: string
-  dbPath: string
-  startedAt: number
-  updatedAt: number
-  completedAt?: number
-  error?: string
-  stdout: string
-  stderr: string
-  markerCount?: number
+  youtubeVideoId?: string
+  duration?: number
+  title?: string
+  options?: unknown
 }
 
 const PROCESSOR_DIR = process.env.INSTRUCTION_VIDEO_PROCESSOR_DIR
   ?? path.join(process.cwd(), 'Instruction video processor')
 const PYTHON_EXECUTABLE = process.env.PYTHON_EXECUTABLE?.trim()
 const PYTHON_EXECUTABLE_ARGS = process.env.PYTHON_EXECUTABLE_ARGS?.trim()
-const DEFAULT_VIDEO_ROOT = path.join(process.cwd(), 'GT Listening Folder')
 const MARKER_WHISPER_MODEL = process.env.MARKER_WHISPER_MODEL ?? 'small'
 const MARKER_WHISPER_CPU_THREADS = process.env.MARKER_WHISPER_CPU_THREADS?.trim()
-const jobs = new Map<string, MarkerGenerationJob>()
 type PythonCommand = {
   command: string
   argsPrefix: string[]
@@ -49,7 +38,34 @@ let pythonCommandPromise: Promise<PythonCommand> | null = null
 
 export async function POST(request: NextRequest) {
   try {
+    const settings = await getMarkerGenerationSettings()
+    if (!settings.openaiConfigured || (settings.provider === 'jev' && !settings.jevConfigured)) {
+      return NextResponse.json({ error: !settings.openaiConfigured
+        ? 'Add an OpenAI API key in Settings for teaching-unit generation.'
+        : 'Add a Jev API key in Settings or select LLM only.' }, { status: 400 })
+    }
     const body = (await request.json()) as MarkerGenerationRequest
+    let options
+    try { options = parseMarkerOptions(body.options) }
+    catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : 'Invalid generation options.' }, { status: 400 }) }
+    if (body.youtubeVideoId !== undefined) {
+      if (typeof body.youtubeVideoId !== 'string' || !/^[A-Za-z0-9_-]{11}$/.test(body.youtubeVideoId)
+        || typeof body.duration !== 'number' || !Number.isFinite(body.duration) || body.duration <= 0) {
+        return NextResponse.json({ error: 'A valid YouTube video ID and duration are required.' }, { status: 400 })
+      }
+      const videoPath = `youtube:${body.youtubeVideoId}`
+      const active = Array.from(jobs.values()).find(job => job.videoPath === videoPath && ['queued', 'running'].includes(job.status))
+      if (active) return NextResponse.json({ ok: true, jobId: active.id, ...publicJob(active) })
+      const job = createJob('', videoPath)
+      job.options = options
+      job.dbPath = ''
+      job.youtube = { videoId: body.youtubeVideoId, duration: body.duration,
+        title: typeof body.title === 'string' ? body.title.slice(0, 500) : 'YouTube guitar lesson' }
+      saveMarkerJob(job)
+      jobs.set(job.id, job)
+      void runMarkerGenerationJob(job)
+      return NextResponse.json({ ok: true, jobId: job.id, ...publicJob(job) })
+    }
     const configuredRootFolder = body.rootFolder?.trim()
     const videoPath = normalizeContentPath(body.videoPath)
     const resolvedRootFolder = await resolveLocalRootPath({
@@ -58,8 +74,9 @@ export async function POST(request: NextRequest) {
       samplePaths: videoPath ? [videoPath] : []
     })
     const rootFolder = resolvedRootFolder
-      || process.env.GUITAR_TRAINER_VIDEO_ROOT
-      || DEFAULT_VIDEO_ROOT
+    if (!rootFolder) {
+      return NextResponse.json({ error: 'The video root selected in Settings could not be located. Re-select that folder in Settings to link its current disk path.' }, { status: 400 })
+    }
 
     if (!videoPath) {
       return NextResponse.json(
@@ -93,7 +110,15 @@ export async function POST(request: NextRequest) {
       )
     })
 
+    const activeJob = Array.from(jobs.values()).find(job =>
+      job.rootFolder === root && job.videoPath === videoPath && ['queued', 'running'].includes(job.status))
+    if (activeJob) {
+      return NextResponse.json({ ok: true, jobId: activeJob.id, ...publicJob(activeJob) })
+    }
     const job = createJob(root, videoPath)
+    job.options = options
+    job.force = body.force === true
+    saveMarkerJob(job)
     jobs.set(job.id, job)
     void runMarkerGenerationJob(job)
 
@@ -122,15 +147,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'jobId is required.' }, { status: 400 })
   }
 
-  const job = jobs.get(jobId)
+  const job = readMarkerJob(jobId)
   if (!job) {
-    return NextResponse.json({ error: 'Marker generation job was not found.' }, { status: 404 })
+    return NextResponse.json({ error: 'This generation job is no longer available. Retry generation to reconnect or reuse its saved transcript.' }, { status: 404 })
   }
 
   return NextResponse.json({
     ok: true,
     job: publicJob(job)
-  })
+  }, { headers: { 'Cache-Control': 'no-store' } })
 }
 
 function createJob(rootFolder: string, videoPath: string): MarkerGenerationJob {
@@ -160,11 +185,23 @@ async function runMarkerGenerationJob(job: MarkerGenerationJob) {
       progress: 5
     })
 
-    await assertProcessorDependenciesAvailable()
+    await assertProcessorDependenciesAvailable(Boolean(job.youtube))
+    if (job.youtube) {
+      const output = markerJobResultPath(job.id)
+      await runProcessor(youtubeProcessorArgs(job.youtube, output), job,
+      { phase: 'Fetching YouTube captions', startProgress: 8, endProgress: 97, estimateMs: 10 * 60 * 1000 })
+      const result = JSON.parse(await readFile(output, 'utf8'))
+      if (!Array.isArray(result.markers) || !result.markers.length || !Array.isArray(result.annotations)) {
+        throw new Error('YouTube generation returned no usable markers.')
+      }
+      updateJob(job, { status: 'completed', progress: 100, phase: 'YouTube markers ready',
+        result, markerCount: result.markers.length, completedAt: Date.now() })
+      return
+    }
     await assertMediaToolsAvailable()
 
     await runProcessor(buildProcessArgs(job), job, {
-      phase: 'Processing audio with Whisper',
+      phase: 'Preparing transcript and teaching units',
       startProgress: 8,
       endProgress: 90,
       estimateMs: 90 * 60 * 1000
@@ -213,13 +250,13 @@ function buildProcessArgs(job: MarkerGenerationJob): string[] {
     job.rootFolder,
     '--video-path',
     job.videoPath,
+    job.force ? '--force' : '--regenerate',
+    '--skip-audio-analysis',
     '--whisper-model',
     MARKER_WHISPER_MODEL
   ]
 
-  if (MARKER_WHISPER_CPU_THREADS) {
-    args.push('--whisper-cpu-threads', MARKER_WHISPER_CPU_THREADS)
-  }
+  args.push('--whisper-cpu-threads', MARKER_WHISPER_CPU_THREADS || String(Math.min(8, Math.max(1, Math.floor(availableParallelism() / 2)))))
 
   return args
 }
@@ -247,7 +284,10 @@ async function runProcessor(
   }
 ): Promise<void> {
   const python = await resolvePythonCommand()
+  const markerEnv = await getMarkerGenerationEnv()
   return new Promise((resolve, reject) => {
+    let phase = options.phase
+    let lineBuffer = ''
     const phaseStartedAt = Date.now()
     updateJob(job, {
       phase: options.phase,
@@ -261,14 +301,16 @@ async function runProcessor(
       const eased = 1 - Math.pow(1 - ratio, 2)
       const progress = options.startProgress + (options.endProgress - options.startProgress) * eased
       updateJob(job, {
-        phase: options.phase,
+        phase,
         progress: Math.min(options.endProgress, Math.max(job.progress, Math.round(progress)))
       })
     }, 1000)
 
     const child = spawn(python.command, [...python.argsPrefix, ...args], {
       cwd: PROCESSOR_DIR,
-      env: buildProcessorEnv(),
+      env: { ...buildProcessorEnv(), ...markerEnv, PYTHONUNBUFFERED: '1', PYTHONUTF8: '1', PYTHONIOENCODING: 'utf-8',
+        MARKER_PRESET: job.options?.preset ?? 'lessons', MARKER_PROMPT: job.options?.customPrompt ?? '',
+        TRANSCRIPTION_MODE: job.options?.transcriptionMode ?? 'fast' },
       stdio: ['ignore', 'pipe', 'pipe'],
       shell: false
     })
@@ -278,6 +320,15 @@ async function runProcessor(
     child.stdout.on('data', (chunk) => {
       const text = chunk.toString()
       updateJob(job, { stdout: trimOutput(job.stdout + text) })
+      lineBuffer += text
+      const lines = lineBuffer.split(/\r?\n/)
+      lineBuffer = lines.pop() ?? ''
+      for (const line of lines) {
+        if (line.startsWith('MARKER_PHASE: ')) {
+          phase = line.slice('MARKER_PHASE: '.length).trim()
+          updateJob(job, { phase })
+        }
+      }
     })
 
     child.stderr.on('data', (chunk) => {
@@ -308,6 +359,7 @@ async function runProcessor(
 
 function updateJob(job: MarkerGenerationJob, patch: Partial<MarkerGenerationJob>) {
   Object.assign(job, patch, { updatedAt: Date.now() })
+  try { saveMarkerJob(job) } catch { console.error('Unable to persist marker generation progress.') }
 }
 
 function publicJob(job: MarkerGenerationJob) {
@@ -324,7 +376,8 @@ function publicJob(job: MarkerGenerationJob) {
     elapsedMs: (job.completedAt ?? Date.now()) - job.startedAt,
     error: job.error,
     stdout: job.stdout,
-    stderr: job.stderr
+    stderr: job.stderr,
+    result: job.result
   }
 }
 
@@ -335,7 +388,7 @@ function trimOutput(value: string): string {
 function pruneJobs() {
   const cutoff = Date.now() - 24 * 60 * 60 * 1000
   for (const [id, job] of jobs) {
-    if (job.updatedAt < cutoff) {
+    if (job.updatedAt < cutoff && (job.status === 'completed' || job.status === 'failed')) {
       jobs.delete(id)
     }
   }
@@ -353,9 +406,9 @@ function assertMediaToolsAvailable(): Promise<void> {
   ]).then(() => undefined)
 }
 
-async function assertProcessorDependenciesAvailable(): Promise<void> {
+async function assertProcessorDependenciesAvailable(youtube = false): Promise<void> {
   const python = await resolvePythonCommand()
-  const requiredModules = ['typer', 'rich', 'yaml', 'pydantic', 'faster_whisper']
+  const requiredModules = ['typer', 'rich', 'yaml', 'pydantic', 'openai', youtube ? 'youtube_transcript_api' : 'faster_whisper']
   await new Promise<void>((resolve, reject) => {
     const script = [
       'import importlib.util, sys',

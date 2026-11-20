@@ -1,5 +1,7 @@
 'use client'
 
+import { RelatedMaterialLinks } from '@/components/materials/MaterialLibrary'
+import { materialFolderPath } from '@/lib/practice-material'
 import { useState, useEffect } from 'react'
 import { VideoFile } from '@/services/file-system'
 import { ChevronDown, ChevronRight, Folder, Video as VideoIcon, Star } from 'lucide-react'
@@ -30,8 +32,7 @@ function organizeByFolder(videos: VideoFile[]): FolderNode {
   const structure = createFolderNode()
 
   videos.forEach(video => {
-    const parts = video.path.split('/')
-    const fileName = parts.pop() // Remove file name
+    const parts = materialFolderPath(video.path).split('/').filter(Boolean)
     let current = structure
 
     for (const part of parts) {
@@ -52,6 +53,7 @@ function FolderItem({
   name,
   content,
   level = 0,
+  folderPath = '',
   onVideoSelect,
   selectedVideo,
   directoryHandle
@@ -59,14 +61,15 @@ function FolderItem({
   name: string
   content: FolderNode
   level?: number
+  folderPath?: string
   onVideoSelect: (video: VideoFile) => void
   selectedVideo?: VideoFile | null
   directoryHandle: FileSystemDirectoryHandle
 }) {
   const { expandedFolders, expandFolder, collapseFolder } = useDirectoryStore()
-  const isOpen = name === '' || expandedFolders.includes(name)
+  const isOpen = name === '' || expandedFolders.includes(folderPath)
   const hasContent = content.videos.length > 0 || Object.keys(content.folders).length > 0
-  const paddingLeft = `${level * 16}px`
+  const paddingLeft = `${level * 12}px`
 
   if (!hasContent) return null
 
@@ -74,9 +77,10 @@ function FolderItem({
     <div>
       {name && (
         <button
-          className="flex items-center w-full p-2 hover:bg-accent rounded text-left font-medium"
+          className="flex h-8 items-center w-full px-1 text-xs hover:bg-accent rounded text-left font-medium"
+          aria-expanded={isOpen}
           style={{ paddingLeft }}
-          onClick={() => isOpen ? collapseFolder(name) : expandFolder(name)}
+          onClick={() => isOpen ? collapseFolder(folderPath) : expandFolder(folderPath)}
         >
           {isOpen ? (
             <ChevronDown className="h-4 w-4 mr-2 text-muted-foreground" />
@@ -84,7 +88,7 @@ function FolderItem({
             <ChevronRight className="h-4 w-4 mr-2 text-muted-foreground" />
           )}
           <Folder className="h-4 w-4 mr-2 text-blue-600" />
-          <span className="flex-1">{name}</span>
+          <span className="min-w-0 flex-1 truncate" title={folderPath}>{name}</span>
         </button>
       )}
       
@@ -103,10 +107,11 @@ function FolderItem({
           ))}
           
           {/* Nested folders */}
-          {Object.entries(content.folders).map(([folderName, folderContent]) => (
+          {Object.entries(content.folders).sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true })).map(([folderName, folderContent]) => (
             <FolderItem
               key={folderName}
               name={folderName}
+              folderPath={folderPath ? `${folderPath}/${folderName}` : folderName}
               content={folderContent}
               level={level + 1}
               onVideoSelect={onVideoSelect}
@@ -145,14 +150,14 @@ function VideoFileItem({
 
   return (
     <div
-      className={`flex items-center w-full py-0.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
+      className={`flex items-center w-full h-8 text-xs py-0.5 px-2 hover:bg-accent rounded text-left cursor-pointer ${
         selected ? 'bg-accent text-accent-foreground' : ''
       } ${isFavorite ? 'bg-yellow-50 dark:bg-yellow-900/20 border-l-2 border-yellow-400' : ''}`}
-      style={{ paddingLeft: `${(level + 1) * 16}px` }}
-      onClick={() => onSelect(video)}
+      style={{ paddingLeft: `${Math.min(level + 1, 4) * 12}px` }}
+
     >
-      <div className="flex items-center gap-2 flex-1 min-w-0">
-        <VideoIcon className="h-4 w-4 text-blue-500 flex-shrink-0" />
+      <button type="button" aria-pressed={selected} title={video.path} onClick={() => onSelect(video)} className="flex h-8 items-center gap-2 flex-1 min-w-0 rounded text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <VideoIcon className="h-3.5 w-3.5 text-blue-500 flex-shrink-0" />
         <VideoTitle
           title={video.name}
           videoPath={video.path}
@@ -161,7 +166,8 @@ function VideoFileItem({
         {isFavorite && (
           <Star className="h-3 w-3 text-yellow-500 fill-current flex-shrink-0" />
         )}
-      </div>
+      </button>
+      <RelatedMaterialLinks path={video.path} kind="video" root={directoryHandle} />
     </div>
   )
 }

@@ -2,45 +2,25 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
-import {
-  CalendarDays,
-  CheckCircle2,
-  Clock,
-  Pause,
-  Play,
-  RefreshCw,
-  Target
-} from 'lucide-react'
+import { CalendarDays, CheckCircle2, Play, RefreshCw, Search, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Slider } from '@/components/ui/slider'
-import { EmptyState } from '@/components/ui/empty-state'
+import { MetricBadge } from '@/components/ui/metric-badge'
 import { LearningDomainSelect } from '@/components/learning/LearningDomainSelect'
+import { PracticeSession, PracticeHelp, formatMarkerRange } from '@/components/learning/PracticeSession'
 import { useDirectoryStore } from '@/stores/directory-store'
-import {
-  generateAndSaveWeeklyRoutine,
-  loadLatestLearningRoutine,
-  loadLearningStateMap,
-  loadLearningStats,
-  recordPracticeProgress
-} from '@/services/learning'
-import {
-  loadMarkerCatalog,
-  updateCatalogMarkerLearning,
-  updateCatalogMarkerProgress,
-  type MarkerCatalogItem
-} from '@/services/marker-catalog'
-import {
-  LEARNING_DOMAIN_OPTIONS,
-  getLearningDomainLabel,
-  type LearningDomain,
-  type LearningMarkerState,
-  type LearningRoutine,
-  type LearningStats
-} from '@/types/learning'
+import { generateAndSaveWeeklyRoutine, loadLatestLearningRoutine, loadLearningStateMap, loadLearningStats } from '@/services/learning'
+import { loadMarkerCatalog, updateCatalogMarkerLearning, type MarkerCatalogItem } from '@/services/marker-catalog'
+import { LEARNING_DOMAIN_OPTIONS, getLearningDomainLabel, type LearningDomain, type LearningMarkerState, type LearningRoutine, type LearningStats } from '@/types/learning'
 import { cn } from '@/lib/utils'
 
-const DEFAULT_TARGET_MINUTES = 45
+type LibraryFilter = LearningDomain | 'unassigned'
+const DOMAIN_HELP: Record<LibraryFilter, string> = {
+  repertoire: 'Material to perform: tunes, sections, arrangements, and playing with others. Build a complete musical result.',
+  'musical-device': 'Reusable musical ideas: harmony, voice leading, improvisation, and composition. Extract an idea, vary it, then apply it to repertoire.',
+  training: 'Supporting skills: technique, ear training, rhythm, fretboard navigation, theory, and practice methods. Work on a specific limitation, then return to the music.',
+  unassigned: 'Choose a category to include a marker in routine generation. Automatic markers use the same three categories; you can correct them here.'
+}
 
 export function LearningDashboard() {
   const { rootHandle, audioRootHandle, scanVideoFolderForAudio } = useDirectoryStore()
@@ -49,655 +29,266 @@ export function LearningDashboard() {
   const [stateMap, setStateMap] = useState<Map<string, LearningMarkerState>>(new Map())
   const [routine, setRoutine] = useState<LearningRoutine | null>(null)
   const [stats, setStats] = useState<LearningStats | null>(null)
-  const [targetMinutes, setTargetMinutes] = useState(DEFAULT_TARGET_MINUTES)
+  const [targetMinutes, setTargetMinutes] = useState(45)
   const [selectedItem, setSelectedItem] = useState<MarkerCatalogItem | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [sessionQueue, setSessionQueue] = useState<string[]>([])
+  const [filter, setFilter] = useState<LibraryFilter>('repertoire')
+  const [query, setQuery] = useState('')
+  const [dueOnly, setDueOnly] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [generating, setGenerating] = useState(false)
+  const [updatingKey, setUpdatingKey] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
+  const requestRef = useRef(0)
 
   const refresh = useCallback(async () => {
-    if (!storageHandle) return
+    const request = ++requestRef.current
+    if (!storageHandle) {
+      setCatalog([])
+      setStateMap(new Map())
+      setRoutine(null)
+      setStats(null)
+      setLoading(false)
+      return
+    }
     setLoading(true)
     setError(null)
     try {
       const [nextCatalog, nextStateMap, nextRoutine, nextStats] = await Promise.all([
-        loadMarkerCatalog({
-          rootHandle,
-          audioRootHandle,
-          includeAudioFromVideoRoot: scanVideoFolderForAudio
-        }),
-        loadLearningStateMap(storageHandle),
-        loadLatestLearningRoutine(storageHandle),
-        loadLearningStats(storageHandle)
+        loadMarkerCatalog({ rootHandle, audioRootHandle, includeAudioFromVideoRoot: scanVideoFolderForAudio }),
+        loadLearningStateMap(storageHandle), loadLatestLearningRoutine(storageHandle), loadLearningStats(storageHandle)
       ])
+      if (request !== requestRef.current) return
       setCatalog(nextCatalog)
       setStateMap(nextStateMap)
       setRoutine(nextRoutine)
       setStats(nextStats)
+      if (nextRoutine) setTargetMinutes(nextRoutine.targetMinutes)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to load learning data.')
+      if (request === requestRef.current) setError(err instanceof Error ? err.message : 'Unable to load practice data.')
     } finally {
-      setLoading(false)
+      if (request === requestRef.current) setLoading(false)
     }
   }, [audioRootHandle, rootHandle, scanVideoFolderForAudio, storageHandle])
 
   useEffect(() => {
+    setSelectedItem(null)
     void refresh()
+    const requests = requestRef
+    return () => { requests.current++ }
   }, [refresh])
 
-  const assignedCatalog = useMemo(
-    () => catalog.filter((item) => item.marker.learning?.domain),
-    [catalog]
-  )
-  const unassignedCatalog = useMemo(
-    () => catalog.filter((item) => !item.marker.learning?.domain).slice(0, 12),
-    [catalog]
-  )
-  const catalogByKey = useMemo(
-    () => new Map(catalog.map((item) => [item.markerKey, item])),
-    [catalog]
-  )
+  const catalogByKey = useMemo(() => new Map(catalog.map((item) => [item.markerKey, item])), [catalog])
+  const counts = useMemo(() => {
+    const result = { repertoire: 0, 'musical-device': 0, training: 0, unassigned: 0 }
+    catalog.forEach((item) => { result[item.marker.learning?.domain ?? 'unassigned']++ })
+    return result
+  }, [catalog])
+  const visibleItems = useMemo(() => {
+    const search = query.trim().toLowerCase()
+    return catalog.filter((item) =>
+      (item.marker.learning?.domain ?? 'unassigned') === filter &&
+      (!dueOnly || !stateMap.get(item.markerKey)?.dueAt || stateMap.get(item.markerKey)!.dueAt! <= Date.now()) &&
+      (!search || [item.markerTitle, item.sourceTitle, item.annotation?.text, ...item.tags,
+        ...(item.marker.learning?.topics ?? []), item.marker.learning?.weeklyPracticeRole,
+        item.marker.learning?.primaryDomain].join(' ').toLowerCase().includes(search))
+    ).sort((a, b) => (stateMap.get(a.markerKey)?.dueAt ?? 0) - (stateMap.get(b.markerKey)?.dueAt ?? 0))
+  }, [catalog, filter, query, dueOnly, stateMap])
 
+  const openMarker = (item: MarkerCatalogItem, queue: string[] = []) => {
+    setSessionQueue(queue)
+    setSelectedItem(item)
+    setNotice(null)
+  }
   const handleGenerate = async () => {
     if (!storageHandle) return
     setGenerating(true)
     setError(null)
     try {
-      const nextRoutine = await generateAndSaveWeeklyRoutine(storageHandle, catalog, targetMinutes)
-      setRoutine(nextRoutine)
-      const [nextStateMap, nextStats] = await Promise.all([
-        loadLearningStateMap(storageHandle),
-        loadLearningStats(storageHandle)
-      ])
-      setStateMap(nextStateMap)
-      setStats(nextStats)
+      const next = await generateAndSaveWeeklyRoutine(storageHandle, catalog, targetMinutes)
+      setRoutine(next)
+      setTargetMinutes(next.targetMinutes)
+      setNotice('Routine ready. Open a marker to begin practicing.')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to generate a routine.')
-    } finally {
-      setGenerating(false)
-    }
+    } finally { setGenerating(false) }
   }
-
   const handleDomainChange = async (item: MarkerCatalogItem, domain: LearningDomain | undefined) => {
-    await updateCatalogMarkerLearning(item, { domain })
-    setCatalog((current) =>
-      current.map((catalogItem) =>
-        catalogItem.markerKey === item.markerKey
-          ? {
-              ...catalogItem,
-              marker: {
-                ...catalogItem.marker,
-                learning: {
-                  ...(catalogItem.marker.learning ?? {}),
-                  domain
-                }
-              }
-            }
-          : catalogItem
-      )
-    )
+    setUpdatingKey(item.markerKey)
+    setError(null)
+    try {
+      await updateCatalogMarkerLearning(item, { domain })
+      setCatalog((current) => current.map((entry) => entry.markerKey === item.markerKey
+        ? { ...entry, marker: { ...entry.marker, learning: { ...entry.marker.learning, domain } } } : entry))
+      setNotice('Category saved. Generate a new routine to use the updated categories.')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to save the category.')
+    } finally { setUpdatingKey(null) }
   }
 
-  const handleProgressSaved = async () => {
-    await refresh()
-  }
+  if (!storageHandle) return (
+    <div className="flex flex-wrap items-center justify-center gap-3 p-6">
+      <Target className="h-5 w-5 text-muted-foreground" />
+      <h1 className="text-sm font-medium">Select a library folder to start practicing</h1>
+      <Button asChild size="sm"><Link href="/settings">Open Settings</Link></Button>
+    </div>
+  )
 
-  if (!storageHandle) {
-    return (
-      <div className="mx-auto flex h-full w-full max-w-5xl items-center justify-center p-6">
-        <EmptyState
-          icon={Target}
-          title="Select a library folder to build routines"
-          description="The learning desk uses the local marker database in your selected video or audio root."
-          action={
-            <Button asChild>
-              <Link href="/settings">Open Settings</Link>
-            </Button>
-          }
-        />
-      </div>
-    )
-  }
-
+  const today = stats?.dayStats.find((day) => day.date === localDate())
+  const nextKey = sessionQueue[sessionQueue.indexOf(selectedItem?.markerKey ?? '') + 1]
+  const nextItem = nextKey ? catalogByKey.get(nextKey) : undefined
   return (
-    <div className="mx-auto flex w-full max-w-[92rem] flex-col gap-5 p-4 md:p-6">
-      <section className="flex flex-col gap-4 border-b pb-5 lg:flex-row lg:items-end lg:justify-between">
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Target className="h-4 w-4" />
-            Weekly learning system
-          </div>
-          <h1 className="text-2xl font-semibold">Practice Desk</h1>
-          <p className="max-w-3xl text-sm text-muted-foreground">
-            Build output-oriented practice weeks from marker domains, dominance, due dates, and session history.
-          </p>
-        </div>
+    <div className="mx-auto flex w-full max-w-[92rem] flex-col gap-3 p-3 md:p-4">
+      <header className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="flex items-center gap-2 text-lg font-semibold"><Target className="h-5 w-5" />Practice Desk</h1>
         <div className="flex flex-wrap items-center gap-2">
-          <label className="text-xs font-medium text-muted-foreground" htmlFor="target-minutes">
-            Daily target
-          </label>
-          <Input
-            id="target-minutes"
-            type="number"
-            min={15}
-            max={180}
-            value={targetMinutes}
-            onChange={(event) => setTargetMinutes(Number(event.target.value))}
-            className="h-9 w-24"
-          />
-          <Button variant="outline" size="sm" onClick={() => void refresh()} disabled={loading} className="gap-2">
+          <label htmlFor="target-minutes" className="text-xs text-muted-foreground">Daily minutes</label>
+          <Input id="target-minutes" type="number" min={15} max={180} step={1} value={targetMinutes}
+            onChange={(event) => setTargetMinutes(Number(event.target.value))} className="h-8 w-16" />
+          <Button variant="outline" size="sm" onClick={() => void refresh()} disabled={loading || generating} aria-label="Refresh practice desk">
             <RefreshCw className={cn('h-4 w-4', loading && 'animate-spin')} />
-            Refresh
           </Button>
-          <Button size="sm" onClick={handleGenerate} disabled={generating || assignedCatalog.length === 0} className="gap-2">
-            <CalendarDays className="h-4 w-4" />
-            {generating ? 'Generating' : 'Generate Week'}
+          <Button size="sm" onClick={handleGenerate} disabled={loading || generating || catalog.length === counts.unassigned || targetMinutes < 15 || targetMinutes > 180}>
+            <CalendarDays className="mr-2 h-4 w-4" />{generating ? 'Generating...' : routine ? 'Regenerate routine' : 'Generate routine'}
           </Button>
+          <PracticeHelp label="Routine generation" text="Builds a repeatable daily routine from your categories, due dates, and dominance. Each available category gets a place before supporting items are added. Regenerating replaces the displayed plan; practice history is kept." />
         </div>
-      </section>
-
-      {error && (
-        <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {error}
-        </div>
-      )}
-
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <RoutinePanel
-          routine={routine}
-          catalogByKey={catalogByKey}
-          onOpenMarker={setSelectedItem}
-        />
-        <StatsPanel stats={stats} />
-      </section>
-
-      <section className="grid gap-4 xl:grid-cols-3">
-        {LEARNING_DOMAIN_OPTIONS.map((domain) => (
-          <DomainMarkerTable
-            key={domain.value}
-            domain={domain.value}
-            items={catalog.filter((item) => item.marker.learning?.domain === domain.value)}
-            stateMap={stateMap}
-            onDomainChange={handleDomainChange}
-            onOpenMarker={setSelectedItem}
-          />
-        ))}
-      </section>
-
-      <section className="rounded-md border bg-background">
-        <div className="flex items-center justify-between gap-3 border-b px-4 py-3">
-          <div>
-            <h2 className="text-sm font-semibold">Unassigned Marker Queue</h2>
-            <p className="text-xs text-muted-foreground">
-              Assign a domain to let a marker enter weekly routine pooling.
-            </p>
+      </header>
+      {error && <div role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</div>}
+      {notice && <div role="status" className="flex items-center justify-between gap-2 rounded-md border px-3 py-2 text-xs">{notice}<button onClick={() => setNotice(null)} className="underline">Dismiss</button></div>}
+      <div className="flex flex-wrap items-center gap-2" aria-label="Practice statistics">
+        <MetricBadge value={`${Math.round((today?.totalPracticeMs ?? 0) / 60000)} / ${targetMinutes}m`} label="today" />
+        <MetricBadge value={stats?.practiceDays ?? 0} label="practice days" />
+        <MetricBadge value={`${Math.round((stats?.totalPracticeMs ?? 0) / 60000)}m`} label="total" />
+        <MetricBadge value={stats?.practicedMarkerCount ?? 0} label="markers practiced" />
+        <MetricBadge value={`${(stats?.averageProgressDelta ?? 0).toFixed(1)} pp`} label="avg. progress" />
+        <PracticeHelp label="Practice history" text={stats?.dayStats.length ? stats.dayStats.slice(-14).map((day) => `${day.date}: ${Math.round(day.totalPracticeMs / 60000)}m, ${day.markerCount} markers`).join('; ') : 'No practice logged yet. Save a practice session to update these totals.'} />
+      </div>
+      <RoutinePanel routine={routine} catalogByKey={catalogByKey} stateMap={stateMap} loading={loading} onOpenMarker={openMarker} />
+      <section className="min-w-0 rounded-md border bg-background" aria-label="Practice library">
+        <div className="flex flex-wrap items-center gap-2 border-b p-2">
+          <div className="flex max-w-full flex-wrap gap-1" role="group" aria-label="Marker category">
+            {[...LEARNING_DOMAIN_OPTIONS, { value: 'unassigned' as const, label: 'Unassigned' }].map((option) => (
+              <Button key={option.value} size="sm" variant={filter === option.value ? 'secondary' : 'ghost'} aria-pressed={filter === option.value}
+                onClick={() => setFilter(option.value)} className="gap-2 text-xs">
+                {option.label}<span className="text-muted-foreground tabular-nums">{counts[option.value]}</span>
+              </Button>
+            ))}
           </div>
-          <span className="text-xs text-muted-foreground">{catalog.length - assignedCatalog.length} waiting</span>
+          <PracticeHelp label={filter === 'unassigned' ? 'Unassigned markers' : getLearningDomainLabel(filter)} text={DOMAIN_HELP[filter]} />
+          <div className="relative ml-auto min-w-40 flex-1 sm:max-w-72">
+            <Search className="pointer-events-none absolute left-2 top-2 h-4 w-4 text-muted-foreground" />
+            <Input aria-label="Search markers, sources, and tags" placeholder="Search markers, sources, tags" value={query} onChange={(event) => setQuery(event.target.value)} className="h-8 pl-8 text-xs" />
+          </div>
+          <label className="flex h-8 items-center gap-2 px-1 text-xs"><input type="checkbox" checked={dueOnly} onChange={(event) => setDueOnly(event.target.checked)} />Due / new</label>
+          <span className="text-xs text-muted-foreground tabular-nums">{visibleItems.length} shown</span>
         </div>
-        <MarkerQueue
-          items={unassignedCatalog}
-          onDomainChange={handleDomainChange}
-          onOpenMarker={setSelectedItem}
-        />
+        {loading ? <div role="status" className="p-4 text-sm text-muted-foreground">Loading markers...</div> : (
+          <MarkerTable items={visibleItems} stateMap={stateMap} updatingKey={updatingKey} onDomainChange={handleDomainChange} onOpenMarker={openMarker}
+            emptyText={query || dueOnly ? 'No markers match these filters.' : counts[filter] === 0 ? 'No markers in this category. Assign categories here or generate markers in your media library.' : 'No markers available.'} />
+        )}
       </section>
-
-      {selectedItem && (
-        <PracticeMarkerModal
-          item={selectedItem}
-          sessionId={routine?.id}
-          state={stateMap.get(selectedItem.markerKey)}
-          storageHandle={storageHandle}
-          onClose={() => setSelectedItem(null)}
-          onSaved={handleProgressSaved}
-        />
-      )}
+      {selectedItem && <PracticeSession key={selectedItem.markerKey} item={selectedItem}
+        sessionId={routine?.items.some((entry) => entry.markerKey === selectedItem.markerKey) ? routine.id : undefined}
+        plannedMinutes={routine?.items.find((entry) => entry.markerKey === selectedItem.markerKey)?.plannedMinutes}
+        state={stateMap.get(selectedItem.markerKey)} storageHandle={storageHandle} nextItem={nextItem}
+        onClose={() => setSelectedItem(null)} onNext={() => { if (nextItem) setSelectedItem(nextItem) }}
+        onSaved={async () => { await refresh(); setNotice('Practice saved.') }} />}
     </div>
   )
 }
 
-function RoutinePanel({
-  routine,
-  catalogByKey,
-  onOpenMarker
-}: {
-  routine: LearningRoutine | null
-  catalogByKey: Map<string, MarkerCatalogItem>
-  onOpenMarker: (item: MarkerCatalogItem) => void
+function RoutinePanel({ routine, catalogByKey, stateMap, loading, onOpenMarker }: {
+  routine: LearningRoutine | null; catalogByKey: Map<string, MarkerCatalogItem>; stateMap: Map<string, LearningMarkerState>; loading: boolean
+  onOpenMarker: (item: MarkerCatalogItem, queue?: string[]) => void
 }) {
-  if (!routine) {
-    return (
-      <div className="rounded-md border bg-background">
-        <div className="border-b px-4 py-3">
-          <h2 className="text-sm font-semibold">Today&apos;s Routine</h2>
-        </div>
-        <EmptyState
-          icon={CalendarDays}
-          title="No weekly routine generated yet"
-          description="Assign a few marker domains, then generate a week."
-        />
-      </div>
-    )
+  const available = routine?.items.filter((item) => catalogByKey.has(item.markerKey)) ?? []
+  const practicedToday = (key: string) => {
+    const last = stateMap.get(key)?.lastPracticedAt
+    return Boolean(last && localDate(last) === localDate())
   }
-
+  const pending = available.filter((item) => !practicedToday(item.markerKey))
+  const next = pending[0]
+  const dayIndex = (new Date().getDay() + 6) % 7
   return (
-    <div className="rounded-md border bg-background">
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b px-4 py-3">
-        <div className="space-y-1">
-          <h2 className="text-sm font-semibold">Today&apos;s Routine</h2>
-          <p className="max-w-3xl text-xs text-muted-foreground">{routine.objective}</p>
-        </div>
-        <div className="rounded-md bg-muted px-2 py-1 text-xs font-medium tabular-nums">
-          {routine.targetMinutes} min/day
-        </div>
+    <section className="min-w-0 rounded-md border bg-background" aria-label="Today's routine">
+      <div className="flex flex-wrap items-center gap-2 border-b px-3 py-2">
+        <h2 className="text-sm font-semibold">Today&apos;s routine</h2>
+        {routine && <>
+          <PracticeHelp label="Weekly objective" text={`${routine.objective} Started ${routine.routineDate}. Today's focus: ${routine.dailySchedule[dayIndex]?.focus ?? 'Practice the selected material'}.`} />
+          <span className="text-xs text-muted-foreground">{available.length - pending.length}/{available.length} practiced today</span>
+          <span className="text-xs text-muted-foreground tabular-nums">{routine.targetMinutes} min</span>
+          <Button size="sm" className="ml-auto gap-2" disabled={!next || loading} onClick={() => next && onOpenMarker(catalogByKey.get(next.markerKey)!, pending.map((item) => item.markerKey))}>
+            <Play className="h-3.5 w-3.5" />{next ? pending.length === available.length ? 'Start routine' : 'Continue routine' : 'Today complete'}
+          </Button>
+        </>}
       </div>
-      <div className="grid gap-4 p-4 xl:grid-cols-[minmax(0,1fr)_24rem]">
+      {!routine ? <div className="px-3 py-4 text-sm text-muted-foreground">{loading ? 'Loading routine...' : 'Generate a routine, or practice any marker below.'}</div> : <>
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[680px] text-sm">
-            <thead className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
-              <tr>
-                <th className="px-2 py-2">Marker</th>
-                <th className="w-36 px-2 py-2">Role</th>
-                <th className="w-28 px-2 py-2">Domain</th>
-                <th className="w-24 px-2 py-2 text-right">Minutes</th>
+          <table className="w-full min-w-[640px] table-fixed text-left text-xs">
+            <thead className="border-b bg-muted/35 text-muted-foreground"><tr>
+              <th className="w-10 px-3 py-2"><span className="sr-only">Status</span></th><th className="px-2 py-2">Marker</th>
+              <th className="w-36 px-2 py-2">Category</th><th className="w-40 px-2 py-2">Source</th>
+              <th className="w-16 px-2 py-2 text-right">Min</th><th className="w-24 px-3 py-2"><span className="sr-only">Practice</span></th>
+            </tr></thead>
+            <tbody className="divide-y">{routine.items.map((entry) => {
+              const item = catalogByKey.get(entry.markerKey)
+              const done = practicedToday(entry.markerKey)
+              return <tr key={entry.id} className="h-10 hover:bg-muted/35">
+                <td className="px-3">{done ? <CheckCircle2 className="h-4 w-4 text-primary" aria-label="Practiced today" /> : <span className="text-muted-foreground">{entry.sortOrder + 1}</span>}</td>
+                <td className="px-2"><div className="flex min-w-0 items-center gap-1"><button className="truncate text-left font-medium underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2" disabled={!item || loading} onClick={() => item && onOpenMarker(item, available.map((row) => row.markerKey))}>{item?.markerTitle ?? 'Marker unavailable'}</button><PracticeHelp label="Selection reason" text={`${entry.role}. ${entry.rationale}`} /></div></td>
+                <td className="truncate px-2">{getLearningDomainLabel(item ? item.marker.learning?.domain : entry.domain)}</td>
+                <td className="truncate px-2 text-muted-foreground" title={item?.sourceTitle}>{item?.sourceTitle ?? 'Reconnect its library'}</td>
+                <td className="px-2 text-right tabular-nums">{entry.plannedMinutes}</td>
+                <td className="px-3"><Button size="sm" variant="ghost" className="h-8 text-xs" disabled={!item || loading} onClick={() => item && onOpenMarker(item, available.map((row) => row.markerKey))}>{done ? 'Practice again' : 'Practice'}</Button></td>
               </tr>
-            </thead>
-            <tbody className="divide-y">
-              {routine.items.map((item) => {
-                const catalogItem = catalogByKey.get(item.markerKey)
-                return (
-                  <tr
-                    key={item.id}
-                    className="cursor-pointer transition-colors hover:bg-muted/45"
-                    onClick={() => catalogItem && onOpenMarker(catalogItem)}
-                  >
-                    <td className="px-2 py-3">
-                      <div className="font-medium">{catalogItem?.markerTitle ?? item.markerId}</div>
-                      <div className="mt-1 text-xs text-muted-foreground">{item.rationale}</div>
-                    </td>
-                    <td className="px-2 py-3 text-xs">{item.role}</td>
-                    <td className="px-2 py-3 text-xs">{getLearningDomainLabel(item.domain)}</td>
-                    <td className="px-2 py-3 text-right font-medium tabular-nums">{item.plannedMinutes}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
+            })}</tbody>
           </table>
         </div>
-        <div className="space-y-3">
-          <div className="rounded-md border bg-muted/20 p-3">
-            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Deliverable</div>
-            <p className="mt-2 text-sm">{routine.deliverable}</p>
-          </div>
-          <div className="rounded-md border bg-muted/20 p-3">
-            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Weekly Schedule</div>
-            <div className="mt-2 grid gap-2">
-              {routine.dailySchedule.slice(0, 7).map((day) => (
-                <div key={day.dayIndex} className="grid grid-cols-[2.5rem_1fr] gap-2 text-xs">
-                  <span className="font-semibold">{day.label}</span>
-                  <span className="text-muted-foreground">{day.focus}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-md border bg-muted/20 p-3">
-            <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Review</div>
-            <p className="mt-2 text-sm">{routine.reviewQuestion}</p>
-          </div>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t px-3 py-2 text-xs">
+          <span className="flex items-center gap-1 font-medium">Weekly output <PracticeHelp label="Weekly output" text={`${routine.deliverable} ${routine.recordingAssignment}`} /></span>
+          <span className="flex items-center gap-1">{routine.dailySchedule[dayIndex]?.label ?? 'Today'}: {routine.dailySchedule[dayIndex]?.focus ?? 'Practice'} <PracticeHelp label="Weekly schedule" text={routine.dailySchedule.map((day) => `${day.label}: ${day.focus}`).join('; ')} /></span>
+          <span className="flex items-center gap-1">Review <PracticeHelp label="Weekly review" text={routine.reviewQuestion} /></span>
         </div>
-      </div>
-    </div>
+      </>}
+    </section>
   )
 }
 
-function StatsPanel({ stats }: { stats: LearningStats | null }) {
-  const totalMinutes = Math.round((stats?.totalPracticeMs ?? 0) / 60000)
-  const recentDays = stats?.dayStats.slice(-14) ?? []
-  const maxDay = Math.max(...recentDays.map((day) => day.totalPracticeMs), 1)
-
-  return (
-    <div className="rounded-md border bg-background">
-      <div className="border-b px-4 py-3">
-        <h2 className="text-sm font-semibold">Calendar Stats</h2>
-      </div>
-      <div className="grid gap-3 p-4">
-        <Metric label="Practice days" value={stats?.practiceDays ?? 0} />
-        <Metric label="Total time" value={`${totalMinutes}m`} />
-        <Metric label="Markers touched" value={stats?.practicedMarkerCount ?? 0} />
-        <Metric label="Avg progress delta" value={`${(stats?.averageProgressDelta ?? 0).toFixed(1)}%`} />
-        <div className="mt-2 flex h-16 items-end gap-1">
-          {recentDays.length === 0 ? (
-            <div className="flex h-full flex-1 items-center justify-center rounded-md border border-dashed text-xs text-muted-foreground">
-              No logged practice yet
-            </div>
-          ) : (
-            recentDays.map((day) => (
-              <div
-                key={day.date}
-                title={`${day.date}: ${Math.round(day.totalPracticeMs / 60000)} min`}
-                className="min-w-3 flex-1 rounded-t-sm bg-primary/70"
-                style={{ height: `${Math.max(8, (day.totalPracticeMs / maxDay) * 64)}px` }}
-              />
-            ))
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function Metric({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="flex items-center justify-between rounded-md border bg-muted/20 px-3 py-2">
-      <span className="text-xs text-muted-foreground">{label}</span>
-      <span className="text-sm font-semibold tabular-nums">{value}</span>
-    </div>
-  )
-}
-
-function DomainMarkerTable({
-  domain,
-  items,
-  stateMap,
-  onDomainChange,
-  onOpenMarker
-}: {
-  domain: LearningDomain
-  items: MarkerCatalogItem[]
-  stateMap: Map<string, LearningMarkerState>
+function MarkerTable({ items, stateMap, updatingKey, emptyText, onDomainChange, onOpenMarker }: {
+  items: MarkerCatalogItem[]; stateMap: Map<string, LearningMarkerState>; updatingKey: string | null; emptyText: string
   onDomainChange: (item: MarkerCatalogItem, domain: LearningDomain | undefined) => Promise<void>
   onOpenMarker: (item: MarkerCatalogItem) => void
 }) {
-  return (
-    <div className="rounded-md border bg-background">
-      <div className="flex items-center justify-between border-b px-4 py-3">
-        <h2 className="text-sm font-semibold">{getLearningDomainLabel(domain)}</h2>
-        <span className="text-xs text-muted-foreground">{items.length}</span>
-      </div>
-      <MarkerTable
-        items={items}
-        stateMap={stateMap}
-        emptyText="No markers assigned yet."
-        onDomainChange={onDomainChange}
-        onOpenMarker={onOpenMarker}
-      />
-    </div>
-  )
+  if (!items.length) return <div className="p-4 text-sm text-muted-foreground">{emptyText}</div>
+  return <div className="max-h-[60vh] overflow-auto custom-scrollbar">
+    <table className="w-full min-w-[960px] table-fixed text-left text-xs">
+      <thead className="sticky top-0 z-10 border-b bg-background text-muted-foreground"><tr>
+        <th className="px-3 py-2">Marker</th><th className="w-[19%] px-3 py-2">Source</th><th className="w-[13%] px-3 py-2">Tags</th>
+        <th className="w-28 px-3 py-2">Range</th><th className="w-24 px-3 py-2 text-right">Dominance</th><th className="w-20 px-3 py-2">Due</th>
+        <th className="w-40 px-3 py-2">Category</th><th className="w-24 px-3 py-2"><span className="sr-only">Practice</span></th>
+      </tr></thead>
+      <tbody className="divide-y">{items.map((item) => <tr key={item.markerKey} className="h-10 hover:bg-muted/35">
+        <td className="px-3 py-1"><button onClick={() => onOpenMarker(item)} className="block w-full truncate text-left font-medium underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2" title={item.markerTitle}>{item.markerTitle}</button></td>
+        <td className="truncate px-3 py-1 text-muted-foreground" title={item.sourceTitle}>{item.sourceTitle}</td>
+        <td className="truncate px-3 py-1 text-muted-foreground" title={item.tags.join(', ')}>{item.tags.join(', ') || '-'}</td>
+        <td className="whitespace-nowrap px-3 py-1 tabular-nums">{formatMarkerRange(item)}</td>
+        <td className="px-3 py-1 text-right tabular-nums">{item.marker.completionDegree ?? 0}%</td>
+        <td className="whitespace-nowrap px-3 py-1">{formatDue(stateMap.get(item.markerKey)?.dueAt)}</td>
+        <td className="px-3 py-1"><fieldset disabled={updatingKey !== null} aria-label={`Category for ${item.markerTitle}`}><LearningDomainSelect value={item.marker.learning?.domain} className="h-8 w-full text-xs" onChange={(domain) => void onDomainChange(item, domain)} /></fieldset></td>
+        <td className="px-2 py-1"><Button size="sm" variant="ghost" className="h-8 gap-1 text-xs" onClick={() => onOpenMarker(item)}><Play className="h-3 w-3" />Practice</Button></td>
+      </tr>)}</tbody>
+    </table>
+  </div>
 }
 
-function MarkerQueue({
-  items,
-  onDomainChange,
-  onOpenMarker
-}: {
-  items: MarkerCatalogItem[]
-  onDomainChange: (item: MarkerCatalogItem, domain: LearningDomain | undefined) => Promise<void>
-  onOpenMarker: (item: MarkerCatalogItem) => void
-}) {
-  return (
-    <MarkerTable
-      items={items}
-      stateMap={new Map()}
-      emptyText="Every visible marker has a learning domain."
-      onDomainChange={onDomainChange}
-      onOpenMarker={onOpenMarker}
-    />
-  )
+function localDate(timestamp = Date.now()) {
+  const date = new Date(timestamp)
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
 }
-
-function MarkerTable({
-  items,
-  stateMap,
-  emptyText,
-  onDomainChange,
-  onOpenMarker
-}: {
-  items: MarkerCatalogItem[]
-  stateMap: Map<string, LearningMarkerState>
-  emptyText: string
-  onDomainChange: (item: MarkerCatalogItem, domain: LearningDomain | undefined) => Promise<void>
-  onOpenMarker: (item: MarkerCatalogItem) => void
-}) {
-  if (items.length === 0) {
-    return <div className="p-6 text-center text-sm text-muted-foreground">{emptyText}</div>
-  }
-
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[720px] text-sm">
-        <thead className="border-b bg-muted/35 text-left text-xs uppercase tracking-wide text-muted-foreground">
-          <tr>
-            <th className="px-3 py-2">Marker</th>
-            <th className="w-36 px-3 py-2">Source</th>
-            <th className="w-28 px-3 py-2">Time</th>
-            <th className="w-28 px-3 py-2">Dominance</th>
-            <th className="w-36 px-3 py-2">Next Due</th>
-            <th className="w-44 px-3 py-2">Domain</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y">
-          {items.map((item) => {
-            const learningState = stateMap.get(item.markerKey)
-            return (
-              <tr key={item.markerKey} className="transition-colors hover:bg-muted/45">
-                <td className="max-w-0 px-3 py-3">
-                  <button className="block w-full min-w-0 text-left" onClick={() => onOpenMarker(item)}>
-                    <div className="truncate font-medium">{item.markerTitle}</div>
-                    <div className="mt-1 flex flex-wrap gap-1">
-                      {item.tags.slice(0, 3).map((tag) => (
-                        <span key={tag} className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] text-primary">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </button>
-                </td>
-                <td className="px-3 py-3 text-xs text-muted-foreground">{item.sourceTitle}</td>
-                <td className="px-3 py-3 font-medium tabular-nums">{formatTimeRange(item)}</td>
-                <td className="px-3 py-3">
-                  <ProgressPill value={item.marker.completionDegree ?? 0} />
-                </td>
-                <td className="px-3 py-3 text-xs text-muted-foreground">{formatDue(learningState?.dueAt)}</td>
-                <td className="px-3 py-3">
-                  <LearningDomainSelect
-                    value={item.marker.learning?.domain}
-                    className="w-full"
-                    onChange={(domain) => void onDomainChange(item, domain)}
-                  />
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-function PracticeMarkerModal({
-  item,
-  sessionId,
-  state,
-  storageHandle,
-  onClose,
-  onSaved
-}: {
-  item: MarkerCatalogItem
-  sessionId?: string
-  state?: LearningMarkerState
-  storageHandle: FileSystemDirectoryHandle
-  onClose: () => void
-  onSaved: () => Promise<void>
-}) {
-  const [progress, setProgress] = useState(item.marker.completionDegree ?? 0)
-  const [elapsedMs, setElapsedMs] = useState(0)
-  const [running, setRunning] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const lastTickRef = useRef<number | null>(null)
-
-  useEffect(() => {
-    if (!running) {
-      lastTickRef.current = null
-      return
-    }
-    lastTickRef.current = Date.now()
-    const interval = window.setInterval(() => {
-      if (document.visibilityState !== 'visible') {
-        lastTickRef.current = Date.now()
-        return
-      }
-      const now = Date.now()
-      const last = lastTickRef.current ?? now
-      setElapsedMs((current) => current + Math.max(0, now - last))
-      lastTickRef.current = now
-    }, 1000)
-    return () => window.clearInterval(interval)
-  }, [running])
-
-  const save = async () => {
-    setSaving(true)
-    try {
-      await recordPracticeProgress(storageHandle, item, {
-        sessionId,
-        durationMs: elapsedMs,
-        progressBefore: item.marker.completionDegree ?? 0,
-        progressAfter: progress
-      })
-      await updateCatalogMarkerProgress(item, progress)
-      await onSaved()
-      onClose()
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm">
-      <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-md border bg-background shadow-xl">
-        <div className="flex flex-wrap items-start justify-between gap-3 border-b px-4 py-3">
-          <div className="min-w-0">
-            <div className="text-xs text-muted-foreground">{item.sourceTitle}</div>
-            <h2 className="truncate text-lg font-semibold">{item.markerTitle}</h2>
-          </div>
-          <Button variant="ghost" size="sm" onClick={onClose}>Close</Button>
-        </div>
-        <div className="grid gap-5 p-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
-          <div className="space-y-4">
-            <div className="rounded-md border bg-muted/20 p-3">
-              <div className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                <Clock className="h-3.5 w-3.5" />
-                Practice Item
-              </div>
-              <div className="text-sm">{item.annotation?.text || item.marker.learning?.practiceUseCase || 'No notes yet.'}</div>
-            </div>
-
-            <InfoBlock title="Practice Prompt" text={item.marker.learning?.practicePrompt} />
-            <InfoBlock title="Extraction Prompt" text={item.marker.learning?.extractionPrompt} />
-            <InfoBlock title="Suggested Output" text={item.marker.learning?.suggestedOutput} />
-
-            <div className="rounded-md border bg-muted/20 p-3">
-              <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Constraints</div>
-              <div className="flex flex-wrap gap-1">
-                {(item.marker.learning?.suggestedConstraints ?? []).length === 0 ? (
-                  <span className="text-sm text-muted-foreground">No constraints saved.</span>
-                ) : (
-                  item.marker.learning?.suggestedConstraints?.map((constraint) => (
-                    <span key={constraint} className="rounded-md bg-background px-2 py-1 text-xs">
-                      {constraint}
-                    </span>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="rounded-md border p-3">
-              <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Timer</div>
-              <div className="text-3xl font-semibold tabular-nums">{formatElapsed(elapsedMs)}</div>
-              <div className="mt-3 flex gap-2">
-                <Button size="sm" onClick={() => setRunning((current) => !current)} className="gap-2">
-                  {running ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                  {running ? 'Pause' : 'Start'}
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => setElapsedMs(0)}>Reset</Button>
-              </div>
-            </div>
-
-            <div className="rounded-md border p-3">
-              <div className="mb-3 flex items-center justify-between text-sm">
-                <span className="font-medium text-muted-foreground">Dominance</span>
-                <span className="font-semibold tabular-nums">{progress}%</span>
-              </div>
-              <Slider value={[progress]} min={0} max={100} step={1} onValueChange={([value]) => setProgress(value)} />
-            </div>
-
-            <div className="rounded-md border p-3 text-sm">
-              <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Schedule State</div>
-              <div className="space-y-1 text-muted-foreground">
-                <div>Last practiced: {formatDateTime(state?.lastPracticedAt)}</div>
-                <div>Next due: {formatDateTime(state?.dueAt)}</div>
-                <div>Total time: {Math.round((state?.totalPracticeMs ?? 0) / 60000)}m</div>
-              </div>
-            </div>
-
-            <Button onClick={save} disabled={saving} className="w-full gap-2">
-              <CheckCircle2 className="h-4 w-4" />
-              {saving ? 'Saving' : 'Save Progress'}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function InfoBlock({ title, text }: { title: string; text?: string }) {
-  if (!text) return null
-  return (
-    <div className="rounded-md border bg-muted/20 p-3">
-      <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{title}</div>
-      <p className="text-sm">{text}</p>
-    </div>
-  )
-}
-
-function ProgressPill({ value }: { value: number }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
-        <div className="h-full rounded-full bg-primary" style={{ width: `${value}%` }} />
-      </div>
-      <span className="w-9 text-right text-xs font-medium tabular-nums">{value}%</span>
-    </div>
-  )
-}
-
-function formatTimeRange(item: MarkerCatalogItem): string {
-  return `${formatTime(item.marker.startTime)}-${formatTime(item.marker.endTime)}`
-}
-
-function formatTime(seconds: number): string {
-  const mins = Math.floor(seconds / 60)
-  const secs = Math.floor(seconds % 60)
-  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
-}
-
-function formatElapsed(ms: number): string {
-  const totalSeconds = Math.floor(ms / 1000)
-  const mins = Math.floor(totalSeconds / 60)
-  const secs = totalSeconds % 60
-  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
-}
-
-function formatDue(timestamp?: number): string {
+function formatDue(timestamp?: number) {
   if (!timestamp) return 'New'
-  const now = Date.now()
-  if (timestamp <= now) return 'Due'
-  const days = Math.ceil((timestamp - now) / (24 * 60 * 60 * 1000))
-  return `${days}d`
-}
-
-function formatDateTime(timestamp?: number): string {
-  if (!timestamp) return 'Never'
-  return new Date(timestamp).toLocaleDateString()
+  if (timestamp <= Date.now()) return 'Due'
+  return `${Math.ceil((timestamp - Date.now()) / 86400000)}d`
 }

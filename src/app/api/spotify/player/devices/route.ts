@@ -9,6 +9,7 @@ import {
 } from '@/lib/spotify-oauth'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 const TOKEN_EXPIRY_BUFFER_MS = 60 * 1000
 
@@ -97,6 +98,7 @@ export async function GET() {
   }
 
   const apiResponse = await fetch('https://api.spotify.com/v1/me/player/devices', {
+    cache: 'no-store',
     headers: {
       Authorization: `Bearer ${accessToken}`
     }

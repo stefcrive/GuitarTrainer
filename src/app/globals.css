@@ -1,6 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Reserve the dock's space inside existing viewport-sized pages. */
+.practice-shell {
+  --playback-dock-height: 57px;
+}
+.practice-shell[data-playback-error] {
+  --playback-dock-height: 77px;
+}
+.practice-shell[data-playback-bar] .practice-workspace > .h-screen {
+  height: calc(100dvh - var(--playback-dock-height));
+}
+.practice-shell[data-playback-bar] .practice-workspace > .min-h-screen {
+  min-height: calc(100dvh - var(--playback-dock-height));
+}
  
 @layer base {
   :root {

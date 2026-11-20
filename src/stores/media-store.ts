@@ -5,7 +5,7 @@ import type { AudioFile } from '@/types/audio'
 import type { SpotifyPlaylist, SpotifyTrack } from '@/types/spotify'
 
 // Types for markers filtering and sorting
-type ContentType = 'local' | 'youtube' | 'audio' | 'spotify'
+type ContentType = 'local' | 'youtube' | 'audio' | 'spotify' | 'book'
 type CompletionRange = 'all' | '0-25' | '26-50' | '51-75' | '76-100'
 type SortOrder = 'date' | 'name' | 'completion'
 type SortDirection = 'asc' | 'desc'
@@ -192,7 +192,7 @@ const defaultMarkersState: MarkersState = {
   selectedFile: null,
   searchQuery: '',
   selectedTags: [],
-  selectedTypes: ['local', 'youtube', 'audio', 'spotify'],
+  selectedTypes: ['local', 'youtube', 'audio', 'spotify', 'book'],
   completionFilter: 'all',
   sortOrder: 'date',
   sortDirection: 'desc'
@@ -496,6 +496,12 @@ export const useMediaStore = create<MediaState>()(
     }),
     {
       name: 'media-storage',
+      version: 1,
+      migrate: (persisted) => {
+        const state = persisted as MediaState
+        if (state.markers?.selectedTypes && !state.markers.selectedTypes.includes('book')) state.markers.selectedTypes.push('book')
+        return state
+      },
       partialize: (state) => ({
         video: {
           selectedVideo: state.video.selectedVideo,

@@ -15,10 +15,13 @@
 
 # next.js
 /.next/
+/.next-documents-check/
+/.next-practice-check/
 /out/
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -39,6 +42,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Generated document OCR runtimes and local book annotations
+/public/document-assets/
+/.document-tools/
+**/.guitar-documents/
 
 # local practice media
 /GT Listening Folder/*

@@ -13,9 +13,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { AudioMarkers } from './AudioMarkers'
 import { useFloatingPlayer } from '@/contexts/floating-player-context'
 import { ExternalLink } from 'lucide-react'
+import { usePersistentPlayback } from '@/hooks/usePersistentPlayback'
+import { usePlaybackStore } from '@/stores/playback-store'
 
 interface AudioPlayerProps {
   audioFile: AudioFile
+  directoryHandle?: FileSystemDirectoryHandle
   onControlsReady?: (controls: VideoPlayerControls) => void
   selectedMarkerId?: string | null
   onMarkerSelect?: (markerId: string | null) => void
@@ -50,7 +53,8 @@ async function getAudioFileHandle(rootHandle: FileSystemDirectoryHandle, path: s
   return currentHandle.getFileHandle(segments[segments.length - 1])
 }
 
-export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMarkerSelect, inFloatingWindow = false, syncCurrentTime, syncIsPlaying }: AudioPlayerProps) {
+export function AudioPlayer({ audioFile, directoryHandle: sourceDirectory, onControlsReady, selectedMarkerId, onMarkerSelect, inFloatingWindow = false, syncCurrentTime, syncIsPlaying }: AudioPlayerProps) {
+  const lastLoadedPathRef = useRef<string | null>(null)
   const audioContextRef = useRef<AudioContext | null>(null)
   const gainNodeRef = useRef<GainNode | null>(null)
   const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null)
@@ -71,6 +75,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
   const durationRef = useRef(0)
   const playbackRateRef = useRef(1)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [playbackRate, setPlaybackRate] = useState(1)
@@ -84,7 +89,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
     enabled: false
   })
   const { audioRootHandle, rootHandle } = useDirectoryStore()
-  const directoryHandle = audioRootHandle || rootHandle!
+  const directoryHandle = sourceDirectory ?? audioRootHandle ?? rootHandle!
   
   // Use floating player context
   const { openPlayer } = useFloatingPlayer()
@@ -194,7 +199,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
     if (!buffer || !gainNodeRef.current) return
 
     const bounds = getActiveLoopBounds(buffer.duration)
-    const startOffset = wrapTimeForLoop(offset >= buffer.duration ? 0 : offset, bounds)
+    const startOffset = wrapTimeForLoop(offset >= roundToMilliseconds(buffer.duration) ? 0 : offset, bounds)
     const source = context.createBufferSource()
     source.buffer = buffer
     source.playbackRate.value = playbackRateRef.current
@@ -278,11 +283,25 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
     }
   }
 
+  usePersistentPlayback({
+    title: audioFile.name,
+    isPlaying,
+    getCurrentTime: getPlaybackTime,
+    getDuration: () => durationRef.current,
+    play: playAudio,
+    pause: pauseAudio,
+    seek: seekAudio
+  })
+
   useEffect(() => {
     let isCancelled = false
+    const shouldAutoPlay = !usePlaybackStore.getState().active
+      || (lastLoadedPathRef.current !== null && lastLoadedPathRef.current !== audioFile.path)
+    lastLoadedPathRef.current = audioFile.path
 
     const loadAudio = async () => {
       try {
+        setLoadError(null)
         stopSourceNode()
         audioBufferRef.current = null
         playbackStateRef.current = {
@@ -297,7 +316,10 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
         setDuration(0)
         durationRef.current = 0
 
-        const fileHandle = audioFile.handle ?? await getAudioFileHandle(directoryHandle, audioFile.path)
+        // JSON-restored selections have an empty object in place of a handle.
+        const fileHandle = typeof audioFile.handle?.getFile === 'function'
+          ? audioFile.handle
+          : await getAudioFileHandle(directoryHandle, audioFile.path)
         const file = await fileHandle.getFile()
         if (isCancelled) return
 
@@ -347,12 +369,15 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
           return
         }
 
-        playAudio().catch(error => {
-          console.error('Auto-play failed:', error)
-        })
+        if (shouldAutoPlay) {
+          playAudio().catch(error => {
+            console.error('Auto-play failed:', error)
+          })
+        }
       } catch (error) {
         if (!isCancelled) {
           console.error('Error loading audio file:', error)
+          setLoadError(error instanceof Error ? error.message : 'Unable to load audio. Select the file again.')
         }
       }
     }
@@ -364,6 +389,13 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
       stopSourceNode()
     }
   }, [audioFile, directoryHandle])
+
+  useEffect(() => () => {
+    stopSourceNode()
+    void audioContextRef.current?.close()
+    audioContextRef.current = null
+    gainNodeRef.current = null
+  }, [])
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -511,6 +543,7 @@ export function AudioPlayer({ audioFile, onControlsReady, selectedMarkerId, onMa
 
   return (
     <div className="p-4 space-y-4">
+      {loadError && <div role="alert" className="text-sm text-destructive">{loadError}</div>}
       {/* Display audio title at the top */}
       <div className="mb-2 py-2 px-3 bg-muted/50 rounded-md flex items-center justify-between">
         <div className="flex items-center gap-2">

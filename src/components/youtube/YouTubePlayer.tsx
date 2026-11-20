@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { VideoMarkers } from '../video/VideoMarkers'
 import { VideoTimeline } from '../video/VideoTimeline'
 import { VideoControls } from '../video/VideoControls'
@@ -11,6 +11,9 @@ import { useFloatingPlayer } from '@/contexts/floating-player-context'
 import { Button } from '@/components/ui/button'
 import { ExternalLink } from 'lucide-react'
 import { FavoriteButton } from '@/components/video/FavoriteButton'
+import { usePersistentPlayback } from '@/hooks/usePersistentPlayback'
+import { useYouTubeStore } from '@/stores/youtube-store'
+import { YouTubeMarkerGeneration } from './YouTubeMarkerGeneration'
 
 interface YouTubePlayerProps {
   videoId: string
@@ -33,6 +36,8 @@ export function YouTubePlayer({
   syncCurrentTime,
   syncIsPlaying
 }: YouTubePlayerProps) {
+  const instanceId = useId().replace(/:/g, '')
+  const title = useYouTubeStore((state) => state.videoCache[videoId]?.title)
   const playerRef = useRef<YT.Player | null>(null)
   const [isReady, setIsReady] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -47,7 +52,9 @@ export function YouTubePlayer({
   
   // Generate container ID once
   if (!containerIdRef.current) {
-    containerIdRef.current = `youtube-player-${videoId}${inFloatingWindow ? `-floating-${Date.now()}` : ''}`
+    // A retained workspace and the current page can show the same video.
+    // Each iframe needs its own ID so initialization never targets the other one.
+    containerIdRef.current = `youtube-player-${instanceId}`
   }
   const containerId = containerIdRef.current
 
@@ -64,6 +71,11 @@ export function YouTubePlayer({
     let mounted = true
     let retryCount = 0
     const maxRetries = 3
+    setIsReady(false)
+    setIsPlaying(false)
+    setCurrentTime(0)
+    setDuration(0)
+    setIsLoading(true)
 
     const initPlayer = async () => {
       if (retryCount >= maxRetries) {
@@ -323,8 +335,8 @@ export function YouTubePlayer({
     },
     seekForward: () => seekRelative(10),
     seekBackward: () => seekRelative(-10),
-    getCurrentTime: () => currentTime,
-    getDuration: () => duration,
+    getCurrentTime: () => playerRef.current?.getCurrentTime?.() ?? currentTime,
+    getDuration: () => playerRef.current?.getDuration?.() ?? duration,
     setPlaybackRate: (rate: number) => {
       console.log(`Setting playback rate to ${rate}x`)
       try {
@@ -360,6 +372,16 @@ export function YouTubePlayer({
       }
     }
   }
+
+  usePersistentPlayback({
+    title: title || 'YouTube video',
+    isPlaying,
+    getCurrentTime: videoControls.getCurrentTime,
+    getDuration: videoControls.getDuration,
+    play: videoControls.play,
+    pause: videoControls.pause,
+    seek: videoControls.seek
+  })
 
   // Notify parent of controls availability
   useEffect(() => {
@@ -435,6 +457,9 @@ export function YouTubePlayer({
           </div>
         </div>
 
+        {isLoaded && !inFloatingWindow && <YouTubeMarkerGeneration key={videoId} videoId={videoId} duration={duration}
+          title={title} markerState={markerState} onGenerated={setMarkerState} />}
+
         {isReady && duration > 0 ? (
           <>
             <VideoTimeline
@@ -445,6 +470,7 @@ export function YouTubePlayer({
             />
 
             <VideoControls
+              isPlaying={isPlaying}
               controls={videoControls}
               onPrevVideo={onPrevVideo}
               onNextVideo={onNextVideo}

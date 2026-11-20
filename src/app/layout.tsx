@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { FloatingPlayerProvider } from "@/contexts/floating-player-context"
 import { FloatingPlayer } from "@/components/floating/FloatingPlayer"
 import { DirectoryHandleRestorer } from "@/components/file-system/DirectoryHandleRestorer"
+import { MaterialLibraryProvider } from "@/components/materials/MaterialLibrary"
+import { PracticeShell } from "@/components/playback/PracticeShell"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -26,9 +28,7 @@ export default function RootLayout({
           <FloatingPlayerProvider>
             <YouTubeInitializer />
             <DirectoryHandleRestorer />
-            <div className="relative flex h-screen flex-col">
-              {children}
-            </div>
+            <MaterialLibraryProvider><PracticeShell>{children}</PracticeShell></MaterialLibraryProvider>
             <FloatingPlayer />
           </FloatingPlayerProvider>
         </ThemeProvider>

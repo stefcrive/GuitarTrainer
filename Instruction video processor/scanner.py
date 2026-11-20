@@ -7,7 +7,7 @@ from media_metadata import MediaToolError, probe_media
 from utils import VIDEO_EXTENSIONS, file_mtime_created, normalize_relative_path, partial_file_hash
 
 
-def scan_videos(root_folder: str | Path, *, full_hash: bool = False, include_media: bool = True) -> list[dict[str, Any]]:
+def scan_videos(root_folder: str | Path, *, full_hash: bool = False, include_media: bool = True, video_path: str | None = None) -> list[dict[str, Any]]:
     root = Path(root_folder).resolve()
     if not root.exists():
         raise FileNotFoundError(f"Root folder does not exist: {root}")
@@ -15,7 +15,14 @@ def scan_videos(root_folder: str | Path, *, full_hash: bool = False, include_med
         raise NotADirectoryError(f"Root path is not a folder: {root}")
 
     videos: list[dict[str, Any]] = []
-    for path in sorted(root.rglob("*")):
+    if video_path:
+        target = (root / video_path.replace("\\", "/")).resolve()
+        if not target.is_relative_to(root):
+            raise ValueError("Video path must stay inside the selected root.")
+        paths = [target]
+    else:
+        paths = sorted(root.rglob("*"))
+    for path in paths:
         if not path.is_file() or path.suffix.lower() not in VIDEO_EXTENSIONS:
             continue
         created, modified = file_mtime_created(path)

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import type { Instrument } from '@/lib/instrument-audio'
 import { ChordOrScale } from '@/types/guitar'
 
 interface ScalesState {
@@ -11,7 +12,7 @@ interface ScalesState {
   // Sound settings
   volume: number            // For chord playback
   noteVolume: number       // For individual note playback
-  instrument: OscillatorType
+  instrument: Instrument
   octaveSplit: boolean
   reverbEnabled: boolean
   reverbAmount: number
@@ -30,7 +31,7 @@ interface ScalesState {
   // Sound settings actions
   setVolume: (volume: number) => void
   setNoteVolume: (volume: number) => void
-  setInstrument: (type: OscillatorType) => void
+  setInstrument: (type: Instrument) => void
   setOctaveSplit: (enabled: boolean) => void
   setReverbEnabled: (enabled: boolean) => void
   setReverbAmount: (amount: number) => void
@@ -53,7 +54,7 @@ export const useScalesStore = create<ScalesState>()(
       // Initial sound settings
       volume: 0.5,
       noteVolume: 0.7,
-      instrument: 'sine' as OscillatorType,
+      instrument: 'acoustic_guitar_nylon' as Instrument,
       octaveSplit: false,
       reverbEnabled: false,
       reverbAmount: 0.3,
@@ -72,7 +73,7 @@ export const useScalesStore = create<ScalesState>()(
       // Sound settings actions
       setVolume: (volume: number) => set(() => ({ volume })),
       setNoteVolume: (noteVolume: number) => set(() => ({ noteVolume })),
-      setInstrument: (instrument: OscillatorType) => set(() => ({ instrument })),
+      setInstrument: (instrument: Instrument) => set(() => ({ instrument })),
       setOctaveSplit: (octaveSplit: boolean) => set(() => ({ octaveSplit })),
       setReverbEnabled: (reverbEnabled: boolean) => set(() => ({ reverbEnabled })),
       setReverbAmount: (reverbAmount: number) => set(() => ({ reverbAmount })),

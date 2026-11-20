@@ -159,7 +159,7 @@ export async function fetchUserPlaylists(): Promise<SpotifyPlaylist[]> {
 }
 
 export async function fetchDevices(): Promise<SpotifyDevice[]> {
-  const response = await fetch('/api/spotify/player/devices')
+  const response = await fetch('/api/spotify/player/devices', { cache: 'no-store' })
   const text = await response.text()
 
   let data: any = {}
@@ -181,7 +181,7 @@ export async function fetchDevices(): Promise<SpotifyDevice[]> {
 }
 
 export async function fetchPlaybackState(): Promise<SpotifyPlaybackState | null> {
-  const response = await fetch('/api/spotify/player/state')
+  const response = await fetch('/api/spotify/player/state', { cache: 'no-store' })
   const text = await response.text()
 
   let data: any = {}
@@ -202,7 +202,24 @@ export async function fetchPlaybackState(): Promise<SpotifyPlaybackState | null>
   return data?.state ?? null
 }
 
+function playbackError(details: unknown, status: number): string {
+  let message = typeof details === 'string' ? details : 'Spotify rejected the command.'
+  try {
+    const parsed = JSON.parse(message)
+    message = parsed?.error?.message || parsed?.message || message
+  } catch { /* Spotify may return a plain-text message. */ }
+  if (status === 401) return 'Reconnect Spotify and try again.'
+  if (status === 404) return 'Open Spotify on the target device, start a track there, then refresh devices and retry.'
+  if (status === 403) {
+    return `${message} (403). Check that the target device uses your connected Spotify Premium account. Try playing the selected track in Spotify, then retry here.`
+  }
+  return `${message} (${status})`
+}
+
 export async function playSpotifyTrack(trackUri: string, deviceId?: string, positionMs?: number) {
+  // Resume the current track without replacing its queue/context.
+  const state = await fetchPlaybackState().catch(() => null)
+  const resume = state?.trackUri === trackUri && (!deviceId || state.deviceId === deviceId)
   const response = await fetch('/api/spotify/player/play', {
     method: 'PUT',
     headers: {
@@ -210,6 +227,7 @@ export async function playSpotifyTrack(trackUri: string, deviceId?: string, posi
     },
     body: JSON.stringify({
       trackUri,
+      resume,
       deviceId,
       positionMs
     })
@@ -227,7 +245,7 @@ export async function playSpotifyTrack(trackUri: string, deviceId?: string, posi
     } catch {
       details = text || response.statusText
     }
-    throw new Error(`Failed to start playback: ${details}`)
+    throw new Error(`Failed to start playback: ${playbackError(details, response.status)}`)
   }
 }
 
@@ -242,6 +260,11 @@ export async function pauseSpotify(deviceId?: string) {
 
   const text = await response.text()
   if (!response.ok) {
+    // Spotify can reject a repeated pause. Verify the target is already paused.
+    if (response.status === 403) {
+      const state = await fetchPlaybackState().catch(() => null)
+      if (state && !state.isPlaying && (!deviceId || state.deviceId === deviceId)) return
+    }
     let details: string | undefined
     try {
       const parsed = text ? JSON.parse(text) : null
@@ -252,7 +275,7 @@ export async function pauseSpotify(deviceId?: string) {
     } catch {
       details = text || response.statusText
     }
-    throw new Error(`Failed to pause playback: ${details}`)
+    throw new Error(`Failed to pause playback: ${playbackError(details, response.status)}`)
   }
 }
 
@@ -277,6 +300,6 @@ export async function seekSpotify(positionMs: number, deviceId?: string) {
     } catch {
       details = text || response.statusText
     }
-    throw new Error(`Failed to seek playback: ${details}`)
+    throw new Error(`Failed to seek playback: ${playbackError(details, response.status)}`)
   }
 }

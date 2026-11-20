@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  distDir: process.env.GUITAR_TRAINER_BUILD_DIR || '.next',
   reactStrictMode: true,
+  output: 'standalone',
   images: {
     domains: ['i.ytimg.com', 'img.youtube.com', 'i.scdn.co', 'mosaic.scdn.co'],
   },

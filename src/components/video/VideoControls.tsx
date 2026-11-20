@@ -23,6 +23,7 @@ import type { VideoPlayerControls } from '@/types/video'
 
 interface VideoControlsProps {
   controls: VideoPlayerControls
+  isPlaying?: boolean
   onPrevVideo?: () => void
   onNextVideo?: () => void
   onAddMarker?: () => void
@@ -30,11 +31,13 @@ interface VideoControlsProps {
 
 export function VideoControls({
   controls,
+  isPlaying: controlledIsPlaying,
   onPrevVideo,
   onNextVideo,
   onAddMarker
 }: VideoControlsProps) {
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [localIsPlaying, setIsPlaying] = useState(false)
+  const isPlaying = controlledIsPlaying ?? localIsPlaying
   const [skipSeconds, setSkipSeconds] = useState("10")
   const [playbackRate, setPlaybackRate] = useState("1.0")
 
@@ -48,8 +51,8 @@ export function VideoControls({
   }
 
   useEffect(() => {
-    const video = document.querySelector('video')
-    if (!video) return
+    const video = controls.getVideoElement()
+    if (!(video instanceof HTMLVideoElement) || controlledIsPlaying !== undefined) return
 
     const handlePlay = () => setIsPlaying(true)
     const handlePause = () => setIsPlaying(false)
@@ -61,7 +64,7 @@ export function VideoControls({
       video.removeEventListener('play', handlePlay)
       video.removeEventListener('pause', handlePause)
     }
-  }, [])
+  }, [controls, controlledIsPlaying])
   const skipBackward = () => {
     const currentTime = controls.getCurrentTime()
     controls.seek(Math.max(currentTime - parseInt(skipSeconds), 0))

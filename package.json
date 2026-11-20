@@ -2,22 +2,36 @@
   "name": "guitar-course-manager",
   "version": "0.1.0",
   "private": true,
+  "description": "Desktop guitar course and practice session manager",
+  "author": "Guitar Trainer",
+  "main": "desktop/main.cjs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "desktop": "npm run build && electron .",
+    "package:windows": "npm run build && electron-builder --win nsis",
+    "documents:assets": "node scripts/prepare-document-assets.mjs",
+    "documents:omr": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/setup-document-omr.ps1",
+    "predev": "npm run documents:assets",
+    "prebuild": "npm run documents:assets"
   },
   "dependencies": {
+    "@paddleocr/paddleocr-js": "0.4.2",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slider": "^1.3.4",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "fast-xml-parser": "^5.12.0",
+    "fflate": "^0.8.3",
     "lucide-react": "^0.297.0",
     "next": "^14.0.4",
     "next-themes": "^0.4.6",
+    "onnxruntime-web": "1.24.3",
+    "pdfjs-dist": "6.5.438",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-player": "^2.13.0",
@@ -33,10 +47,92 @@
     "@types/react-dom": "^18.2.18",
     "@types/sql.js": "^1.4.9",
     "autoprefixer": "^10.4.16",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "esbuild": "^0.25.12",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.0.4",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"
+  },
+  "build": {
+    "appId": "com.guitartrainer.desktop",
+    "productName": "Guitar Trainer",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "desktop/main.cjs",
+      "package.json",
+      "!node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": ".next/standalone",
+        "to": "app",
+        "filter": [
+          "**/*",
+          "!**/.env",
+          "!**/.env.*",
+          "!**/.guitar-trainer-roots.json",
+          "!node_modules/**/*",
+          "!GT Listening Folder/**/*",
+          "!Instruction video processor/**/*"
+        ]
+      },
+      {
+        "from": ".next/standalone/node_modules",
+        "to": "app/node_modules",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": ".next/static",
+        "to": "app/.next/static",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "public",
+        "to": "app/public",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "Instruction video processor",
+        "to": "instruction-video-processor",
+        "filter": [
+          "*.py",
+          "requirements*.txt",
+          "config.example.yaml"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Guitar-Trainer-Setup-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true,
+      "shortcutName": "Guitar Trainer",
+      "deleteAppDataOnUninstall": false
+    }
   }
 }

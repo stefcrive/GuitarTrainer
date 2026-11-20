@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import {
   getSpotifyOAuthConfig,
+  getSpotifyRedirectUri,
   getBaseUrl,
   getCookieOptions,
   SP_ACCESS_TOKEN_COOKIE,
@@ -43,7 +44,15 @@ export async function GET(request: NextRequest) {
   }
 
   const baseUrl = getBaseUrl(request)
-  const resolvedRedirectUri = redirectUri ?? `${baseUrl}/api/spotify/callback`
+  let resolvedRedirectUri: string
+  try {
+    resolvedRedirectUri = getSpotifyRedirectUri(request, redirectUri)
+  } catch {
+    return NextResponse.json(
+      { error: 'SPOTIFY_OAUTH_REDIRECT_URI must be an absolute callback URL.' },
+      { status: 500 }
+    )
+  }
 
   const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',

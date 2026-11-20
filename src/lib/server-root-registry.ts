@@ -74,10 +74,10 @@ async function getRootCandidates(rootName?: string, requestedRoot?: string): Pro
 
   const candidates = [
     requestedRoot,
-    process.env.GUITAR_TRAINER_VIDEO_ROOT,
     ...stored
-      .filter((record) => !rootName || record.rootName === rootName)
+      .filter((record) => !rootName || record.rootName.toLowerCase() === rootName.toLowerCase())
       .map((record) => record.rootPath),
+    process.env.GUITAR_TRAINER_VIDEO_ROOT,
     ...(rootName ? commonParents.map((parent) => path.join(parent, rootName)) : [])
   ]
 
@@ -102,6 +102,7 @@ async function validateRootCandidate(
   rootName?: string
 ): Promise<boolean> {
   if (!existsSync(candidate)) return false
+  if (rootName && path.basename(candidate).toLowerCase() !== rootName.toLowerCase()) return false
   if (samplePaths.length === 0) {
     return !rootName || path.basename(candidate).toLowerCase() === rootName.toLowerCase()
   }
